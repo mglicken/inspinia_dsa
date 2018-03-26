@@ -1,0 +1,45 @@
+<h2>Sign up</h2>
+
+<%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
+  <%= devise_error_messages! %>
+
+  <div class="field">
+    <%= f.label :email %><br />
+    <%= f.email_field :email, autofocus: true, autocomplete: "email" %>
+  </div>
+
+  <div class="field">
+    <%= f.label :password %>
+    <% if @minimum_password_length %>
+    <em>(<%= @minimum_password_length %> characters minimum)</em>
+    <% end %><br />
+    <%= f.password_field :password, autocomplete: "off" %>
+  </div>
+
+  <div class="field">
+    <%= f.label :password_confirmation %><br />
+    <%= f.password_field :password_confirmation, autocomplete: "off" %>
+  </div>
+
+  <div class="field">
+    <%= f.label :person_id %><br />
+    <div class="col-lg-3 col-sm-12">
+      <%= f.select :person_id, options_for_select(Person.order('backwards_name ASC').map{ |c| [c.backwards_name, c.id] }) %>
+    </div>
+  </div>
+  <br>
+  <br>
+  <div class="field">
+    <%= f.label :access_id %><br />
+    <div class="col-lg-3 col-sm-12">
+      <%= f.select :access_id, options_for_select(Access.all.map{ |c| [c.name, c.id] }) %>
+    </div>
+  </div>
+  <br>
+  <br>
+  <div class="actions">
+    <%= f.submit "Sign up" %>
+  </div>
+<% end %>
+
+<%= render "devise/shared/links" %>

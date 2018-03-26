@@ -2,16 +2,19 @@
     <nav class="navbar navbar-static-top" role="navigation" style="margin-bottom: 0">
         <div class="navbar-header">
             <a class="navbar-minimalize minimalize-styl-2 btn btn-primary " href="#"><i class="fa fa-bars"></i> </a>
-            <form role="search" class="navbar-form-custom" method="post" action="">
+            <form role="search" class="navbar-form-custom" method="post" action="/search/">
+              <input name="authenticity_token" type="hidden" value="<%= form_authenticity_token %>">
                 <div class="form-group">
-                    <input type="text" placeholder="Search for something..." class="form-control" name="top-search" id="top-search"/>
+                    <input type="string" placeholder="Search for something..." class="form-control" name="search" id="search"/>
                 </div>
             </form>
         </div>
         <ul class="nav navbar-top-links navbar-right">
-            <li>
-                <span class="m-r-sm text-muted welcome-message" data-i18n="topnav.welcometext">Welcome to INSPINIA+ Admin Theme.</span>
-            </li>
+            <% if current_user.present? %>
+                <li>
+                    <span class="m-r-sm text-muted welcome-message" data-i18n="topnav.welcometext">Welcome <%= current_user.person.name %></span>
+                </li>
+            <% end %>
             <li class="dropdown">
                 <a class="dropdown-toggle count-info" data-toggle="dropdown" href="#">
                     <i class="fa fa-envelope"></i>  <span class="label label-warning">16</span>
@@ -108,18 +111,24 @@
                 </ul>
             </li>
 
-
+            <%if current_user.present? %>
             <li>
-                <a href="<%= url_for :controller => 'pages', :action => 'login_2' %>">
-                <i class="fa fa-sign-out"></i> Log out
+                <a href="/users/sign_out" data-method="delete">
+                <i class="fa fa-sign-out"></i> Sign Out
             </a>
-        </li>
-
-            <li>
-                <a class="right-sidebar-toggle">
-                    <i class="fa fa-tasks"></i>
-                </a>
             </li>
+            <% else %>
+             <li>
+                <a href="/users/sign_in">
+                <i class="fa fa-sign-in"></i> Sign In
+            </a>
+            </li>
+            <% end %>
+                <li>
+                    <a href="/users/sign_up">
+                        <i class="fa fa-user-plus"></i>Create
+                    </a>
+                </li>
     </ul>
 </nav>
 </div>
