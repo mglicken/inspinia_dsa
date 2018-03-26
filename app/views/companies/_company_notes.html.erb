@@ -1,0 +1,24 @@
+
+<div class="row container">
+  <% @company.notes.order("date desc").each do |note| %>
+    <div class="col-xs-9 col-sm-9 col-md-9 col-lg-9 isotope-item">
+      <div class="panel panel-default">
+        <div class="panel-heading" >
+          <h3 class="panel-title" style="font-size:12px">
+              <strong><a href="/notes/<%= note.id%>"><%= note.title %></a></strong><br>
+              <%=note.detail %>
+          </h3>
+        </div>
+      </div>
+    </div>
+    <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2 isotope-item">
+      <div class="panel panel-default">
+        <div class="panel-heading" >
+          <h3 class="panel-title" style="font-size:12px">
+            <%= note.date %>
+          </h3>
+        </div>
+      </div>
+    </div>
+  <% end %>
+</div>

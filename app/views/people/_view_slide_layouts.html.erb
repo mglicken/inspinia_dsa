@@ -1,0 +1,25 @@
+
+<div class="row container">
+  <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 isotope-item">
+    <div class="panel panel-default">
+      <div class="panel-heading" >
+        <h3 class="panel-title" style="font-size:12px">
+          <strong><a href="/favorite_slides/"> Favorited Slides (<%= current_user.favorite_slides.count %>)</a></strong><br>
+        </h3>
+      </div>
+    </div>
+  </div>
+<% current_user.slide_layouts.order("name ASC").each do |slide_layout| %>
+  <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 isotope-item">
+    <div class="panel panel-default">
+      <div class="panel-heading" >
+        <h3 class="panel-title" style="font-size:12px">
+
+          <strong><a href="/slide_layouts/<%=slide_layout.id%>"><%= slide_layout.name %> (<%= slide_layout.slides.count %>)</a>
+          <%= render('shared/delete_slide_layout_modal',slide_layout: slide_layout) %></strong>
+        </h3>
+      </div>
+    </div>
+  </div>
+<% end %>
+</div>

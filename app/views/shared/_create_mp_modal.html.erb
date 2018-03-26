@@ -1,0 +1,100 @@
+
+<!-- Button trigger modal -->
+<% if @text.present? %>
+  <div class="btn btn-md btn-primary" data-toggle="modal" data-target="#myModalCreateMP">
+    <i class="fa fa-plus"></i>
+  </div>
+<% else %>
+  <div class="btn btn-lg btn-lincoln" data-toggle="modal" data-target="#myModalCreateMP">
+    New MP Document
+  </div>
+<% end %>
+
+
+<!-- Modal -->
+<div class="modal fade" id="myModalCreateMP" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="myModalLabel">Create MP Content</h4>
+      </div>
+      <div class="modal-body">
+
+
+<!-- Validation failure messages -->
+
+<% if @mp.blank?%>
+  <% @mp = Mp.new %>
+<% end %>
+<% if @mp.errors.any? %>
+  <% @mp.errors.full_messages.each do |message| %>
+    <div class="alert alert-dismissable alert-danger">
+      <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+      <%= message %>
+    </div>
+  <% end %>
+<% end %>
+
+<!-- Responsive panel example -->
+
+<div class="row">
+  <div class="col-sm-offset-0 col-sm-12 col-md-offset-0 col-md-12">
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <h3 class="panel-title">Add MP Content</h3>
+      </div>
+      <div class="panel-body">
+
+        <form enctype="multipart/form-data" action="/create_mp" method="post" class="form-horizontal">
+          <!-- Hidden input for authenticity token to protect from forgery -->
+          <input name="authenticity_token" type="hidden" value="<%= form_authenticity_token %>">
+
+
+          <input type="hidden" name="deal_id">
+
+          <!-- Label and input for name -->
+          <div class="form-group">
+            <h5><label for="name" class="col-sm-2 control-label">
+              MP Dcoument Title
+            </label></h5>
+            <div class="col-sm-10">
+              <input type="string" id="name" name="name" placeholder="e.g., Sponsor Name / Company Name (Year) MP" class="form-control">
+            </div>
+          </div>
+          <!-- Label and input for MP Date -->
+          <div class="form-group">
+            <h5><label for="mp_date" class="col-sm-2 control-label">
+              MP Date
+            </label></h5>
+            <div class="col-sm-10">
+              <input type="date" id="mp_date" name="mp_date" placeholder="e.g., 09/09/2017" class="form-control">
+            </div>
+          </div>
+
+
+          <div class="form-group">
+            <div class="col-sm-offset-2 col-sm-10">
+              <button class="btn btn-lincoln">
+                Create MP Content
+              </button>
+            </div>
+          </div>
+
+        </form>
+
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- End responsive panel example -->
+
+
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>

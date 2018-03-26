@@ -1,0 +1,38 @@
+<!-- Responsive panel example-->
+
+<div class="row">
+  <div class="col-sm-offset-1 col-sm-10 col-md-offset-2 col-md-8">
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <h3 class="panel-title"> Sponsor Follow # <%= @sponsor_follow.id %></h3>
+      </div>
+      <div class="panel-body">
+        <div class="row">
+          <div class="col-md-12">
+            <dl>
+
+              <dt> User ID</dt>
+              <dd><%= @sponsor_follow.user_id %></dd>
+              <dt> Sponsor ID</dt>
+              <dd><%= @sponsor_follow.sponsor_id %></dd>  
+
+            </dl>
+            <div class="btn-group btn-group-justified">
+              <a href="/sponsor_follows/" class="btn btn-primary">
+                <i class="fa fa-reply"></i>
+              </a>
+
+              <a href="/sponsor_follows/<%= @sponsor_follow.id %>/edit" class="btn btn-warning">
+                <i class="fa fa-edit"></i>
+              </a>
+
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- End responsive panel example -->

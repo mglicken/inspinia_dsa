@@ -1,0 +1,104 @@
+<!-- Validation failure messages -->
+
+<% if @fund_company.errors.any? %>
+  <% @fund_company.errors.full_messages.each do |message| %>
+    <div class="alert alert-dismissable alert-danger">
+      <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+      <%= message %>
+    </div>
+  <% end %>
+<% end %>
+
+<!-- Responsive panel example -->
+
+<div class="row">
+  <div class="col-sm-offset-1 col-sm-10 col-md-offset-2 col-md-8">
+    <div class="panel panel-default">
+  
+      <div class="panel-heading">
+        <h3 class="panel-title">Edit Fund Company</h3>
+      </div>
+      <div class="panel-body">
+        <form action="/update_fund_company/<%= @fund_company.id %>" method="post" class="form-horizontal">
+          <!-- Hidden input for authenticity token to protect from forgery -->
+          <input name="authenticity_token" type="hidden" value="<%= form_authenticity_token %>">
+
+          <!-- Label and input for Fund -->
+          <div class="form-group">
+            <h5><label for="fund_id" class="col-sm-2 control-label">
+              Fund
+            </label></h5>
+            <div class="col-sm-10">
+              <%= select_tag :fund_id, options_from_collection_for_select(Fund.all.order("name ASC"), :id, :name, @fund_company.fund_id), :class => "form-control" %>
+            </div>
+          </div>
+
+          <!-- Label and input for Company -->
+          <div class="form-group">
+            <h5><label for="company_id" class="col-sm-2 control-label">
+              Company
+            </label></h5>
+            <div class="col-sm-10">
+              <%= select_tag :company_id, options_from_collection_for_select(Company.all.order("name ASC"), :id, :name, @fund_company.company_id), :class => "form-control" %>
+            </div>
+          </div>
+
+
+          <!-- Label and input for Size -->
+          <div class="form-group">
+            <label for="size" class="col-sm-2 control-label">
+              Size
+            </label>
+            <div class="col-sm-10">
+              <input type="float" id="size" name="size" placeholder="50.5" class="form-control" value="<%= @fund_company.size %>">
+            </div>
+          </div>
+
+          <!-- Label and input for Acquisition Date -->
+          <div class="form-group">
+            <label for="acquisition_date" class="col-sm-2 control-label">
+              Acquisition Date
+            </label>
+            <div class="col-sm-10">
+              <input type="date" id="acquisition_date" name="acquisition_date" placeholder="01/01/2012" class="form-control" value="<%= @fund_company.acquisition_date %>">
+            </div>
+          </div>
+
+          <!-- Label and input for Acquisition Price -->
+          <div class="form-group">
+            <label for="acquisition_price" class="col-sm-2 control-label">
+              Acquisition Price
+            </label>
+            <div class="col-sm-10">
+              <input type="float" id="acquisition_price" name="acquisition_price" placeholder="250.5" class="form-control" value="<%= @fund_company.acquisition_price %>">
+            </div>
+          </div>
+
+          <!-- Label and input for Link -->
+          <div class="form-group">
+            <label for="link" class="col-sm-2 control-label">
+              Link
+            </label>
+            <div class="col-sm-10">
+              <input type="string" id="link" name="link" placeholder="e.g., http://www.forbes.com/" class="form-control" value="<%= @fund_company.link %>">
+            </div>
+          </div>
+
+
+          <div class="form-group">
+            <div class="col-sm-offset-2 col-sm-10">
+              <button class="btn btn-warning">
+                Update Fund Company
+              </button>
+              or
+              <a href="/fund_companies/<%= @fund_company.id %>">Cancel</a>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- End responsive panel example -->

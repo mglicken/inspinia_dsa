@@ -1,0 +1,7 @@
+	<% if defined?(@fund_company) %>	
+		$('#company_<%= @fund_company.company_id %>').removeClass()
+		$('#company_<%= @fund_company.company_id  %>').addClass("panel panel-default")
+		$('#company_<%= @fund_company.company_id  %>_button').hide()
+	<% end %>
+
+

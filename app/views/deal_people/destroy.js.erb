@@ -1,0 +1,7 @@
+	<% if defined?(@deal_person) %>	
+		$('#person_<%= @deal_person.person_id %>').removeClass()
+		$('#person_<%= @deal_person.person_id  %>').addClass("panel panel-default")
+		$('#person_<%= @deal_person.person_id  %>_button').hide()
+	<% end %>
+
+

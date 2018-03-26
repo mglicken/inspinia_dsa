@@ -1,0 +1,106 @@
+<!-- Validation failure messages -->
+
+<% if @fund.errors.any? %>
+  <% @fund.errors.full_messages.each do |message| %>
+    <div class="alert alert-dismissable alert-danger">
+      <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+      <%= message %>
+    </div>
+  <% end %>
+<% end %>
+
+<!-- Responsive panel example -->
+
+<div class="row">
+  <div class="col-sm-offset-1 col-sm-10 col-md-offset-2 col-md-8">
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <h3 class="panel-title">Add Sponsor</h3>
+      </div>
+      <div class="panel-body">
+        <form action="/create_funds" method="post" class="form-horizontal">
+          <!-- Hidden input for authenticity token to protect from forgery -->
+          <input name="authenticity_token" type="hidden" value="<%= form_authenticity_token %>">
+
+
+         <!-- Label and input for Fund Name -->
+          <div class="form-group">
+            <label for="name" class="col-sm-2 control-label">
+              Fund Name
+            </label>
+            <div class="col-sm-10">
+              <input type="string" id="name" name="name" placeholder="e.g., Sponsor Name Fund IV" class="form-control" value="<%= @fund.name %>">
+            </div>
+          </div>
+          
+          <!-- Label and input for Sponsor -->
+          <div class="form-group">
+            <h5><label for="company_id" class="col-sm-2 control-label">
+              Sponsor
+            </label></h5>
+            <div class="col-sm-10">
+              <%= select_tag :sponsor_id, options_from_collection_for_select(Sponsor.all.order("name ASC"), :id, :name, @fund.sponsor_id), :class => "form-control" %>
+            </div>
+          </div>
+
+          <div class="checkbox-inline">
+            <h5><label><input type="checkbox" name="open" checked>Open</label></h5>
+          </div>
+
+          <!-- Label and input for Size -->
+          <div class="form-group">
+            <label for="size" class="col-sm-2 control-label">
+              Size
+            </label>
+            <div class="col-sm-10">
+              <input type="float" id="size" name="size" placeholder="e.g., 200.0" class="form-control" value="<%= @fund.size %>">
+            </div>
+          </div>
+
+          <!-- Label and input for Open Year -->
+          <div class="form-group">
+            <label for="open_year" class="col-sm-2 control-label">
+            Open Year
+            </label>
+            <div class="col-sm-10">
+              <input type="integer" id="open_year" name="open_year" placeholder="e.g., 2012" class="form-control" value="<%= @fund.open_year %>">
+            </div>
+          </div>
+
+          <!-- Label and input for Close Year -->
+          <div class="form-group">
+            <label for="close_year" class="col-sm-2 control-label">
+            Close Year
+            </label>
+            <div class="col-sm-10">
+              <input type="integer" id="close_year" name="close_year" placeholder="e.g., 2015" class="form-control" value="<%= @fund.close_year %>">
+            </div>
+          </div>
+
+
+          <!-- Label and input for Link -->
+          <div class="form-group">
+            <label for="link" class="col-sm-2 control-label">
+              Link to Details
+            </label>
+            <div class="col-sm-10">
+              <input type="string" id="link" name="link" placeholder="e.g., http://www.PrivateEquityGroup.com" class="form-control" value="<%= @fund.link %>">
+            </div>
+          </div>  
+
+          <div class="form-group">
+            <div class="col-sm-offset-2 col-sm-10">
+              <button class="btn btn-success">
+                Create Fund
+              </button>
+              or
+              <a href="/funds">Cancel</a>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- End responsive panel example -->

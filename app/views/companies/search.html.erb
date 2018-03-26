@@ -1,0 +1,63 @@
+<%= render('shared/file_download_upload', path: "companies") %>
+
+<div class="page-header">
+  <h1>
+    Companies
+    <%= render('shared/create_company_modal') %>
+  </h1>
+</div>
+
+<!-- Responsive, Isotope-based layout example -->
+
+<div class="row">
+  <div class="col-xs-12">
+    <input type="text" id="quicksearch" placeholder="Search Companies (start typing)" class="form-control">
+  </div>
+</div>
+
+<hr>
+
+<div class="row isotope-container">
+<% @companies.order("name ASC").each do |company| %>
+  <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 isotope-item">
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <h3 class="panel-title"><%= company.name %></h3>
+      </div>
+      <div class="panel-body">
+        <dl>
+
+              <dt>Address:</dt>
+              <dd <address>
+
+                  <%= company.address %><br>
+                  <%= company.city %>, <%= company.state %> <%= company.zip %><br>
+                  <% if company.phone.present? %> 
+                      <abbr title="phone">Main:</abbr> <%= company.phone %><br>
+                  <%end%>
+
+                  <% if company.web_address.present? %> 
+                    <abbr title="web_address">Other:</abbr> <a href="http://<%= company.web_address %>" target="_blank"><%= company.web_address %></a>
+                  <%end%>                  
+                 
+                  </address>                                  
+              </dd>
+
+
+
+        </dl>
+        <div class="btn-group btn-group-justified">
+          <a href="/companies/<%= company.id %>" class="btn btn-primary">
+            <i class="fa fa-search-plus"></i>
+          </a>
+
+          <%= render('shared/edit_company_modal', :company => company)%>
+          <%= render('shared/delete_company_modal', :company => company)%>
+        </div>
+      </div>
+    </div>
+  </div>
+<% end %>
+</div>
+
+<%= render('shared/quick_search_js') %>

@@ -1,0 +1,51 @@
+<%= render('shared/file_download_upload', path: "tags") %>
+
+<div class="page-header">
+  <h1>
+    Tags
+    <a href="/tags/new" class="btn btn-lg btn-success"><i class="fa fa-plus"></i></a>
+  </h1>
+</div>
+
+<!-- Responsive, Isotope-based layout example -->
+
+<div class="row">
+  <div class="col-xs-12">
+    <input type="text" id="quicksearch" placeholder="Search Tags (start typing)" class="form-control">
+  </div>
+</div>
+
+<hr>
+
+<div class="row isotope-container">
+<% @tags.each do |tag| %>
+  <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2 isotope-item">
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <h3 class="panel-title"><%= tag.name %> (#<%= tag.id %>)</h3>
+      </div>
+      <div class="panel-body">
+        <div class="row">
+          <div class="col-md-12">
+            <dl class="dl-horizontal">
+
+           </dl>
+            <div class="btn-group btn-group-justified">
+              <a href="/tags/<%= tag.id %>" class="btn btn-primary">
+                <i class="fa fa-search-plus"></i>
+              </a>
+
+              <a href="/tags/<%= tag.id %>/edit" class="btn btn-warning">
+                <i class="fa fa-edit"></i>
+              </a>
+
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+<% end %>
+</div>
+
+<%= render('shared/quick_search_js') %>

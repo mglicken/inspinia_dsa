@@ -1,0 +1,61 @@
+<%= render('shared/file_download_upload', path: "subsidiaries") %>
+<div class="page-header">
+  <h1>
+    Subsidiaries
+    <a href="/subsidiaries/new" class="btn btn-lg btn-success"><i class="fa fa-plus"></i></a>
+  </h1>
+</div>
+
+<!-- Responsive, Isotope-based layout example -->
+
+<div class="row">
+  <div class="col-xs-12">
+    <input type="text" id="quicksearch" placeholder="Search Subsidiaries (start typing)" class="form-control">
+  </div>
+</div>
+
+<hr>
+
+<div class="row isotope-container">
+<% @subsidiaries.each do |subsidiary| %>
+  <div class="col-xs-11 col-sm-11 col-md-11 col-lg-11 isotope-item">
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <h3 class="panel-title">Subsidary # <%= subsidiary.id %></h3>
+      </div>
+      <div class="panel-body">
+        <div class="row">
+          <div class="col-md-12">
+            <class="dl-horizontal">
+
+              <dt> Parent ID </dt>
+              <dd><%= subsidiary.parent_id %></dd>
+              <dt> Child ID</dt>
+              <dd><%= subsidiary.child_id %></dd>          
+              <dt> Acquisition Date</dt>
+              <dd><%= subsidiary.acquisition_date %></dd>
+              <dt> Acquisition Price </dt>
+              <dd><%= subsidiary.acquisition_price %></dd>
+              <dt> Link </dt>
+              <dd><%= subsidiary.link %></dd>
+
+            </dl>
+            <div class="btn-group btn-group-justified">
+              <a href="/subsidiaries/<%= subsidiary.id %>" class="btn btn-primary">
+                <i class="fa fa-search-plus"></i>
+              </a>
+
+              <a href="/subsidiaries/<%= subsidiary.id %>/edit" class="btn btn-warning">
+                <i class="fa fa-edit"></i>
+              </a>
+
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+<% end %>
+</div>
+
+<%= render('shared/quick_search_js') %>

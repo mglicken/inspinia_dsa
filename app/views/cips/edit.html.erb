@@ -1,0 +1,60 @@
+<!-- Validation failure messages -->
+
+<% if @cip.errors.any? %>
+  <% @cip.errors.full_messages.each do |message| %>
+    <div class="alert alert-dismissable alert-danger">
+      <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+      <%= message %>
+    </div>
+  <% end %>
+<% end %>
+
+<!-- Responsive panel example -->
+
+<div class="row">
+  <div class="col-sm-offset-1 col-sm-10 col-md-offset-2 col-md-8">
+    <div class="panel panel-default">
+  
+      <div class="panel-heading">
+        <h3 class="panel-title">Edit <%= @cip.deal.name %> CIP</h3>
+      </div>
+      <div class="panel-body">
+        <form action="/update_cip/<%= @cip.id %>" method="post" class="form-horizontal">
+          <!-- Hidden input for authenticity token to protect from forgery -->
+          <input name="authenticity_token" type="hidden" value="<%= form_authenticity_token %>">
+
+          <!-- Label and input for Company Name -->
+          <div class="form-group">
+            <label for="name" class="col-sm-2 control-label">
+              Deal
+            </label>
+            <div class="col-sm-10">
+              <%= select_tag :deal_id, options_from_collection_for_select(Deal.all, :id, :name, @cip.deal_id), :class => "form-control" %>
+            </div>
+          </div>
+          <!-- Label and input for CIP Date -->
+          <div class="form-group">
+            <label for="cip_date" class="col-sm-2 control-label">
+              CIP Date
+            </label>
+            <div class="col-sm-10">
+              <input type="date" id="cip_date" name="cip_date" placeholder="e.g., 09/09/2017" class="form-control" value="<%= @cip.cip_date %>">
+            </div>
+          </div>
+          <div class="form-group">
+            <div class="col-sm-offset-2 col-sm-10">
+              <button class="btn btn-warning">
+                Update CIP
+              </button>
+              or
+              <a href="/cips/<%= @cip.id %>">Cancel</a>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- End responsive panel example -->

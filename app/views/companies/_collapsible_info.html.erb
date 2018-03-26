@@ -1,0 +1,89 @@
+<div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+  <div class="panel panel-default">
+    <div class="panel-heading" role="tab" id="heading1">
+      <h2 class="panel-title">
+        <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapse1" aria-expanded="true" aria-controls="collapse1">
+          Deals (<%=@company.deals.count%>)
+        </a>
+      </h2>
+    </div>
+    <div id="collapse1" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading1">
+      <div class="panel-body">
+        <%= render('view_deals') %>
+      </div>
+    </div>
+  </div>
+  <div class="panel panel-default">
+    <div class="panel-heading" role="tab" id="heading2">
+      <h4 class="panel-title">
+        <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapse2" aria-expanded="false" aria-controls="collapse2">
+          Contacts (<%=@contacts.count%>)
+        </a>
+      </h4>
+    </div>
+    <div id="collapse2" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading2">
+      <div class="panel-body">
+        <%= render('contacts') %>
+      </div>
+    </div>
+  </div>
+  <div class="panel panel-default">
+    <div class="panel-heading" role="tab" id="heading3">
+      <h3 class="panel-title">
+        <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapse3" aria-expanded="false" aria-controls="collapse3">
+          Subsidiaries (<%=@company.subsidiary_children.count%>)
+        </a>
+      </h3>
+    </div>
+    <div id="collapse3" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading3">
+      <div class="panel-body">
+        <%= render('view_subsidiaries') %>
+      </div>
+    </div>
+  </div>
+  <div class="panel panel-default">
+    <div class="panel-heading" role="tab" id="heading4">
+      <h4 class="panel-title">
+        <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapse4" aria-expanded="false" aria-controls="collapse4">
+          NBP Buyer Lists (<%=@nbp_buyers.count%>)
+        </a>
+      </h4>
+    </div>
+    <div id="collapse4" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading4">
+      <div class="panel-body">
+        <%= render('view_nbp_buyers') %>
+      </div>
+    </div>
+  </div>
+  <div class="panel panel-default">
+    <div class="panel-heading" role="tab" id="heading5">
+      <h4 class="panel-title">
+        <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapse5" aria-expanded="false" aria-controls="collapse5">
+          Notes (<%=@company.notes.count%>)
+        </a>
+      </h4>
+    </div>
+    <div id="collapse5" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading5">
+      <div class="panel-body">
+        <%= render('company_notes') %>
+      </div>
+    </div>
+  </div>
+  <% if @company.quote.present? %>
+    <div class="panel panel-default">
+      <div class="panel-heading" role="tab" id="heading6">
+        <h2 class="panel-title">
+          <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapse6" aria-expanded="true" aria-controls="collapse6">
+            Market Detail
+          </a>
+        </h2>
+      </div>
+      <div id="collapse6" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading6">
+        <div class="panel-body">
+          <embed src="<%= @company.quote%>" style="width:100%; height: 600px;">
+        </div>
+      </div>
+    </div>
+  <% end %>
+
+</div>

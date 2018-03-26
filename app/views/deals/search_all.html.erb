@@ -1,0 +1,271 @@
+   <br>
+   <div class="text-center" style="font-size:40px"><strong>Search Results</strong></div>
+   <br>
+   <br>
+    <table class="table table-striped">
+          <thead>
+            <tr>
+              <td>Type</td>
+              <td># of Matches</td>
+             
+            </tr>
+          </thead>
+          <tbody>
+          <tr>
+            <td>Deals</td>
+            <td>
+              <% if @deals.count == 0 %>
+                <%= @deals.count %>
+              <% elsif @deals.count < 11 %>
+                <% Deal.where(id: @deals).order("name ASC").each do |deal| %>
+                  <a href="/deals/<%= deal.id %>" ><%= deal.name %></a><br>
+                <% end %>                
+              <%else%>
+                <% i=1 %>
+                <% Deal.where(id: @deals).order("name ASC").each do |deal| %>
+                  <a href="/deals/<%= deal.id %>" ><%= deal.name %></a><br>
+                  <% i=i+1 %>
+                  <%if i == 10 %>
+                    <% break %>
+                  <%end%>
+                <% end %> 
+                <strong><%= @deals.count-10 %> Others</strong>
+              <%end%>
+            </td>
+            <% if @deals.count > 0 %> 
+              <td><a class="btn btn-lincoln" href="/deal_search/<%= @text %>" role="button">View Results</a></td>
+            <% else %>
+              <td></td>
+            <% end %>
+            <td><%= render('shared/create_deal_modal') %></td>            
+          </tr>
+          <tr>
+            <td>NBPs</td>
+            <td>
+              <% if @nbps.count == 0 %>
+                <%= @nbps.count %>
+              <% elsif @nbps.count < 11 %>
+                <% Nbp.where(id: @nbps).order("name ASC").each do |nbp| %>
+                  <a href="/nbps/<%= nbp.id %>" ><%= nbp.name %></a><br>
+                <% end %>                
+              <%else%>
+                <% i=1 %>
+                <% Nbp.where(id: @nbps).order("name ASC").each do |nbp| %>
+                  <a href="/nbps/<%= nbp.id %>" ><%= nbp.name %></a><br>
+                  <% i=i+1 %>
+                  <%if i == 10 %>
+                    <% break %>
+                  <%end%>
+                <% end %> 
+                <strong><%= @nbps.count-10 %> Others</strong>
+              <%end%>
+            </td>
+            <% if @nbps.count > 0 %> 
+              <td><a class="btn btn-lincoln" href="/nbp_search/<%= @text %>" role="button">View Results</a></td>
+            <% else %>
+              <td></td>
+            <% end %>
+            <td><%= render('shared/create_nbp_modal') %></td>  
+          </tr>
+          <tr>
+            <td>CIPS</td>
+            <td>
+              <% if @cips.count == 0 %>
+                <%= @cips.count %>
+              <% elsif @cips.count < 11 %>
+                <% Cip.where(id: @cips).order("name ASC").each do |cip| %>
+                  <a href="/cips/<%= cip.id %>" ><%= cip.name %></a><br>
+                <% end %>                
+              <%else%>
+                <% i=1 %>
+                <% Cip.where(id: @cips).order("name ASC").each do |cip| %>
+                  <a href="/cips/<%= cip.id %>" ><%= cip.name %></a><br>
+                  <% i=i+1 %>
+                  <%if i == 10 %>
+                    <% break %>
+                  <%end%>
+                <% end %> 
+                <strong><%= @cips.count-10 %> Others</strong>
+              <%end%>
+            </td>
+            <% if @cips.count > 0 %> 
+              <td><a class="btn btn-lincoln" href="/cip_search/<%= @text %>" role="button">View Results</a></td>
+            <% else %>
+              <td></td>
+            <% end %>
+            <td><%= render('shared/create_cip_modal') %></td>  
+          </tr>
+          <tr>
+            <td>MPs</td>
+            <td>
+              <% if @mps.count == 0 %>
+                <%= @mps.count %>
+              <% elsif @mps.count < 11 %>
+                <% Mp.where(id: @mps).order("name ASC").each do |mp| %>
+                  <a href="/mps/<%= mp.id %>" ><%= mp.name %></a><br>
+                <% end %>                
+              <%else%>
+                <% i=1 %>
+                <% Mp.where(id: @mps).order("name ASC").each do |mp| %>
+                  <a href="/mps/<%= mp.id %>" ><%= mp.name %></a><br>
+                  <% i=i+1 %>
+                  <%if i == 10 %>
+                    <% break %>
+                  <%end%>
+                <% end %> 
+                <strong><%= @mps.count-10 %> Others</strong>
+              <%end%>
+            </td>
+            <% if @mps.count > 0 %> 
+              <td><a class="btn btn-lincoln" href="/mp_search/<%= @text %>" role="button">View Results</a></td>
+            <% else %>
+              <td></td>
+            <% end %>
+            <td><%= render('shared/create_mp_modal') %></td>  
+          </tr>
+          <tr>
+            <td>Companies</td>
+            <td>
+              <% if @companies.count == 0 %>
+                <%= @companies.count %>
+              <% elsif @companies.count < 11 %>
+                <% Company.where(id: @companies).order("name ASC").each do |company| %>
+                  <a href="/companies/<%= company.id %>" ><%= company.name %></a><br>
+                <% end %>                
+              <%else%>
+                <% i=1 %>
+                <% Company.where(id: @companies).order("name ASC").each do |company| %>
+                  <a href="/companies/<%= company.id %>" ><%= company.name %></a><br>
+                  <% i=i+1 %>
+                  <%if i == 10 %>
+                    <% break %>
+                  <%end%>
+                <% end %> 
+                <strong><%= @companies.count-10 %> Others</strong>
+              <%end%>
+            </td>
+            <% if @companies.count > 0 %> 
+              <td><a class="btn btn-lincoln" href="/company_search/<%= @text %>" role="button">View Results</a></td>
+            <% else %>
+              <td></td>
+            <% end %>
+            <td><%= render('shared/create_company_modal') %></td>  
+          </tr>
+          <tr>
+            <td>Sponsors</td>
+            <td>
+              <% if @sponsors.count == 0 %>
+                <%= @sponsors.count %>
+              <% elsif @sponsors.count < 11 %>
+                <% Sponsor.where(id: @sponsors).order("name ASC").each do |sponsor| %>
+                  <a href="/sponsors/<%= sponsor.id %>" ><%= sponsor.name %></a><br>
+                <% end %>                
+              <%else%>
+                <% i=1 %>
+                <% Sponsor.where(id: @sponsors).order("name ASC").each do |sponsor| %>
+                  <a href="/sponsors/<%= sponsor.id %>" ><%= sponsor.name %></a><br>
+                  <% i=i+1 %>
+                  <%if i == 10 %>
+                    <% break %>
+                  <%end%>
+                <% end %> 
+                <strong><%= @sponsors.count-10 %> Others</strong>
+              <%end%>
+            </td>
+            <% if @sponsors.count > 0 %> 
+              <td><a class="btn btn-lincoln" href="/sponsor_search/<%= @text %>" role="button">View Results</a></td>
+            <% else %>
+              <td></td>
+            <% end %>
+            <td><%= render('shared/create_sponsor_modal') %></td>
+          </tr>
+          <tr>
+          <td>Funds</td>
+            <td>
+              <% if @funds.count == 0 %>
+                <%= @funds.count %>
+              <% elsif @funds.count < 11 %>
+                <% Fund.where(id: @funds).order("name ASC").each do |fund| %>
+                  <a href="/funds/<%= fund.id %>" ><%= fund.name %></a><br>
+                <% end %>                
+              <%else%>
+                <% i=1 %>
+                <% Fund.where(id: @funds).order("name ASC").each do |fund| %>
+                  <a href="/funds/<%= fund.id %>" ><%= fund.name %></a><br>
+                  <% i=i+1 %>
+                  <%if i == 10 %>
+                    <% break %>
+                  <%end%>
+                <% end %> 
+                <strong><%= @funds.count-10 %> Others</strong>
+              <%end%>
+            </td>
+            <% if @funds.count > 0 %> 
+              <td><a class="btn btn-lincoln" href="/fund_search/<%= @text %>" role="button">View Results</a></td>
+            <% else %>
+              <td></td>
+            <% end %>
+            <td><%= render('shared/create_fund_modal', sponsor: 0) %></td>
+          </tr>
+          <tr>
+            <td>People</td>
+            <td>
+              <% if @people.count == 0 %>
+                <%= @people.count %>
+              <% elsif @people.count < 11 %>
+                <% Person.where(id: @people).order("name ASC").each do |person| %>
+                  <a href="/people/<%= person.id %>" ><%= person.name %></a><br>
+                <% end %>                
+              <%else%>
+                <% i=1 %>
+                <% Person.where(id: @people).order("name ASC").each do |person| %>
+                  <a href="/people/<%= person.id %>" ><%= person.name %></a><br>
+                  <% i=i+1 %>
+                  <%if i == 10 %>
+                    <% break %>
+                  <%end%>
+                <% end %> 
+                <strong><%= @people.count-10 %> Others</strong>
+              <%end%>
+            </td>
+            <% if @people.count > 0 %> 
+              <td><a class="btn btn-lincoln" href="/person_search/<%= @text %>" role="button">View Results</a></td>
+            <% else %>
+              <td></td>
+            <% end %>
+            <td><%= render('shared/create_person_modal') %></td>
+          </tr>
+          <tr>
+            <td>Slides</td>
+            <td><%= @slides.count %></td>
+            <% if @slides.count > 0 %> 
+              <td><a class="btn btn-lincoln" href="/slide_search/<%= @text %>" role="button">View Results</a></td>
+            <% else %>
+              <td></td>
+            <% end %>
+            <td></td>
+          </tr>
+          <tr>
+            <td>Tags</td>
+            <td><%= @tags.count %></td>
+            <% if @tags.count > 0 %> 
+            <td><a class="btn btn-lincoln" href="/tag_search/<%= @text %>" role="button">View Results</a></td>
+            <% else %>
+              <td></td>
+            <% end %>
+            <td><%= render('shared/create_tag_modal') %></td>
+          </tr>
+          <tr>
+            <td>Notes</td>
+            <td><%= @notes.count %></td>
+            <% if @notes.count > 0 %> 
+            <td><a class="btn btn-lincoln" href="/note_search/<%= @text %>" role="button">View Results</a></td>
+            <% else %>
+              <td></td>
+            <% end %>
+            <td></td>
+          </tr>
+          </tbody>
+    </table>
+
+

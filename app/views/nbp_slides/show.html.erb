@@ -1,0 +1,38 @@
+<!-- Responsive panel example-->
+
+<div class="row">
+  <div class="col-sm-offset-1 col-sm-10 col-md-offset-2 col-md-8">
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <h3 class="panel-title"> NBP Slide # <%= @nbp_slide.id %></h3>
+      </div>
+      <div class="panel-body">
+        <div class="row">
+          <div class="col-md-12">
+            <dl>
+
+              <dt> Slide ID</dt>
+              <dd><%= @nbp_slide.slide_id %></dd>
+              <dt> NBP ID</dt>
+              <dd><%= @nbp_slide.nbp_id %></dd>  
+
+            </dl>
+            <div class="btn-group btn-group-justified">
+              <a href="/nbps/<%= @nbp_slide.nbp_id %>" class="btn btn-primary">
+                <i class="fa fa-reply"></i>
+              </a>
+
+              <a href="/nbp_slides/<%= @nbp_slide.id %>/edit" class="btn btn-warning">
+                <i class="fa fa-edit"></i>
+              </a>
+
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- End responsive panel example -->

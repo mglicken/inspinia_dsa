@@ -1,0 +1,57 @@
+
+<br>
+<div class="row">
+  <div class="col-sm-offset-1 col-sm-10 col-md-offset-2 col-md-8">
+    <% if @fund.open %>
+    <div class="panel panel-success">
+      <div class="panel-heading">
+        <h3 class="panel-title" style="font-size:12px"><%= @fund.name %> (Open)
+    <%else%>
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          <h3 class="panel-title" style="font-size:12px"><%= @fund.name %> (Closed)
+    <%end%>
+      </div>
+      <div class="panel-body">
+        <div class="row">
+          <div class="col-md-12">
+            <dl class="dl-horizontal">
+
+          <dt>Sponsor</dt>
+          <dd><a href="/sponsors/<%=@fund.sponsor_id%>"><%= @fund.sponsor.name %></a></dd>
+          <dt>Size</dt>
+          <dd>$<%= @fund.size %> million</dd>
+          <dt>Link to Details</dt>
+          <dd>
+            <% if @fund.link.present? %> 
+              <a href="http://<%= @fund.link %>" target="_blank"><%= @fund.link %></a>
+            <%end%>                  
+          </dd>
+            </dl>
+            <div class="btn-group btn-group-justified">
+              <a href="/funds" class="btn btn-lincoln">
+                <i class="fa fa-chevron-left"></i>
+              </a>
+
+              <%= render('shared/edit_fund_modal', :fund => @fund)%>
+
+            </div>
+          </div>
+        </div>
+      </div>
+
+
+    </div>
+  </div>
+</div>
+<div class="btn-group btn-group-justified">
+  <%= render('shared/create_fund_company_modal', :fund => @fund, :company => 0 )%>
+</div>
+<br>
+
+<%= render('view_companies') %>
+
+<%= render('shared/quick_search_js') %>
+
+
+<!-- End responsive panel example -->

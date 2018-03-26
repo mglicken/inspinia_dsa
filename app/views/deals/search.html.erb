@@ -1,0 +1,64 @@
+<div class="page-header">
+  <h1>
+    Deals
+    <%= render('shared/create_deal_modal') %>
+  </h1>
+</div>
+
+<!-- Responsive, Isotope-based layout example -->
+
+<div class="row">
+  <div class="col-xs-12">
+    <input type="text" id="quicksearch" placeholder="Search Deals (start typing)" class="form-control">
+  </div>
+</div>
+
+<br>
+
+<div class="row isotope-container">
+<% @deals.order("nbp_date DESC").each do |deal| %>
+  <div class="col-xs-12 col-sm-6 col-md-4 col-lg-4 isotope-item">
+    <div class="panel panel-default">
+      <div class="panel-heading" >
+        <h3 class="panel-title" style="font-size:12px"><%= deal.name %></h3>
+      </div>
+      <div class="panel-body" >
+        <div class="row">
+
+          <div class="col-md-12">
+            <dl class="dl-horizontal" style="font-size:10px" >
+
+              <dt>Company</dt>
+              <dd><a href="/companies/<%=deal.company.id %>"><%= deal.company.name %></a></dd>
+              <% if deal.nbp_date.present? %>
+                <dt>NBP Date</dt>
+                <dd> <a href="/nbps/<%=Nbp.find_by(deal_id: deal.id).id %>"><%= deal.nbp_date %></a></dd>
+              <% end %>
+              <% if deal.cip_date.present? %>
+                <dt>CIP Date</dt>
+                <dd> <a href="/cips/<%=Cip.find_by(deal_id: deal.id).id %>"><%= deal.cip_date %></a></dd>
+              <% end %>
+              <% if deal.mp_date.present? %>              
+                <dt>MP Date</dt>
+                <dd> <a href="/mps/<%=Mp.find_by(deal_id: deal.id).id %>"><%= deal.mp_date %></a></dd>
+              <% end %>
+
+            </dl>
+            <div class="btn-group btn-group-justified">
+              <a href="/deals/<%= deal.id %>" class="btn btn-primary">
+                <i class="fa fa-search-plus"></i>
+              </a>
+
+              <%= render('shared/edit_deal_modal', :deal => deal)%>
+              <%= render('shared/delete_deal_modal', :deal => deal)%>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+<% end %>
+</div>
+
+<%= render('shared/quick_search_js') %>

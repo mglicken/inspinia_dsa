@@ -1,0 +1,125 @@
+<%= render('shared/file_download_upload', path: "favorite_slides") %>
+
+<div class="page-header">
+  <h1>
+    <%= current_user.person.name%>'s Favorited Slides
+  </h1>
+</div>
+
+<% if @slide_layout.blank?%>
+  <% @slide_layout = SlideLayout.new %>
+<% end %>
+<% if @slide_layout.errors.any? %>
+  <% @slide_layout.errors.full_messages.each do |message| %>
+    <div class="alert alert-dismissable alert-danger">
+      <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+      <%= message %>
+    </div>
+  <% end %>
+<% end %>
+
+<!-- Responsive, Isotope-based layout example -->
+<form method="post" class="form-inline" id="sl-form-id" name="sl-form-name"> 
+<!-- Hidden input for authenticity token to protect from forgery -->
+  <input name="authenticity_token" type="hidden" value="<%= form_authenticity_token %>">
+
+  <input name="user_id" type="hidden" value=<%= current_user.id %>>
+
+  <input name="date" type="hidden" value=<%= Date.today %>>
+
+  <div class="row">
+    <div class="col-md-12">
+      <input type="string" id="name" name="name" placeholder="Enter Layout Name" class="form-control">
+      <button class="btn btn-lincoln" id="sl-button-id">
+        Create Layout
+      </button>
+    </div>
+  </div>
+</form>
+
+
+<br>
+<div class="row container">
+  <div class="col-lg-6 page-header" style="text-align: center">
+    <h1>Favorited Slides</h1><div style="color:#FFFFFF">()</div>
+  </div>
+  <div class="col-lg-6 page-header" style="text-align: center">
+    <h1> New Layout </h1> (Enter name above)
+  </div>
+</div>
+
+<div class="row container">
+  <div class="col-lg-6 connectedSortable" id="sortable1" style="text-align:center; padding-top:25px; padding-bottom:25px;  background-color: #f2f2f2">
+    <% if @favorite_slides.count == 0 %>
+
+    <% else %>
+      <% @favorite_slides[1..(@favorite_slides.count-1)].each do |favorite_slide| %>
+    <div class="col-lg-6 isotope-item" id="<%=favorite_slide.slide_id%>">
+        <div class="panel panel-default">
+          <div class="pull-right">
+            <a href="/destroy_favorite_slide/<%=favorite_slide.id %>" class="btn btn-lg btn-unfavorite" id="slide_<%=favorite_slide.slide_id%>"><i class="fa fa-star"></i></a>
+          </div>        
+          <div class="panel-heading">
+            <h3 class="panel-title">Slide# <%= favorite_slide.slide.number %></h3>
+
+          </div>
+          <div class="panel-body">
+            <div class="row">
+              <div>
+        
+                <%= link_to image_tag(favorite_slide.slide.image_url, size:"95%",class: "img-responsive center-block"), "/slides/#{favorite_slide.slide.id}" %>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    <% end %>
+    <% end %>
+  </div>
+  <div class="col-lg-6 connectedSortable panel panel-success" id="sortable2" style="text-align:center; padding-top:25px; padding-bottom:25px; border-width:5px;">
+    <% if @favorite_slides.count == 0 %>
+
+    <% else %>
+
+    <% favorite_slide = @favorite_slides.first %>
+    <div class="col-lg-6 isotope-item" id="<%=favorite_slide.slide_id%>">
+        <div class="panel panel-success">
+          <div class="pull-right">
+            <a href="/destroy_favorite_slide/<%=favorite_slide.id %>" class="btn btn-lg btn-unfavorite" id="slide_<%=favorite_slide.slide_id%>"><i class="fa fa-star"></i></a>
+          </div>        
+          <div class="panel-heading">
+            <h3 class="panel-title">Slide# <%= favorite_slide.slide.number %></h3>
+
+          </div>
+          <div class="panel-body">
+            <div class="row">
+              <div>               
+                <%= link_to image_tag(favorite_slide.slide.image_url, size:"95%", class: "img-responsive center-block"), "/slides/#{favorite_slide.slide.id}" %>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+  </div>
+  <% end %>
+</div>
+
+
+  <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+  <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+  <script>
+ $( function() {
+    $( "#sortable1, #sortable2" ).sortable({
+      connectWith: ".connectedSortable"
+    }).disableSelection();
+  });
+
+ var form = document.getElementById("sl-form-id");
+
+  document.getElementById("sl-button-id").addEventListener("click", function () {
+    var idsInOrder = $("#sortable2").sortable("toArray");
+    form.action = "/create_slide_layout/"+ String(idsInOrder);
+    form.submit();
+  });
+
+  </script>

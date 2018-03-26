@@ -1,0 +1,226 @@
+
+<br>
+<br>
+<!-- Responsive, Isotope-based layout example -->
+  <%if @buckets.count < 4%>
+    <%= render('shared/create_bucket_modal',nbp: @nbp) %>
+  <%end%>
+
+<form method="get" class="form-horizontal" id="nbp-cos-form-id" name="nbp-cos-form-name"> 
+<!-- Hidden input for authenticity token to protect from forgery -->
+  <button class="btn btn-primary" id="nbp-cos-button-id">
+    Save Strategic Buyer Bucket Layout
+  </button>
+</form>
+
+<% no_buckets = @buckets.count %>
+<% size_perc = "#{100/@buckets.count}" %> 
+<% size = "#{12/ @buckets.count }" %> 
+<br>
+<br>
+
+<div class="row container">
+  <table class="table">
+    <thead>
+      <tr>
+        <% @buckets.each do |bucket| %>
+          <td class="panel" style="text-align: center; border-width: 3px; border-color: #FFFFFF; background-color: #006b6e; color: #ffffff; padding: 20px; width:<%= size_perc %>"><strong><%= render('shared/edit_bucket_modal',nbp: @nbp,bucket: bucket) %></strong>
+          </td>
+        <% end %>
+      </tr>
+    </thead>
+  </table> 
+</div>
+
+<div class="row container">
+    <thead>
+      <tr>
+        <% @buckets.each do |bucket| %>
+          <div class="col-sm-<%= size %> col-md-<%= size %> col-lg-<%= size %>">
+            <form action="/create_nbp_company" method="post" class="form-inline">
+              <!-- Hidden input for authenticity token to protect from forgery -->
+              <input name="authenticity_token" type="hidden" value="<%= form_authenticity_token %>">
+              <!-- Label and input for Company ID -->
+                    <%= select_tag :company_id, options_from_collection_for_select(Company.where(id: (Company.ids - NbpCompany.where(bucket_id: bucket.id).pluck(:company_id))).order("name ASC"), :id, :name), :class => "form-control" %>
+
+                  <!-- Label and input for Bucket ID -->
+                  <input type="hidden" name="nbp_id" value="<%= @nbp.id %>">
+
+                  <!-- Label and input for Tier ID -->
+                  <input type="hidden" name="tier_id" value="<%= 4 %>">
+
+                  <!-- Label and input for Bucket ID -->
+                  <input type="hidden" name="bucket_id" value="<%= bucket.id %>">
+                  <button class="btn btn-success">
+                    Add
+                  </button>
+            </form>
+          </div>
+        <% end %>
+      </tr>
+    </thead>
+</div>
+<br>
+
+<% for i in 1..4%>
+  <%if i != 1 %>
+    <div class="row container" style="background-color: #f2f2f2;">
+    <strong>Tier <%= i %></strong>
+    </div>
+  <% end %>
+  <div class="row container panel panel-default" style="border-color: #f2f2f2; border-width: 2px;">
+    <% for j in 1..no_buckets %>
+      <div class="col-lg-<%= size %> connectedSortable" id="sortable<%=i.to_s + j.to_s%>" style="text-align:center; padding-top:15px; border-color: #f2f2f2; border-width: 10px; font-size: 10px;">
+        <% Company.where(id: @nbp_companies.where(bucket_id: @buckets[j-1].id, tier_id: i).pluck(:company_id)).order('name ASC').each do |company| %>
+          <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 isotope-item" id="<%=NbpCompany.find_by(company_id: company.id, bucket_id: @nbp.buckets[j-1].id).id %>">
+            <%if company.nbp_companies.find_by(bucket_id: @nbp.buckets[j-1].id).tier_id == 1 %>
+              <div class="panel panel-success">
+            <%elsif company.nbp_companies.find_by(bucket_id: @nbp.buckets[j-1].id).tier_id == 2 %>
+              <div class="panel panel-info">
+            <%elsif company.nbp_companies.find_by(bucket_id: @nbp.buckets[j-1].id).tier_id == 3 %>
+              <div class="panel panel-warning">
+            <%else%>
+              <div class="panel panel-danger">
+            <%end%>
+              <div class="panel-heading" style="padding-top:5px; padding-bottom:5px;">
+                <div class="pull-right">
+                  <div class="btn-group btn-group">
+                    <%= link_to content_tag(:i,nil,class: 'fa fa-times'), "/delete_nbp_company/#{ company.nbp_companies.find_by(bucket_id: @nbp.buckets[j-1].id).id }", :class => "btn", :style=> "padding-top:0px;", :remote => true  %>
+                    </div>
+                </div>
+                <strong><a href="/companies/<%= company.id %>"><%= company.name %></a></strong>
+          </div>
+              <div class="panel-body" style="padding-top:5px; padding-bottom:5px;">
+                <div class="row">
+                  <div class="col-md-12">
+
+                    Content
+
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        <% end %>
+      </div>
+    <%end%>
+  </div>
+<%end%>
+
+
+  <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+  <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+  <script>
+ $( function() {
+    $( "#sortable11, #sortable12, #sortable13, #sortable14, #sortable21, #sortable22, #sortable23, #sortable24, #sortable31, #sortable32, #sortable33, #sortable34,#sortable41, #sortable42, #sortable43, #sortable44" ).sortable({
+      connectWith: ".connectedSortable"
+    }).disableSelection();
+  });
+
+ var form = document.getElementById("nbp-cos-form-id");
+
+  document.getElementById("nbp-cos-button-id").addEventListener("click", function () {
+    if ($("#sortable11").length == 0){
+      var idsIn11 = "";
+    }
+    else{
+      var idsIn11 = String($("#sortable11").sortable("toArray"));
+    }
+    if ($("#sortable12").length == 0){
+      var idsIn12 = "";
+    }
+    else{
+      var idsIn12 = String($("#sortable12").sortable("toArray"));
+    }
+    if ($("#sortable13").length == 0){
+      var idsIn13 = "";
+    }
+    else{
+      var idsIn13 = String($("#sortable13").sortable("toArray"));
+    }
+    if ($("#sortable14").length == 0){
+      var idsIn14 = "";
+    }
+    else{
+      var idsIn14 = String($("#sortable14").sortable("toArray"));
+    }
+    if ($("#sortable21").length == 0){
+      var idsIn21 = "";
+    }
+    else{
+      var idsIn21 = String($("#sortable21").sortable("toArray"));
+    }
+    if ($("#sortable22").length == 0){
+      var idsIn22 = "";
+    }
+    else{
+      var idsIn22 = String($("#sortable22").sortable("toArray"));
+    }
+    if ($("#sortable23").length == 0){
+      var idsIn23 = "";
+    }
+    else{
+      var idsIn23 = String($("#sortable23").sortable("toArray"));
+    }
+    if ($("#sortable24").length == 0){
+      var idsIn24 = "";
+    }
+    else{
+      var idsIn24 = String($("#sortable24").sortable("toArray"));
+    }
+    if ($("#sortable31").length == 0){
+      var idsIn31 = "";
+    }
+    else{
+      var idsIn31 = String($("#sortable31").sortable("toArray"));
+    }
+    if ($("#sortable32").length == 0){
+      var idsIn32 = "";
+    }
+    else{
+      var idsIn32 = String($("#sortable32").sortable("toArray"));
+    }
+    if ($("#sortable33").length == 0){
+      var idsIn33 = "";
+    }
+    else{
+      var idsIn33 = String($("#sortable33").sortable("toArray"));
+    }
+    if ($("#sortable34").length == 0){
+      var idsIn34 = "";
+    }
+    else{
+      var idsIn34 = String($("#sortable34").sortable("toArray"));
+    }
+    if ($("#sortable41").length == 0){
+      var idsIn41 = "";
+    }
+    else{
+      var idsIn41 = String($("#sortable41").sortable("toArray"));
+    }
+    if ($("#sortable42").length == 0){
+      var idsIn42 = "";
+    }
+    else{
+      var idsIn42 = String($("#sortable42").sortable("toArray"));
+    }
+    if ($("#sortable43").length == 0){
+      var idsIn43 = "";
+    }
+    else{
+      var idsIn43 = String($("#sortable43").sortable("toArray"));
+    }
+    if ($("#sortable44").length == 0){
+      var idsIn44 = "";
+    }
+    else{
+      var idsIn44 = String($("#sortable44").sortable("toArray"));
+    }
+
+    var idsInOrder = "c"+idsIn11 + "c"+idsIn12 + "c"+idsIn13 + "c"+idsIn14 + "c"+idsIn21 + "c"+idsIn22 + "c"+idsIn23 + "c"+idsIn24 + "c"+idsIn31 + "c"+idsIn32 + "c"+idsIn33 + "c"+idsIn34 + "c"+idsIn41 + "c"+idsIn42 + "c"+idsIn43 + "c"+idsIn44;
+
+    form.action = "/update_nbp_companies/"+ idsInOrder;
+    form.submit();
+  });
+
+  </script>

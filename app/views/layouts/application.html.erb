@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>INSPINIA | Responsive admin theme</title>
+
+    <!-- Include style per-controller - vendor plugins -->
+    <%= stylesheet_link_tag params[:controller] if ::Rails.application.assets.find_asset("#{params[:controller]}.css") %>
+
+    <!-- Main css styles -->
+    <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
+
+    <!-- Main javascript files -->
+    <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
+    <%= csrf_meta_tags %>
+
+  <style>
+    body {
+      padding-top: 40px;
+    }
+    .btn-lincoln { background-color: #006b6e;
+                           color: #ffffff;  }
+    .btn-lincoln:hover { background-color: #006b6e;
+                         color: #ffffff; }
+    .btn-edit { background-color: #e6e6e6;
+                           color: #000000;  }
+    .btn-edit:hover { background-color: #f2f2f2;
+                         color: #000000; }
+                   
+    .btn-follow { background-color: #ffffff;
+                           color: #ffbf00;  }
+    .btn-unfollow { background-color: #ffffff;
+                           color: #ffbf00;  }
+    .btn-favorite {        color: #ffbf00;  }
+    .btn-unfavorite {      color: #ffbf00;  }
+
+
+</style>
+
+
+</head>
+<body>
+
+<!-- Skin configuration box -->
+<!-- <%= render 'layouts/skinconfig' %> -->
+
+    <!-- Wrapper-->
+    <div id="wrapper" class="<%= params[:controller] %>.<%= params[:action] %>">
+
+        <!-- Navigation -->
+        <%= render 'layouts/navigation' %>
+
+        <!-- Page wraper -->
+        <div id="page-wrapper" class="gray-bg <%= @extra_class %>">
+
+            <!-- Page wrapper -->
+            <%= render 'layouts/topnavbar' %>
+
+              <div class="container">
+                <% if notice.present? %>
+                  <div class="alert alert-dismissable alert-success">
+                    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                    <%= notice %>
+                  </div>
+                <% end %>
+
+                <% if alert.present? %>
+                  <div class="alert alert-dismissable alert-warning">
+                    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                    <%= alert %>
+                  </div>
+                <% end %>
+
+            <!-- Main view  -->
+            <%= yield %>
+
+            <!-- Footer -->
+            <%= render 'layouts/footer' %>
+
+        </div>
+        <!-- End page wrapper-->
+
+        <!-- Right sidebar -->
+        <%= render 'layouts/rightsidebar' %>
+
+    </div>
+    <!-- End wrapper-->
+
+    <!-- Include javascript per-controller - vendor plugins -->
+    <%= javascript_include_tag params[:controller] if ::Rails.application.assets.find_asset("#{params[:controller]}.js") %>
+
+    <!-- Include javascript per-view -->
+    <!-- For demo purpose we include javascript in view but you can easily start SeedProject and organize it with Rails asset pipeline as you want -->
+    <%= yield :javascript %>
+
+</body>
+</html>

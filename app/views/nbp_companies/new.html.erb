@@ -1,0 +1,81 @@
+<!-- Validation failure messages -->
+
+<% if @nbp_company.errors.any? %>
+  <% @nbp_company.errors.full_messages.each do |message| %>
+    <div class="alert alert-dismissable alert-danger">
+      <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+      <%= message %>
+    </div>
+  <% end %>
+<% end %>
+
+<!-- Responsive panel example -->
+
+<div class="row">
+  <div class="col-sm-offset-1 col-sm-10 col-md-offset-2 col-md-8">
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <h3 class="panel-title">Add NBP Company</h3>
+      </div>
+      <div class="panel-body">
+        <form action="/create_nbp_company" method="post" class="form-horizontal">
+          <!-- Hidden input for authenticity token to protect from forgery -->
+          <input name="authenticity_token" type="hidden" value="<%= form_authenticity_token %>">
+
+          <!-- Label and input for Company ID -->
+          <div class="form-group">
+            <label for="company_id" class="col-sm-2 control-label">
+              Company ID
+            </label>
+            <div class="col-sm-10">
+              <%= select_tag :company_id, options_from_collection_for_select(Company.all.order("name ASC"), :id, :name, @nbp_company.company_id), :class => "form-control" %>
+            </div>
+          </div>
+
+          <!-- Label and input for Company ID -->
+          <div class="form-group">
+            <label for="nbp_id" class="col-sm-2 control-label">
+              Company ID
+            </label>
+            <div class="col-sm-10">
+              <%= select_tag :nbp_id, options_from_collection_for_select(Nbp.all.order("name ASC"), :id, :name, @nbp_company.nbp_id), :class => "form-control" %>
+            </div>
+          </div>
+
+
+          <!-- Label and input for Tier ID -->
+          <div class="form-group">
+            <label for="tier_id" class="col-sm-2 control-label">
+              Tier
+            </label>
+            <div class="col-sm-10">
+              <input type="integer" id="tier_id" name="tier_id" placeholder="e.g., 1, 2 or 3" class="form-control" value="<%= @nbp_company.tier_id %>">
+            </div>
+          </div>
+
+          <!-- Label and input for Bucket ID -->
+          <div class="form-group">
+            <label for="bucket_id" class="col-sm-2 control-label">
+              Buyer Bucket
+            </label>
+            <div class="col-sm-10">
+              <input type="integer" id="bucket_id" name="bucket_id" placeholder="e.g., 17" class="form-control" value="<%= @nbp_company.bucket_id %>">
+            </div>
+          </div>   
+
+          <div class="form-group">
+            <div class="col-sm-offset-2 col-sm-10">
+              <button class="btn btn-success">
+                Create NBP Company
+              </button>
+              or
+              <a href="/nbp_companies">Cancel</a>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- End responsive panel example -->

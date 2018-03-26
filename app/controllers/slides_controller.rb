@@ -1,0 +1,255 @@
+class SlidesController < ApplicationController
+  def index
+    @slides = Slide.all
+
+    respond_to do |format|
+      format.html
+      format.csv {send_data @slides.to_csv }
+    end
+  end
+
+  def show
+    @slide = Slide.find(params[:id])
+    @tags = Tag.all.order("name ASC")
+    if NbpSlide.find_by(slide_id: @slide.id).present?
+      @nbp = NbpSlide.find_by(slide_id: @slide.id).nbp
+    else
+      @nbp = nil
+    end
+    if CipSlide.find_by(slide_id: @slide.id).present?
+      @cip = CipSlide.find_by(slide_id: @slide.id).cip
+    else
+      @cip = nil
+    end      
+    if MpSlide.find_by(slide_id: @slide.id).present?
+      @mp = MpSlide.find_by(slide_id: @slide.id).mp
+    else
+      @mp = nil
+    end    
+    if TeaserSlide.find_by(slide_id: @slide.id).present?
+      @teaser = TeaserSlide.find_by(slide_id: @slide.id).teaser
+    else
+      @teaser = nil
+    end  
+    if CaseStudySlide.find_by(slide_id: @slide.id).present?
+      @case_study = CaseStudySlide.find_by(slide_id: @slide.id).case_study
+    else
+      @case_study = nil
+    end  
+  end
+
+  def search
+    @text = params[:search].downcase
+    @tags = []
+    Tag.all.each do |tag|
+      if tag.name.downcase.include? @text
+        @tags.push(tag.id)
+      end
+    end
+    @slides = Slide.where(id: SlideTag.where(tag_id: @tags).pluck(:slide_id).uniq)
+  end
+
+  def new
+    @slide = Slide.new
+  end
+
+  def create
+    @slide = Slide.new
+
+
+    @slide.image_url = params[:image_url]
+    @slide.number = params[:number]
+
+
+    if @slide.save
+      redirect_to "/slides", :notice => "Slide created successfully."
+    else
+      render 'new'
+    end
+  end
+  
+  def create_nbp_slides
+    public_id = Cloudinary::Api.resources(type:"upload")["resources"].first["public_id"]
+    pdf_len = Cloudinary::Api.resource( public_id , pages: true)["pages"].to_i
+
+
+    for i in 0..(pdf_len-1)
+      slide = Slide.new
+      slide.number = i+1
+      slide.image_url = "http://res.cloudinary.com/mglicken/image/upload/c_scale,h_255,w_330/f_jpg,pg_#{ i+1 }/#{ public_id }.pdf"
+      slide.save
+      
+      nbp_slide = NbpSlide.new
+      nbp_slide.nbp_id = params[:nbp_id]
+      nbp_slide.slide_id = slide.id
+      nbp_slide.save
+
+      slide_tag = SlideTag.new
+      slide_tag.slide_id = slide.id
+      slide_tag.tag_id = 1
+      slide_tag.save
+
+    end
+    nbp_slide.nbp.image_id = public_id
+    if slide.save
+      nbp_slide.nbp.save
+      redirect_to "/nbps/#{nbp_slide.nbp_id}", :notice => "NBP slides uploaded successfully. Please start tagging slides to aid searches."
+    else
+      render 'new'
+    end
+  end
+
+  def create_cip_slides
+    public_id = Cloudinary::Api.resources(type:"upload")["resources"].first["public_id"]
+    pdf_len = Cloudinary::Api.resource( public_id , pages: true)["pages"].to_i
+
+
+    for i in 0..(pdf_len-1)
+      slide = Slide.new
+      slide.number = i+1
+      slide.image_url = "http://res.cloudinary.com/mglicken/image/upload/c_scale,h_255,w_330/f_jpg,pg_#{ i+1 }/#{ public_id }.pdf"
+      slide.save
+      
+      cip_slide = CipSlide.new
+      cip_slide.cip_id = params[:cip_id]
+      cip_slide.slide_id = slide.id
+      cip_slide.save
+
+      slide_tag = SlideTag.new
+      slide_tag.slide_id = slide.id
+      slide_tag.tag_id = 2
+      slide_tag.save        
+
+    end
+    cip_slide.cip.image_id = public_id
+    if slide.save
+      cip_slide.cip.save
+      redirect_to "/cips/#{cip_slide.cip_id}", :notice => "CIP slides uploaded successfully. Please start tagging slides to aid searches."
+    else
+      render 'new'
+    end
+  end
+
+  def create_mp_slides
+    public_id = Cloudinary::Api.resources(type:"upload")["resources"].first["public_id"]
+    pdf_len = Cloudinary::Api.resource( public_id , pages: true)["pages"].to_i
+
+
+    for i in 0..(pdf_len-1)
+      slide = Slide.new
+      slide.number = i+1
+      slide.image_url = "http://res.cloudinary.com/mglicken/image/upload/c_scale,h_255,w_330/f_jpg,pg_#{ i+1 }/#{ public_id }.pdf"
+      slide.save
+      
+      mp_slide = MpSlide.new
+      mp_slide.mp_id = params[:mp_id]
+      mp_slide.slide_id = slide.id
+      mp_slide.save    
+
+      slide_tag = SlideTag.new
+      slide_tag.slide_id = slide.id
+      slide_tag.tag_id = 3
+      slide_tag.save
+
+    end
+    mp_slide.mp.image_id = public_id
+    if slide.save
+      mp_slide.mp.save
+      redirect_to "/mps/#{mp_slide.mp_id}", :notice => "MP slides uploaded successfully. Please start tagging slides to aid searches."
+    else
+      render 'new'
+    end
+  end
+
+  def create_teaser_slides
+    public_id = Cloudinary::Api.resources(type:"upload")["resources"].first["public_id"]
+    pdf_len = Cloudinary::Api.resource( public_id , pages: true)["pages"].to_i
+
+
+    for i in 0..(pdf_len-1)
+      slide = Slide.new
+      slide.number = i+1
+      slide.image_url = "http://res.cloudinary.com/mglicken/image/upload/f_jpg,pg_#{ i+1 }/#{ public_id }.pdf"
+      slide.save
+      
+      teaser_slide = TeaserSlide.new
+      teaser_slide.teaser_id = params[:teaser_id]
+      teaser_slide.slide_id = slide.id
+      teaser_slide.save
+
+      slide_tag = SlideTag.new
+      slide_tag.slide_id = slide.id
+      slide_tag.tag_id = 31
+      slide_tag.save
+
+    end
+    teaser_slide.teaser.image_id = public_id
+    if slide.save
+      teaser_slide.teaser.save
+      redirect_to "/teasers/#{teaser_slide.teaser_id}", :notice => "Teaser Slides uploaded successfully. Please start tagging slides to aid searches."
+    else
+      render 'new'
+    end
+  end
+
+   def create_case_study_slides
+    public_id = Cloudinary::Api.resources(type:"upload")["resources"].first["public_id"]
+    pdf_len = Cloudinary::Api.resource( public_id , pages: true)["pages"].to_i
+
+
+    for i in 0..(pdf_len-1)
+      slide = Slide.new
+      slide.number = i+1
+      slide.image_url = "http://res.cloudinary.com/mglicken/image/upload/f_jpg,pg_#{ i+1 }/#{ public_id }.pdf"
+      slide.save
+      
+      case_study_slide = CaseStudySlide.new
+      case_study_slide.case_study_id = params[:case_study_id]
+      case_study_slide.slide_id = slide.id
+      case_study_slide.save
+
+      slide_tag = SlideTag.new
+      slide_tag.slide_id = slide.id
+      slide_tag.tag_id = 30
+      slide_tag.save
+
+    end
+    case_study_slide.case_study.image_id = public_id
+    if slide.save
+      case_study_slide.case_study.save
+      redirect_to "/case_studies/#{case_study_slide.case_study_id}", :notice => "Case Study Slides uploaded successfully. Please start tagging slides to aid searches."
+    else
+      render 'new'
+    end
+  end
+
+  def edit
+    @slide = Slide.find(params[:id])
+  end
+
+  def update
+    @slide = Slide.find(params[:id])
+
+    @slide.image_url = params[:image_url]
+    @slide.number = params[:number]
+
+    if @slide.save
+      redirect_to "/slides/#{@slide.id}/", :notice => "Slide updated successfully!"
+    else
+      render 'edit'
+    end
+  end
+
+  def destroy
+    @slide = Slide.find(params[:id])
+
+    @slide.destroy
+
+    redirect_to "/slides", :notice => "Slide deleted."
+  end
+
+  def import
+    Slide.import(params[:file])
+    redirect_to "/slides/", notice: "Slides imported."
+  end
+end

@@ -1,0 +1,62 @@
+<%= render('shared/file_download_upload', path: "sponsors") %>
+
+<div class="page-header">
+  <h1>
+    Sponsors
+    <%= render('shared/create_sponsor_modal') %>
+  </h1>
+</div>
+
+<!-- Responsive, Isotope-based layout example -->
+
+<div class="row">
+  <div class="col-xs-12">
+    <input type="text" id="quicksearch" placeholder="Search Sponsors (start typing)" class="form-control">
+  </div>
+</div>
+
+<hr>
+
+<div class="row isotope-container">
+<% @sponsors.order("name ASC").each do |sponsor| %>
+  <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 isotope-item">
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <h3 class="panel-title" style="font-size:12px"><%= sponsor.name %></h3>
+      </div>
+      <div class="panel-body" style="font-size:12px">
+        <dl>
+
+              <dt>Address:</dt>
+              <dd <address>
+
+                  <%= sponsor.address %><br>
+                  <%= sponsor.city %>, <%= sponsor.state %> <%= sponsor.zip %><br>
+                  <% if sponsor.phone.present? %> 
+                      <abbr title="phone">Main:</abbr> (<%= sponsor.phone.to_s[0..2] %>) <%= sponsor.phone.to_s[3..5] %>-<%= sponsor.phone.to_s[6..9] %><br>
+                  <%end%>
+
+                  <% if sponsor.web_address.present? %> 
+                    <abbr title="web_address">Other:</abbr> <a href="<%= sponsor.web_address %>" target="_blank"><%= sponsor.web_address %></a>
+                  <%end%>                  
+                 
+                  </address>                                  
+              </dd>
+
+
+
+        </dl>
+        <div class="btn-group btn-group-justified">
+          <a href="/sponsors/<%= sponsor.id %>" class="btn btn-lincoln">
+            <i class="fa fa-search-plus"></i>
+          </a>
+
+          <%= render('shared/edit_sponsor_modal', :sponsor => sponsor)%>
+        </div>
+      </div>
+    </div>
+  </div>
+<% end %>
+</div>
+
+<%= render('shared/quick_search_js') %>

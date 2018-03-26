@@ -1,0 +1,44 @@
+
+<br>
+<div class="row">
+  <div class="col-sm-12 col-md-12">
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <h3 class="panel-title" style="font-size:18px"><%= @note.title %></h3>
+
+      </div>
+      <div class="panel-body">
+        <div class="row">
+          <div class="col-md-12">
+            <dl class="dl-horizontal" style="font-size:12px">
+
+              <dt><%= @note.date %></dt>
+              <% if @note.detail.length <= 1500 %>
+                <dd> <address>
+                  <%= @note.detail %>
+                  </address>                                  
+              </dd>
+              <% else %>
+                <dd> <address>
+                    <%= @note.detail[0..1499] %><br>
+                    <%= render('shared/content_modal', :content => @note.detail, :title => @note.title)%>
+                    </address>                                  
+                </dd>
+                <% end %>
+            </dl>
+
+              <%= render('shared/edit_note_modal', :note => @note)%>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <%= render('shared/add_company_to_note_modal')%>
+  <%= render('shared/add_person_to_note_modal')%>
+  <%= render('shared/add_sponsor_to_note_modal')%>
+  <br>
+  <br>
+  <%= render('collapsible_info') %>
+</div>
+<%= render('shared/quick_search_js') %>
+

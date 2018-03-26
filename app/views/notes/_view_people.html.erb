@@ -1,0 +1,19 @@
+<div class="row container">
+  <% @note.people.each do |person| %>
+    <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2 isotope-item">
+      <div class="panel panel-default">
+        <div class="panel-heading" >
+          <h3 class="panel-title" style="font-size:12px">
+            <strong><%= person.name %></strong><br>
+            <%= person.role.name %>
+          </h3>
+        </div>
+        <div class="panel-body" >
+          <div class="row">
+            <a href="/people/<%= person.id %>"><img src="<%= person.image_url %>"  width=100%></a>
+          </div>
+        </div>
+      </div>
+    </div>
+  <% end %>
+</div>

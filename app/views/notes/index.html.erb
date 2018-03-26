@@ -1,0 +1,51 @@
+<%= render('shared/file_download_upload', path: "notes") %>
+<div class="page-header">
+  <h1>
+    Notes
+  </h1>
+</div>
+
+<!-- Responsive, Isotope-based layout example -->
+
+<div class="row">
+  <div class="col-xs-12">
+    <input type="text" id="quicksearch" placeholder="Search Notes (start typing)" class="form-control">
+  </div>
+</div>
+
+<hr>
+
+<div class="row isotope-container">
+<% @notes.order("date DESC").each do |note| %>
+  <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 isotope-item">
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <h3 class="panel-title"><a href="/notes/<%= note.id %>">
+            Note #<%= note.id%></a></h3>
+      </div>
+      <% if note.date.present? | note.date != "" %>      
+      <div class="panel-body">
+        <dl>
+          <dt><%= note.title %></dt>
+          <% if note.detail.length <= 600 %>
+            <dd> <address>
+              <strong><%= note.date %></strong>
+              <%= note.detail %>
+              </address>                                  
+          </dd>
+          <% else %>
+            <dd> <address>
+                <%= note.detail[0..599] %><br>
+                <a href="#" >Read More...</a>
+                </address>                                  
+            </dd>
+          <% end %>
+        </dl>
+      </div>
+      <% end %>
+    </div>
+  </div>
+<% end %>
+</div>
+
+<%= render('shared/quick_search_js') %>

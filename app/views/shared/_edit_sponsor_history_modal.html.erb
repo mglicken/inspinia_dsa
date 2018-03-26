@@ -1,0 +1,115 @@
+
+<!-- Button trigger modal -->
+<div class="btn btn-primary-outline" data-toggle="modal" data-target="#myModalEditSponsorHistory_<%=sponsor_history.id %>">
+  <i class="fa fa-edit"></i>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="myModalEditSponsorHistory_<%= sponsor_history.id %>" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="myModalLabel">Edit Sponsor History Details</h4>
+      </div>
+      <div class="modal-body">
+
+
+
+<% if sponsor_history.errors.any? %>
+  <% sponsor_history.errors.full_messages.each do |message| %>
+    <div class="alert alert-dismissable alert-danger">
+      <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+      <%= message %>
+    </div>
+  <% end %>
+<% end %>
+
+<div class="row">
+  <div class="col-sm-offset-0 col-sm-12 col-md-offset-0 col-md-12">
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <h3 class="panel-title">Update History</h3>
+      </div>
+      <div class="panel-body">
+
+        <form enctype="multipart/form-data" action="/update_sponsor_history/<%= sponsor_history.id %>" method="post" class="form-horizontal">
+          <!-- Hidden input for authenticity token to protect from forgery -->
+          <input name="authenticity_token" type="hidden" value="<%= form_authenticity_token %>">
+
+
+            <div class="form-group">
+              <h5><label for="sponsor_id" class="col-sm-2 control-label">
+                Sponsor
+              </label></h5>
+              <div class="col-sm-10">
+                <%= select_tag :sponsor_id, options_from_collection_for_select(Sponsor.order("name ASC"), :id, :name, sponsor_history.sponsor_id), :class => "form-control" %>
+              </div>
+            </div>
+
+          <!-- Label and input for Person -->
+          <input name="person_id" type="hidden" value="<%= sponsor_history.person_id %>">
+
+          <!-- Check boxes Current -->
+          <div class="checkbox-inline">
+            <% if sponsor_history.current == true%>
+              <h5><label><input type="checkbox" name="current" checked>Current</label></h5>
+            <% else %>
+              <h5><label><input type="checkbox" name="current">Current</label></h5>
+            <% end %>
+          </div>
+
+           <!-- Label and input for Role -->
+          <div class="form-group">
+            <h5><label for="role_id" class="col-sm-2 control-label">
+              Role
+            </label></h5>
+            <div class="col-sm-10">
+              <%= select_tag :role_id, options_from_collection_for_select(Role.order("name ASC"), :id, :name, sponsor_history.role_id), :class => "form-control" %>
+            </div>
+          </div>
+
+          <!-- Label and input for Start Year -->
+          <div class="form-group">
+            <label for="start_year" class="col-sm-2 control-label">
+              Start Year
+            </label>
+            <div class="col-sm-10">
+              <input type="integer" id="start_year" name="start_year" placeholder="e.g., 2008" class="form-control" value="<%= sponsor_history.start_year %>">
+            </div>
+          </div>
+
+          <!-- Label and input for End Year -->
+          <div class="form-group">
+            <label for="end_year" class="col-sm-2 control-label">
+              End Year
+            </label>
+            <div class="col-sm-10">
+              <input type="integer" id="end_year" name="end_year" placeholder="e.g., 2017" class="form-control" value="<%= sponsor_history.end_year %>">
+            </div>
+          </div>
+
+          <div class="form-group">
+            <div class="col-sm-offset-2 col-sm-10">
+              <button class="btn btn-warning">
+                Update Sponsor History
+              </button>
+
+            </div>
+          </div>
+
+        </form>
+
+      </div>
+    </div>
+  </div>
+</div>
+
+
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>

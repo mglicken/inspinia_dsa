@@ -1,0 +1,154 @@
+
+<!-- Button trigger modal -->
+<div class="btn btn-edit" data-toggle="modal" data-target="#myModalEditSponsor_<%=sponsor.id %>">
+  <i class="fa fa-edit"></i>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="myModalEditSponsor_<%= sponsor.id %>" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="myModalLabel">Edit Sponsor Details</h4>
+      </div>
+      <div class="modal-body">
+
+<% if sponsor.errors.any? %>
+  <% sponsor.errors.full_messages.each do |message| %>
+    <div class="alert alert-dismissable alert-danger">
+      <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+      <%= message %>
+    </div>
+  <% end %>
+<% end %>
+
+<div class="row">
+  <div class="col-sm-offset-0 col-sm-12 col-md-offset-0 col-md-12">
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <h3 class="panel-title"><%= sponsor.name %> (#<%= sponsor.id %>)</h3>
+      </div>
+      <div class="panel-body">
+
+        <form enctype="multipart/form-data" action="/update_sponsor/<%= sponsor.id %>" method="post" class="form-horizontal">
+          <!-- Hidden input for authenticity token to protect from forgery -->
+          <input name="authenticity_token" type="hidden" value="<%= form_authenticity_token %>">
+
+          <input type="hidden" name="name"  value="<%= sponsor.name %>">
+
+          <!-- Label and input for Description -->
+          <div class="form-group">
+            <label for="description" class="col-sm-2 control-label">
+              About the Sponsor:
+            </label>
+            <div class="col-sm-10">
+              <textarea id="description" name="description" placeholder="e.g., The sponsor was founded in..."  class="form-control" rows="3"><%= sponsor.description %></textarea>
+            </div>
+          </div>
+
+          <!-- Label and input for street -->
+          <div class="form-group">
+            <label for="address" class="col-sm-2 control-label">
+              Street
+            </label>
+            <div class="col-sm-10">
+              <textarea id="address" name="address" placeholder="address" class="form-control" rows="3"><%= sponsor.address %></textarea>
+            </div>
+          </div>
+
+          <!-- Label and input for city -->
+          <div class="form-group">
+            <label for="city" class="col-sm-2 control-label">
+              City
+            </label>
+            <div class="col-sm-10">
+              <input type="text" id="city" name="city" placeholder="City" class="form-control" value="<%= sponsor.city %>">
+            </div>
+          </div>
+
+          <!-- Label and input for state -->
+          <div class="form-group">
+            <label for="state" class="col-sm-2 control-label">
+              State
+            </label>
+            <div class="col-sm-10">
+              <input type="string" id="state" name="state" placeholder="state" class="form-control" value="<%= sponsor.state %>">
+            </div>
+          </div>
+
+          <!-- Label and input for zip -->
+          <div class="form-group">
+            <label for="zip" class="col-sm-2 control-label">
+              Zip
+            </label>
+            <div class="col-sm-10">
+              <input type="text" id="zip" name="zip" placeholder="Zip" class="form-control" value="<%= sponsor.zip %>">
+            </div>
+          </div>
+
+          <!-- Label and input for phone_1 -->
+          <div class="form-group">
+            <label for="phone_1" class="col-sm-2 control-label">
+              Main
+            </label>
+            <div class="col-sm-10">
+              <input type="int" id="phone" name="phone" placeholder="1112223333" class="form-control" value="<%= sponsor.phone %>">
+            </div>
+          </div>
+
+
+          <!-- Label and input for web_address -->
+          <% if sponsor.web_address.present?
+            if sponsor.web_address[0..6] == "http://"
+              web_add = sponsor.web_address[7..(sponsor.web_address.length-1)]
+            else
+              web_add = sponsor.web_address
+            end
+          else
+            web_add = nil 
+          end%>
+
+          <div class="form-group">
+            <label for="web_address" class="col-sm-2 control-label">
+              URL
+            </label>
+            <div class="col-sm-10">
+              <input type="text" id="web_address" name="web_address" placeholder="http://(web address)" class="form-control" value="<%= sponsor.web_address %>">
+            </div>
+          </div>
+
+          <!-- Label and input for LinkedIn Url -->
+          <div class="form-group">
+            <label for="linkedin_url" class="col-sm-2 control-label">
+              LinkedIn
+            </label>
+            <div class="col-sm-10">
+              <input type="string" id="linkedin_url" name="linkedin_url" placeholder="e.g., https://www.linkedin.com/in/first-last-12345678/" class="form-control" value="<%= sponsor.linkedin_url %>">
+            </div>
+          </div> 
+
+          <div class="form-group">
+            <div class="col-sm-offset-2 col-sm-10">
+              <button class="btn btn-warning">
+                Update Sponsor
+              </button>
+
+            </div>
+          </div>
+
+        </form>
+
+      </div>
+    </div>
+  </div>
+</div>
+
+
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,25 @@
+<div class="row container">
+  <% @nbps.each do |nbp| %>
+    <div class="col-xs-12 col-sm-6 col-md-4 col-lg-4 isotope-item">
+      <div class="panel panel-default">
+        <div class="panel-heading" >
+          <h3 class="panel-title" style="font-size:12px"><%= nbp.name %></h3>
+        </div>
+        <div class="panel-body">
+          <div class="row">
+            <div class="col-md-12">
+             <dl class="dl-horizontal" style="font-size:10px">
+                <strong>NBP:</strong>
+                <% if nbp.nbp_date.present? %>
+                  <a href="/nbps/<%=nbp.id %>/sponsors"><%= nbp.nbp_date%></a>
+                <% else %>
+                  <a href="/nbps/<%=nbp.id %>/sponsors">No Date Assigned Yet</a>
+                <% end %>
+              </dl>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  <%end%>
+</div>

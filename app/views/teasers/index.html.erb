@@ -1,0 +1,40 @@
+<%= render('shared/file_download_upload', path: "teasers") %>
+<div class="page-header">
+  <h1>
+    Teasers
+  </h1>
+</div>
+
+<!-- Responsive, Isotope-based layout example -->
+
+<div class="row">
+  <div class="col-xs-12">
+    <input type="text" id="quicksearch" placeholder="Search teasers (start typing)" class="form-control">
+  </div>
+</div>
+
+<hr>
+
+<div class="row isotope-container">
+<% @teasers.order("teaser_date DESC").each do |teaser| %>
+  <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 isotope-item">
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <h3 class="panel-title"><a href="/teasers/<%= teaser.id %>">
+            <%= teaser.deal.name %> Teaser</a></h3>
+      </div>
+      <% if teaser.teaser_date.nil? | teaser.teaser_date == "" %>      
+      <div class="panel-body">
+        <dl>
+          <dt></dt>
+          <dd><%= teaser.teaser_date %></dd>
+        </dl>
+      </div>
+      <% end %>
+    </div>
+  </div>
+<% end %>
+</div>
+
+
+<%= render('shared/quick_search_js') %>

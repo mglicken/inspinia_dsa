@@ -1,0 +1,211 @@
+<style>
+  .btn-lincoln { background-color: #006b6e;
+                         color: #ffffff;  }
+  .btn-lincoln:hover { background-color: #006b6e;
+                       color: #ffffff; }
+</style>
+
+
+<!-- Button trigger modal -->
+<% if @text.present? %>
+  <div class="btn btn-md btn-primary" data-toggle="modal" data-target="#myModalCreatePerson">
+    <i class="fa fa-plus"></i>
+  </div>
+<% else %>
+  <div class="btn btn-lg btn-lincoln" data-toggle="modal" data-target="#myModalCreatePerson">
+    Create Person
+  </div>
+<% end %>
+
+<!-- Modal -->
+<div class="modal fade" id="myModalCreatePerson" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="myModalLabel">Create a Person</h4>
+      </div>
+      <div class="modal-body">
+
+<!-- Validation failure messages -->
+
+<% if @person.blank?%>
+  <% @person = Person.new %>
+<% end %>
+<% if @person.errors.any? %>
+  <% @person.errors.full_messages.each do |message| %>
+    <div class="alert alert-dismissable alert-danger">
+      <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+      <%= message %>
+    </div>
+  <% end %>
+<% end %>
+
+<!-- Responsive panel example -->
+
+<div class="row">
+  <div class="col-sm-offset-0 col-sm-12 col-md-offset-0 col-md-12">
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <h3 class="panel-title">Add Person</h3>
+      </div>
+      <div class="panel-body">
+
+        <form enctype="multipart/form-data" action="/create_person" method="post" class="form-horizontal">
+          <!-- Hidden input for authenticity token to protect from forgery -->
+          <input name="authenticity_token" type="hidden" value="<%= form_authenticity_token %>">
+
+          <!-- Check boxes Employee -->
+          <div class="checkbox-inline">
+            <h5><label><input type="checkbox" name="employee" checked>Employee</label></h5>
+          </div>
+
+          <!-- Label and input for Person -->
+          <div class="form-group">
+            <h5><label for="role" class="col-sm-2 control-label">
+              Role
+            </label>
+            <div class="col-sm-10">
+              <%= select_tag :role_id, options_from_collection_for_select(Role.all[0..9], :id, :name, @person.role_id), :class => "form-control" %>
+            </div></h5>
+          </div>
+
+          <!-- Label and input for first name -->
+          <div class="form-group">
+            <h5><label for="name" class="col-sm-2 control-label">
+              First Name
+            </label></h5>
+            <div class="col-sm-10">
+              <input type="text" id="first_name" name="first_name" placeholder="John" class="form-control" value="<%= @person.first_name %>">
+            </div>
+          </div>
+          
+          <!-- Label and input for name -->
+          <div class="form-group">
+            <h5><label for="name" class="col-sm-2 control-label">
+              Last Name
+            </label></h5>
+            <div class="col-sm-10">
+              <input type="text" id="last_name" name="last_name" placeholder="Doe" class="form-control" value="<%= @person.last_name %>">
+            </div>
+          </div>
+
+          <!-- hidden field for Name -->
+          <input type="hidden" name="name" value="<%= @person.name %>">
+          <!-- hidden field for search_letter -->
+          <input type="hidden" name="backwards_name" value="<%= @person.backwards_name %>">
+
+          <!-- Label and input for street -->
+          <div class="form-group">
+            <h5><label for="address" class="col-sm-2 control-label">
+              Street
+            </label></h5>
+            <div class="col-sm-10">
+              <textarea id="address" name="address" placeholder="500 W Madison, Suite 3900" class="form-control" rows="2"><%= @person.address %></textarea>
+            </div>
+          </div>
+
+          <!-- Label and input for city -->
+          <div class="form-group">
+            <h5><label for="city" class="col-sm-2 control-label">
+              City
+            </label></h5>
+            <div class="col-sm-10">
+              <input type="text" id="city" name="city" placeholder="City" class="form-control" value="<%= @person.city %>">
+            </div>
+          </div>
+
+          <!-- Label and input for number -->
+          <div class="form-group">
+            <h5><label for="state" class="col-sm-2 control-label">
+              State
+            </label></h5>
+            <div class="col-sm-10">
+              <input type="string" id="state" name="state" placeholder="State" class="form-control" value="<%= @person.state %>">
+            </div>
+          </div>
+
+          <!-- Label and input for zip -->
+          <div class="form-group">
+            <h5><label for="zip" class="col-sm-2 control-label">
+              Zip
+            </label></h5>
+            <div class="col-sm-10">
+              <input type="integer" id="zip" name="zip" placeholder="Zip" class="form-control" value="<%= @person.zip %>">
+            </div>
+          </div>
+
+          <!-- Label and input for phone -->
+          <div class="form-group">
+            <h5><label for="phone" class="col-sm-2 control-label">
+              Phone
+            </label></h5>
+            <div class="col-sm-10">
+              <input type="bigint" id="phone" name="phone" placeholder="1112223333" class="form-control" value="<%= @person.phone %>">
+            </div>
+          </div>
+          <!-- Label and input for Cell -->
+          <div class="form-group">
+            <h5><label for="cell" class="col-sm-2 control-label">
+              Cell
+            </label></h5>
+            <div class="col-sm-10">
+              <input type="bigint" id="cell" name="cell" placeholder="1112223333" class="form-control" value="<%= @person.cell %>">
+            </div>
+          </div>
+
+          <!-- Label and input for email_address -->       
+          <div class="form-group">
+            <h5><label for="email_address" class="col-sm-2 control-label">
+              Email
+            </label></h5>
+            <div class="col-sm-10">
+              <input type="string" id="email_address" name="email_address" placeholder="jdoe@lincolninternational.com" class="form-control" value="<%= @person.email_address %>">
+            </div>
+          </div>
+
+          <!-- Label and input for LinkedIn Url -->
+          <div class="form-group">
+            <h5><label for="linkedin_url" class="col-sm-2 control-label">
+              LinkedIn
+            </label></h5>
+            <div class="col-sm-10">
+              <input type="string" id="linkedin_url" name="linkedin_url" placeholder="e.g., https://www.linkedin.com/in/first-last-12345678/" class="form-control" value="<%= @person.linkedin_url %>">
+            </div>
+          </div>
+
+          <div class="form-group">
+            <h5><label for="image_url" class="col-sm-2 control-label">
+              Image
+            </label></h5>
+            <div class="col-sm-10">
+               <input type="string" id="image_url" name="image_url" placeholder="http://www.lincolninternational.com" class="form-control" value="<%= @person.image_url %>">
+            </div>
+          </div>
+        
+
+          <div class="form-group">
+            <div class="col-sm-offset-2 col-sm-10">
+              <button class="btn btn-lincoln">
+                Create Person
+              </button>
+            </div>
+          </div>
+
+        </form>
+
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- End responsive panel example -->
+
+
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>

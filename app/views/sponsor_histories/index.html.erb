@@ -1,0 +1,63 @@
+<%= render('shared/file_download_upload', path: "sponsor_histories") %>
+<div class="page-header">
+  <h1>
+    Sponsor Histories
+    <a href="/sponsor_histories/new" class="btn btn-lg btn-success"><i class="fa fa-plus"></i></a>
+  </h1>
+</div>
+
+<!-- Responsive, Isotope-based layout example -->
+
+<div class="row">
+  <div class="col-xs-12">
+    <input type="text" id="quicksearch" placeholder="Search Sponsor Histories (start typing)" class="form-control">
+  </div>
+</div>
+
+<hr>
+
+<div class="row isotope-container">
+<% @sponsor_histories.each do |sponsor_history| %>
+  <div class="col-xs-11 col-sm-11 col-md-11 col-lg-11 isotope-item">
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <h3 class="panel-title">Sponsor History # <%= sponsor_history.id %></h3>
+      </div>
+      <div class="panel-body">
+        <div class="row">
+          <div class="col-md-12">
+            <class="dl-horizontal">
+
+              <dt> Person ID</dt>
+              <dd><%= sponsor_history.person_id %></dd>
+              <dt> Sponsor ID</dt>
+              <dd><%= sponsor_history.sponsor_id %></dd>  
+              <dt> Role ID</dt>
+              <dd><%= sponsor_history.role_id %></dd>
+              <dt> Current</dt>
+              <dd><%= sponsor_history.current %></dd>
+              <dt> Start Year</dt>
+              <dd><%= sponsor_history.start_year %></dd>
+              <dt> End Year</dt>
+              <dd><%= sponsor_history.end_year %></dd>         
+
+            </dl>
+            <div class="btn-group btn-group-justified">
+              <a href="/sponsor_histories/<%= sponsor_history.id %>" class="btn btn-primary">
+                <i class="fa fa-search-plus"></i>
+              </a>
+
+              <a href="/sponsor_histories/<%= sponsor_history.id %>/edit" class="btn btn-warning">
+                <i class="fa fa-edit"></i>
+              </a>
+
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+<% end %>
+</div>
+
+<%= render('shared/quick_search_js') %>

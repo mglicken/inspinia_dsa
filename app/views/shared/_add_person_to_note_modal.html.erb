@@ -1,0 +1,81 @@
+
+<!-- Button trigger modal -->
+<div class="btn btn-lg btn-lincoln" data-toggle="modal" data-target="#myModalCreatePersonNote">
+  Add Person to Note
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="myModalCreatePersonNote" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="myModalLabel">Add Person to Note</h4>
+      </div>
+      <div class="modal-body">
+
+
+
+<!-- Validation failure messages -->
+
+<% if @person_note.blank?%>
+  <% @person_note = PersonNote.new %>
+<% end %>
+<% if @person_note.errors.any? %>
+  <% @person_note.errors.full_messages.each do |message| %>
+    <div class="alert alert-dismissable alert-danger">
+      <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+      <%= message %>
+    </div>
+  <% end %>
+<% end %>
+
+<!-- Responsive panel example -->
+
+<div class="row">
+  <div class="col-sm-offset-0 col-sm-12 col-md-offset-0 col-md-12">
+    <div class="panel panel-default">
+      <div class="panel-body">
+
+        <form enctype="multipart/form-data" action="/create_person_note" method="post" class="form-horizontal">
+          <!-- Hidden input for authenticity token to protect from forgery -->
+          <input name="authenticity_token" type="hidden" value="<%= form_authenticity_token %>">
+
+            <!-- Label and input for Person -->
+            <div class="form-group">
+              <h5><label for="person_id" class="col-sm-2 control-label">
+                Person
+              </label></h5>
+              <div class="col-sm-10">
+                <%= select_tag :person_id, options_from_collection_for_select(Person.all.order("name ASC"), :id, :name), :class => "form-control" %>
+              </div>
+            </div>
+ 
+
+          <input name="note_id" type="hidden" value="<%= @note.id %>">
+
+          <div class="form-group">
+            <div class="col-sm-offset-2 col-sm-10">
+              <button class="btn btn-lincoln">
+                Add Person to Note
+              </button>
+            </div>
+          </div>
+
+        </form>
+
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- End responsive panel example -->
+
+
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>

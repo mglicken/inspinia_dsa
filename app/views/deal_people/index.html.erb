@@ -1,0 +1,56 @@
+<%= render('shared/file_download_upload', path: "deal_people") %>
+
+<div class="page-header">
+  <h1>
+    Deal People
+    <a href="/deal_people/new" class="btn btn-lg btn-success"><i class="fa fa-plus"></i></a>
+  </h1>
+</div>
+
+<!-- Responsive, Isotope-based layout example -->
+
+<div class="row">
+  <div class="col-xs-12">
+    <input type="text" id="quicksearch" placeholder="Search Deal People (start typing)" class="form-control">
+  </div>
+</div>
+
+<hr>
+
+<div class="row isotope-container">
+<% @deal_people.each do |deal_person| %>
+  <div class="col-xs-11 col-sm-11 col-md-11 col-lg-11 isotope-item">
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <h3 class="panel-title">deal_person # <%= deal_person.id %></h3>
+      </div>
+      <div class="panel-body">
+        <div class="row">
+          <div class="col-md-12">
+            <class="dl-horizontal">
+
+              <dt> Deal ID</dt>
+              <dd><%= deal_person.deal_id %></dd>
+              <dt> Person ID</dt>
+              <dd><%= deal_person.person_id %></dd>          
+
+            </dl>
+            <div class="btn-group btn-group-justified">
+              <a href="/deal_people/<%= deal_person.id %>" class="btn btn-primary">
+                <i class="fa fa-search-plus"></i>
+              </a>
+
+              <a href="/deal_people/<%= deal_person.id %>/edit" class="btn btn-warning">
+                <i class="fa fa-edit"></i>
+              </a>
+
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+<% end %>
+</div>
+
+<%= render('shared/quick_search_js') %>

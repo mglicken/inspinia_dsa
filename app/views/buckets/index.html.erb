@@ -1,0 +1,40 @@
+<%= render('shared/file_download_upload', path: "buckets") %>
+<div class="page-header">
+  <h1>
+    Buckets
+    <%= render('shared/create_bucket_modal')%>
+  </h1>
+</div>
+
+<!-- Responsive, Isotope-based layout example -->
+
+<div class="row">
+  <div class="col-xs-12">
+    <input type="text" id="quicksearch" placeholder="Search Buckets (start typing)" class="form-control">
+  </div>
+</div>
+
+<hr>
+
+<div class="row isotope-container">
+  <% @buckets.each do |bucket| %>
+    <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 isotope-item">
+      <div class="panel panel-success">
+        <div class="panel-heading">
+          <h3 class="panel-title" style="font-size:12px"><%= bucket.title %> (Open)
+        </div>
+        <div class="panel-body" style="font-size:12px">
+          <dl>
+
+            <dt>NBP</dt>
+            <dd><%= bucket.nbp.name %></dd>
+            <dt>Rationale</dt>
+            <dd>$<%= bucket.rationale %></dd>
+          </dl>
+        </div>
+      </div>
+    </div>
+  <% end %>
+</div>
+
+<%= render('shared/quick_search_js') %>

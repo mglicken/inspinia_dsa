@@ -1,0 +1,125 @@
+<!-- Validation failure messages -->
+
+<% if @sponsor.errors.any? %>
+  <% @sponsor.errors.full_messages.each do |message| %>
+    <div class="alert alert-dismissable alert-danger">
+      <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+      <%= message %>
+    </div>
+  <% end %>
+<% end %>
+
+<!-- Responsive panel example -->
+
+<div class="row">
+  <div class="col-sm-offset-1 col-sm-10 col-md-offset-2 col-md-8">
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <h3 class="panel-title">Add Sponsor</h3>
+      </div>
+      <div class="panel-body">
+        <form action="/create_sponsors" method="post" class="form-horizontal">
+          <!-- Hidden input for authenticity token to protect from forgery -->
+          <input name="authenticity_token" type="hidden" value="<%= form_authenticity_token %>">
+
+
+          <!-- Label and input for name -->
+          <div class="form-group">
+            <label for="name" class="col-sm-2 control-label">
+              Name
+            </label>
+            <div class="col-sm-10">
+              <input type="string" id="name" name="name" placeholder="Name" class="form-control" value="<%= @sponsor.name %>">
+            </div>
+          </div>
+
+          <!-- Label and input for Description -->
+          <div class="form-group">
+            <label for="description" class="col-sm-2 control-label">
+              About the Sponsor:
+            </label>
+            <div class="col-sm-10">
+              <input type="text" id="description" name="description" placeholder="e.g., The sponsor was founded in..." class="form-control" value="<%= @sponsor.description %>">
+          </div>
+
+          <!-- Label and input for Street Address -->
+          <div class="form-group">
+            <label for="address" class="col-sm-2 control-label">
+              Street Address
+            </label>
+            <div class="col-sm-10">
+              <input type="string" id="address" name="address" placeholder="e.g., 500 W Madison, Suite 3900" class="form-control" value="<%= @sponsor.address %>">
+            </div>
+          </div>
+          <!-- Label and input for City -->
+          <div class="form-group">
+            <label for="city" class="col-sm-2 control-label">
+              City
+            </label>
+            <div class="col-sm-10">
+              <input type="string" id="city" name="city" placeholder="e.g., Chicago" class="form-control" value="<%= @sponsor.city %>">
+            </div>
+          </div>
+          <!-- Label and input for State -->
+          <div class="form-group">
+            <label for="state" class="col-sm-2 control-label">
+              State
+            </label>
+            <div class="col-sm-10">
+              <input type="string" id="state" name="state" placeholder="e.g., IL" class="form-control" value="<%= @sponsor.state %>">
+            </div>
+          </div>
+          <!-- Label and input for Zip Code -->
+          <div class="form-group">
+            <label for="zip" class="col-sm-2 control-label">
+              Zip Code
+            </label>
+            <div class="col-sm-10">
+              <input type="integer" id="zip" name="zip" placeholder="e.g., 60661" class="form-control" value="<%= @sponsor.zip %>">
+            </div>
+          </div>
+          <!-- Label and input for Phone Number -->
+          <div class="form-group">
+            <label for="phone" class="col-sm-2 control-label">
+              Phone Number
+            </label>
+            <div class="col-sm-10">
+              <input type="integer" id="phone" name="phone" placeholder="e.g., 1234567890" class="form-control" value="<%= @sponsor.phone %>">
+            </div>
+          </div>
+          <!-- Label and input for Phone Number -->
+          <div class="form-group">
+            <label for="web_address" class="col-sm-2 control-label">
+              Web Address
+            </label>
+            <div class="col-sm-10">
+              <input type="string" id="web_address" name="web_address" placeholder="e.g., http://www.lincolninternational.com" class="form-control" value="<%= @sponsor.web_address %>">
+            </div>
+          </div>
+
+          <!-- Label and input for LinkedIn Url -->
+          <div class="form-group">
+            <label for="linkedin_url" class="col-sm-2 control-label">
+              LinkedIn
+            </label>
+            <div class="col-sm-10">
+              <input type="string" id="linkedin_url" name="linkedin_url" placeholder="e.g., https://www.linkedin.com/in/first-last-12345678/" class="form-control" value="<%= @sponsor.linkedin_url %>">
+            </div>
+          </div>
+
+          <div class="form-group">
+            <div class="col-sm-offset-2 col-sm-10">
+              <button class="btn btn-success">
+                Create Sponsor
+              </button>
+              or
+              <a href="/sponsors">Cancel</a>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- End responsive panel example -->

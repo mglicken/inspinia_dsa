@@ -1,0 +1,95 @@
+<!-- Validation failure messages -->
+
+<% if @subsidiary.errors.any? %>
+  <% @subsidiary.errors.full_messages.each do |message| %>
+    <div class="alert alert-dismissable alert-danger">
+      <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+      <%= message %>
+    </div>
+  <% end %>
+<% end %>
+
+<!-- Responsive panel example -->
+
+<div class="row">
+  <div class="col-sm-offset-1 col-sm-10 col-md-offset-2 col-md-8">
+    <div class="panel panel-default">
+  
+      <div class="panel-heading">
+        <h3 class="panel-title">Edit Subsidiary</h3>
+      </div>
+      <div class="panel-body">
+        <form action="/update_subsidiary/<%= @subsidiary.id %>" method="post" class="form-horizontal">
+          <!-- Hidden input for authenticity token to protect from forgery -->
+          <input name="authenticity_token" type="hidden" value="<%= form_authenticity_token %>">
+
+          <!-- Label and input for Parent ID -->
+          <div class="form-group">
+            <label for="parent_id" class="col-sm-2 control-label">
+              Parent ID
+            </label>
+            <div class="col-sm-10">
+              <input type="integer" id="parent_id" name="parent_id" placeholder="e.g., 17" class="form-control" value="<%= @subsidiary.parent_id %>">
+            </div>
+          </div>
+
+          <!-- Label and input for Child ID -->
+          <div class="form-group">
+            <label for="child_id" class="col-sm-2 control-label">
+              Child ID
+            </label>
+            <div class="col-sm-10">
+              <input type="integer" id="child_id" name="child_id" placeholder="e.g., 17" class="form-control" value="<%= @subsidiary.child_id %>">
+            </div>
+          </div>
+
+
+          <!-- Label and input for Acquisition Date -->
+          <div class="form-group">
+            <label for="acquisition_date" class="col-sm-2 control-label">
+              Acquisition Date
+            </label>
+            <div class="col-sm-10">
+              <input type="date" id="acquisition_date" name="acquisition_date" placeholder="e.g., 03/10/2018" class="form-control" value="<%= @subsidiary.acquisition_date %>">
+            </div>
+          </div>
+
+          <!-- Label and input for Acquisition Price -->
+          <div class="form-group">
+            <label for="acquisition_price" class="col-sm-2 control-label">
+              Acquisition Price
+            </label>
+            <div class="col-sm-10">
+              <input type="float" id="acquisition_price" name="acquisition_price" placeholder="e.g., 201.1" class="form-control" value="<%= @subsidiary.acquisition_price %>">
+            </div>
+          </div>
+
+
+          <!-- Label and input for Link -->
+          <div class="form-group">
+            <label for="link" class="col-sm-2 control-label">
+              Link
+            </label>
+            <div class="col-sm-10">
+              <input type="string" id="link" name="link" placeholder="e.g., 17" class="form-control" value="<%= @subsidiary.link %>">
+            </div>
+          </div>
+
+          
+          <div class="form-group">
+            <div class="col-sm-offset-2 col-sm-10">
+              <button class="btn btn-warning">
+                Update Subsidiary
+              </button>
+              or
+              <a href="/subsidiaries/<%= @subsidiary.id %>">Cancel</a>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- End responsive panel example -->

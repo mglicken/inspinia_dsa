@@ -1,0 +1,44 @@
+<%= render('shared/file_download_upload', path: "slide_layout_slides") %>
+<div class="page-header">
+  <h1>
+    Slide Layout Slides
+  </h1>
+</div>
+
+
+<div class="row isotope-container">
+<% @slide_layout_slides.each do |slide_layout_slide| %>
+  <div class="col-xs-11 col-sm-11 col-md-11 col-lg-11 isotope-item">
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <h3 class="panel-title">Slide Layout Slide # <%= slide_layout_slide.id %></h3>
+      </div>
+      <div class="panel-body">
+        <div class="row">
+          <div class="col-md-12">
+            <div class="dl-horizontal">
+
+              <dt> Slide ID</dt>
+              <dd><%= slide_layout_slide.slide_id %></dd>
+              <dt> Slide Layout ID</dt>
+              <dd><%= slide_layout_slide.slide_layout_id %></dd>          
+
+            </dl>
+           </div>
+            <div class="btn-group btn-group-justified">
+              <a href="/slide_layout_slides/<%= slide_layout_slide.id %>" class="btn btn-primary">
+                <i class="fa fa-search-plus"></i>
+              </a>
+
+              <a href="/slide_layout_slides/<%= slide_layout_slide.id %>/edit" class="btn btn-warning">
+                <i class="fa fa-edit"></i>
+              </a>
+
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+<% end %>
+</div>

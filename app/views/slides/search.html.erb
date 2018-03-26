@@ -1,0 +1,65 @@
+<div class="page-header">
+  <h1>
+    Slides
+    <a href="/slides/new" class="btn btn-lg btn-success"><i class="fa fa-plus"></i></a>
+  </h1>
+</div>
+
+<!-- Responsive, Isotope-based layout example -->
+
+<div class="row">
+  <div class="col-xs-12">
+    <input type="text" id="quicksearch" placeholder="Search Slides (start typing)" class="form-control">
+  </div>
+</div>
+
+<hr>
+
+<div class="row isotope-container">
+<% @slides.each do |slide| %>
+  <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4 isotope-item">
+    <div class="panel panel-default">
+      <div class="pull-right">
+        <% if slide.favorite_slides.where(user_id: current_user.id).present? %>
+          <a href="/destroy_favorite_slide/<%=slide.favorite_slides.find_by(user_id: current_user.id).id %>" class="btn btn-lg btn-unfavorite" id="slide_<%=slide.id%>"><i class="fa fa-star"></i></a>
+        <% else %>
+          <a href="/create_favorite_slide/<%=current_user.id%>/<%=slide.id%>" class="btn btn-lg btn-favorite" id="slide_<%=slide.id%>"><i class="fa fa-star-o"></i></a>
+        <% end %>
+      </div> 
+      <div class="panel-heading">
+        <% if slide.nbp.present? %>
+          <h3 class="panel-title"><%= slide.nbp.deal.name %> NBP (Slide# <%= slide.number %>)</h3>
+        <% end %>
+        <% if slide.cip.present?  %>
+          <h3 class="panel-title"><%= slide.cip.deal.name %> CIP (Slide# <%= slide.number %>)</h3>
+        <% end %>
+        <% if slide.mp.present?  %>
+          <h3 class="panel-title"><%= slide.mp.deal.name %> MP (Slide# <%= slide.number %>)</h3>
+        <% end %>
+        <% if slide.teaser.present?  %>
+          <h3 class="panel-title"><%= slide.teaser.deal.name %> MP (Slide# <%= slide.number %>)</h3>
+        <% end %>
+        <% if slide.case_study.present?  %>
+          <h3 class="panel-title"><%= slide.case_study.deal.name %> MP (Slide# <%= slide.number %>)</h3>
+        <% end %>
+      </div>
+      <div class="panel-body">
+        <div class="row">
+          <div class="col-md-12">
+            <class="dl-horizontal">
+            <%= link_to image_tag(slide.image_url), "/slides/#{slide.id}" %>
+            <% slide.tags.each do |tag| %>
+
+              <dd><div class="hidden"><%= tag.name %></a></dd>
+            <% end %>
+
+            </dl>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+<% end %>
+</div>
+
+<%= render('shared/quick_search_js') %>

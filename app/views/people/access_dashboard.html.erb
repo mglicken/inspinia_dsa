@@ -1,0 +1,78 @@
+<div class="page-header">
+  <h1>
+    User Access Dashboard
+  </h1>
+</div>
+
+<!-- Responsive, Isotope-based layout example -->
+
+<div class="row">
+  <div class="col-xs-12">
+    <input type="text" id="quicksearch" placeholder="Search Users (start typing)" class="form-control">
+  </div>
+</div>
+
+<hr>
+
+<div class="row isotope-container">
+
+<% @users.each do |user| %>
+
+  <div class="col-xs-12 col-sm-6 col-md-4 col-lg-4 isotope-item">
+    <div class="panel panel-info">
+      <div class="panel-heading">
+        <h3 class="panel-title">
+        <a href="/people/<%= user.person_id %>">
+        <% if user.email.length > 30 %>
+          <%= user.email[0,27]%> ...
+        <% else %>
+          <%= user.email %>
+        <% end %> 
+        </a>
+        <br>
+        (ID# <%= user.id %>)
+        </h3>
+      </div>
+      <div class="panel-body">
+        <dl>
+
+        <form action="/update_user/" method="post" class="form-horizontal">
+          <dt>Employee:</dt>
+          <dd>
+           <!-- Hidden input for authenticity token to protect from forgery -->
+            <input name="authenticity_token" type="hidden" value="<%= form_authenticity_token %>">
+            <input name="id" type="hidden" value="<%= user.id %>">
+            <%= select_tag :person_id, options_from_collection_for_select(Person.where(employee: true).order("name ASC"), :id, :name, user.person_id), :class => "form-control" %>
+        </dd>
+        <dt></dt>
+        <dd style="padding-top:5px">
+            <button class="btn btn-lincoln">
+              Update Employee
+            </button>
+        </dd>
+        </form>
+        <form action="/update_access/" method="post" class="form-horizontal">
+          <dt>Administrative Access:</dt>
+          <dd>
+           <!-- Hidden input for authenticity token to protect from forgery -->
+            <input name="authenticity_token" type="hidden" value="<%= form_authenticity_token %>">
+            <input name="id" type="hidden" value="<%= user.id %>">
+            <%= select_tag :access_id, options_from_collection_for_select(Access.all.order("id ASC"), :id, :name, user.access_id), :class => "form-control" %>
+        </dd>
+        <dt></dt>
+        <dd style="padding-top:5px">
+            <button class="btn btn-lincoln">
+              Update Access
+            </button>
+        </dd>
+        </form>       
+
+        </dl>
+      </div>
+    </div>
+  </div>
+<% end %>
+
+</div>
+
+<%= render('shared/quick_search_js') %>

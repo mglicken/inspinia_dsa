@@ -1,0 +1,62 @@
+<!-- Validation failure messages -->
+
+<% if @deal_follow.errors.any? %>
+  <% @deal_follow.errors.full_messages.each do |message| %>
+    <div class="alert alert-dismissable alert-danger">
+      <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+      <%= message %>
+    </div>
+  <% end %>
+<% end %>
+
+<!-- Responsive panel example -->
+
+<div class="row">
+  <div class="col-sm-offset-1 col-sm-10 col-md-offset-2 col-md-8">
+    <div class="panel panel-default">
+  
+      <div class="panel-heading">
+        <h3 class="panel-title">Edit Deal Follow</h3>
+      </div>
+      <div class="panel-body">
+        <form action="/update_deal_follow/<%= @deal_follow.id %>" method="post" class="form-horizontal">
+          <!-- Hidden input for authenticity token to protect from forgery -->
+          <input name="authenticity_token" type="hidden" value="<%= form_authenticity_token %>">
+
+          <!-- Label and input for User ID -->
+          <div class="form-group">
+            <label for="user_id" class="col-sm-2 control-label">
+              User ID
+            </label>
+            <div class="col-sm-10">
+              <input type="integer" id="user_id" name="user_id" placeholder="e.g., 17" class="form-control" value="<%= @deal_follow.user_id %>">
+            </div>
+          </div>
+
+          <!-- Label and input for Deal ID -->
+          <div class="form-group">
+            <label for="deal_id" class="col-sm-2 control-label">
+              Deal ID
+            </label>
+            <div class="col-sm-10">
+              <input type="integer" id="deal_id" name="deal_id" placeholder="e.g., 47" class="form-control" value="<%= @deal_follow.deal_id %>">
+            </div>
+          </div>
+
+          <div class="form-group">
+            <div class="col-sm-offset-2 col-sm-10">
+              <button class="btn btn-warning">
+                Update Deal Follow
+              </button>
+              or
+              <a href="/deal_follows/<%= @deal_follow.id %>">Cancel</a>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- End responsive panel example -->

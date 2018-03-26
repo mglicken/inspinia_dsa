@@ -1,0 +1,52 @@
+
+
+<!-- Responsive panel-->
+<br>
+<div class="row">
+  <div class="pull-right">
+    <div class="btn btn-group btn-group-vertical">
+      <%= render('shared/file_download_upload', path: "nbp_sponsors") %>      
+    </div>
+  </div> 
+  <div class="col-sm-offset-1 col-sm-10 col-md-offset-2 col-md-8">
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <h3 class="panel-title" style="font-size:28px"><%= @nbp.name %></h3>
+      </div>
+      <div class="panel-body">
+        <div class="row">
+          <div class="col-md-12 col-md-offset--1">
+            <dl class="dl-horizontal" style="font-size:10px">
+
+             <dt>Deal</dt>
+             <dd> <a href="/deals/<%= @nbp.deal_id %>"><%= @nbp.deal.name %></a></dd>
+             <dt>Company</dt>
+             <dd> <a href="/companies/<%= @nbp.deal.company.id %>"><%= @nbp.deal.company.name %></a></dd>
+             <dt>Date</dt>
+             <dd><%= @nbp.nbp_date %></dd>
+
+            </dl>
+            <div class="btn-group btn-group-justified">
+              <a href="/nbps" class="btn btn-lincoln">
+                <i class="fa fa-reply"></i>
+              </a>
+
+              <%= render('shared/edit_nbp_modal', :nbp => @nbp)%>
+
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<a class="btn btn-lincoln" href="/nbps/<%= @nbp.id %>">See Slides</a>
+<a class="btn btn-lincoln" href="/nbps/<%= @nbp.id %>/companies">View Strategic Acquirers</a>
+
+<%= render('view_sponsors') %>
+<%= render('shared/quick_search_js') %>
+
+<!-- End responsive panel -->

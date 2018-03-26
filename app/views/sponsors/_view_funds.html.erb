@@ -1,0 +1,40 @@
+<div class="row container">
+<% @funds.order("open_year DESC").each do |fund| %>
+<div class="col-xs-12 col-sm-6 col-md-6 col-lg-6 isotope-item">
+
+    <% if fund.open %>
+    <div class="panel panel-success">
+      <div class="panel-heading">
+        <h3 class="panel-title" style="font-size:12px"><%= fund.name %> (Open)
+    <%else%>
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          <h3 class="panel-title" style="font-size:12px"><%= fund.name %> (Closed)
+    <%end%>
+      </div>
+      <div class="panel-body" style="font-size:12px">
+        <dl>
+
+          <dt>Sponsor</dt>
+          <dd><%= fund.sponsor.name %></dd>
+          <dt>Size</dt>
+          <dd>$<%= fund.size %> million</dd>
+          <dt>Link to Details</dt>
+          <dd>
+            <% if fund.link.present? %> 
+              <a href="http://<%= fund.link %>" target="_blank"><%= fund.link %></a>
+            <%end%>                  
+          </dd>
+        </dl>
+        <div class="btn-group btn-group-justified">
+          <a href="/funds/<%= fund.id %>" class="btn btn-lincoln">
+            <i class="fa fa-search-plus"></i>
+          </a>
+
+          <%= render('shared/edit_fund_modal', :fund => fund)%>
+        </div>
+      </div>
+    </div>
+</div>
+<% end %>
+</div>

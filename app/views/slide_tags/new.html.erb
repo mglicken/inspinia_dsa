@@ -1,0 +1,61 @@
+<!-- Validation failure messages -->
+
+<% if @slide_tag.errors.any? %>
+  <% @slide_tag.errors.full_messages.each do |message| %>
+    <div class="alert alert-dismissable alert-danger">
+      <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+      <%= message %>
+    </div>
+  <% end %>
+<% end %>
+
+<!-- Responsive panel example -->
+
+<div class="row">
+  <div class="col-sm-offset-1 col-sm-10 col-md-offset-2 col-md-8">
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <h3 class="panel-title">Add Slide tag</h3>
+      </div>
+      <div class="panel-body">
+        <form action="/create_slide_tag" method="post" class="form-horizontal">
+          <!-- Hidden input for authenticity token to protect from forgery -->
+          <input name="authenticity_token" type="hidden" value="<%= form_authenticity_token %>">
+
+
+          <!-- Label and input for Slide ID -->
+          <div class="form-group">
+            <label for="slide_id" class="col-sm-2 control-label">
+              Slide ID
+            </label>
+            <div class="col-sm-10">
+              <input type="integer" id="slide_id" name="slide_id" placeholder="e.g., 17" class="form-control" value="<%= @slide_tag.slide_id %>">
+            </div>
+          </div>
+
+          <!-- Label and input for Tag ID -->
+          <div class="form-group">
+            <label for="tag_id" class="col-sm-2 control-label">
+              Tag ID
+            </label>
+            <div class="col-sm-10">
+              <input type="integer" id="tag_id" name="tag_id" placeholder="e.g., 17" class="form-control" value="<%= @slide_tag.tag_id %>">
+            </div>
+          </div>
+
+          <div class="form-group">
+            <div class="col-sm-offset-2 col-sm-10">
+              <button class="btn btn-success">
+                Create Slide Tag
+              </button>
+              or
+              <a href="/slide_tags">Cancel</a>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- End responsive panel example -->

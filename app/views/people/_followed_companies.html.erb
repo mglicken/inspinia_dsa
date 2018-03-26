@@ -1,0 +1,14 @@
+
+<div class="row container">
+<% @companies.order("name ASC").each do |company| %>
+  <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4 isotope-item">
+    <div class="panel panel-default">
+      <div class="panel-heading" >
+        <h3 class="panel-title" style="font-size:12px">
+          <strong><a href="/companies/<%= company.id%>"><%= company.name %></a></strong>
+        </h3>
+      </div>
+    </div>
+  </div>
+<% end %>
+</div>

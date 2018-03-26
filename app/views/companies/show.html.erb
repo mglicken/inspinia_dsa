@@ -1,0 +1,86 @@
+
+<!-- Responsive panel example-->
+<br>
+<div class="row">
+  <div class="col-sm-offset-1 col-sm-10 col-md-offset-2 col-md-8">
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <h3 class="panel-title"><%= @company.name %></h3>
+      
+      </div>
+      <div class="panel-body">
+        <div class="row">
+          <div class="col-md-12">
+            <dl class="dl-horizontal">
+
+              <div class="pull-right">
+                  <a href="<%= @company.linkedin_url%>" class="btn btn-lg" target="_blank"><i class="fa fa-linkedin"></i></a>
+                  <% if @followed %>
+                    <a href="/unfollow_company/<%=@company.id%>" class="btn btn-lg btn-unfollow"><i class="fa fa-star"></i></a>
+                  <% else %>
+                    <a href="/follow_company/<%=@company.id%>" class="btn btn-lg btn-follow"><i class="fa fa-star-o"></i></a>
+                  <% end %>
+              </div>
+
+              <dt>Address:</dt>
+              <dd> <address>
+
+                  <%= @company.address %><br>
+                  <%= @company.city %>, <%= @company.state %> <%= @company.zip %><br>
+                  <% if @company.phone.present? %> 
+                      <abbr title="phone">Main:</abbr> (<%= @company.phone.to_s[0..2] %>) <%= @company.phone.to_s[3..5] %>-<%= @company.phone.to_s[6..9] %><br>
+                  <%end%>
+                  <% if @company.web_address.present? %>
+                    <%if @company.web_address[0..4] == "https" %>
+                      Website: <a href="<%= @company.web_address %>" target="_blank"><%= @company.web_address[8..(@company.web_address.length-1)] %></a>
+                    <% elsif @company.web_address[0..3] == "http" %>
+                      Website: <a href="<%= @company.web_address %>" target="_blank"><%= @company.web_address[7..(@company.web_address.length-1)] %></a>
+                    <%else%>
+                      Website: <a href="<%= @company.web_address %>" target="_blank"><%= @company.web_address %></a>
+                    <%end%>
+                  <%end%>                  
+                  </address>                         
+              </dd>
+              <% if @company.description.present? %>
+              <dt>Description:</dt>
+                <% if @company.description.length <= 600 %>
+                  <dd> <address>
+                      <%= @company.description %>
+                      </address>                                  
+                  </dd>
+                <% else %>
+                  <dd> <address>
+                      <%= @company.description[0..599] %>...<br>
+                      <%= render('shared/content_modal', :content => @company.description, :title => "#{@company.name} Description")%>
+                      </address>                                  
+                  </dd>
+                <% end %>  
+              <% end %>  
+            </dl>
+            <div class="btn-group btn-group-justified">
+              <a href="/companies" class="btn btn-lincoln">
+                <i class="fa fa-reply"></i>
+              </a>
+
+              <%= render('shared/edit_company_modal', :company => @company)%>
+
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+  <%= render('shared/create_subsidiary_modal')%>
+  <%= render('shared/create_fund_company_modal', :fund => 0, :company => @company )%>
+  <%= render('shared/create_work_history_modal', :company => @company, :person => 0 )%>
+  <%= render('shared/create_note_modal')%>
+<br>
+<br>
+
+<%= render('collapsible_info') %>
+<%= render('shared/quick_search_js') %>
+
+
+<!-- End responsive panel example -->

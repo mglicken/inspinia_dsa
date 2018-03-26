@@ -1,0 +1,46 @@
+<!-- Responsive panel example-->
+
+<div class="row">
+  <div class="col-sm-offset-1 col-sm-10 col-md-offset-2 col-md-8">
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <h3 class="panel-title"> Work History # <%= @work_history.id %></h3>
+      </div>
+      <div class="panel-body">
+        <div class="row">
+          <div class="col-md-12">
+            <dl>
+
+              <dt> Person ID</dt>
+              <dd><%= @work_history.person_id %></dd>
+              <dt> Company ID</dt>
+              <dd><%= @work_history.company_id %></dd>  
+              <dt> Role ID</dt>
+              <dd><%= @work_history.role_id %></dd>
+              <dt> Current</dt>
+              <dd><%= @work_history.current %></dd>
+              <dt> Start Year</dt>
+              <dd><%= @work_history.start_year %></dd>
+              <dt> End Year</dt>
+              <dd><%= @work_history.end_year %></dd>
+
+            </dl>
+            <div class="btn-group btn-group-justified">
+              <a href="/work_histories/" class="btn btn-primary">
+                <i class="fa fa-reply"></i>
+              </a>
+
+              <a href="/work_histories/<%= @work_history.id %>/edit" class="btn btn-warning">
+                <i class="fa fa-edit"></i>
+              </a>
+
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- End responsive panel example -->

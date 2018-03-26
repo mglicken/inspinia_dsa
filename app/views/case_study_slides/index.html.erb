@@ -1,0 +1,55 @@
+<%= render('shared/file_download_upload', path: "case_study_slides") %>
+<div class="page-header">
+  <h1>
+    Case Study Slides
+    <a href="/case_study_slides/new" class="btn btn-lg btn-success"><i class="fa fa-plus"></i></a>
+  </h1>
+</div>
+
+<!-- Responsive, Isotope-based layout example -->
+
+<div class="row">
+  <div class="col-xs-12">
+    <input type="text" id="quicksearch" placeholder="Search Case Studies (start typing)" class="form-control">
+  </div>
+</div>
+
+<hr>
+
+<div class="row isotope-container">
+<% @case_study_slides.each do |case_study_slide| %>
+  <div class="col-xs-11 col-sm-11 col-md-11 col-lg-11 isotope-item">
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <h3 class="panel-title">Case Study Slide # <%= case_study_slide.id %></h3>
+      </div>
+      <div class="panel-body">
+        <div class="row">
+          <div class="col-md-12">
+            <class="dl-horizontal">
+
+              <dt> Slide ID</dt>
+              <dd><%= case_study_slide.slide_id %></dd>
+              <dt> Case Study ID</dt>
+              <dd><%= case_study_slide.case_study_id %></dd>          
+
+            </dl>
+            <div class="btn-group btn-group-justified">
+              <a href="/case_study_slides/<%= case_study_slide.id %>" class="btn btn-primary">
+                <i class="fa fa-search-plus"></i>
+              </a>
+
+              <a href="/case_study_slides/<%= case_study_slide.id %>/edit" class="btn btn-warning">
+                <i class="fa fa-edit"></i>
+              </a>
+
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+<% end %>
+</div>
+
+<%= render('shared/quick_search_js') %>

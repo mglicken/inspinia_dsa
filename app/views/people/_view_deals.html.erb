@@ -1,0 +1,14 @@
+
+<div class="row container">
+<% @person.deals.order("nbp_date desc").each do |deal| %>
+  <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 isotope-item">
+    <div class="panel panel-default">
+      <div class="panel-heading" >
+        <h3 class="panel-title" style="font-size:12px">
+          <strong><a href="/deals/<%=deal.id%>"><%= deal.name %></a></strong><br>
+        </h3>
+      </div>
+    </div>
+  </div>
+<% end %>
+</div>

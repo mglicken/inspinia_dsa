@@ -1,0 +1,80 @@
+
+<br>
+<div class="row">
+  <div class="col-sm-offset-1 col-sm-10 col-md-offset-2 col-md-8">
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <h3 class="panel-title"><%= @sponsor.name %></h3>
+      </div>
+      <div class="panel-body">
+        <div class="row">
+          <div class="col-md-12">
+            <dl class="dl-horizontal">
+
+              <div class="pull-right">
+                  <a target="_blank" href="<%= @sponsor.linkedin_url%>" class="btn btn-lg"><i class="fa fa-linkedin"></i></a>
+                  <% if @followed %>
+                    <a href="/unfollow_sponsor/<%=@sponsor.id%>" class="btn btn-lg btn-unfollow"><i class="fa fa-star"></i></a>
+                  <% else %>
+                    <a href="/follow_sponsor/<%=@sponsor.id%>" class="btn btn-lg btn-follow"><i class="fa fa-star-o"></i></a>
+                  <% end %>
+              </div>
+
+              <dt>Address:</dt>
+              <dd> <address>
+
+                  <%= @sponsor.address %><br>
+                  <%= @sponsor.city %> <%= @sponsor.state %>, <%= @sponsor.zip %><br>
+                  <% if @sponsor.phone.present? %> 
+                      <abbr title="phone">Main:</abbr> (<%= @sponsor.phone.to_s[0..2] %>) <%= @sponsor.phone.to_s[3..5] %>-<%= @sponsor.phone.to_s[6..9] %><br>
+                  <%end%>
+
+                  <% if @sponsor.web_address.present? %> 
+                    <abbr title="web_address">Other:</abbr> <a href="<%= @sponsor.web_address %>" target="-_blank"><%= @sponsor.web_address[7..(@sponsor.web_address.length-1)] %></a>
+                  <%end%>                  
+                </address>                                  
+              </dd>
+              <dt>Type:</dt>
+              <dd><%= @sponsor.sponsor_type %></dd>
+              <dt>Description:</dt>
+              <% if @sponsor.description.length <= 600 %>
+                <dd> <address>
+                    <%= @sponsor.description %>
+                    </address>                                  
+                </dd>
+              <% else %>
+                <dd> <address>
+                    <%= @sponsor.description[0..599] %>...<br>
+                    <%= render('shared/content_modal', :content => @sponsor.description, :title => "#{@sponsor.name} Description")%>
+                    </address>                                  
+                </dd>
+              <% end %>  
+            </dl>
+            <div class="btn-group btn-group-justified">
+              <a href="/sponsors" class="btn btn-lincoln">
+                <i class="fa fa-chevron-left"></i>
+              </a>
+
+              <%= render('shared/edit_sponsor_modal', :sponsor => @sponsor)%>
+
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+  <%= render('shared/create_fund_modal', :sponsor => @sponsor)%>
+  <%= render('shared/create_sponsor_history_modal', :sponsor => @sponsor, :person => 0 )%>
+  <%= render('shared/create_note_modal')%>
+<br>
+<br>
+
+<%= render('collapsible_info') %>
+
+<%= render('shared/quick_search_js') %>
+
+
+<!-- End responsive panel example -->

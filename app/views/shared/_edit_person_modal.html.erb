@@ -1,0 +1,184 @@
+
+<!-- Button trigger modal -->
+<div class="btn btn-edit" data-toggle="modal" data-target="#myModalEditPerson_<%=person.id %>">
+  <i class="fa fa-edit"></i>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="myModalEditPerson_<%=person.id %>" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="myModalLabel">Edit Person Details</h4>
+      </div>
+      <div class="modal-body">
+
+
+
+<% if person.errors.any? %>
+  <% person.errors.full_messages.each do |message| %>
+    <div class="alert alert-dismissable alert-danger">
+      <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+      <%= message %>
+    </div>
+  <% end %>
+<% end %>
+
+<!-- Responsive panel example -->
+
+<div class="row">
+  <div class="col-sm-offset-0 col-sm-12 col-md-offset-0 col-md-12">
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <h3 class="panel-title"><%= person.name %> (#<%= person.id %>)</h3>
+      </div>
+      <div class="panel-body">
+
+        <form enctype="multipart/form-data" action="/update_person/<%= person.id %>" method="post" class="form-horizontal">
+          <!-- Hidden input for authenticity token to protect from forgery -->
+          <input name="authenticity_token" type="hidden" value="<%= form_authenticity_token %>">
+
+          <!-- Check boxes Employee -->
+          <div class="checkbox-inline">
+            <% if person.employee == true%>
+              <h5><label><input type="checkbox" name="employee" checked>Employee</label></h5>
+            <% else %>
+              <h5><label><input type="checkbox" name="employee">Employee</label></h5>
+            <% end %>
+          </div>
+
+          <input type="hidden" name="name"  value="<%= person.name %>">
+          <input type="hidden" name="backwards_name"  value="<%= person.backwards_name %>">
+          <input type="hidden" name="first_name"  value="<%= person.first_name %>">
+          <input type="hidden" name="last_name"  value="<%= person.last_name %>">
+
+          <!-- Label and input for Person -->
+          <div class="form-group">
+            <h5><label for="role" class="col-sm-2 control-label">
+              Role
+            </label>
+            <div class="col-sm-10">
+              <%= select_tag :role_id, options_from_collection_for_select(Role.all[0..9], :id, :name, @person.role_id), id: "dropdown", class: "form-control" %>
+            </div></h5>
+          </div>
+
+
+
+          <!-- Label and input for street -->
+          <div class="form-group">
+            <label for="address" class="col-sm-2 control-label">
+              Street
+            </label>
+            <div class="col-sm-10">
+              <textarea id="address" name="address" placeholder="address" class="form-control" rows="2"><%= person.address %></textarea>
+            </div>
+          </div>
+
+          <!-- Label and input for city -->
+          <div class="form-group">
+            <label for="city" class="col-sm-2 control-label">
+              City
+            </label>
+            <div class="col-sm-10">
+              <input type="string" id="city" name="city" placeholder="City" class="form-control" value="<%= person.city %>">
+            </div>
+          </div>
+
+          <!-- Label and input for state -->
+          <div class="form-group">
+            <label for="state" class="col-sm-2 control-label">
+              State
+            </label>
+            <div class="col-sm-10">
+              <input type="string" id="state" name="state" placeholder="state" class="form-control" value="<%= person.state %>">
+            </div>
+          </div>
+
+          <!-- Label and input for zip -->
+          <div class="form-group">
+            <label for="zip" class="col-sm-2 control-label">
+              Zip
+            </label>
+            <div class="col-sm-10">
+              <input type="string" id="zip" name="zip" placeholder="Zip" class="form-control" value="<%= person.zip %>">
+            </div>
+          </div>
+
+          <!-- Label and input for Main -->
+          <div class="form-group">
+            <label for="phone" class="col-sm-2 control-label">
+              Main
+            </label>
+            <div class="col-sm-10">
+              <input type="bigint" id="phone" name="phone" placeholder="1112223333" class="form-control" value="<%= person.phone %>">
+            </div>
+          </div>
+          <!-- Label and input for cell -->
+          <div class="form-group">
+            <label for="cell" class="col-sm-2 control-label">
+              Cell
+            </label>
+            <div class="col-sm-10">
+              <input type="bigint" id="cell" name="cell" placeholder="1112223333" class="form-control" value="<%= person.cell %>">
+            </div>
+          </div>
+
+          <!-- Label and input for email_address -->
+
+          <div class="form-group">
+            <label for="email_address" class="col-sm-2 control-label">
+              Email
+            </label>
+            <div class="col-sm-10">
+              <input type="string" id="email_address" name="email_address" placeholder="name@(web address)" class="form-control" value="<%= person.email_address %>">
+            </div>
+          </div>
+
+          <!-- Label and input for LinkedIn Url -->
+          <div class="form-group">
+            <label for="linkedin_url" class="col-sm-2 control-label">
+              LinkedIn
+            </label>
+            <div class="col-sm-10">
+              <input type="string" id="linkedin_url" name="linkedin_url" placeholder="e.g., https://www.linkedin.com/in/first-last-12345678/" class="form-control" value="<%= person.linkedin_url %>">
+            </div>
+          </div>
+          
+          <!-- Label and input for image_url -->
+          <div class="form-group">
+            <label for="image_url" class="col-sm-2 control-label">
+              Image
+            </label>
+            <div class="col-sm-10">
+              <input type="string" id="image_url" name="image_url" placeholder="\\lp.com\Data\Data\Libraries\Banker Photos\US\Employee, Joe\Employee, Joe_Resized.jpg" class="form-control" value="<%= person.image_url %>">
+            </div>
+          </div>
+ 
+
+          <div class="form-group">
+            <div class="col-sm-offset-2 col-sm-10">
+              <button class="btn btn-warning">
+                Update Person
+              </button>
+
+            </div>
+          </div>
+
+        </form>
+
+      </div>
+    </div>
+  </div>
+</div>
+
+
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<%= render('shared/select2_js', :modal_id => 'myModalEditPerson_#{person.id}') %>

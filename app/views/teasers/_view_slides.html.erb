@@ -1,0 +1,39 @@
+
+<div class="row">
+  <div class="col-xs-12">
+    <input type="text" id="quicksearch" placeholder="Search Pages (start typing)" class="form-control">
+  </div>
+</div>
+
+
+<div class="row isotope-container">
+<% @teaser.slides.each do |slide| %>
+  <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 isotope-item">
+    <div class="panel panel-default">
+      <div class="pull-right">
+        <% if slide.favorite_slides.where(user_id: current_user.id).present? %>
+          <a href="/destroy_favorite_slide/<%=slide.favorite_slides.find_by(user_id: current_user.id).id %>" class="btn btn-lg btn-unfavorite" id="slide_<%=slide.id%>"><i class="fa fa-star"></i></a>
+        <% else %>
+          <a href="/create_favorite_slide/<%=current_user.id%>/<%=slide.id%>" class="btn btn-lg btn-favorite" id="slide_<%=slide.id%>"><i class="fa fa-star-o"></i></a>
+        <% end %>
+      </div>  
+      <div class="panel-heading">
+        <h3 class="panel-title">(Page# <%= slide.number %>)</h3>
+      </div>
+      <div class="panel-body">
+        <div class="row">
+          <div class="col-md-12" width=100%>
+            <class="dl-horizontal">
+           
+            <%= link_to image_tag(slide.image_url, width: 1100), "/slides/#{slide.id}" %>
+            <% slide.tags.each do |tag| %>
+              <dd><div class="hidden"><%= tag.name %></div></dd>
+            <% end %>
+            </dl>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+<% end %>
+</div>

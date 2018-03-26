@@ -1,0 +1,59 @@
+<!-- Responsive panel-->
+<br>
+<div class="row">
+  <div class="pull-right">
+    <div class="btn btn-group btn-group-vertical">
+      <a class="btn btn-primary" href="/copy_teaser_layout/<%= @teaser.id %>">Copy Teaser Layout</a>
+    </div>
+  </div> 
+<div class="row">
+  <div class="col-sm-offset-1 col-sm-10 col-md-offset-2 col-md-8">
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <% if @teaser.image_id.nil? %>
+          <a href="#" class="btn btn-info pull-right" text-align="center" id="upload_widget_opener">Upload Teaser PDF</a>
+        <% elsif @teaser.image_id =="" %>
+          <a href="#" class="btn btn-info pull-right" text-align="center" id="upload_widget_opener">Upload Teaser PDF</a>
+        <% end %> 
+        <h3 class="panel-title" style="font-size:28px"><%= @teaser.deal.name %> Teaser</h3>
+
+      </div>
+      <div class="panel-body">
+        <div class="row">
+          <div class="col-md-12 col-md-offset--1">
+            <dl class="dl-horizontal" style="font-size:10px">
+
+             <dt>Company</dt>
+             <dd> <a href="/companies/<%= @teaser.deal.company.id %>"><%= @teaser.deal.company.name %></a></dd>
+             <dt>Date</dt>
+             <dd><%= @teaser.teaser_date %></dd>
+
+            </dl>
+            <div class="btn-group btn-group-justified">
+              <a href="/teasers" class="btn btn-primary">
+                <i class="fa fa-reply"></i>
+              </a>
+
+              <%= render('shared/edit_teaser_modal', :teaser => @teaser)%>
+              <%= render('shared/delete_teaser_modal', :teaser => @teaser)%>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<%= render('view_slides') %>
+
+<%= render('shared/quick_search_js') %>
+
+<% if @teaser.image_id.nil? %>
+  <%= render('shared/upload_widget',url: "/create_teaser_slide/#{@teaser.id}", p_id: "teaser_#{@teaser.id}") %>
+<% elsif @teaser.image_id. == "" %>
+  <%= render('shared/upload_widget',url: "/create_teaser_slide/#{@teaser.id}", p_id: "teaser_#{@teaser.id}") %>
+<% end %>
+
+<!-- End responsive panel -->

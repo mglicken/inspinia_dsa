@@ -1,0 +1,40 @@
+<%= render('shared/file_download_upload', path: "case_studies") %>
+<div class="page-header">
+  <h1>
+    Case Studies
+  </h1>
+</div>
+
+<!-- Responsive, Isotope-based layout example -->
+
+<div class="row">
+  <div class="col-xs-12">
+    <input type="text" id="quicksearch" placeholder="Search Case Studies (start typing)" class="form-control">
+  </div>
+</div>
+
+<hr>
+
+<div class="row isotope-container">
+<% @case_studies.each do |case_study| %>
+  <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 isotope-item">
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <h3 class="panel-title"><a href="/case_studies/<%= case_study.id %>">
+            <%= case_study.deal.name %> Case Study</a></h3>
+      </div>
+      <% if case_study.slides.nil? %>      
+      <div class="panel-body">
+        <dl>
+          <dt></dt>
+          <dd>No Case Study</dd>
+        </dl>
+      </div>
+      <% end %>
+    </div>
+  </div>
+<% end %>
+</div>
+
+
+<%= render('shared/quick_search_js') %>

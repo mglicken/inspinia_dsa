@@ -1,0 +1,7 @@
+	<% if defined?(@favorite_slide) %>	
+		$('#slide_<%= @favorite_slide.slide_id %>').removeClass()
+		$('#slide_<%= @favorite_slide.slide_id %>').addClass("panel panel-default")
+		$('#slide_<%= @favorite_slide.slide_id %>_button').hide()
+	<% end %>
+
+

@@ -1,0 +1,6 @@
+	<% if defined?(@fund_company) %>	
+		$('#company_<%= @fund_company.company_id %>').removeClass()
+		$('#company_<%= @fund_company.company_id %>').addClass("panel panel-success")
+		$('#company_<%= @fund_company.company_id %>_button').hide()
+	<% end %>
+

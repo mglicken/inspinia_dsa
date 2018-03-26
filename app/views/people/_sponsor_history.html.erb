@@ -1,0 +1,33 @@
+
+<div class="row container">
+<% @person.sponsor_histories.order("start_year desc").each do |sponsor_history| %>
+  <div class="col-xs-9 col-sm-9 col-md-9 col-lg-9 isotope-item">
+    <div class="panel panel-default">
+      <div class="panel-heading" >
+        <h3 class="panel-title" style="font-size:12px">
+          <% if sponsor_history.current %>
+            <strong><a href="/sponsors/<%= sponsor_history.sponsor_id%>"><%= sponsor_history.sponsor.name %></a></strong> (<%= sponsor_history.role.name %>)
+            <%= render('shared/edit_sponsor_history_modal', :sponsor_history => sponsor_history)%>
+          <% else %>
+            <strong><a href="/sponsors/<%= sponsor_history.sponsor_id%>"><%= sponsor_history.sponsor.name %></a></strong> (<%= sponsor_history.role.name %>)
+            <%= render('shared/edit_sponsor_history_modal', :sponsor_history => sponsor_history)%>
+          <%end%>
+        </h3>
+      </div>
+    </div>
+  </div>
+  <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2 isotope-item">
+    <div class="panel panel-default">
+      <div class="panel-heading" >
+        <h3 class="panel-title" style="font-size:12px">
+          <% if sponsor_history.current %>
+            <%= sponsor_history.start_year %>-Present
+          <% else %>
+            <%= sponsor_history.start_year %>-<%= sponsor_history.end_year %>
+          <%end%>
+        </h3>
+      </div>
+    </div>
+  </div>
+<% end %>
+</div>

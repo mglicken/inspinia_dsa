@@ -1,0 +1,85 @@
+class FundCompaniesController < ApplicationController
+  def index
+    @fund_companies = FundCompany.all
+
+    respond_to do |format|
+      format.html
+      format.csv {send_data @fund_companies.to_csv }
+    end
+  end
+
+  def show
+    @fund_companies = FundCompany.all
+    @fund_company = FundCompany.find(params[:id])
+  end
+
+  def new
+    @fund_company = FundCompany.new
+  end
+
+  def create
+    @fund_company = FundCompany.new
+    @fund_company.fund_id = params[:fund_id]
+    @fund_company.company_id = params[:company_id]
+    @fund_company.size = params[:size]
+    @fund_company.acquisition_date = params[:acquisition_date]
+    @fund_company.acquisition_price = params[:acquisition_price]
+    @fund_company.link = params[:link]
+ 
+    respond_to do |format|
+      format.html do
+        if @fund_company.save
+          redirect_to "/funds/#{ params[:fund_id] }", :notice => "Fund Company added successfully."
+        else
+          render 'new'
+        end
+      end
+        
+      format.js do
+        @fund_company.save
+        render('create.js.erb')
+      end
+
+    end
+  end
+
+  def edit
+    @fund_company = FundCompany.find(params[:id])
+  end
+
+  def update
+    @fund_company = FundCompany.find(params[:id])
+
+    @fund_company.fund_id = params[:fund_id]
+    @fund_company.company_id = params[:company_id]
+    @fund_company.size = params[:size]
+    @fund_company.acquisition_date = params[:acquisition_date]
+    @fund_company.acquisition_price = params[:acquisition_price]
+    @fund_company.link = params[:link]
+
+    if @fund_company.save
+      redirect_to "/funds/#{@fund_company.fund_id}/", :notice => "Fund Company updated successfully!"
+    else
+      render 'edit'
+    end
+  end
+
+  def destroy
+    @fund_company = FundCompany.find(params[:id])
+    @fund_company.destroy
+
+    respond_to do |format|
+      format.html do
+        redirect_to "/fund_companies/", :notice => "Fund Company deleted."
+      end
+      format.js do
+        render('destroy.js.erb')
+      end
+    end
+  end
+
+  def import
+    FundCompany.import(params[:file])
+    redirect_to "/fund_companies/", notice: "Fund Companies imported"
+  end
+end

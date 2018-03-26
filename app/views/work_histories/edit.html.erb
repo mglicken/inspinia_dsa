@@ -1,0 +1,102 @@
+<!-- Validation failure messages -->
+
+<% if @work_history.errors.any? %>
+  <% @work_history.errors.full_messages.each do |message| %>
+    <div class="alert alert-dismissable alert-danger">
+      <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+      <%= message %>
+    </div>
+  <% end %>
+<% end %>
+
+<!-- Responsive panel example -->
+
+<div class="row">
+  <div class="col-sm-offset-1 col-sm-10 col-md-offset-2 col-md-8">
+    <div class="panel panel-default">
+  
+      <div class="panel-heading">
+        <h3 class="panel-title">Edit Work History</h3>
+      </div>
+      <div class="panel-body">
+        <form action="/update_work_history/<%= @work_history.id %>" method="post" class="form-horizontal">
+          <!-- Hidden input for authenticity token to protect from forgery -->
+          <input name="authenticity_token" type="hidden" value="<%= form_authenticity_token %>">
+
+          <!-- Label and input for Person ID -->
+          <div class="form-group">
+            <label for="person_id" class="col-sm-2 control-label">
+              Person ID
+            </label>
+            <div class="col-sm-10">
+              <input type="integer" id="person_id" name="person_id" placeholder="e.g., 17" class="form-control" value="<%= @work_history.person_id %>">
+            </div>
+          </div>
+
+          <!-- Label and input for Company ID -->
+          <div class="form-group">
+            <label for="company_id" class="col-sm-2 control-label">
+              Company ID
+            </label>
+            <div class="col-sm-10">
+              <input type="integer" id="company_id" name="company_id" placeholder="e.g., 47" class="form-control" value="<%= @work_history.company_id %>">
+            </div>
+          </div>
+
+          <!-- Label and input for Role ID -->
+          <div class="form-group">
+            <label for="role_id" class="col-sm-2 control-label">
+              Role ID
+            </label>
+            <div class="col-sm-10">
+              <input type="integer" id="role_id" name="role_id" placeholder="e.g., 47" class="form-control" value="<%= @work_history.role_id %>">
+            </div>
+          </div>
+
+          <!-- Label and input for Current -->
+          <div class="form-group">
+            <label for="current" class="col-sm-2 control-label">
+              Current
+            </label>
+            <div class="col-sm-10">
+              <input type="boolean" id="current" name="current" placeholder="e.g., true" class="form-control" value="<%= @work_history.current %>">
+            </div>
+          </div>
+
+          <!-- Label and input for Start Year -->
+          <div class="form-group">
+            <label for="start_year" class="col-sm-2 control-label">
+              Start Year
+            </label>
+            <div class="col-sm-10">
+              <input type="integer" id="start_year" name="start_year" placeholder="e.g., 2008" class="form-control" value="<%= @work_history.start_year %>">
+            </div>
+          </div>
+
+          <!-- Label and input for End Year -->
+          <div class="form-group">
+            <label for="end_year" class="col-sm-2 control-label">
+              End Year
+            </label>
+            <div class="col-sm-10">
+              <input type="integer" id="end_year" name="end_year" placeholder="e.g., 2012" class="form-control" value="<%= @work_history.end_year %>">
+            </div>
+          </div>
+
+          <div class="form-group">
+            <div class="col-sm-offset-2 col-sm-10">
+              <button class="btn btn-warning">
+                Update Work History
+              </button>
+              or
+              <a href="/work_histories/<%= @work_history.id %>">Cancel</a>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- End responsive panel example -->

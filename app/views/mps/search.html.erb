@@ -1,0 +1,55 @@
+<div class="page-header">
+  <h1>
+    MPs
+    <%= render('shared/create_mp_modal') %>
+  </h1>
+</div>
+
+<!-- Responsive, Isotope-based layout example -->
+
+<div class="row">
+  <div class="col-xs-12">
+    <input type="text" id="quicksearch" placeholder="Search MPs (start typing)" class="form-control">
+  </div>
+</div>
+
+<hr>
+
+<div class="row isotope-container">
+<% @mps.order("mp_date DESC").each do |mp| %>
+  <div class="col-xs-12 col-sm-6 col-md-4 col-lg-4 isotope-item">
+    <div class="panel panel-default">
+      <div class="panel-heading" >
+        <h3 class="panel-title" style="font-size:12px"><%= mp.name %></h3>
+      </div>
+      <div class="panel-body" >
+        <div class="row">
+
+          <div class="col-md-12">
+            <dl class="dl-horizontal" style="font-size:10px" >
+
+              <dt>Deal</dt>
+              <dd><a href="/deals/<%=mp.deal.id %>"><%= mp.deal.name %></a></dd>
+              <dt>MP</dt>
+              <dd> <a href="/mps/<%=mp.id %>"><%= mp.mp_date %></a></dd>
+
+
+            </dl>
+            <div class="btn-group btn-group-justified">
+              <a href="/mps/<%= mp.id %>" class="btn btn-lincoln">
+                <i class="fa fa-search-plus"></i>
+              </a>
+
+              <%= render('shared/edit_mp_modal', :mp => mp)%>
+
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+<% end %>
+</div>
+
+<%= render('shared/quick_search_js') %>

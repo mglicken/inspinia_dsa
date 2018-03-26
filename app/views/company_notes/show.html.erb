@@ -1,0 +1,38 @@
+<!-- Responsive panel example-->
+
+<div class="row">
+  <div class="col-sm-offset-1 col-sm-10 col-md-offset-2 col-md-8">
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <h3 class="panel-title"> Company Note # <%= @company_note.id %></h3>
+      </div>
+      <div class="panel-body">
+        <div class="row">
+          <div class="col-md-12">
+            <dl>
+
+              <dt> Note ID</dt>
+              <dd><%= @company_note.note_id %></dd>
+              <dt> Company ID</dt>
+              <dd><%= @company_note.company_id %></dd>  
+
+            </dl>
+            <div class="btn-group btn-group-justified">
+              <a href="/company_notes/" class="btn btn-primary">
+                <i class="fa fa-reply"></i>
+              </a>
+
+              <a href="/company_notes/<%= @company_note.id %>/edit" class="btn btn-warning">
+                <i class="fa fa-edit"></i>
+              </a>
+
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- End responsive panel example -->

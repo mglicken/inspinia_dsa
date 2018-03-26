@@ -1,0 +1,56 @@
+
+
+<div class="page-header">
+  <h1>
+    Companies
+  </h1>
+</div>
+
+
+<div class="row">
+  <div class="col-xs-12">
+    <input type="text" id="quicksearch" placeholder="Search Companies (start typing)" class="form-control">
+  </div>
+</div>
+
+
+<div class="row isotope-container">
+<% @fund.companies.order("name ASC").each do |company| %>
+  <div class="col-xs-12 col-sm-6 col-md-4 col-lg-4 isotope-item">
+    <div class="panel panel-default">
+      <div class="panel-heading" >
+        <h3 class="panel-title" style="font-size:12px"><%= company.name %></h3>
+      </div>
+      <div class="panel-body" >
+        <div class="row">
+          <div class="col-md-12">
+            <dl class="dl-horizontal" style="font-size:10px" >
+
+              <dt>Company</dt>
+              <dd><a href="/companies/<%=company.id %>"><%= company.name %></a></dd>
+              <dt>Acquisition Date</dt>
+              <dd><%= FundCompany.where(company_id: company.id, fund_id: @fund.id).first.acquisition_date %></dd>
+              <dt>Acquisition Price</dt>
+              <dd>$<%= FundCompany.where(company_id: company.id, fund_id: @fund.id).first.acquisition_price %> million</dd>
+              <% if FundCompany.where(company_id: company.id, fund_id: @fund.id).first.link.present? %>
+                <dt>Details</dt>
+                <dd><a href=<%= FundCompany.where(company_id: company.id, fund_id: @fund.id).first.link %> target="_blank">
+                  <%= FundCompany.where(company_id: company.id, fund_id: @fund.id).first.link[7..20] %>...
+                </a></dd>
+              <% end %>
+            </dl>
+            <div class="btn-group btn-group-justified">
+              <a href="/companies/<%= company.id %>" class="btn btn-lincoln">
+                <i class="fa fa-search-plus"></i>
+              </a>
+
+              <%= render('shared/edit_fund_company_modal', :fund_company => FundCompany.where(company_id: company.id, fund_id: @fund.id).first)%>
+
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+<% end %>
+</div>

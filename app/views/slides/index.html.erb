@@ -1,0 +1,61 @@
+<%= render('shared/file_download_upload', path: "slides") %>
+
+<div class="page-header">
+  <h1>
+    Slides
+    <a href="/slides/new" class="btn btn-lg btn-success"><i class="fa fa-plus"></i></a>
+  </h1>
+</div>
+
+<!-- Responsive, Isotope-based layout example -->
+
+<div class="row">
+  <div class="col-xs-12">
+    <input type="text" id="quicksearch" placeholder="Search Slides (start typing)" class="form-control">
+  </div>
+</div>
+
+<hr>
+
+<div class="row isotope-container">
+<% @slides.each do |slide| %>
+  <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4 isotope-item">
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <% if NbpSlide.find_by(slide_id: slide.id).present? %>
+          <h3 class="panel-title"><%= NbpSlide.find_by(slide_id: slide.id).nbp.deal.name %> NBP (Slide# <%= slide.number %>)</h3>
+        <% end %>
+        <% if CipSlide.find_by(slide_id: slide.id).present?  %>
+          <h3 class="panel-title"><%= CipSlide.find_by(slide_id: slide.id).cip.deal.name %> CIP (Slide# <%= slide.number %>)</h3>
+        <% end %>
+        <% if MpSlide.find_by(slide_id: slide.id).present?  %>
+          <h3 class="panel-title"><%= MpSlide.find_by(slide_id: slide.id).mp.deal.name %> MP (Slide# <%= slide.number %>)</h3>
+        <% end %>
+      </div>
+      <div class="panel-body">
+        <div class="row">
+          <div class="col-md-12">
+            <class="dl-horizontal">
+            <%= link_to image_tag(slide.image_url), "/slides/#{slide.id}" %>
+            <% slide.tags.each do |tag| %>
+
+              <dd><div class="hidden"><%= tag.name %></a></dd>
+            <% end %>
+
+            </dl>
+            <div class="btn-group btn-group-justified">
+
+              <a href="/slides/<%= slide.id %>/edit" class="btn btn-lincoln">
+                <i class="fa fa-edit"></i>
+              </a>
+
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+<% end %>
+</div>
+
+<%= render('shared/quick_search_js') %>

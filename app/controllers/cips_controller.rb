@@ -1,0 +1,107 @@
+class CipsController < ApplicationController
+  def index
+    @cips = Cip.all
+
+    respond_to do |format|
+      format.html
+      format.csv {send_data @cips.to_csv }
+    end
+  end
+
+  def search
+    @text = params[:search].downcase
+    cip_ids = []
+    Cip.all.each do |cip|
+      if cip.name.downcase.include? @text
+        cip_ids.push(cip.id)
+      end
+    end
+    @cips=Cip.where(id: cip_ids)
+  end
+
+  def show
+    @cip = Cip.find(params[:id])
+    a = ["0","1","2","3","4","5","6","7","8","9","a","b","c","d","e","f","g","h","i","j","k","l","m","n","o","p","q","r","s","t","u","v","w","x","y","z"]
+    b=""
+    for i in 0..63
+      b=b+a[rand(35)]
+    end
+    @p_id = b
+    @url = "/create_cip_slide/#{params[:id]}"
+  end
+
+  def new
+    @cip = Cip.new
+  end
+
+  def create
+    @cip = Cip.new
+
+
+    @cip.deal_id = params[:deal_id]
+    @cip.cip_date = params[:cip_date]
+    @cip.image_id = params[:image_id]
+    @cip.name = params[:name]
+
+
+    if @cip.save
+      redirect_to "/cips", :notice => "CIP created successfully."
+    else
+      render 'new'
+    end
+  end
+
+  def copy_layout
+    @cip = Cip.find(params[:cip_id])
+    @slide_layout = SlideLayout.new
+
+    @slide_layout.name = @cip.name
+    @slide_layout.date = Date.today
+    @slide_layout.user_id = current_user.id
+    @slide_layout.deal_id = @cip.deal_id
+
+    if @slide_layout.save
+      @cip.slides.each do |slide|
+        sls = SlideLayoutSlide.new
+        sls.slide_id = slide.id
+        sls.slide_layout_id = @slide_layout.id
+        sls.save
+      end
+      redirect_to "/slide_layouts/#{@slide_layout.id}", :notice => "CIP Layout copied successfully."
+    else
+      render 'new'
+    end
+  end
+
+  def edit
+    @cip = Cip.find(params[:id])
+  end
+
+  def update
+    @cip = Cip.find(params[:id])
+
+    @cip.deal_id = params[:deal_id]
+    @cip.cip_date = params[:cip_date]
+    @cip.image_id = params[:image_id]
+    @cip.name = params[:name]
+
+    if @cip.save
+      redirect_to "/cips", :notice => "CIP updated successfully."
+    else
+      render 'edit'
+    end
+  end
+
+  def destroy
+    @cip = Cip.find(params[:id])
+
+    @cip.destroy
+
+    redirect_to "/cips", :notice => "CIP deleted."
+  end
+
+  def import
+    Cip.import(params[:file])
+    redirect_to "/cips/", notice: "CIPs imported"
+  end
+end
