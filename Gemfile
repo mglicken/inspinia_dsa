@@ -12,6 +12,9 @@ gem 'font-awesome-rails', '4.7.0.1'
 gem 'pg', '~> 0.21.0'
 gem 'rails_12factor'
 
+# Devise for Users
+gem 'devise'
+
 # Use SCSS for stylesheets
 gem 'sass-rails', '~> 5.0.4'
 

@@ -1,7 +1,8 @@
 Myapp::Application.routes.draw do
 
+  devise_for :users
  # You can have the root of your site routed with "root"
-  root 'people#access_dashboard'
+  root 'people#models'
   get "/admin/", :controller => "accesses", :action => "admin"
   get "/models/", :controller => "people", :action => "models"
   get "/download/:id", :controller => "accesses", :action => "download_data"
