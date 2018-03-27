@@ -59,6 +59,6 @@ class CaseStudySlidesController < ApplicationController
 
   def import
     CaseStudySlide.import(params[:file])
-    redirect_to "/case_study_slides/", notice: "Case Study Slides imported"
+    redirect_to "/models/", notice: "Case Study Slides imported"
   end
 end

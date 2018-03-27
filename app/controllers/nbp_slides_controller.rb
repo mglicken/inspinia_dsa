@@ -60,6 +60,6 @@ class NbpSlidesController < ApplicationController
 
   def import
     NbpSlide.import(params[:file])
-    redirect_to "/nbp_slides/", notice: "NBP Slides imported."
+    redirect_to "/models/", notice: "NBP Slides imported."
   end
 end

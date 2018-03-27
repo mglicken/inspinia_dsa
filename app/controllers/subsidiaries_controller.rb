@@ -78,6 +78,6 @@ class SubsidiariesController < ApplicationController
 
   def import
     Subsidiary.import(params[:file])
-    redirect_to "/subsidiaries/", notice: "Subsidiaries imported."
+    redirect_to "/models/", notice: "Subsidiaries imported."
   end
 end

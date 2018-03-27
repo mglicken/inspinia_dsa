@@ -72,6 +72,6 @@ class FavoriteSlidesController < ApplicationController
 
   def import
     FavoriteSlide.import(params[:file])
-    redirect_to "/favorite_slides/", notice: "Favorite Slides imported"
+    redirect_to "/models/", notice: "Favorite Slides imported"
   end
 end

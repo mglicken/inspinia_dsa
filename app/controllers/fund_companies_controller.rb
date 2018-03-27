@@ -80,6 +80,6 @@ class FundCompaniesController < ApplicationController
 
   def import
     FundCompany.import(params[:file])
-    redirect_to "/fund_companies/", notice: "Fund Companies imported"
+    redirect_to "/models/", notice: "Fund Companies imported"
   end
 end

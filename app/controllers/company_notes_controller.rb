@@ -65,6 +65,6 @@ class CompanyNotesController < ApplicationController
 
   def import
     CompanyNote.import(params[:file])
-    redirect_to "/company_notes/", notice: "Company Notes imported"
+    redirect_to "/models/", notice: "Company Notes imported"
   end
 end

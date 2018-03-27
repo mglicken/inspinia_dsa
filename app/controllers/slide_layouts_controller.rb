@@ -134,6 +134,6 @@ class SlideLayoutsController < ApplicationController
 
   def import
     SlideLayout.import(params[:file])
-    redirect_to "/slide_layouts/", notice: "Slide Layouts imported."
+    redirect_to "/models/", notice: "Slide Layouts imported."
   end
 end

@@ -58,6 +58,6 @@ class MpSlidesController < ApplicationController
 
   def import
     MpSlide.import(params[:file])
-    redirect_to "/mp_slides/", notice: "MP Slides imported"
+    redirect_to "/models/", notice: "MP Slides imported"
   end
 end

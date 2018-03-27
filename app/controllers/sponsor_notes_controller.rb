@@ -60,7 +60,7 @@ class SponsorNotesController < ApplicationController
 
     @sponsor_note.destroy
 
-    redirect_to "/sponsor_notes", :notice => "Sponsor Note deleted."
+    redirect_to "/models", :notice => "Sponsor Note deleted."
   end
 
   def import

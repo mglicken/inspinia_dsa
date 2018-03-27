@@ -44,7 +44,7 @@ class DealsController < ApplicationController
         @tag_ids.push(tag.id)
       end
     end
-    @slides = Slide.where(SlideTag.where(tag_id: @tags).pluck(:slide_id).uniq)
+    
     
     @deal_ids = []
     Deal.all.each do |deal|
@@ -107,6 +107,9 @@ class DealsController < ApplicationController
       end
     end
     @fund_ids = @fund_ids.uniq
+
+    @slide_ids = (SlideTag.where(tag_id: @tag_ids).pluck(:slide_id) + NbpSlide.where(nbp_id: @nbp_ids).pluck(:slide_id) + CipSlide.where(cip_id: @cip_ids).pluck(:slide_id) + MpSlide.where(mp_id: @mp_ids).pluck(:slide_id)).uniq
+    @slides = Slide.where(id: @slide_ids)
 
     @person_ids = []
     Person.all.each do |person|
@@ -192,6 +195,6 @@ class DealsController < ApplicationController
 
   def import
     Deal.import(params[:file])
-    redirect_to "/deals/", notice: "Deals imported"
+    redirect_to "/models/", notice: "Deals imported"
   end
 end

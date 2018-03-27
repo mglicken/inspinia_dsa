@@ -76,7 +76,6 @@ class NbpCompaniesController < ApplicationController
           i=i+1
         end
     end
-
    
     if @nbp_company.save
       redirect_to "/nbps/#{@nbp.id}/companies", :notice => "Strategic Buyer buckets updated successfully!"
@@ -102,6 +101,6 @@ class NbpCompaniesController < ApplicationController
 
   def import
     NbpCompany.import(params[:file])
-    redirect_to "/nbp_companies/", notice: "NBP Companies imported."
+    redirect_to "/models/", notice: "NBP Companies imported."
   end
 end

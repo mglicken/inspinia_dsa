@@ -65,6 +65,6 @@ class PersonNotesController < ApplicationController
 
   def import
     PersonNote.import(params[:file])
-    redirect_to "/person_notes/", notice: "Person Notes imported"
+    redirect_to "/models/", notice: "Person Notes imported"
   end
 end

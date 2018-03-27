@@ -1,22 +1,7 @@
 
-<br>
-<br>
-<!-- Responsive, Isotope-based layout example -->
-  <%if @buckets.count < 4%>
-    <%= render('shared/create_bucket_modal',nbp: @nbp) %>
-  <%end%>
-
-<form method="get" class="form-horizontal" id="nbp-cos-form-id" name="nbp-cos-form-name"> 
-<!-- Hidden input for authenticity token to protect from forgery -->
-  <button class="btn btn-primary" id="nbp-cos-button-id">
-    Save Strategic Buyer Bucket Layout
-  </button>
-</form>
-
-<% no_buckets = @buckets.count %>
-<% size_perc = "#{100/@buckets.count}" %> 
+<% number_buckets = @buckets.count %>
+<% size_perc = "#{100/@buckets.count}%"%> 
 <% size = "#{12/ @buckets.count }" %> 
-<br>
 <br>
 
 <div class="row container">
@@ -24,7 +9,8 @@
     <thead>
       <tr>
         <% @buckets.each do |bucket| %>
-          <td class="panel" style="text-align: center; border-width: 3px; border-color: #FFFFFF; background-color: #006b6e; color: #ffffff; padding: 20px; width:<%= size_perc %>"><strong><%= render('shared/edit_bucket_modal',nbp: @nbp,bucket: bucket) %></strong>
+          <td class="panel col" style="text-align: center; border-width: 3px; border-color: #FFFFFF; background-color: #006b6e; color: #ffffff; padding: 20px; width:<%= size_perc%>">
+            <strong><%= render('shared/edit_bucket_modal',nbp: @nbp, bucket: bucket) %></strong>
           </td>
         <% end %>
       </tr>
@@ -69,32 +55,32 @@
     </div>
   <% end %>
   <div class="row container panel panel-default" style="border-color: #f2f2f2; border-width: 2px;">
-    <% for j in 1..no_buckets %>
+    <% for j in 1..number_buckets %>
       <div class="col-lg-<%= size %> connectedSortable" id="sortable<%=i.to_s + j.to_s%>" style="text-align:center; padding-top:15px; border-color: #f2f2f2; border-width: 10px; font-size: 10px;">
         <% Company.where(id: @nbp_companies.where(bucket_id: @buckets[j-1].id, tier_id: i).pluck(:company_id)).order('name ASC').each do |company| %>
           <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 isotope-item" id="<%=NbpCompany.find_by(company_id: company.id, bucket_id: @nbp.buckets[j-1].id).id %>">
             <%if company.nbp_companies.find_by(bucket_id: @nbp.buckets[j-1].id).tier_id == 1 %>
-              <div class="panel panel-success">
+              <div class="panel panel-primary">
             <%elsif company.nbp_companies.find_by(bucket_id: @nbp.buckets[j-1].id).tier_id == 2 %>
-              <div class="panel panel-info">
+              <div class="panel panel-success">
             <%elsif company.nbp_companies.find_by(bucket_id: @nbp.buckets[j-1].id).tier_id == 3 %>
               <div class="panel panel-warning">
             <%else%>
               <div class="panel panel-danger">
             <%end%>
-              <div class="panel-heading" style="padding-top:5px; padding-bottom:5px;">
+              <div class="panel-heading" style="padding-top:5px; padding-bottom:5px; color:#FFFFFF;">
                 <div class="pull-right">
                   <div class="btn-group btn-group">
                     <%= link_to content_tag(:i,nil,class: 'fa fa-times'), "/delete_nbp_company/#{ company.nbp_companies.find_by(bucket_id: @nbp.buckets[j-1].id).id }", :class => "btn", :style=> "padding-top:0px;", :remote => true  %>
                     </div>
                 </div>
-                <strong><a href="/companies/<%= company.id %>"><%= company.name %></a></strong>
-          </div>
+                <strong style="color:#FFFFFF" ><a href="/companies/<%= company.id %>"><%= company.name %></a></strong>
+              </div>
               <div class="panel-body" style="padding-top:5px; padding-bottom:5px;">
                 <div class="row">
                   <div class="col-md-12">
 
-                    Content
+                    Strip Content
 
                   </div>
                 </div>
@@ -103,9 +89,9 @@
           </div>
         <% end %>
       </div>
-    <%end%>
+    <% end %>
   </div>
-<%end%>
+<% end %>
 
 
   <script src="https://code.jquery.com/jquery-1.12.4.js"></script>

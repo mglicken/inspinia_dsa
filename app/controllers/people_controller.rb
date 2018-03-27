@@ -219,6 +219,6 @@ class PeopleController < ApplicationController
   end
   def import
     Person.import(params[:file])
-    redirect_to "/people/", notice: "People imported"
+    redirect_to "/models/", notice: "People imported"
   end
 end

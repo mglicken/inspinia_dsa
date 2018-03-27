@@ -102,6 +102,6 @@ class CipsController < ApplicationController
 
   def import
     Cip.import(params[:file])
-    redirect_to "/cips/", notice: "CIPs imported"
+    redirect_to "/models/", notice: "CIPs imported"
   end
 end

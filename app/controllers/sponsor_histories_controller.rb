@@ -74,6 +74,6 @@ class SponsorHistoriesController < ApplicationController
 
   def import
     SponsorHistory.import(params[:file])
-    redirect_to "/sponsor_histories/", notice: "Sponsor Histories imported"
+    redirect_to "/models/", notice: "Sponsor Histories imported"
   end
 end

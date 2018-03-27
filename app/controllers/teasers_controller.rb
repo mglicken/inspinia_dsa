@@ -84,6 +84,6 @@ class TeasersController < ApplicationController
 
   def import
     Teaser.import(params[:file])
-    redirect_to "/teasers/", notice: "Teasers imported."
+    redirect_to "/models/", notice: "Teasers imported."
   end
 end

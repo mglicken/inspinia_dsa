@@ -72,6 +72,6 @@ class SlideTagsController < ApplicationController
 
   def import
     SlideTag.import(params[:file])
-    redirect_to "/slide_tags/", notice: "Slide Tags imported."
+    redirect_to "/models/", notice: "Slide Tags imported."
   end
 end

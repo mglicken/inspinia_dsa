@@ -72,6 +72,6 @@ class CompanyFollowsController < ApplicationController
 
   def import
     CompanyFollow.import(params[:file])
-    redirect_to "/company_follows/", notice: "Company Follows imported"
+    redirect_to "/models/", notice: "Company Follows imported"
   end
 end

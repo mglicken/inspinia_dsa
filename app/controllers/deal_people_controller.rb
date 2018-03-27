@@ -74,6 +74,6 @@ class DealPeopleController < ApplicationController
 
   def import
     DealPerson.import(params[:file])
-    redirect_to "/deal_people/", notice: "Deal People imported"
+    redirect_to "/models/", notice: "Deal People imported"
   end
 end

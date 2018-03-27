@@ -40,13 +40,34 @@ class SlidesController < ApplicationController
 
   def search
     @text = params[:search].downcase
-    @tags = []
+    @tag_ids = []
     Tag.all.each do |tag|
       if tag.name.downcase.include? @text
-        @tags.push(tag.id)
+        @tag_ids.push(tag.id)
       end
     end
-    @slides = Slide.where(id: SlideTag.where(tag_id: @tags).pluck(:slide_id).uniq)
+    @nbp_ids = []
+    Nbp.all.each do |nbp|
+      if nbp.name.downcase.include? @text
+        @nbp_ids.push(nbp.id)
+      end
+    end
+    @cip_ids = []
+    Cip.all.each do |cip|
+      if cip.name.downcase.include? @text
+        @cip_ids.push(cip.id)
+      end
+    end
+
+    @mp_ids = []
+    Mp.all.each do |mp|
+      if mp.name.downcase.include? @text
+        @mp_ids.push(mp.id)
+      end
+    end
+    @slide_ids = (SlideTag.where(tag_id: @tag_ids).pluck(:slide_id) + NbpSlide.where(nbp_id: @nbp_ids).pluck(:slide_id) + CipSlide.where(cip_id: @cip_ids).pluck(:slide_id) + MpSlide.where(mp_id: @mp_ids).pluck(:slide_id)).uniq
+    @slides = Slide.where(id: @slide_ids)
+    
   end
 
   def new
@@ -250,6 +271,6 @@ class SlidesController < ApplicationController
 
   def import
     Slide.import(params[:file])
-    redirect_to "/slides/", notice: "Slides imported."
+    redirect_to "/models/", notice: "Slides imported."
   end
 end

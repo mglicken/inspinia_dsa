@@ -8,7 +8,7 @@
 <br>
 
 <div class="row isotope-container">
-<% @nbp.slides.each do |slide| %>
+<% @nbp.slides.order("number ASC").each do |slide| %>
   <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4 isotope-item">
     <div class="panel panel-default">
       <div class="pull-right">

@@ -58,6 +58,6 @@ class NbpSponsorsController < ApplicationController
 
   def import
     NbpSponsor.import(params[:file])
-    redirect_to "/nbp_sponsors/", notice: "NBP Sponsors imported."
+    redirect_to "/models/", notice: "NBP Sponsors imported."
   end
 end

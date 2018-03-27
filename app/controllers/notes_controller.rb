@@ -92,6 +92,6 @@ class NotesController < ApplicationController
 
   def import
     Note.import(params[:file])
-    redirect_to "/notes/", notice: "Notes imported."
+    redirect_to "/models/", notice: "Notes imported."
   end
 end

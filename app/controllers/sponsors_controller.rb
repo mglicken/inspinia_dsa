@@ -145,7 +145,7 @@ class SponsorsController < ApplicationController
   end
   def import
     Sponsor.import(params[:file])
-    redirect_to "/sponsors/", notice: "Sponsors imported"
+    redirect_to "/models/", notice: "Sponsors imported"
   end
 
 end

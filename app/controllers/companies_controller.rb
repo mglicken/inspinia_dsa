@@ -162,6 +162,6 @@ class CompaniesController < ApplicationController
   
   def import
     Company.import(params[:file])
-    redirect_to "/companies/", notice: "Companies imported"
+    redirect_to "/models/", notice: "Companies imported"
   end
 end

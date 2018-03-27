@@ -101,6 +101,6 @@ class MpsController < ApplicationController
 
   def import
     Mp.import(params[:file])
-    redirect_to "/mps/", notice: "MPs imported"
+    redirect_to "/models/", notice: "MPs imported"
   end
 end

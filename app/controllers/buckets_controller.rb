@@ -70,7 +70,7 @@ class BucketsController < ApplicationController
   end
   def import
     Bucket.import(params[:file])
-    redirect_to "/buckets/", notice: "Buckets imported"
+    redirect_to "/models/", notice: "Buckets imported"
   end
 
 end

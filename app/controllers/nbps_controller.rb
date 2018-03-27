@@ -41,6 +41,10 @@ class NbpsController < ApplicationController
     @nbp_companies = @nbp.nbp_companies
     @companies = @nbp.companies
     @buckets = @nbp.buckets
+    respond_to do |format|
+      format.html
+      format.csv {send_data @nbp_companies.to_csv_client }
+    end
   end
 
   def new
@@ -118,6 +122,6 @@ class NbpsController < ApplicationController
 
   def import
     Nbp.import(params[:file])
-    redirect_to "/nbps/", notice: "NBPs imported."
+    redirect_to "/models/", notice: "NBPs imported."
   end
 end

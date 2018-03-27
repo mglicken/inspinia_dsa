@@ -65,6 +65,6 @@ class TagsController < ApplicationController
   end
   def import
     Tag.import(params[:file])
-    redirect_to "/tags/", notice: "Tags imported"
+    redirect_to "/models/", notice: "Tags imported"
   end
 end

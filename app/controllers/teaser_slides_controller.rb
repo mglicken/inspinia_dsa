@@ -59,6 +59,6 @@ class TeaserSlidesController < ApplicationController
 
   def import
     TeaserSlide.import(params[:file])
-    redirect_to "/teaser_slides/", notice: "Teaser Slides imported."
+    redirect_to "/models/", notice: "Teaser Slides imported."
   end
 end

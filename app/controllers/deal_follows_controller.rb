@@ -72,6 +72,6 @@ class DealFollowsController < ApplicationController
 
   def import
     DealFollow.import(params[:file])
-    redirect_to "/deal_follows/", notice: "Deal Follows imported"
+    redirect_to "/models/", notice: "Deal Follows imported"
   end
 end

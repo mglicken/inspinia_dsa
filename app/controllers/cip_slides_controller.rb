@@ -75,6 +75,6 @@ class CipSlidesController < ApplicationController
   
   def import
     CipSlide.import(params[:file])
-    redirect_to "/cip_slides/", notice: "CIP Slides imported"
+    redirect_to "/models/", notice: "CIP Slides imported"
   end
 end

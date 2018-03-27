@@ -82,6 +82,6 @@ class CaseStudiesController < ApplicationController
 
   def import
     CaseStudy.import(params[:file])
-    redirect_to "/case_studies/", notice: "Case Studies imported"
+    redirect_to "/models/", notice: "Case Studies imported"
   end
 end

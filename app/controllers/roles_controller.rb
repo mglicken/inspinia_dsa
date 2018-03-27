@@ -54,7 +54,7 @@ class RolesController < ApplicationController
 
   def import
     Role.import(params[:file])
-    redirect_to "/roles/", notice: "Roles imported"
+    redirect_to "/models/", notice: "Roles imported"
   end
 
 end

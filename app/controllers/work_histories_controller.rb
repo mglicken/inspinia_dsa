@@ -74,6 +74,6 @@ class WorkHistoriesController < ApplicationController
 
   def import
     WorkHistory.import(params[:file])
-    redirect_to "/work_histories/", notice: "Work Histories imported"
+    redirect_to "/models/", notice: "Work Histories imported"
   end
 end

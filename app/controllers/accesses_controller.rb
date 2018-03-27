@@ -178,6 +178,6 @@ class AccessesController < ApplicationController
 
   def import
     Access.import(params[:file])
-    redirect_to "/accesses/", notice: "Accesses imported"
+    redirect_to "/models/", notice: "Accesses imported"
   end
 end
