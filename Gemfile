@@ -15,6 +15,9 @@ gem 'rails_12factor'
 # Devise for Users
 gem 'devise'
 
+# Use cloudinary for manipulating pdfs
+gem 'cloudinary'
+
 # Use SCSS for stylesheets
 gem 'sass-rails', '~> 5.0.4'
 
