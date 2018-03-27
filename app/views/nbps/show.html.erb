@@ -32,10 +32,11 @@
 
             </dl>
             <div class="btn-group btn-group-justified">
-              <a href="/nbps" class="btn btn-lincoln">
-                <i class="fa fa-reply"></i>
-              </a>
-
+              <% if current_user.access_id <= 2 %>
+                <a href="/nbps" class="btn btn-lincoln">
+                  <i class="fa fa-reply"></i>
+                </a>
+              <% end %>
               <%= render('shared/edit_nbp_modal', :nbp => @nbp)%>
 
               </a>

@@ -20,19 +20,18 @@
   <div class="col-xs-12 col-sm-6 col-md-4 col-lg-4 isotope-item">
     <div class="panel panel-default">
       <div class="panel-heading" >
-        <h3 class="panel-title" style="font-size:12px"><%= nbp.name %></h3>
+        <h3 class="panel-title" style="font-size:12px"><a href="/nbps/<%=nbp.id%>"><%= nbp.name %></a></h3>
       </div>
       <div class="panel-body" >
         <div class="row">
 
           <div class="col-md-12">
-            <dl class="dl-horizontal" style="font-size:10px" >
+            <dl style="font-size:10px" >
 
-              <dt>Deal</dt>
-              <dd><a href="/deals/<%=nbp.deal.id %>"><%= nbp.deal.name %></a></dd>
-              <dt>NBP</dt>
-              <dd> <a href="/nbps/<%=nbp.id %>"><%= nbp.nbp_date %></a></dd>
-
+              <dt>Deal: <a href="/deals/<%=nbp.deal.id %>"><%= nbp.deal.name %></a></dt>
+              <dt>Slides: <a href="/nbps/<%=nbp.id %>"><%= nbp.slides.count %> Slides </a></dt>
+              <dt>Strategic Acquirers: <a href="/nbps/<%=nbp.id %>/companies"><%= NbpCompany.where(nbp_id: nbp.id).count %></a></dt>
+              <dt>Financial Acquirers: <a href="/nbps/<%=nbp.id %>/sponsors"><%= NbpSponsor.where(nbp_id: nbp.id).count %></a></dt>
 
             </dl>
             <div class="btn-group btn-group-justified">

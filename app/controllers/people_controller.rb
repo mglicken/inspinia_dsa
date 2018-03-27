@@ -74,6 +74,8 @@ class PeopleController < ApplicationController
   end
   def show
     @person = Person.find(params[:id])
+    @deals = Deal.where(id: DealPerson.where(deal_id: Nbp.all.order("nbp_date DESC").pluck(:deal_id),person_id: @person.id).pluck(:deal_id).uniq)
+
   end
 
   def new

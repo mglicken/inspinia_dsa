@@ -38,80 +38,80 @@ class DealsController < ApplicationController
   def search_all
     @text = params[:search].downcase
     
-    @tags = []
+    @tag_ids = []
     Tag.all.each do |tag|
       if tag.name.downcase.include? @text
-        @tags.push(tag.id)
+        @tag_ids.push(tag.id)
       end
     end
-    @slides = Slide.find(SlideTag.where(tag_id: @tags).pluck(:slide_id).uniq)
+    @slides = Slide.where(SlideTag.where(tag_id: @tags).pluck(:slide_id).uniq)
     
-    @deals = []
+    @deal_ids = []
     Deal.all.each do |deal|
       if deal.name.downcase.include? @text
-        @deals.push(deal.id)
+        @deal_ids.push(deal.id)
       end
     end
     
-    @nbps = []
+    @nbp_ids = []
     Nbp.all.each do |nbp|
       if nbp.name.downcase.include? @text
-        @nbps.push(nbp.id)
+        @nbp_ids.push(nbp.id)
       end
     end
 
-    @notes = []
+    @note_ids = []
     Note.all.each do |note|
       if note.detail.downcase.include? @text
-        @notes.push(note.id)
+        @note_ids.push(note.id)
       end
     end
 
-    @cips = []
+    @cip_ids = []
     Cip.all.each do |cip|
       if cip.name.downcase.include? @text
-        @cips.push(cip.id)
+        @cip_ids.push(cip.id)
       end
     end
 
-    @mps = []
+    @mp_ids = []
     Mp.all.each do |mp|
       if mp.name.downcase.include? @text
-        @mps.push(mp.id)
+        @mp_ids.push(mp.id)
       end
     end
 
-    @companies = []
+    @company_ids = []
     Company.all.each do |company|
       if company.name.downcase.include? @text
-        @companies.push(company.id)
+        @company_ids.push(company.id)
       end
     end
     
-    @sponsors = []
+    @sponsor_ids = []
     Sponsor.all.each do |sponsor|
       if sponsor.name.downcase.include? @text
-        @sponsors.push(sponsor.id)
+        @sponsor_ids.push(sponsor.id)
       end
     end
     
-    @funds = []
+    @fund_ids = []
     Fund.all.each do |fund|
       if fund.name.downcase.include? @text
-        @funds.push(fund.id)
+        @fund_ids.push(fund.id)
       end
     end
-    Sponsor.where(id: @sponsors).each do |sponsor|
+    Sponsor.where(id: @sponsor_ids).each do |sponsor|
       sponsor.funds.each do |fund|
-        @funds.push(fund.id)
+        @fund_ids.push(fund.id)
       end
     end
-    @funds = @funds.uniq
+    @fund_ids = @fund_ids.uniq
 
-    @people = []
+    @person_ids = []
     Person.all.each do |person|
       if person.name.downcase.include? @text
-        @people.push(person.id)
+        @person_ids.push(person.id)
       end
     end
   end
