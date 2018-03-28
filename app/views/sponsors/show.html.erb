@@ -36,19 +36,22 @@
               </dd>
               <dt>Type:</dt>
               <dd><%= @sponsor.sponsor_type %></dd>
-              <dt>Description:</dt>
-              <% if @sponsor.description.length <= 600 %>
-                <dd> <address>
-                    <%= @sponsor.description %>
-                    </address>                                  
-                </dd>
-              <% else %>
-                <dd> <address>
-                    <%= @sponsor.description[0..599] %>...<br>
-                    <%= render('shared/content_modal', :content => @sponsor.description, :title => "#{@sponsor.name} Description")%>
-                    </address>                                  
-                </dd>
-              <% end %>  
+              <% if @sponsor.description.present? %>
+                <dt>Description:</dt>
+                <% if @sponsor.description.length <= 600 %>
+                  <dd> <address>
+                      <%= @sponsor.description %>
+                      </address>                                  
+                  </dd>
+                <% else %>
+                  <dd> <address>
+                      <%= @sponsor.description[0..599] %>...<br>
+                      <%= render('shared/content_modal', :content => @sponsor.description, :title => "#{@sponsor.name} Description")%>
+                      </address>                                  
+                  </dd>
+                <% end %>
+              <% end %>
+
             </dl>
             <div class="btn-group btn-group-justified">
               <a href="/sponsors" class="btn btn-lincoln">

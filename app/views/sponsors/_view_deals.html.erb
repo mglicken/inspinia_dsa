@@ -1,5 +1,5 @@
 <div class="row container">
-<% @deals.order("nbp_date DESC").each do |deal| %>
+<% @deals.order("id DESC").each do |deal| %>
   <div class="col-xs-12 col-sm-6 col-md-4 col-lg-4 isotope-item">
     <div class="panel panel-default">
       <div class="panel-heading" >
@@ -17,7 +17,7 @@
               <dt>Company</dt>
               <dd><a href="/companies/<%=deal.company.id %>"><%= deal.company.name %></a></dd>
               <dt>NBPs</dt>
-                <% Nbp.where(deal_id: deal).order("nbp_date DESC").each do |nbp| %>
+                <% Nbp.where(deal_id: deal).order("id DESC").each do |nbp| %>
                   <% if NbpSlide.where(nbp_id: nbp.id).present? %>
                     <dd> <a href="/nbps/<%=nbp.id %>"><%= nbp.nbp_date%></a></dd>
                   <% else %>
@@ -25,7 +25,7 @@
                   <% end %>
                 <% end %>
                 <dt>CIPs</dt>
-                <% Cip.where(deal_id: deal).order("cip_date DESC").each do |cip| %>
+                <% Cip.where(deal_id: deal).order("id DESC").each do |cip| %>
                   <% if CipSlide.where(cip_id: cip.id).present? %>
                     <dd> <a href="/cips/<%=cip.id %>"><%= cip.cip_date%></a></dd>
                   <% else %>
@@ -33,7 +33,7 @@
                   <% end %>
                 <% end %>
                 <dt>MPs</dt>
-                <% Mp.where(deal_id: deal).order("mp_date DESC").each do |mp| %>
+                <% Mp.where(deal_id: deal).order("id DESC").each do |mp| %>
                   <% if MpSlide.where(mp_id: mp.id).present? %>
                     <dd> <a href="/mps/<%=mp.id %>"><%= mp.mp_date%></a></dd>
                   <% else %>

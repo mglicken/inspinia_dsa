@@ -21,7 +21,6 @@ class FundCompaniesController < ApplicationController
     @fund_company = FundCompany.new
     @fund_company.fund_id = params[:fund_id]
     @fund_company.company_id = params[:company_id]
-    @fund_company.size = params[:size]
     @fund_company.acquisition_date = params[:acquisition_date]
     @fund_company.acquisition_price = params[:acquisition_price]
     @fund_company.link = params[:link]
@@ -52,7 +51,6 @@ class FundCompaniesController < ApplicationController
 
     @fund_company.fund_id = params[:fund_id]
     @fund_company.company_id = params[:company_id]
-    @fund_company.size = params[:size]
     @fund_company.acquisition_date = params[:acquisition_date]
     @fund_company.acquisition_price = params[:acquisition_price]
     @fund_company.link = params[:link]
