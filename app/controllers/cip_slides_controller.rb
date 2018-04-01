@@ -1,4 +1,15 @@
 class CipSlidesController < ApplicationController
+
+before_action :ensure_access
+
+  def ensure_access
+    if current_user.access_id.present?
+      if current_user.access_id > 3
+        redirect_to root_url, :alert => "Not Authorized"
+      end
+    end
+  end
+
   def index
     @cip_slides = CipSlide.all
 

@@ -1,26 +1,39 @@
 class PeopleController < ApplicationController
 
-#before_action :ensure_access,  only: [:access_dashboard,:update_access,:update_user]
-#before_action :ensure_access_destroy,  only: [:destroy]
+before_action :ensure_admin_access,  only: [:models, :index, :access_dashboard, :update_user, :update_access,:destroy, :import]
+before_action :ensure_banker_access,  only: [:new, :create, :create_work_history, :create_sponsor_history, :edit, :update, :update_work_history, :update_sponsor_history]
+before_action :ensure_view_access,  only: [:user_dashboard, :search, :show]
 
-  def ensure_access
+  def ensure_admin_access
     if current_user.access_id.present?
       if current_user.access_id > 2
-        redirect_to "/dashboard"
+        redirect_to root_url, :alert => "Not Authorized"
       end
     end
   end
-  def ensure_access_destroy
-    if current_user.person.access_id.present?
-      if current_user.person.access_id > 2
-        redirect_to "/dashboard", :alert => "Not Authorized"
+
+  def ensure_banker_access
+    if current_user.access_id.present?
+      if current_user.access_id > 3
+        redirect_to root_url, :alert => "Not Authorized"
       end
     end
+  end
+
+  def ensure_view_access
+    if current_user.access_id.present?
+      if current_user.access_id > 4
+        redirect_to root_url, :alert => "Not Authorized"
+      end
+    end
+  end
+
+  def models
+
   end
 
   def index
     @people = Person.all
-
 
     respond_to do |format|
       format.html
@@ -31,14 +44,6 @@ class PeopleController < ApplicationController
   def access_dashboard
     @users = User.all.order("id ASC")
     @people=Person.all
-  end
-
-  def models
-#    if current_user.access_id.present?
-#      if current_user.access_id > 2
-#        redirect_to "/dashboard", :alert => "Not Authorized"
-#      end
-#    end
   end
 
   def user_dashboard
@@ -72,6 +77,7 @@ class PeopleController < ApplicationController
     end
     @people=Person.where(id: person_ids)
   end
+
   def show
     @person = Person.find(params[:id])
     @deals = Deal.where(id: DealPerson.where(deal_id: Nbp.all.order("nbp_date DESC").pluck(:deal_id),person_id: @person.id).pluck(:deal_id).uniq)
@@ -160,7 +166,7 @@ class PeopleController < ApplicationController
     end
   end
 
-  def update_spronsor_history
+  def update_sponsor_history
     @sponsor_history = SponsorHistory.find(params[:id])
     @sponsor_history.person_id = params[:person_id]  
     @sponsor_history.sponsor_id = params[:sponsor_id]  

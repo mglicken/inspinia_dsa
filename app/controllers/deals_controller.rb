@@ -1,4 +1,15 @@
 class DealsController < ApplicationController
+
+before_action :ensure_access
+
+  def ensure_access
+    if current_user.access_id.present?
+      if current_user.access_id > 3
+        redirect_to root_url, :alert => "Not Authorized"
+      end
+    end
+  end
+
   def index
     @deals = Deal.all
 
@@ -8,14 +19,6 @@ class DealsController < ApplicationController
     end
   end
 
-  def rgen
-    a = ["0","1","2","3","4","5","6","7","8","9","a","b","c","d","e","f","g","h","i","j","k","l","m","n","o","p","q","r","s","t","u","v","w","x","y","z"]
-    b=""
-    for i in 0..35
-      b=b+a[rand(35)]
-    end
-    @code = b 
-  end
   
   def dashboard
     @person = Person.find(7)
