@@ -69,7 +69,7 @@
             </div>
         </div>
         <div class="ibox-content ibox-heading">
-            <h3><i class="fa fa-envelope-o"></i> New messages</h3>
+            <h3><i class="fa fa-envelope-o"></i> Notes Added</h3>
             <small><i class="fa fa-tim"></i> You have <%=@notes.count%> notes.</small>
         </div>
         <div class="ibox-content">
@@ -78,8 +78,16 @@
                 <% @notes.order('date ASC').each do |note| %>
                 <div class="feed-element">
                     <div>
-                        <small class="pull-right text-navy"><% note.date %></small>
-                        <strong>Monica Smith</strong>
+                        <small class="pull-right text-navy"><%= note.date %></small>
+                        <% note.companies.each do |company|%>
+                            <strong><%= company.name %></strong><br>
+                        <% end %>
+                        <% note.sponsors.each do |sponsor|%>
+                            <strong><%= sponsor.name %></strong><br>
+                        <% end %>
+                        <% note.people.each do |person|%>
+                            <span style="font-style: oblique"><%= person.name %></span><br>
+                        <% end %>
                         <div><%=note.detail%></div>
                     </div>
                 </div>
