@@ -49,10 +49,9 @@
     <!-- Wrapper-->
     <div id="wrapper" class="<%= params[:controller] %>.<%= params[:action] %>">
 
-        <%if current_user.present? %>
             <!-- Navigation -->
             <%= render 'layouts/navigation' %>
-        <% end %>
+
         <!-- Page wraper -->
         <div id="page-wrapper" class="gray-bg <%= @extra_class %>">
 
