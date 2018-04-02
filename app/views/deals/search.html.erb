@@ -30,18 +30,36 @@
 
               <dt>Company</dt>
               <dd><a href="/companies/<%=deal.company.id %>"><%= deal.company.name %></a></dd>
-              <% if deal.nbp_date.present? %>
-                <dt>NBP Date</dt>
-                <dd> <a href="/nbps/<%=Nbp.find_by(deal_id: deal.id).id %>"><%= deal.nbp_date %></a></dd>
-              <% end %>
-              <% if deal.cip_date.present? %>
-                <dt>CIP Date</dt>
-                <dd> <a href="/cips/<%=Cip.find_by(deal_id: deal.id).id %>"><%= deal.cip_date %></a></dd>
-              <% end %>
-              <% if deal.mp_date.present? %>              
-                <dt>MP Date</dt>
-                <dd> <a href="/mps/<%=Mp.find_by(deal_id: deal.id).id %>"><%= deal.mp_date %></a></dd>
-              <% end %>
+              <dt>Project Alias</dt>
+              <dd><%= deal.project_alias %></dd>
+              <dt>Project Code</dt>
+              <dd><%= deal.project_code %></dd>
+              <dt>Company</dt>
+              <dd><a href="/companies/<%=deal.company.id %>"><%= deal.company.name %></a></dd>
+              <dt>NBPs</dt>
+                <% Nbp.where(deal_id: deal).order("nbp_date DESC").each do |nbp| %>
+                  <% if NbpSlide.where(nbp_id: nbp.id).present? %>
+                    <dd> <a href="/nbps/<%=nbp.id %>"><%= nbp.name%> (<%= nbp.nbp_date%>)</a></dd>
+                  <% else %>
+                    <dd> <a href="/nbps/<%=nbp.id %>">No Documents Uploaded</a></dd>
+                  <% end %>
+                <% end %>
+                <dt>CIPs</dt>
+                <% Cip.where(deal_id: deal).order("cip_date DESC").each do |cip| %>
+                  <% if CipSlide.where(cip_id: cip.id).present? %>
+                    <dd> <a href="/cips/<%=cip.id %>"><%= cip.name%> (<%= cip.cip_date%>)</a></dd>
+                  <% else %>
+                    <dd> <a href="/cips/<%=cip.id %>"> No Documents Uploaded</a></dd>
+                  <% end %>
+                <% end %>
+                <dt>MPs</dt>
+                <% Mp.where(deal_id: deal).order("mp_date DESC").each do |mp| %>
+                  <% if MpSlide.where(mp_id: mp.id).present? %>
+                    <dd> <a href="/mps/<%=mp.id %>"><%= mp.name%> (<%= mp.mp_date%>)</a></dd>
+                  <% else %>
+                    <dd> <a href="/mps/<%=mp.id %>">No Documents Uploaded</a></dd>
+                  <% end %>
+                <% end %>
 
             </dl>
             <div class="btn-group btn-group-justified">

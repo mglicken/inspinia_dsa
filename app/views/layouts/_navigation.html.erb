@@ -30,9 +30,11 @@
                 <ul class="nav nav-second-level collapse <%= is_active_controller('dashboards', 'in') %>">
                     <li class="<%= is_active_action('dashboard_1') %>"><%= link_to "Dashboard", '/dashboard' %></li>
                     <% if current_user.access_id <=2 %>
-                    <li class="<%= is_active_action('dashboard_3') %>"><%= link_to "Access Dashboard", '/access_dashboard' %></li>
-                    <li class="<%= is_active_action('dashboard_2') %>"><%= link_to "Upload Dashboard", '/models' %></li>
+                    <li ><%= link_to "Access Dashboard", '/access_dashboard' %></li>
+                    <li ><%= link_to "Upload Dashboard", '/models' %></li>
                     <% end %>
+                    <li class="<%= is_active_action('dashboard_2') %>"><%= link_to "Dashboard v.2", dashboards_dashboard_2_path %></li>
+                    <li class="<%= is_active_action('dashboard_3') %>"><%= link_to "Dashboard v.3", dashboards_dashboard_3_path %></li>
                     <li class="<%= is_active_action('dashboard_4_1') %>"><%= link_to "Dashboard v.4", dashboards_dashboard_4_1_path %></li>
                     <li class="<%= is_active_action('dashboard_5') %>"><%= link_to "Dashboard v.5", dashboards_dashboard_5_path %></li>
                 </ul>

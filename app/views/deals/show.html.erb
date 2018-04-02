@@ -13,6 +13,10 @@
 
               <dt>Company</dt>
               <dd><a href="/companies/<%= @deal.company.id %>"><%= @deal.company.name %></a></dd>
+              <dt>Project Alias</dt>
+              <dd><%= @deal.project_alias %></dd>
+              <dt>Project Code</dt>
+              <dd><%= @deal.project_code %></dd>
               <dt>NBPs</dt>
                 <% Nbp.where(deal_id: @deal).order("nbp_date DESC").each do |nbp| %>
                   <% if NbpSlide.where(nbp_id: nbp.id).present? %>
