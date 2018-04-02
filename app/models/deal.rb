@@ -32,7 +32,7 @@ has_many 	:people, :through => :deal_people
 		end
 	end
 	def self.import(file)
-		allowed_attributes = [ "name", "company_id"]
+		allowed_attributes = [ "name", "project_alias", "project_code", "company_id"]
 		CSV.foreach(file.path,headers: true) do |row|
 			deals = find_by_id(row["id"]) || new
 			
