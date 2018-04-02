@@ -3,10 +3,7 @@ Myapp::Application.routes.draw do
   devise_for :users
  # You can have the root of your site routed with "root"
   root 'people#user_dashboard'
-  devise_scope :user do
-    get '/login', to: 'devise/sessions#new'
-    delete '/logout', to: 'devise/sessions#destroy'
-  end
+
 
   get "/admin/", :controller => "accesses", :action => "admin"
   get "/models/", :controller => "people", :action => "models"
