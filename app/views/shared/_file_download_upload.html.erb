@@ -5,219 +5,219 @@
           Export <i class="fa fa-cloud-download"></i>
       </a>
   
-<!-- Button trigger modal -->
-<button type="button" class="btn btn-warning btn-default" data-toggle="modal" data-target="#myModalUpLoad_<%= path %>">
-  Import <i class="fa fa-upload"></i>
-</button>
+      <!-- Button trigger modal -->
+      <button type="button" class="btn btn-warning btn-default" data-toggle="modal" data-target="#myModalUpLoad_<%= path %>">
+        Import <i class="fa fa-upload"></i>
+      </button>
 
-<!-- Modal -->
-<div class="modal fade" id="myModalUpLoad_<%= path %>" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        <h4 class="modal-title" id="myModalLabel">Upload <%= path.capitalize %></h4>
+      <!-- Modal -->
+      <div class="modal fade" id="myModalUpLoad_<%= path %>" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+              <h4 class="modal-title" id="myModalLabel">Upload <%= path.capitalize %></h4>
+            </div>
+            <div class="modal-body">
+            <h5>
+            <% if path == "accesses" %>
+              <%= form_tag import_accesses_path, multipart: true do %>
+              <%= file_field_tag :file %><br>
+              <%= submit_tag "Import", class: "btn btn-warning btn-group-justified"%> 
+              <%end %>
+            <% elsif path == "buckets" %>
+              <%= form_tag import_buckets_path, multipart: true do %>
+              <%= file_field_tag :file %><br>
+              <%= submit_tag "Import", class: "btn btn-warning btn-group-justified"%> 
+              <%end %>
+            <% elsif path == "case_studies" %>
+              <%= form_tag import_case_studies_path, multipart: true do %>
+              <%= file_field_tag :file %><br>
+              <%= submit_tag "Import", class: "btn btn-warning btn-group-justified"%> 
+              <%end %>
+            <% elsif path == "case_study_slides" %>
+              <%= form_tag import_case_study_slides_path, multipart: true do %>
+              <%= file_field_tag :file %><br>
+              <%= submit_tag "Import", class: "btn btn-warning btn-group-justified"%> 
+              <%end %>
+            <% elsif path == "cips" %>
+              <%= form_tag import_cips_path, multipart: true do %>
+              <%= file_field_tag :file %><br>
+              <%= submit_tag "Import", class: "btn btn-warning btn-group-justified"%> 
+              <%end %>
+            <% elsif path == "cip_slides" %>
+              <%= form_tag import_cip_slides_path, multipart: true do %>
+              <%= file_field_tag :file %><br>
+              <%= submit_tag "Import", class: "btn btn-warning btn-group-justified"%> 
+              <%end %>
+            <% elsif path == "companies" %>
+              <%= form_tag import_companies_path, multipart: true do %>
+              <%= file_field_tag :file %><br>
+              <%= submit_tag "Import", class: "btn btn-warning btn-group-justified"%> 
+              <%end %>
+            <% elsif path == "company_follows" %>
+              <%= form_tag import_company_follows_path, multipart: true do %>
+              <%= file_field_tag :file %><br>
+              <%= submit_tag "Import", class: "btn btn-warning btn-group-justified"%> 
+              <%end %>
+            <% elsif path == "company_notes" %>
+              <%= form_tag import_company_notes_path, multipart: true do %>
+              <%= file_field_tag :file %><br>
+              <%= submit_tag "Import", class: "btn btn-warning btn-group-justified"%> 
+              <%end %>
+            <%elsif path == "deals" %>
+              <%= form_tag import_deals_path, multipart: true do %>
+              <%= file_field_tag :file %><br>
+              <%= submit_tag "Import", class: "btn btn-warning btn-group-justified"%>  
+              <%end %> 
+            <% elsif path == "deal_follows" %>
+              <%= form_tag import_deal_follows_path, multipart: true do %>
+              <%= file_field_tag :file %><br>
+              <%= submit_tag "Import", class: "btn btn-warning btn-group-justified"%> 
+              <%end %>
+            <% elsif path == "deal_people" %>
+              <%= form_tag import_deal_people_path, multipart: true do %>
+              <%= file_field_tag :file %><br>
+              <%= submit_tag "Import", class: "btn btn-warning btn-group-justified"%> 
+              <%end %>
+            <% elsif path == "favorite_slides" %>
+              <%= form_tag import_favorite_slides_path, multipart: true do %>
+              <%= file_field_tag :file %><br>
+              <%= submit_tag "Import", class: "btn btn-warning btn-group-justified"%> 
+              <%end %>
+            <% elsif path == "funds" %>
+              <%= form_tag import_funds_path, multipart: true do %>
+              <%= file_field_tag :file %><br>
+              <%= submit_tag "Import", class: "btn btn-warning btn-group-justified"%> 
+              <%end %>
+            <% elsif path == "fund_companies" %>
+              <%= form_tag import_fund_companies_path, multipart: true do %>
+              <%= file_field_tag :file %><br>
+              <%= submit_tag "Import", class: "btn btn-warning btn-group-justified"%> 
+              <%end %>
+            <% elsif path == "mps" %>
+              <%= form_tag import_mps_path, multipart: true do %>
+              <%= file_field_tag :file %><br>
+              <%= submit_tag "Import", class: "btn btn-warning btn-group-justified"%> 
+              <%end %>
+            <% elsif path == "mp_slides" %>
+              <%= form_tag import_mp_slides_path, multipart: true do %>
+              <%= file_field_tag :file %><br>
+              <%= submit_tag "Import", class: "btn btn-warning btn-group-justified"%> 
+              <%end %>
+            <% elsif path == "nbps" %>
+              <%= form_tag import_nbps_path, multipart: true do %>
+              <%= file_field_tag :file %><br>
+              <%= submit_tag "Import", class: "btn btn-warning btn-group-justified"%> 
+              <%end %>
+            <% elsif path == "nbp_slides" %>
+              <%= form_tag import_nbp_slides_path, multipart: true do %>
+              <%= file_field_tag :file %><br>
+              <%= submit_tag "Import", class: "btn btn-warning btn-group-justified"%> 
+              <%end %>
+            <%elsif path == "nbp_sponsors" %>
+              <%= form_tag import_nbp_sponsors_path, multipart: true do %>
+              <%= file_field_tag :file %><br>
+              <%= submit_tag "Import", class: "btn btn-warning btn-group-justified"%> 
+              <%end %>   
+            <%elsif path == "nbp_companies" %>
+              <%= form_tag import_nbp_companies_path, multipart: true do %>
+              <%= file_field_tag :file %><br>
+              <%= submit_tag "Import", class: "btn btn-warning btn-group-justified"%> 
+              <%end %>
+            <% elsif path == "notes" %>
+              <%= form_tag import_notes_path, multipart: true do %>
+              <%= file_field_tag :file %><br>
+              <%= submit_tag "Import", class: "btn btn-warning btn-group-justified"%> 
+              <%end %>
+            <%elsif path == "people" %>
+              <%= form_tag import_people_path, multipart: true do %>
+              <%= file_field_tag :file %><br>
+              <%= submit_tag "Import", class: "btn btn-warning btn-group-justified"%>  
+              <%end %>    
+            <% elsif path == "person_notes" %>
+              <%= form_tag import_person_notes_path, multipart: true do %>
+              <%= file_field_tag :file %><br>
+              <%= submit_tag "Import", class: "btn btn-warning btn-group-justified"%> 
+              <%end %>
+            <%elsif path == "roles" %>
+              <%= form_tag import_roles_path, multipart: true do %>
+              <%= file_field_tag :file %><br>
+              <%= submit_tag "Import", class: "btn btn-warning btn-group-justified"%> 
+              <%end %>
+            <% elsif path == "slides" %>
+              <%= form_tag import_slides_path, multipart: true do %>
+              <%= file_field_tag :file %><br>
+              <%= submit_tag "Import", class: "btn btn-warning btn-group-justified"%> 
+              <%end %>
+            <% elsif path == "slide_layouts" %>
+              <%= form_tag import_slide_layouts_path, multipart: true do %>
+              <%= file_field_tag :file %><br>
+              <%= submit_tag "Import", class: "btn btn-warning btn-group-justified"%> 
+              <%end %>
+            <% elsif path == "slide_layout_slides" %>
+              <%= form_tag import_slide_layout_slides_path, multipart: true do %>
+              <%= file_field_tag :file %><br>
+              <%= submit_tag "Import", class: "btn btn-warning btn-group-justified"%> 
+              <%end %>
+            <% elsif path == "slide_tags" %>
+              <%= form_tag import_slide_tags_path, multipart: true do %>
+              <%= file_field_tag :file %><br>
+              <%= submit_tag "Import", class: "btn btn-warning btn-group-justified"%> 
+              <%end %>
+            <%elsif path == "sponsors" %>
+              <%= form_tag import_sponsors_path, multipart: true do %>
+              <%= file_field_tag :file %><br>
+              <%= submit_tag "Import", class: "btn btn-warning btn-group-justified"%>  
+              <%end %>
+            <% elsif path == "sponsor_follows" %>
+              <%= form_tag import_sponsor_follows_path, multipart: true do %>
+              <%= file_field_tag :file %><br>
+              <%= submit_tag "Import", class: "btn btn-warning btn-group-justified"%> 
+              <%end %>
+            <% elsif path == "sponsor_histories" %>
+              <%= form_tag import_sponsor_histories_path, multipart: true do %>
+              <%= file_field_tag :file %><br>
+              <%= submit_tag "Import", class: "btn btn-warning btn-group-justified"%> 
+              <%end %>
+            <% elsif path == "sponsor_notes" %>
+              <%= form_tag import_sponsor_notes_path, multipart: true do %>
+              <%= file_field_tag :file %><br>
+              <%= submit_tag "Import", class: "btn btn-warning btn-group-justified"%> 
+              <%end %>
+            <% elsif path == "subsidiaries" %>
+              <%= form_tag import_subsidiaries_path, multipart: true do %>
+              <%= file_field_tag :file %><br>
+              <%= submit_tag "Import", class: "btn btn-warning btn-group-justified"%> 
+              <%end %>
+            <%elsif path == "tags" %>
+              <%= form_tag import_tags_path, multipart: true do %>
+              <%= file_field_tag :file %><br>
+              <%= submit_tag "Import", class: "btn btn-warning btn-group-justified"%>  
+              <%end %>
+            <% elsif path == "teasers" %>
+              <%= form_tag import_teasers_path, multipart: true do %>
+              <%= file_field_tag :file %><br>
+              <%= submit_tag "Import", class: "btn btn-warning btn-group-justified"%> 
+              <%end %>
+            <% elsif path == "teaser_slides" %>
+              <%= form_tag import_teaser_slides_path, multipart: true do %>
+              <%= file_field_tag :file %><br>
+              <%= submit_tag "Import", class: "btn btn-warning btn-group-justified"%> 
+              <%end %>
+            <% elsif path == "work_histories" %>
+              <%= form_tag import_work_histories_path, multipart: true do %>
+              <%= file_field_tag :file %><br>
+              <%= submit_tag "Import", class: "btn btn-warning btn-group-justified"%> 
+              <%end %>
+            <%end%></h5> 
+            </div>
+          </div>
+        </div>
       </div>
-      <div class="modal-body">
-      <h5>
-      <% if path == "accesses" %>
-        <%= form_tag import_accesses_path, multipart: true do %>
-        <%= file_field_tag :file %><br>
-        <%= submit_tag "Import", class: "btn btn-warning btn-group-justified"%> 
-        <%end %>
-      <% elsif path == "buckets" %>
-        <%= form_tag import_buckets_path, multipart: true do %>
-        <%= file_field_tag :file %><br>
-        <%= submit_tag "Import", class: "btn btn-warning btn-group-justified"%> 
-        <%end %>
-      <% elsif path == "case_studies" %>
-        <%= form_tag import_case_studies_path, multipart: true do %>
-        <%= file_field_tag :file %><br>
-        <%= submit_tag "Import", class: "btn btn-warning btn-group-justified"%> 
-        <%end %>
-      <% elsif path == "case_study_slides" %>
-        <%= form_tag import_case_study_slides_path, multipart: true do %>
-        <%= file_field_tag :file %><br>
-        <%= submit_tag "Import", class: "btn btn-warning btn-group-justified"%> 
-        <%end %>
-      <% elsif path == "cips" %>
-        <%= form_tag import_cips_path, multipart: true do %>
-        <%= file_field_tag :file %><br>
-        <%= submit_tag "Import", class: "btn btn-warning btn-group-justified"%> 
-        <%end %>
-      <% elsif path == "cip_slides" %>
-        <%= form_tag import_cip_slides_path, multipart: true do %>
-        <%= file_field_tag :file %><br>
-        <%= submit_tag "Import", class: "btn btn-warning btn-group-justified"%> 
-        <%end %>
-      <% elsif path == "companies" %>
-        <%= form_tag import_companies_path, multipart: true do %>
-        <%= file_field_tag :file %><br>
-        <%= submit_tag "Import", class: "btn btn-warning btn-group-justified"%> 
-        <%end %>
-      <% elsif path == "company_follows" %>
-        <%= form_tag import_company_follows_path, multipart: true do %>
-        <%= file_field_tag :file %><br>
-        <%= submit_tag "Import", class: "btn btn-warning btn-group-justified"%> 
-        <%end %>
-      <% elsif path == "company_notes" %>
-        <%= form_tag import_company_notes_path, multipart: true do %>
-        <%= file_field_tag :file %><br>
-        <%= submit_tag "Import", class: "btn btn-warning btn-group-justified"%> 
-        <%end %>
-      <%elsif path == "deals" %>
-        <%= form_tag import_deals_path, multipart: true do %>
-        <%= file_field_tag :file %><br>
-        <%= submit_tag "Import", class: "btn btn-warning btn-group-justified"%>  
-        <%end %> 
-      <% elsif path == "deal_follows" %>
-        <%= form_tag import_deal_follows_path, multipart: true do %>
-        <%= file_field_tag :file %><br>
-        <%= submit_tag "Import", class: "btn btn-warning btn-group-justified"%> 
-        <%end %>
-      <% elsif path == "deal_people" %>
-        <%= form_tag import_deal_people_path, multipart: true do %>
-        <%= file_field_tag :file %><br>
-        <%= submit_tag "Import", class: "btn btn-warning btn-group-justified"%> 
-        <%end %>
-      <% elsif path == "favorite_slides" %>
-        <%= form_tag import_favorite_slides_path, multipart: true do %>
-        <%= file_field_tag :file %><br>
-        <%= submit_tag "Import", class: "btn btn-warning btn-group-justified"%> 
-        <%end %>
-      <% elsif path == "funds" %>
-        <%= form_tag import_funds_path, multipart: true do %>
-        <%= file_field_tag :file %><br>
-        <%= submit_tag "Import", class: "btn btn-warning btn-group-justified"%> 
-        <%end %>
-      <% elsif path == "fund_companies" %>
-        <%= form_tag import_fund_companies_path, multipart: true do %>
-        <%= file_field_tag :file %><br>
-        <%= submit_tag "Import", class: "btn btn-warning btn-group-justified"%> 
-        <%end %>
-      <% elsif path == "mps" %>
-        <%= form_tag import_mps_path, multipart: true do %>
-        <%= file_field_tag :file %><br>
-        <%= submit_tag "Import", class: "btn btn-warning btn-group-justified"%> 
-        <%end %>
-      <% elsif path == "mp_slides" %>
-        <%= form_tag import_mp_slides_path, multipart: true do %>
-        <%= file_field_tag :file %><br>
-        <%= submit_tag "Import", class: "btn btn-warning btn-group-justified"%> 
-        <%end %>
-      <% elsif path == "nbps" %>
-        <%= form_tag import_nbps_path, multipart: true do %>
-        <%= file_field_tag :file %><br>
-        <%= submit_tag "Import", class: "btn btn-warning btn-group-justified"%> 
-        <%end %>
-      <% elsif path == "nbp_slides" %>
-        <%= form_tag import_nbp_slides_path, multipart: true do %>
-        <%= file_field_tag :file %><br>
-        <%= submit_tag "Import", class: "btn btn-warning btn-group-justified"%> 
-        <%end %>
-      <%elsif path == "nbp_sponsors" %>
-        <%= form_tag import_nbp_sponsors_path, multipart: true do %>
-        <%= file_field_tag :file %><br>
-        <%= submit_tag "Import", class: "btn btn-warning btn-group-justified"%> 
-        <%end %>   
-      <%elsif path == "nbp_companies" %>
-        <%= form_tag import_nbp_companies_path, multipart: true do %>
-        <%= file_field_tag :file %><br>
-        <%= submit_tag "Import", class: "btn btn-warning btn-group-justified"%> 
-        <%end %>
-      <% elsif path == "notes" %>
-        <%= form_tag import_notes_path, multipart: true do %>
-        <%= file_field_tag :file %><br>
-        <%= submit_tag "Import", class: "btn btn-warning btn-group-justified"%> 
-        <%end %>
-      <%elsif path == "people" %>
-        <%= form_tag import_people_path, multipart: true do %>
-        <%= file_field_tag :file %><br>
-        <%= submit_tag "Import", class: "btn btn-warning btn-group-justified"%>  
-        <%end %>    
-      <% elsif path == "person_notes" %>
-        <%= form_tag import_person_notes_path, multipart: true do %>
-        <%= file_field_tag :file %><br>
-        <%= submit_tag "Import", class: "btn btn-warning btn-group-justified"%> 
-        <%end %>
-      <%elsif path == "roles" %>
-        <%= form_tag import_roles_path, multipart: true do %>
-        <%= file_field_tag :file %><br>
-        <%= submit_tag "Import", class: "btn btn-warning btn-group-justified"%> 
-        <%end %>
-      <% elsif path == "slides" %>
-        <%= form_tag import_slides_path, multipart: true do %>
-        <%= file_field_tag :file %><br>
-        <%= submit_tag "Import", class: "btn btn-warning btn-group-justified"%> 
-        <%end %>
-      <% elsif path == "slide_layouts" %>
-        <%= form_tag import_slide_layouts_path, multipart: true do %>
-        <%= file_field_tag :file %><br>
-        <%= submit_tag "Import", class: "btn btn-warning btn-group-justified"%> 
-        <%end %>
-      <% elsif path == "slide_layout_slides" %>
-        <%= form_tag import_slide_layout_slides_path, multipart: true do %>
-        <%= file_field_tag :file %><br>
-        <%= submit_tag "Import", class: "btn btn-warning btn-group-justified"%> 
-        <%end %>
-      <% elsif path == "slide_tags" %>
-        <%= form_tag import_slide_tags_path, multipart: true do %>
-        <%= file_field_tag :file %><br>
-        <%= submit_tag "Import", class: "btn btn-warning btn-group-justified"%> 
-        <%end %>
-      <%elsif path == "sponsors" %>
-        <%= form_tag import_sponsors_path, multipart: true do %>
-        <%= file_field_tag :file %><br>
-        <%= submit_tag "Import", class: "btn btn-warning btn-group-justified"%>  
-        <%end %>
-      <% elsif path == "sponsor_follows" %>
-        <%= form_tag import_sponsor_follows_path, multipart: true do %>
-        <%= file_field_tag :file %><br>
-        <%= submit_tag "Import", class: "btn btn-warning btn-group-justified"%> 
-        <%end %>
-      <% elsif path == "sponsor_histories" %>
-        <%= form_tag import_sponsor_histories_path, multipart: true do %>
-        <%= file_field_tag :file %><br>
-        <%= submit_tag "Import", class: "btn btn-warning btn-group-justified"%> 
-        <%end %>
-      <% elsif path == "sponsor_notes" %>
-        <%= form_tag import_sponsor_notes_path, multipart: true do %>
-        <%= file_field_tag :file %><br>
-        <%= submit_tag "Import", class: "btn btn-warning btn-group-justified"%> 
-        <%end %>
-      <% elsif path == "subsidiaries" %>
-        <%= form_tag import_subsidiaries_path, multipart: true do %>
-        <%= file_field_tag :file %><br>
-        <%= submit_tag "Import", class: "btn btn-warning btn-group-justified"%> 
-        <%end %>
-      <%elsif path == "tags" %>
-        <%= form_tag import_tags_path, multipart: true do %>
-        <%= file_field_tag :file %><br>
-        <%= submit_tag "Import", class: "btn btn-warning btn-group-justified"%>  
-        <%end %>
-      <% elsif path == "teasers" %>
-        <%= form_tag import_teasers_path, multipart: true do %>
-        <%= file_field_tag :file %><br>
-        <%= submit_tag "Import", class: "btn btn-warning btn-group-justified"%> 
-        <%end %>
-      <% elsif path == "teaser_slides" %>
-        <%= form_tag import_teaser_slides_path, multipart: true do %>
-        <%= file_field_tag :file %><br>
-        <%= submit_tag "Import", class: "btn btn-warning btn-group-justified"%> 
-        <%end %>
-      <% elsif path == "work_histories" %>
-        <%= form_tag import_work_histories_path, multipart: true do %>
-        <%= file_field_tag :file %><br>
-        <%= submit_tag "Import", class: "btn btn-warning btn-group-justified"%> 
-        <%end %>
-      <%end%></h5> 
-      </div>
-    </div>
-  </div>
+           
+    </h1>
+  </div>    
 </div>
-     
-    </div>    
-  </div>
-</h1>
 
 <!-- File Download Button -->

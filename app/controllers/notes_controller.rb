@@ -45,8 +45,9 @@ class NotesController < ApplicationController
     if params[:date].present?
       @note.date = params[:date]
     else
-      @note.date = Date.today
+      @note.date = Date.current()
     end
+    @note.link = params[:link]
     if @note.save
       if params[:company_id] != 0
         company_note = CompanyNote.new
@@ -84,8 +85,9 @@ class NotesController < ApplicationController
     if params[:date].present?
       @note.date = params[:date]
     else
-      @note.date = Date.today
+      @note.date = Date.current()
     end
+    @note.link = params[:link]
     if @note.save
       redirect_to "/notes/#{@note.id}/", :notice => "Note updated successfully!"
     else

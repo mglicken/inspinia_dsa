@@ -1,14 +1,14 @@
   <div class="btn btn-group btn-group-horizontal">
-    <h4>
+    <h1>
       <% if type == "strategic" %>
-        <a href="/nbps/<%= nbp.id %>/companies.csv" class="btn btn-outline btn-warning btn-default">
+        <a id="<%= type %>-button" href="/nbps/<%= nbp.id %>/companies.csv" class="btn btn-outline btn-warning btn-default">
           Export <i class="fa fa-cloud-download"></i>
         </a>
       <% else %>
-        <a href="/nbps/<%= nbp.id %>/sponsors.csv" class="btn btn-outline btn-warning btn-default">
+        <a id="<%= type %>-button" href="/nbps/<%= nbp.id %>/sponsors.csv" class="btn btn-outline btn-warning btn-default">
           Export <i class="fa fa-cloud-download"></i>
         </a>
-        <% end %>
+      <% end %>
       <!-- Button trigger modal -->
       <button type="button" class="btn btn-warning btn-default" data-toggle="modal" data-target="#myModalUpLoad_<%= type %>">
           Import <i class="fa fa-upload"></i>
@@ -20,18 +20,19 @@
           <div class="modal-content">
             <div class="modal-header">
               <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-              <h4 class="modal-title" id="myModalLabel">Upload <%= type.capitalize %></h4>
+              <h4 class="modal-title" id="myModalLabel">Upload <%= type.capitalize %> Acquirers</h4>
             </div>
             <div class="modal-body">
-            <h5><% if type == "strategic" %>
-              <%= form_tag import_sponsors_path, multipart: true do %>
+            <h5>
+            <% if type == "strategic" %>
+              <%= form_tag import_strategics_nbps_path, multipart: true do %>
               <%= file_field_tag :file %><br>
-              <%= submit_tag "Import Sponsors", class: "btn btn-warning btn-group-justified"%> 
+              <%= submit_tag "Import Strategic Acquirers", class: "btn btn-warning btn-group-justified"%> 
               <%end %>          
             <%elsif type == "financial" %>
-              <%= form_tag import_sponsors_path, multipart: true do %>
+              <%= form_tag import_financials_nbps_path, multipart: true do %>
               <%= file_field_tag :file %>
-              <%= submit_tag "Import", class: "btn btn-warning btn-group-justified"%>  
+              <%= submit_tag "Import Financial Acquirers", class: "btn btn-warning btn-group-justified"%>  
               <%end %>    
             <%end%></h5>
             </div>
@@ -39,7 +40,79 @@
         </div>
       </div>
      
-    </h4>
+    </h1>
   </div>    
 
 <!-- File Download Button -->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

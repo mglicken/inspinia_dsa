@@ -16,12 +16,12 @@ has_many :companies, :through => :company_notes
 		end
 	end
 	def self.import(file)
-		allowed_attributes = [ "detail", "date", "title", "link"]
+		allowed_attributes = [ "title","detail", "date", "link"]
 		CSV.foreach(file.path,headers: true) do |row|
 			notes = find_by_id(row["id"]) || new
 			
-			notes.attributes = row.to_hash.select { |k,v| allowed_attributes.include? k }
-			notes.save
+			notes.attributes = row.to_hash { |k,v| allowed_attributes.include? k }
+			notes.save!
 		end
 	end	
 end

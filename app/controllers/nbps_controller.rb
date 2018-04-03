@@ -135,4 +135,16 @@ class NbpsController < ApplicationController
     Nbp.import(params[:file])
     redirect_to "/models/", notice: "NBPs imported."
   end
+
+  def import_strategics
+
+    NbpCompany.import(params[:file])
+    redirect_to "/nbps/#{1}/companies", notice: "Strategic Acquirers imported."
+  end
+
+  def import_financials
+    NbpSponsor.import(params[:file])
+    redirect_to "/nbps/#{1}/sponsors", notice: "Financial Acquirers imported."
+  end
+
 end

@@ -4,17 +4,18 @@
     <div class="btn btn-group btn-group-vertical">
       <%= render('shared/file_buyer_download_upload', type: "strategic", nbp: @nbp) %>
 
-        <%if @buckets.count < 4%>
-          <%= render('shared/create_bucket_modal',nbp: @nbp) %>
-        <%end%>
-        <br>
-        <form method="get" class="form-horizontal" id="nbp-cos-form-id" name="nbp-cos-form-name"> 
-        <!-- Hidden input for authenticity token to protect from forgery -->
-          <button class="btn btn-success" id="nbp-cos-button-id">
-            Save Strategic Buyer Bucket Layout
-          </button>
-        </form>
-
+      <%if @buckets.count < 4%>
+        <%= render('shared/create_bucket_modal',nbp: @nbp) %>
+      <%end%>
+      <br>
+      <% if @nbp_companies.present? %>
+      <form method="get" class="form-horizontal" id="nbp-cos-form-id" name="nbp-cos-form-name"> 
+      <!-- Hidden input for authenticity token to protect from forgery -->
+        <button class="btn btn-success" id="nbp-cos-button-id">
+          Save Strategic Buyer Bucket Layout
+        </button>
+      </form>
+      <% end %>
     </div>
   </div> 
   <div class="col-lg-offset-2 col-lg-7">

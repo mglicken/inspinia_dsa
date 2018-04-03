@@ -3,7 +3,7 @@ Myapp::Application.routes.draw do
   devise_for :users
  # You can have the root of your site routed with "root"
   root 'people#user_dashboard'
-
+  
 
   get "/admin/", :controller => "accesses", :action => "admin"
   get "/models/", :controller => "people", :action => "models"
@@ -51,14 +51,53 @@ Myapp::Application.routes.draw do
   # DELETE
   get "/delete_bucket/:id", :controller => "buckets", :action => "destroy"
 
+  # Routes for the CIP resource:
+  resources :cips do
+    collection {post :import}
+  end
+  # CREATE
+  get "/cips/new", :controller => "cips", :action => "new"
+  post "/create_cip", :controller => "cips", :action => "create"
+  get "/copy_cip_layout/:cip_id/", :controller => "cips", :action => "copy_layout"
 
-  # Routes for the Case Study resource:
+  # READ
+  get "/cips", :controller => "cips", :action => "index"
+  get "/cips/:id", :controller => "cips", :action => "show"
+  get "/cip_search/:search", :controller => "cips", :action => "search"
+
+  # UPDATE
+  get "/cips/:id/edit", :controller => "cips", :action => "edit"
+  post "/update_cip/:id", :controller => "cips", :action => "update"
+
+  # DELETE
+  get "/delete_cip/:id", :controller => "cips", :action => "destroy"
+
+# Routes for the CIP_Slides resource:
+  resources :cip_slides do
+    collection {post :import}
+  end
+  # CREATE
+  get "/cip_slides/new", :controller => "cip_slides", :action => "new"
+  post "/create_cip_slide", :controller => "cip_slides", :action => "create"
+  # READ
+  get "/cip_slides", :controller => "cip_slides", :action => "index"
+  get "/cip_slides/:id", :controller => "cip_slides", :action => "show"
+
+  # UPDATE
+  get "/cip_slides/:id/edit", :controller => "cip_slides", :action => "edit"
+  post "/update_cip_slide/:id", :controller => "cip_slides", :action => "update"
+
+  # DELETE
+  get "/delete_cip_slide/:id", :controller => "cip_slides", :action => "destroy"
+
+# Routes for the Case_Studies resource:
   resources :case_studies do
     collection {post :import}
   end
   # CREATE
   get "/case_studies/new", :controller => "case_studies", :action => "new"
   post "/create_case_study", :controller => "case_studies", :action => "create"
+  get "/copy_case_study_layout/:case_study_id/", :controller => "case_studies", :action => "copy_layout"
 
   # READ
   get "/case_studies", :controller => "case_studies", :action => "index"
@@ -277,7 +316,11 @@ Myapp::Application.routes.draw do
 
   # Routes for the NBP resource:
   resources :nbps do
-    collection {post :import}
+    collection {
+      post :import
+      post :import_financials
+      post :import_strategics
+    }
   end
   # CREATE
   get "/nbps/new", :controller => "nbps", :action => "new"
@@ -358,64 +401,6 @@ Myapp::Application.routes.draw do
   get "/delete_nbp_sponsor/:id", :controller => "nbp_sponsors", :action => "destroy"
 
 
-  # Routes for the CIP resource:
-  resources :cips do
-    collection {post :import}
-  end
-  # CREATE
-  get "/cips/new", :controller => "cips", :action => "new"
-  post "/create_cip", :controller => "cips", :action => "create"
-  get "/copy_cip_layout/:cip_id/", :controller => "cips", :action => "copy_layout"
-
-  # READ
-  get "/cips", :controller => "cips", :action => "index"
-  get "/cips/:id", :controller => "cips", :action => "show"
-  get "/cip_search/:search", :controller => "cips", :action => "search"
-
-  # UPDATE
-  get "/cips/:id/edit", :controller => "cips", :action => "edit"
-  post "/update_cip/:id", :controller => "cips", :action => "update"
-
-  # DELETE
-  get "/delete_cip/:id", :controller => "cips", :action => "destroy"
-
-# Routes for the CIP_Slides resource:
-  resources :cip_slides do
-    collection {post :import}
-  end
-  # CREATE
-  get "/cip_slides/new", :controller => "cip_slides", :action => "new"
-  post "/create_cip_slide", :controller => "cip_slides", :action => "create"
-  # READ
-  get "/cip_slides", :controller => "cip_slides", :action => "index"
-  get "/cip_slides/:id", :controller => "cip_slides", :action => "show"
-
-  # UPDATE
-  get "/cip_slides/:id/edit", :controller => "cip_slides", :action => "edit"
-  post "/update_cip_slide/:id", :controller => "cip_slides", :action => "update"
-
-  # DELETE
-  get "/delete_cip_slide/:id", :controller => "cip_slides", :action => "destroy"
-
-# Routes for the Case_Studies resource:
-  resources :case_studies do
-    collection {post :import}
-  end
-  # CREATE
-  get "/case_studies/new", :controller => "case_studies", :action => "new"
-  post "/create_case_study", :controller => "case_studies", :action => "create"
-  get "/copy_case_study_layout/:case_study_id/", :controller => "case_studies", :action => "copy_layout"
-
-  # READ
-  get "/case_studies", :controller => "case_studies", :action => "index"
-  get "/case_studies/:id", :controller => "case_studies", :action => "show"
-
-  # UPDATE
-  get "/case_studies/:id/edit", :controller => "case_studies", :action => "edit"
-  post "/update_case_study/:id", :controller => "case_studies", :action => "update"
-
-  # DELETE
-  get "/delete_case_study/:id", :controller => "case_studies", :action => "destroy"
 
 # Routes for the MP resource:
   resources :mps do
