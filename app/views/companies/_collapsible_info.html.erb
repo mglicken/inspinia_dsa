@@ -3,7 +3,11 @@
     <div class="panel-heading" role="tab" id="heading1">
       <h4 class="panel-title">
         <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapse1" aria-expanded="true" aria-controls="collapse1">
+          <div class="pull-right">
+            <%= render('shared/create_deal_modal') %>
+          </div>
           Deals (<%=@company.deals.count%>)
+
         </a>
       </h4>
     </div>
@@ -72,11 +76,11 @@
   <% if @company.quote.present? %>
     <div class="panel panel-default">
       <div class="panel-heading" role="tab" id="heading6">
-        <h2 class="panel-title">
+        <h4 class="panel-title">
           <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapse6" aria-expanded="true" aria-controls="collapse6">
             Market Detail
           </a>
-        </h2>
+        </h4>
       </div>
       <div id="collapse6" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading6">
         <div class="panel-body">

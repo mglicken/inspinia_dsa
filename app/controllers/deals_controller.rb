@@ -33,8 +33,12 @@ class DealsController < ApplicationController
     Deal.all.each do |deal|
       if deal.name.downcase.include? @text
         deal_ids.push(deal.id)
+      elsif deal.project_alias.nil?
+      elsif deal.project_alias.downcase.include? @text
+        deal_ids.push(deal.id)
       end
     end
+    
     @deals=Deal.where(id: deal_ids)
   end
 
@@ -47,11 +51,13 @@ class DealsController < ApplicationController
         @tag_ids.push(tag.id)
       end
     end
-    
-    
+        
     @deal_ids = []
     Deal.all.each do |deal|
       if deal.name.downcase.include? @text
+        @deal_ids.push(deal.id)
+      elsif deal.project_alias.nil?
+      elsif deal.project_alias.downcase.include? @text
         @deal_ids.push(deal.id)
       end
     end
@@ -133,30 +139,37 @@ class DealsController < ApplicationController
 
   def create
     @deal = Deal.new
+    case_study = CaseStudy.new
     nbp = Nbp.new
     cip = Cip.new
     mp = Mp.new
     teaser = Teaser.new
     @deal.name = params[:name]
     @deal.company_id = params[:company_id]
-
+    @deal.project_alias = params[:project_alias]
+    @deal.project_code = params[:project_code]
 
     if @deal.save
-          nbp.deal_id = @deal.id
-          cip.deal_id = @deal.id
-          mp.deal_id = @deal.id
-          teaser.deal_id = @deal.id
-          nbp.name = @deal.name + ' NBP'
-          cip.name = @deal.name + ' CIP'
-          mp.name = @deal.name + ' MP'
-          if nbp.save
-            cip.save
-            mp.save
-            teaser.save            
-            redirect_to "/deals", :notice => "Deal created successfully."
-          else
-            render 'new'
-          end
+        case_study.deal_id = @deal.id
+        nbp.deal_id = @deal.id
+        cip.deal_id = @deal.id
+        mp.deal_id = @deal.id
+        teaser.deal_id = @deal.id
+        case_study.name = @deal.name + ' CS'
+        nbp.name = @deal.name + ' NBP'
+        cip.name = @deal.name + ' CIP'
+        mp.name = @deal.name + ' MP'
+        teaser.name = @deal.name + ' Teaser'
+
+        if nbp.save
+          cip.save
+          mp.save
+          case_study.save
+          teaser.save            
+          redirect_to "/deals/#{@deal.id}", :notice => "Deal created successfully."
+        else
+          render 'new'
+        end
     else
       render 'new'
     end
@@ -168,21 +181,13 @@ class DealsController < ApplicationController
 
   def update
     @deal = Deal.find(params[:id])
-    nbp = Nbp.find_by(deal_id: params[:id])
-    cip = Cip.find_by(deal_id: params[:id])
-    mp = Mp.find_by(deal_id: params[:id])
-
     @deal.name = params[:name]
     @deal.company_id = params[:company_id]
+    @deal.project_alias = params[:project_alias]
+    @deal.project_code = params[:project_code]
 
     if @deal.save
-          if nbp.save
-            cip.save
-            mp.save
-            redirect_to "/deals", :notice => "Deal created successfully."
-          else
-            render 'new'
-          end
+       redirect_to "/deals/#{@deal.id}", :notice => "Deal updated successfully."
     else
       render 'new'
     end

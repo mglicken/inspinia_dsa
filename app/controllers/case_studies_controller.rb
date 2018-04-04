@@ -32,13 +32,13 @@ class CaseStudiesController < ApplicationController
   def create
     @case_study = CaseStudy.new
 
-
+    @case_study.name = params[:name]
     @case_study.deal_id = params[:deal_id]
     @case_study.image_id = params[:image_id]
 
 
     if @case_study.save
-      redirect_to "/case_studies", :notice => "Case Study created successfully."
+      redirect_to "/case_studies/#{@case_study.id}", :notice => "Case Study created successfully."
     else
       render 'new'
     end
@@ -73,11 +73,12 @@ class CaseStudiesController < ApplicationController
   def update
     @case_study = CaseStudy.find(params[:id])
 
+    @case_study.name = params[:name]
     @case_study.deal_id = params[:deal_id]
     @case_study.image_id = params[:image_id]
 
     if @case_study.save
-      redirect_to "/case_studies", :notice => "Case Study updated successfully."
+      redirect_to "/case_studies/#{case_study.id}", :notice => "Case Study updated successfully."
     else
       render 'edit'
     end

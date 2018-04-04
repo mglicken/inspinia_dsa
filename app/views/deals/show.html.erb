@@ -17,6 +17,14 @@
               <dd><%= @deal.project_alias %></dd>
               <dt>Project Code</dt>
               <dd><%= @deal.project_code %></dd>
+              <dt>Teasers</dt>
+                <% Teaser.where(deal_id: @deal).order("teaser_date DESC").each do |teaser| %>
+                  <% if TeaserSlide.where(teaser_id: teaser.id).present? %>
+                    <dd> <a href="/teasers/<%=teaser.id %>"><%= teaser.name%> (<%= teaser.teaser_date%>)</a></dd>
+                  <% else %>
+                    <dd> <a href="/teasers/<%=teaser.id %>">No Documents Uploaded</a></dd>
+                  <% end %>
+                <% end %>
               <dt>NBPs</dt>
                 <% Nbp.where(deal_id: @deal).order("nbp_date DESC").each do |nbp| %>
                   <% if NbpSlide.where(nbp_id: nbp.id).present? %>
@@ -48,7 +56,7 @@
                 <i class="fa fa-reply"></i>
               </a>
 
-              <%= render('shared/edit_deal_modal', :deal => @deal)%>
+              <%= render('shared/edit_deal_modal', deal: @deal)%>
             </div>
           </div>
         </div>
@@ -58,12 +66,12 @@
   </div>
 </div>
 
-<div class="btn-group btn-group-justified">
   
-  <%= render('shared/create_nbp_modal', :deal => @deal)%>
-  <%= render('shared/create_cip_modal', :deal => @deal)%>
-  <%= render('shared/create_mp_modal', :deal => @deal)%>
-</div>
+  <%= render('shared/create_nbp_modal', deal: @deal)%>
+  <%= render('shared/create_cip_modal', deal: @deal)%>
+  <%= render('shared/create_mp_modal', deal: @deal)%>
+  <%= render('shared/add_person_to_deal_modal', deal: @deal, person: nil)%>
+<br>
 <br>
 <%= render('view_people') %>
 

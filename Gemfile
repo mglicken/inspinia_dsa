@@ -18,6 +18,9 @@ gem 'devise'
 # Use cloudinary for manipulating pdfs
 gem 'cloudinary'
 
+# Roo for Excel file parsing
+gem 'roo'
+
 # Use SCSS for stylesheets
 gem 'sass-rails', '~> 5.0.4'
 

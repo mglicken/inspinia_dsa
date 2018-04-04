@@ -8,6 +8,7 @@ class CipsController < ApplicationController
         redirect_to root_url, :alert => "Not Authorized"
       end
     end
+  end
 
   def index
     @cips = Cip.all

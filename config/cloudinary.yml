@@ -1,0 +1,19 @@
+---
+development:
+  cloud_name: 'mglicken'
+  api_key: '615621826723637'
+  api_secret: 'y4mnvr_uwEh9rVHusJ7lN5_GeYM'
+  enhance_image_tag: true
+  static_image_support: false
+production:
+  cloud_name: 'mglicken'
+  api_key: '615621826723637'
+  api_secret: 'y4mnvr_uwEh9rVHusJ7lN5_GeYM'
+  enhance_image_tag: true
+  static_image_support: true
+test:
+  cloud_name: 'mglicken'
+  api_key: '615621826723637'
+  api_secret: 'y4mnvr_uwEh9rVHusJ7lN5_GeYM'
+  enhance_image_tag: true
+  static_image_support: false

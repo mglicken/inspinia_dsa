@@ -44,6 +44,17 @@
 
           <input type="hidden" name="image_id"  value="<%= teaser.image_id %>">
  
+
+          <!-- Label and input for Teaser Name -->
+          <div class="form-group">
+            <label for="name" class="col-sm-2 control-label">
+              Teaser Name
+            </label>
+            <div class="col-sm-10">
+              <input type="string" id="name" name="name" placeholder="e.g., e.g., Sponsor Name / Company Name (Year) Teaser" class="form-control" value="<%= teaser.name %>">
+            </div>
+          </div>
+
           <!-- Label and input for Teaser Date -->
           <div class="form-group">
             <label for="teaser_date" class="col-sm-2 control-label">

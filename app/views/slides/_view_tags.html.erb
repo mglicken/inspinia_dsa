@@ -18,7 +18,7 @@
 <div class="row isotope-container ">
 <% @tags.each do |tag| %>
   <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 isotope-item">
-    <div id="tag_<%= tag.id %>" class="panel panel-<% if tag.slide_tags.find_by(:slide_id => @slide.id).present? %><%= 'success' %>
+    <div id="tag_<%= tag.id %>" class="panel panel-<% if tag.slide_tags.find_by(:slide_id => @slide.id).present? %><%= 'primary' %>
     <% else %><%='default' %>
     <% end %>">
 
@@ -28,7 +28,7 @@
               <% if tag.slide_tags.find_by(slide_id: @slide.id).present? %>
                <%= link_to content_tag(:i,nil,class: 'fa fa-times'), "/delete_slide_tag/#{ tag.slide_tags.find_by(slide_id: @slide.id ).id }", :class => "btn btn-danger", :remote => true  %>
               <% else %>
-                <%= link_to content_tag(:i,nil,class: 'fa fa-check'), "/create_slide_tag/#{@slide.id}/#{tag.id}", :class => "btn btn-success", :remote => true  %>
+                <%= link_to content_tag(:i,nil,class: 'fa fa-check'), "/create_slide_tag/#{@slide.id}/#{tag.id}", :class => "btn btn-primary", :remote => true  %>
               <% end %>
             </div>
           </div>

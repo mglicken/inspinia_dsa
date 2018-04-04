@@ -1,20 +1,28 @@
 
-<div class="row isotope-container">
-<% @deal.people.order("role_id ASC").each do |person| %>
-  <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2 isotope-item">
-    <div class="panel panel-default">
-      <div class="panel-heading" >
-        <h3 class="panel-title" style="font-size:12px">
-          <strong><%= person.name %></strong><br>
-          <%= person.role.name %>
-        </h3>
-      </div>
-      <div class="panel-body" >
-        <div class="row">
-        <a href="/people/<%= person.id %>"><img src="<%= person.image_url %>"  width=100%></a>
+<div class="wrapper wrapper-content animated fadeInRight">
+    <div class="row">
+    <% @deal.people.order("role_id ASC").each do |person| %>
+        <div class="col-lg-2">
+            <div class="ibox">
+                <div class="ibox-content product-box">
+
+                      <a href="/people/<%= person.id %>">
+                        <!-- Make Height 225px if want to look right, need to make it clip -->
+                        <img src="<%= person.image_url %>" width = 100%>
+                      
+                      </a>
+                    <div class="product-desc">
+                        <% if person.employee == true%>
+                        <span class="product-price">
+                                    LI
+                        </span>
+                        <%end %>
+                        <small class="text-muted"><%=person.role.name %></small><br>
+                        <strong><%=person.name %></strong>
+                    </div>
+                </div>
+            </div>
         </div>
-      </div>
+    <%end%>
     </div>
-  </div>
-<% end %>
 </div>

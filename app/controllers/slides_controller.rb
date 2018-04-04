@@ -20,7 +20,7 @@ class SlidesController < ApplicationController
   end
 
   def show
-    @slide = Slide.find(params[:id])
+    @slide = Slide.find(params[:id].to_i)
     @tags = Tag.all.order("name ASC")
     if NbpSlide.find_by(slide_id: @slide.id).present?
       @nbp = NbpSlide.find_by(slide_id: @slide.id).nbp
@@ -201,7 +201,7 @@ class SlidesController < ApplicationController
     for i in 0..(pdf_len-1)
       slide = Slide.new
       slide.number = i+1
-      slide.image_url = "http://res.cloudinary.com/mglicken/image/upload/f_jpg,pg_#{ i+1 }/#{ public_id }.pdf"
+      slide.image_url = "http://res.cloudinary.com/mglicken/image/upload/c_scale,h_255,w_330/f_jpg,pg_#{ i+1 }/#{ public_id }.pdf"
       slide.save
       
       teaser_slide = TeaserSlide.new
@@ -211,14 +211,14 @@ class SlidesController < ApplicationController
 
       slide_tag = SlideTag.new
       slide_tag.slide_id = slide.id
-      slide_tag.tag_id = 31
+      slide_tag.tag_id = 1
       slide_tag.save
 
     end
     teaser_slide.teaser.image_id = public_id
     if slide.save
       teaser_slide.teaser.save
-      redirect_to "/teasers/#{teaser_slide.teaser_id}", :notice => "Teaser Slides uploaded successfully. Please start tagging slides to aid searches."
+      redirect_to "/teasers/#{teaser_slide.teaser_id}", :notice => "Teaser slides uploaded successfully. Please start tagging slides to aid searches."
     else
       render 'new'
     end

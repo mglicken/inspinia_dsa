@@ -28,15 +28,15 @@
                   <%= @company.address %><br>
                   <%= @company.city %>, <%= @company.state %> <%= @company.zip %><br>
                   <% if @company.phone.present? %> 
-                      <abbr title="phone">Main:</abbr> (<%= @company.phone.to_s[0..2] %>) <%= @company.phone.to_s[3..5] %>-<%= @company.phone.to_s[6..9] %><br>
+                      <abbr title="phone"><strong> Main:</strong></abbr> (<%= @company.phone.to_s[0..2] %>) <%= @company.phone.to_s[3..5] %>-<%= @company.phone.to_s[6..9] %><br>
                   <%end%>
                   <% if @company.web_address.present? %>
                     <%if @company.web_address[0..4] == "https" %>
-                      Website: <a href="<%= @company.web_address %>" target="_blank"><%= @company.web_address[8..(@company.web_address.length-1)] %></a>
+                     <strong> Website: </strong><a href="<%= @company.web_address %>" target="_blank"><%= @company.web_address[8..(@company.web_address.length-1)] %></a>
                     <% elsif @company.web_address[0..3] == "http" %>
-                      Website: <a href="<%= @company.web_address %>" target="_blank"><%= @company.web_address[7..(@company.web_address.length-1)] %></a>
+                      <strong> Website: </strong><a href="<%= @company.web_address %>" target="_blank"><%= @company.web_address[7..(@company.web_address.length-1)] %></a>
                     <%else%>
-                      Website: <a href="<%= @company.web_address %>" target="_blank"><%= @company.web_address %></a>
+                      <strong> Website: </strong><a href="<%= @company.web_address %>" target="_blank"><%= @company.web_address %></a>
                     <%end%>
                   <%end%>                  
                   </address>                         

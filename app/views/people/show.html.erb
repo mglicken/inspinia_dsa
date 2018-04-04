@@ -12,6 +12,12 @@
 <div class="row">
   <div class="col-sm-offset-0 col-sm-12 col-md-offset-0 col-md-12">
     <div class="panel panel-default">
+            <div class="pull-right">
+              <%= render('shared/edit_person_modal', :person => @person)%>
+              <% if current_user.access_id <= 2 %>
+                <%= render('shared/delete_person_modal', :person => @person)%>
+              <% end %>
+            </div>
       <div class="panel-heading">
         <h3 class="panel-title"><strong><%= @person.name %></strong> (<%= @person.role.name %>)</h3>
       </div>
@@ -31,18 +37,18 @@
                   <%= @person.address %><br>
                   <%= @person.city %> <%= @person.state %>, <%= @person.zip %><br>
                   <% if @person.phone.present? %> 
-                      <abbr title="phone">Main:</abbr> (<%= @person.phone.to_s[0..2] %>) <%= @person.phone.to_s[3..5] %>-<%= @person.phone.to_s[6..9] %><br>
+                      <abbr title="phone"><strong>Main:</strong></abbr> (<%= @person.phone.to_s[0..2] %>) <%= @person.phone.to_s[3..5] %>-<%= @person.phone.to_s[6..9] %><br>
                   <%end%>
                   <% if @person.cell.present? %> 
-                      <abbr title="cell">Mobile:</abbr> (<%= @person.cell.to_s[0..2] %>) <%= @person.cell.to_s[3..5] %>-<%= @person.cell.to_s[6..9] %><br>
+                      <abbr title="cell"><strong>Mobile:</strong></abbr> (<%= @person.cell.to_s[0..2] %>) <%= @person.cell.to_s[3..5] %>-<%= @person.cell.to_s[6..9] %><br>
                   <%end%>
                   <% if @person.email_address.present? %> 
                     <abbr title="email_address"><strong>Email:</strong></abbr> <a href="mailto:<%= @person.email_address %>"><%= @person.email_address %></a>
                   <%end%>                  
 
               </div>
-              <div class="pull-right">
-                <div class="btn btn-group btn-group-horizontal">
+              <div>
+                <div class="btn btn-group btn-group-horizontal pull-right">
                   <a href="<%= @person.linkedin_url%>" class="btn btn-lg"><i class="fa fa-linkedin"></i></a>
                   <a href="mailto:<%= @person.email_address %>" class="btn btn-lg"><i class="fa fa-envelope"></i></a>
                 </div>
@@ -50,16 +56,7 @@
               </div>
             </div>
             
-            <div class="btn-group btn-group-justified">
-              <a href="/people" class="btn btn-lincoln">
-                <i class="fa fa-reply"></i>
-              </a>
 
-              <%= render('shared/edit_person_modal', :person => @person)%>
-              <% if 1==2 %>
-              <%= render('shared/delete_person_modal', :person => @person)%>
-              <% end %>
-            </div>
           </div>
         </div>
       </div>
@@ -74,6 +71,7 @@
   <%= render('shared/create_work_history_modal', :company => 0, :person => @person )%>
   <%= render('shared/create_sponsor_history_modal', :sponsor => 0, :person => @person )%>
   <%= render('shared/create_note_modal')%>
+  <%= render('shared/add_person_to_deal_modal', :deal => nil, person: @person)%>
 <br>
 <br>
 <!--  Accordion  -->
