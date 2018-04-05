@@ -3,37 +3,33 @@
 <div class="row">
   <div class="pull-right">
     <div class="btn btn-group btn-group-vertical">
-      <a class="btn btn-primary" href="/copy_case_study_layout/<%= @case_study.id %>">Copy Case Study Layout</a>
+       <a class="btn btn-success" href="/copy_case_study_layout/<%= @case_study.id %>">Copy Case Study Layout <i class="fa fa-copy (alias)"></i></a>
     </div>
   </div> 
-<div class="row">
-  <div class="col-sm-offset-1 col-sm-10 col-md-offset-2 col-md-8">
+  <div class="col-lg-offset-2 col-lg-7">
     <div class="panel panel-default">
       <div class="panel-heading">
-        <% if @case_study.image_id.nil? %>
-          <a href="#" class="btn btn-lincoln pull-right" text-align="center" id="upload_widget_opener">Upload Case Study PDF</a>
-        <% elsif @case_study.image_id =="" %>
+        <% if @case_study.slides.empty? %>
           <a href="#" class="btn btn-lincoln pull-right" text-align="center" id="upload_widget_opener">Upload Case Study PDF</a>
         <% end %> 
-        <h3 class="panel-title" style="font-size:28px"><%= @case_study.deal.name %> Case Study</h3>
+        <h3 class="panel-title" style="font-size:28px"><%= @case_study.name %></h3>
 
       </div>
       <div class="panel-body">
         <div class="row">
-          <div class="col-md-12 col-md-offset--1">
+          <div class="col-lg-12">
             <dl class="dl-horizontal" style="font-size:10px">
 
+             <dt>Deal</dt>
+             <dd> <a href="/deals/<%= @case_study.deal_id %>"><%= @case_study.deal.name %></a></dd>
              <dt>Company</dt>
              <dd> <a href="/companies/<%= @case_study.deal.company.id %>"><%= @case_study.deal.company.name %></a></dd>
+
             </dl>
             <div class="btn-group btn-group-justified">
-              <a href="/case_studys" class="btn btn-primary">
-                <i class="fa fa-reply"></i>
-              </a>
 
               <%= render('shared/edit_case_study_modal', :case_study => @case_study)%>
-              <%= render('shared/delete_case_study_modal', :case_study => @case_study)%>
-              </a>
+
             </div>
           </div>
         </div>
@@ -42,17 +38,16 @@
     </div>
   </div>
 </div>
-<%= @url %>
-<%= @p_id %>
+
 
 <%= render('view_slides') %>
 
 <%= render('shared/quick_search_js') %>
 
 <% if @case_study.image_id.nil? %>
-  <%= render('shared/upload_widget',url: "/create_case_study_slide/#{@case_study.id}", p_id: "case_study_#{@case_study.id}") %>
+  <%= render('shared/upload_widget',url: "/create_case_study_slide/#{@case_study.id}", p_id: @p_id) %>
 <% elsif @case_study.image_id. == "" %>
-  <%= render('shared/upload_widget',url: "/create_case_study_slide/#{@case_study.id}", p_id: "case_study_#{@case_study.id}") %>
+  <%= render('shared/upload_widget',url: "/create_case_study_slide/#{@case_study.id}", p_id: @p_id) %>
 <% end %>
 
 <!-- End responsive panel -->

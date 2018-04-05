@@ -78,7 +78,7 @@ class CaseStudiesController < ApplicationController
     @case_study.image_id = params[:image_id]
 
     if @case_study.save
-      redirect_to "/case_studies/#{case_study.id}", :notice => "Case Study updated successfully."
+      redirect_to "/case_studies/#{@case_study.id}", :notice => "Case Study updated successfully."
     else
       render 'edit'
     end
