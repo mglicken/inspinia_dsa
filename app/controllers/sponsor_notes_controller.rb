@@ -76,6 +76,6 @@ class SponsorNotesController < ApplicationController
 
   def import
     SponsorNote.import(params[:file])
-    redirect_to "/sponsor_notes/", notice: "Sponsor Notes imported"
+    redirect_to "/models/", notice: "Sponsor Notes imported"
   end
 end

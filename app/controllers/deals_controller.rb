@@ -56,9 +56,10 @@ class DealsController < ApplicationController
     Deal.all.each do |deal|
       if deal.name.downcase.include? @text
         @deal_ids.push(deal.id)
-      elsif deal.project_alias.nil?
-      elsif deal.project_alias.downcase.include? @text
-        @deal_ids.push(deal.id)
+      elsif deal.project_alias.present?
+        if deal.project_alias.downcase.include? @text
+          @deal_ids.push(deal.id)
+        end
       end
     end
     

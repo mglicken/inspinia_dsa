@@ -35,6 +35,45 @@ class SubsidiariesController < ApplicationController
     @subsidiary.acquisition_date = params[:acquisition_date]
     @subsidiary.acquisition_price = params[:acquisition_price]
     @subsidiary.link = params[:link]
+
+    @subsidiary.child.children.each do |child|
+      if Subsidiary.where(child_id: child.id,parent_id:@subsidiary.parent_id).present?
+         subsidiary = Subsidiary.where(child_id: child.id,parent_id:@subsidiary.parent_id).first
+         subsidiary.acquisition_date = params[:acquisition_date]
+         subsidiary.acquisition_price = params[:acquisition_price]
+         subsidiary.link = params[:link]
+         subsidiary.save
+        else
+         subsidiary = Subsidiary.new
+         subsidiary.parent_id = params[:parent_id]
+         subsidiary.child_id = child.id
+         subsidiary.acquisition_date = params[:acquisition_date]
+         subsidiary.acquisition_price = params[:acquisition_price]
+         subsidiary.link = params[:link]
+         subsidiary.save
+        end
+    end
+    
+    @subsidiary.parent.parents.each do |parent|
+      @subsidiary.parent.children.each do |child|
+        if Subsidiary.where(child_id: child.id, parent_id: parent.id).present?
+           subsidiary = Subsidiary.where(child_id: child.id,parent_id:@subsidiary.parent_id).first
+           subsidiary.acquisition_date = params[:acquisition_date]
+           subsidiary.acquisition_price = params[:acquisition_price]
+           subsidiary.link = params[:link]
+           subsidiary.save
+          else
+           subsidiary = Subsidiary.new
+           subsidiary.parent_id = parent.id
+           subsidiary.child_id = child.id
+           subsidiary.acquisition_date = params[:acquisition_date]
+           subsidiary.acquisition_price = params[:acquisition_price]
+           subsidiary.link = params[:link]
+           subsidiary.save
+          end
+      end
+    end
+
  
     respond_to do |format|
       format.html do
