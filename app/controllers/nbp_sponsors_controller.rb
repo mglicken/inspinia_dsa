@@ -35,7 +35,7 @@ class NbpSponsorsController < ApplicationController
     @nbp_sponsor.featured = params[:featured]
 
     if @nbp_sponsor.save
-      redirect_to "/nbps/#{@nbp_sponsor.nbp_id}/", :notice => "Sponsor added successfully to NBP."
+      redirect_to "/nbps/#{@nbp_sponsor.nbp_id}/sponsors/", :notice => "Sponsor added successfully to NBP."
     else
       render 'new'
     end
@@ -53,7 +53,7 @@ class NbpSponsorsController < ApplicationController
     @nbp_sponsor.featured = params[:featured]
 
     if @nbp_sponsor.save
-      redirect_to "/nbps/#{@nbp_sponsor.nbp_id}/", :notice => "Sponsor updated successfully!"
+      redirect_to "/nbps/#{@nbp_sponsor.nbp_id}/sponsors", :notice => "Sponsor updated successfully!"
     else
       render 'edit'
     end
@@ -64,7 +64,7 @@ class NbpSponsorsController < ApplicationController
 
     @nbp_sponsor.destroy
 
-    redirect_to "/nbps", :notice => "NBP Sponsor deleted."
+    redirect_to "/nbps/#{@nbp_sponsor.nbp_id}/sponsors", :notice => "NBP Sponsor deleted."
   end
 
   def import
