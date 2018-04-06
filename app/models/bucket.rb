@@ -2,6 +2,7 @@ class Bucket < ActiveRecord::Base
 validates :title, :presence => true
 
 belongs_to :nbp
+has_many :buckets
 
 	def self.to_csv
 		CSV.generate do |csv|

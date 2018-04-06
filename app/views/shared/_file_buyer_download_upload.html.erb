@@ -2,9 +2,11 @@
     <div class="btn-group-horizontal">
       <h1>
         <% if type == "strategic" %>
-        <%= button_to "Export", controller: "nbps", action: "show_companies", formt: "xlsx", class: "btn-outline btn-warning" %>
+         <a data-no-turbolink='true' href="/nbps/<%= nbp.id %>/companies.xlsx" class="btn btn-outline btn-warning btn-default">
+            Export <i class="fa fa-cloud-download"></i>
+          </a>
         <% else %>
-          <a href="/nbps/<%= nbp.id %>/sponsors.xlsx" class="btn btn-outline btn-warning btn-default">
+         <a data-no-turbolink='true' href="/nbps/<%= nbp.id %>/sponsors.xlsx" class="btn btn-outline btn-warning btn-default">
             Export <i class="fa fa-cloud-download"></i>
           </a>
         <% end %>

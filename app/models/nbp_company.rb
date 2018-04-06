@@ -2,6 +2,7 @@ class NbpCompany < ActiveRecord::Base
 validates_uniqueness_of :bucket_id, :scope => :company_id
 belongs_to :nbp
 belongs_to :company
+belongs_to :bucket
 
 	def self.to_csv
 		CSV.generate do |csv|

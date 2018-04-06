@@ -1,0 +1,36 @@
+require 'axlsx'
+
+# app/views/nbps/show_sponsors.xlsx.axlsx
+
+wb = xlsx_package.workbook
+	  wb.styles do |s|
+	    title_1 = s.add_style :fg_color => "00", :sz => 24, :font_name => 'Tahoma', b: true, :alignment => { :horizontal=> :left }
+	    date_1 =  s.add_style :fg_color => "00", :sz => 12, :font_name => 'Tahoma', :format_code => '[$-x-sysdate]dddd, mmmm dd, yyyy', :alignment => { :horizontal=> :left }
+	    header_1 = s.add_style :bg_color => "07325F", :fg_color => "FF", :sz => 14, :font_name => 'Tahoma', b: true, :alignment => { :horizontal=> :center }
+	    row_1 = s.add_style :fg_color => "00", :sz => 14, :font_name => 'Tahoma', :alignment => { :horizontal=> :left }
+	    row_2 = s.add_style :fg_color => "00", :sz => 14, :font_name => 'Tahoma', :alignment => { :horizontal=> :center }
+		wb.add_worksheet(name: "Financial Buyers") do |sheet|
+		  
+			  # this is the head row of your spreadsheet
+			  sheet.add_row ["Financial Buyer List"], :style => [title_1]
+			  sheet.add_row [Date.current()], :style => [date_1]
+			  sheet.add_row []
+
+			  sheet.add_row ["Sponsor", "City", "State", "Featured"], :style => [header_1, header_1, header_1,header_1]
+			  
+			  # each nbp_sponsor is a row on your spreadsheet
+			  @nbp_sponsors.each do |nbp_sponsor|
+			    sheet.add_row [
+			    	nbp_sponsor.sponsor.name,
+			    	nbp_sponsor.sponsor.city,
+			    	nbp_sponsor.sponsor.state,
+			    	if nbp_sponsor.featured
+			    		"x"
+			    	end
+			    	], :style => [row_1, row_2, row_2,row_2]
+			  end
+			sheet.auto_filter = "A4:D" + (@nbp_sponsors.count + 4).to_s
+			sheet.column_widths 55,20,20,15
+		end
+
+	end	

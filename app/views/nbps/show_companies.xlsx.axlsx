@@ -1,15 +1,31 @@
 require 'axlsx'
+
 # app/views/nbps/show_companies.xlsx.axlsx
 
-p = Axlsx::Package.new
-wb = p.workbook
+wb = xlsx_package.workbook
+  wb.styles do |s|
+    title_1 = s.add_style :fg_color => "00", :sz => 24, :font_name => 'Tahoma', b: true, :alignment => { :horizontal=> :left }
+    date_1 =  s.add_style :fg_color => "00", :sz => 12, :font_name => 'Tahoma', :format_code => '[$-x-sysdate]dddd, mmmm dd, yyyy', :alignment => { :horizontal=> :left }
+    header_1 = s.add_style :bg_color => "07325F", :fg_color => "FF", :sz => 14, :font_name => 'Tahoma', b: true, :alignment => { :horizontal=> :center }
+    row_1 = s.add_style :fg_color => "00", :sz => 14, :font_name => 'Tahoma', :alignment => { :horizontal=> :left }
+    row_2 = s.add_style :fg_color => "00", :sz => 14, :font_name => 'Tahoma', :alignment => { :horizontal=> :center }
 
-wb.add_worksheet(name: "Strategic Acquirers") do |sheet|
-  # this is the head row of your spreadsheet
-  sheet.add_row ["Company", "Tier", "Bucket"]
-  
-  # each nbp_company is a row on your spreadsheet
-  @nbp_companies.each do |nbp_company|
-    sheet.add_row ["nbp_company.company.name", "nbp_company.tier_id", "nbp_company.bucket.name"]
-  end
-end
+	wb.add_worksheet(name: "Strategic Acquirers") do |sheet|
+	  
+	  # Header
+	  sheet.add_row ["Strategic Buyer List"], :style => [title_1]
+	  sheet.add_row [Date.current()], :style => [date_1]
+	  sheet.add_row []
+
+	# Title Row
+	  sheet.add_row ["Company", "Tier", "Bucket"], :style => [header_1, header_1, header_1]
+	  
+	  # each nbp_company is a row on your spreadsheet
+	  @nbp_companies.each do |nbp_company|
+	    sheet.add_row [nbp_company.company.name, nbp_company.tier_id, nbp_company.bucket.title], :style => [row_1, row_2, row_1]
+	  end
+	  sheet.auto_filter = "A4:C" + (@nbp_companies.count + 4).to_s
+	  sheet.column_widths 40, 10, 55
+	end
+
+end	

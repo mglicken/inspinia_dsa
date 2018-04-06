@@ -47,7 +47,9 @@ class NbpsController < ApplicationController
     @sponsors = @nbp.sponsors
     respond_to do |format|
       format.html
-      format.xlsx
+      format.xlsx {
+        response.headers['Content-Disposition'] = 'attachment; filename="Financial_Acquirers_List.xlsx"'
+        }
     end
   end
   
@@ -58,7 +60,9 @@ class NbpsController < ApplicationController
     @buckets = @nbp.buckets
     respond_to do |format|
       format.html
-      format.xlsx 
+      format.xlsx {
+        response.headers['Content-Disposition'] = 'attachment; filename="Strategic_Acquirers_List.xlsx"'
+        }
     end
   end
 
