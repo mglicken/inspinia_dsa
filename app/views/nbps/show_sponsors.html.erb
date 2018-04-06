@@ -4,8 +4,11 @@
 <br>
 <div class="row">
   <div class="pull-right">
-    <div class="btn btn-group btn-group-vertical">
+    <div class="btn-group-vertical">
       <%= render('shared/file_buyer_download_upload', type: "financial", nbp: @nbp) %>
+
+      <%= render('shared/create_nbp_sponsor_modal',nbp: @nbp) %>
+      
     </div>
   </div> 
   <div class="col-lg-offset-2 col-lg-7">
