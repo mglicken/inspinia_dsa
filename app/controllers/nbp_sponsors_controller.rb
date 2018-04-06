@@ -35,7 +35,7 @@ class NbpSponsorsController < ApplicationController
     @nbp_sponsor.featured = params[:featured]
 
     if @nbp_sponsor.save
-      redirect_to "/nbps", :notice => "NBP Sponsor created successfully."
+      redirect_to "/nbps/#{@nbp_sponsor.nbp_id}/", :notice => "Sponsor added successfully to NBP."
     else
       render 'new'
     end
@@ -53,7 +53,7 @@ class NbpSponsorsController < ApplicationController
     @nbp_sponsor.featured = params[:featured]
 
     if @nbp_sponsor.save
-      redirect_to "/nbp_sponsors/#{@nbp_sponsor.id}/", :notice => "NBP Sponsor updated successfully!"
+      redirect_to "/nbps/#{@nbp_sponsor.nbp_id}/", :notice => "Sponsor updated successfully!"
     else
       render 'edit'
     end
