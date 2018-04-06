@@ -318,8 +318,8 @@ Myapp::Application.routes.draw do
   resources :nbps do
     collection {
       post :import
-      post :import_financials
-      post :import_strategics
+      post :show_companies
+      post :show_sponsors
     }
   end
   # CREATE

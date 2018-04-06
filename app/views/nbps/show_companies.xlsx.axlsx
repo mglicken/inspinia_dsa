@@ -1,0 +1,15 @@
+require 'axlsx'
+# app/views/nbps/show_companies.xlsx.axlsx
+
+p = Axlsx::Package.new
+wb = p.workbook
+
+wb.add_worksheet(name: "Strategic Acquirers") do |sheet|
+  # this is the head row of your spreadsheet
+  sheet.add_row ["Company", "Tier", "Bucket"]
+  
+  # each nbp_company is a row on your spreadsheet
+  @nbp_companies.each do |nbp_company|
+    sheet.add_row ["nbp_company.company.name", "nbp_company.tier_id", "nbp_company.bucket.name"]
+  end
+end

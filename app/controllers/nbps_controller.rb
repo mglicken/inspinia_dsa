@@ -45,6 +45,10 @@ class NbpsController < ApplicationController
     @nbp = Nbp.find(params[:id])
     @nbp_sponsors = @nbp.nbp_sponsors
     @sponsors = @nbp.sponsors
+    respond_to do |format|
+      format.html
+      format.xlsx
+    end
   end
   
   def show_companies
@@ -54,7 +58,7 @@ class NbpsController < ApplicationController
     @buckets = @nbp.buckets
     respond_to do |format|
       format.html
-      format.csv {send_data @nbp_companies.to_csv_client }
+      format.xlsx 
     end
   end
 

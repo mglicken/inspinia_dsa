@@ -4,6 +4,7 @@ require_relative 'boot'
 require 'rails/all'
 
 require 'roo'
+require 'axlsx'
 require "csv"
 
 # Require the gems listed in Gemfile, including any gems

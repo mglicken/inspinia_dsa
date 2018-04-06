@@ -18,8 +18,11 @@ gem 'devise'
 # Use cloudinary for manipulating pdfs
 gem 'cloudinary'
 
-# Roo for Excel file parsing
+# Roo for reading Excel and Axlsx for writing Excel
 gem 'roo'
+gem 'rubyzip', '>= 1.2.1'
+gem 'axlsx', git: 'https://github.com/randym/axlsx.git', ref: 'c8ac844'
+gem 'axlsx_rails'
 
 # Use SCSS for stylesheets
 gem 'sass-rails', '~> 5.0.4'

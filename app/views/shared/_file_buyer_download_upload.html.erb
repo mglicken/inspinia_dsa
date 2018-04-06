@@ -1,47 +1,41 @@
-  <div class="btn btn-group btn-group-horizontal">
-    <h1>
-      <% if type == "strategic" %>
-        <a id="<%= type %>-button" href="/nbps/<%= nbp.id %>/companies.csv" class="btn btn-outline btn-warning btn-default">
-          Export <i class="fa fa-cloud-download"></i>
-        </a>
-      <% else %>
-        <a id="<%= type %>-button" href="/nbps/<%= nbp.id %>/sponsors.csv" class="btn btn-outline btn-warning btn-default">
-          Export <i class="fa fa-cloud-download"></i>
-        </a>
-      <% end %>
-      <!-- Button trigger modal -->
-      <button type="button" class="btn btn-warning btn-default" data-toggle="modal" data-target="#myModalUpLoad_<%= type %>">
-          Import <i class="fa fa-upload"></i>
-      </button>
+  <div style="text-align: center">
+    <div class="btn-group-horizontal">
+      <h1>
+        <% if type == "strategic" %>
+        <%= button_to "Export", controller: "nbps", action: "show_companies", formt: "xlsx", class: "btn-outline btn-warning" %>
+        <% else %>
+          <a href="/nbps/<%= nbp.id %>/sponsors.xlsx" class="btn btn-outline btn-warning btn-default">
+            Export <i class="fa fa-cloud-download"></i>
+          </a>
+        <% end %>
+        <!-- Button trigger modal -->
+        <button type="button" class="btn btn-warning btn-default" data-toggle="modal" data-target="#myModalUpLoad_<%= type %>">
+            Import <i class="fa fa-upload"></i>
+        </button>
 
-      <!-- Modal -->
-      <div class="modal fade" id="myModalUpLoad_<%= type %>" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-        <div class="modal-dialog" role="document">
-          <div class="modal-content">
-            <div class="modal-header">
-              <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-              <h4 class="modal-title" id="myModalLabel">Upload <%= type.capitalize %> Acquirers</h4>
-            </div>
-            <div class="modal-body">
-            <h5>
-            <% if type == "strategic" %>
-              <%= form_tag import_strategics_nbps_path, multipart: true do %>
-              <%= file_field_tag :file %><br>
-              <%= submit_tag "Import Strategic Acquirers", class: "btn btn-warning btn-group-justified"%> 
-              <%end %>          
-            <%elsif type == "financial" %>
-              <%= form_tag import_financials_nbps_path, multipart: true do %>
-              <%= file_field_tag :file %>
-              <%= submit_tag "Import Financial Acquirers", class: "btn btn-warning btn-group-justified"%>  
-              <%end %>    
-            <%end%></h5>
+        <!-- Modal -->
+        <div class="modal fade" id="myModalUpLoad_<%= type %>" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+          <div class="modal-dialog" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="myModalLabel">Upload <%= type.capitalize %> Acquirers</h4>
+              </div>
+              <div class="modal-body">
+              <h5>
+              <% if type == "strategic" %>
+         
+              <%elsif type == "financial" %>
+      
+              <%end%></h5>
+              </div>
             </div>
           </div>
         </div>
-      </div>
-     
-    </h1>
-  </div>    
+       
+      </h1>
+    </div>
+  </div> 
 
 <!-- File Download Button -->
 
