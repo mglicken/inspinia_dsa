@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180403215010) do
+ActiveRecord::Schema.define(version: 20180407021059) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -147,6 +147,8 @@ ActiveRecord::Schema.define(version: 20180403215010) do
     t.integer "nbp_id"
     t.integer "sponsor_id"
     t.boolean "featured"
+    t.text    "rationale"
+    t.text    "note"
   end
 
   create_table "nbps", force: :cascade do |t|

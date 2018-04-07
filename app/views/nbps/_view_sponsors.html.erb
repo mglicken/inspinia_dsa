@@ -36,11 +36,16 @@
                 <%= fund.name%> - $<%= fund.size %> million (<%= fund.open_year %>)<br>
                 <%end%>
               <%end%>
+
               <strong>Companies: </strong><br>
               <% sponsor.companies.each do |company|%>                            
                 <a href="/companies/<%=company.id%>"><%= company.name%></a><br>
-
               <%end%>
+              
+              <div class="pull-right">
+                <%= render('shared/edit_nbp_sponsor_modal', nbp_sponsor: NbpSponsor.where(sponsor_id: sponsor.id, nbp_id: @nbp.id).first) %>
+              </div>
+
           </div>
         </div>
       </div>

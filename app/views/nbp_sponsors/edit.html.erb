@@ -45,7 +45,27 @@
 
           <!-- Check boxes Featured -->
           <div class="checkbox-inline">
-            <label><input type="checkbox" name="featured" checked>Featured</label>
+            <label><input type="checkbox" name="featured">Featured</label>
+          </div>
+
+                    <!-- Label and input for Lincoln Rationale -->
+          <div class="form-group">
+            <h5><label for="rationale" class="col-lg-2 control-label">
+              Lincoln Rationale:
+            </label></h5>
+            <div class="col-lg-10">
+              <textarea id="rationale" name="rationale" placeholder="e.g., Lincoln has sold..."  class="form-control" rows="5"><%= @nbp_sponsor.rationale %></textarea>
+            </div>
+          </div>
+
+          <!-- Label and input for Notes -->
+          <div class="form-group">
+            <h5><label for="note" class="col-lg-2 control-label">
+              Notes:
+            </label></h5>
+            <div class="col-lg-10">
+              <textarea id="note" name="note" placeholder="e.g., Lincoln has sold..."  class="form-control" rows="3"><%= @nbp_sponsor.note %></textarea>
+            </div>
           </div>
 
 
