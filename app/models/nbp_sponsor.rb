@@ -12,7 +12,7 @@ belongs_to :sponsor
 	end
 
 	def self.import(file)
-		allowed_attributes = [  "nbp_id", "sponsor_id", "featured"]
+		allowed_attributes = [  "nbp_id", "sponsor_id", "featured", "rationale", "note"]
 		CSV.foreach(file.path,headers: true) do |row|
 			nbp_sponsors = find_by_id(row["id"]) || new
 			
