@@ -1,6 +1,6 @@
 <div class="page-header">
   <h1>
-    Financial Acquirers
+    Financial Acquirers (<%= @sponsors.count%>)
   </h1>
 </div>
 
@@ -30,10 +30,12 @@
 
               <strong>Funds: </strong><br>
               <% sponsor.funds.where(close_year: nil).each do |fund|%>                            
-                <%if fund.size >= 1000 %>
-                <%= fund.name%> - $<%= fund.size/1000 %> billion (<%= fund.open_year %>)<br>
-                <%else%>
-                <%= fund.name%> - $<%= fund.size %> million (<%= fund.open_year %>)<br>
+                <% if fund.size.present? %>
+                  <%if fund.size > 1000 %>
+                  <%= fund.name%> - $<%= fund.size/1000 %> billion (<%= fund.open_year %>)<br>
+                  <%else fund.size%>
+                  <%= fund.name%> - $<%= fund.size %> million (<%= fund.open_year %>)<br>
+                  <%end%>
                 <%end%>
               <%end%>
 

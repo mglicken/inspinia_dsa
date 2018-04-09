@@ -29,16 +29,19 @@
                 <a href=""><i class="fa fa-th-large"></i> <span class="nav-label" data-i18n="nav.dashboard">Dashboards</span> <span class="fa arrow"></span></a>
                 <ul class="nav nav-second-level collapse <%= is_active_controller('dashboards', 'in') %>">
                     <li class="<%= is_active_action('dashboard_1') %>"><%= link_to "Dashboard", '/dashboard' %></li>
-
-                    <li ><%= link_to "Access Dashboard", '/access_dashboard' %></li>
-                    <li ><%= link_to "Upload Dashboard", '/models' %></li>
+                    <% if current_user.access_id <=2 %>
+                        <li ><%= link_to "Access Dashboard", '/access_dashboard' %></li>
+                        <li ><%= link_to "Upload Dashboard", '/models' %></li>
+                    <% end %>
+                    <% if current_user.access_id ==1 %>
                     <li class="<%= is_active_action('dashboard_2') %>"><%= link_to "Dashboard v.2", dashboards_dashboard_2_path %></li>
                     <li class="<%= is_active_action('dashboard_3') %>"><%= link_to "Dashboard v.3", dashboards_dashboard_3_path %></li>
                     <li class="<%= is_active_action('dashboard_4_1') %>"><%= link_to "Dashboard v.4", dashboards_dashboard_4_1_path %></li>
                     <li class="<%= is_active_action('dashboard_5') %>"><%= link_to "Dashboard v.5", dashboards_dashboard_5_path %></li>
+                    <% end %>
                 </ul>
             </li>
-
+            <% if current_user.access_id ==1 %>
             <li class="<%= is_active_controller('layoutsoptions') %>">
                 <%= link_to layoutsoptions_index_path do %>
                 <i class="fa fa-diamond"></i> <span class="nav-label" data-i18n="nav.layouts">Layouts</span> <span class="label label-primary pull-right">NEW</span>
@@ -246,7 +249,7 @@
                 <i class="fa fa-star"></i> <span class="nav-label" data-i18n="nav.landing">Landing page </span>
                 <% end %>
             </li>
-
+            <% end %>
         </ul>
 
     </div>

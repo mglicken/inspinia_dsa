@@ -20,7 +20,7 @@ wb = xlsx_package.workbook
 			  sheet.add_row ["Sponsor", "City", "State", "Featured", "Lincoln Rationale"], :style => [header_1, header_1, header_1,header_1,header_1]
 			  
 			  # each nbp_sponsor is a row on your spreadsheet
-			  @nbp_sponsors.each do |nbp_sponsor|
+			  @nbp_sponsors.joins(:sponsor).order("name ASC").each do |nbp_sponsor|
 			    sheet.add_row [
 			    	nbp_sponsor.sponsor.name,
 			    	nbp_sponsor.sponsor.city,
@@ -31,7 +31,23 @@ wb = xlsx_package.workbook
 			    	nbp_sponsor.rationale], :style => [row_1, row_2, row_2, row_2, row_3]
 			  end
 			sheet.auto_filter = "A4:E" + (@nbp_sponsors.count + 4).to_s
-			sheet.column_widths 55,20,20,15, 45
+			sheet.column_widths 55,20,20,15,60
+		end
+		wb.add_worksheet(name: "nbp_sponsors") do |sheet|
+		  
+			  sheet.add_row ["id", "nbp_id", "sponsor_id", "sponsor_name", "featured", "rationale", "note"]
+			  
+			  # each nbp_sponsor is a row on your spreadsheet
+			  @nbp_sponsors.joins(:sponsor).order("name ASC").each do |nbp_sponsor|
+			    sheet.add_row [
+			    	nbp_sponsor.id,
+			    	nbp_sponsor.nbp_id,
+			    	nbp_sponsor.sponsor.id,
+			    	nbp_sponsor.sponsor.name,
+			    	nbp_sponsor.featured,
+			    	nbp_sponsor.rationale,
+			    	nbp_sponsor.note]
+			  end
 		end
 
 	end	
