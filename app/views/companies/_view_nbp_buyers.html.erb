@@ -1,20 +1,32 @@
 
 <div class="row container">
-<% @nbp_buyers.each do |nbp| %>
+<% @nbp_companies.each do |nbp_company| %>
   <div class="col-xs-12 col-sm-6 col-md-4 col-lg-4 isotope-item">
-    <div class="panel panel-default">
+    <% if nbp_company.tier_id == 1 %>
+      <div class="panel panel-primary">
+    <% elsif nbp_company.tier_id == 2 %>
+      <div class="panel panel-success">
+    <% elsif nbp_company.tier_id == 3 %>
+      <div class="panel panel-warning">
+    <% elsif nbp_company.tier_id == 4 %>
+      <div class="panel panel-danger">
+    <% end %>
       <div class="panel-heading" >
-        <h3 class="panel-title" style="font-size:12px"><a href="/nbps/<%=nbp.id %>/companies"><%= nbp.name %></a></h3>
+        <h3 class="panel-title" style="font-size:12px"><a href="/nbps/<%=nbp_company.nbp_id %>/companies"><%= nbp_company.nbp.name %></a></h3>
       </div>
       <div class="panel-body" >
         <div class="row">
           <div class="col-md-12">
-           <ul style="font-size:10px" >
+           <div style="font-size:10px" >
 
-              <il><strong>NBP Date:</strong></il>
-              <il> <%= nbp.nbp_date%></il><br>
+              <strong>NBP Date: </strong>
+              <%= nbp_company.nbp.nbp_date%><br>
+              <strong>Lincoln Rationale: </strong>
+              <%= nbp_company.strip %><br>
+              <strong>Notes: </strong>
+              <%= nbp_company.note %>
               
-            </ul>
+            </div>
           </div>
         </div>
       </div>

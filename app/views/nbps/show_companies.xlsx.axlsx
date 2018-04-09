@@ -9,6 +9,7 @@ wb = xlsx_package.workbook
     header_1 = s.add_style :bg_color => "07325F", :fg_color => "FF", :sz => 14, :font_name => 'Tahoma', b: true, :alignment => { :horizontal=> :center }
     row_1 = s.add_style :fg_color => "00", :sz => 14, :font_name => 'Tahoma', :alignment => { :horizontal=> :left }
     row_2 = s.add_style :fg_color => "00", :sz => 14, :font_name => 'Tahoma', :alignment => { :horizontal=> :center }
+	row_3 = s.add_style :fg_color => "00", :sz => 14, :font_name => 'Tahoma', :alignment => { :horizontal=> :left, :wrap_text => true }
 
 	wb.add_worksheet(name: "Strategic Acquirers") do |sheet|
 	  
@@ -18,14 +19,20 @@ wb = xlsx_package.workbook
 	  sheet.add_row []
 
 	# Title Row
-	  sheet.add_row ["Company", "Tier", "Bucket"], :style => [header_1, header_1, header_1]
+	  sheet.add_row ["Company", "Tier", "Bucket", "Include", "Rationale"], :style => [header_1, header_1, header_1, header_1, header_1]
 	  
 	  # each nbp_company is a row on your spreadsheet
-	  @nbp_companies.each do |nbp_company|
-	    sheet.add_row [nbp_company.company.name, nbp_company.tier_id, nbp_company.bucket.title], :style => [row_1, row_2, row_1]
+	  @nbp_companies.order(bucket_id: :asc, tier_id: :asc).each do |nbp_company|
+	    sheet.add_row [nbp_company.company.name,
+	    nbp_company.tier_id,
+	    nbp_company.bucket.title,
+	    if 	nbp_company.include_strip
+	    	"X"
+	    end,
+	    nbp_company.strip], :style => [row_1, row_2, row_1, row_2, row_3]
 	  end
-	  sheet.auto_filter = "A4:C" + (@nbp_companies.count + 4).to_s
-	  sheet.column_widths 40, 10, 55
+	  sheet.auto_filter = "A4:E" + (@nbp_companies.count + 4).to_s
+	  sheet.column_widths 40, 10, 55, 10, 60
 	end
 
 end	

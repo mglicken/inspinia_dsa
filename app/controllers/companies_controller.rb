@@ -68,8 +68,8 @@ before_action :ensure_access
   def show
     @company = Company.find(params[:id])
     @followed = CompanyFollow.where(company_id: params[:id],user_id: current_user.id).present?
-    @contacts = Person.where(id: WorkHistory.where(company_id: params[:id]).pluck(:person_id)).order("name ASC")
-    @nbp_buyers = Nbp.where(id:(NbpCompany.where(company_id: @company.id).pluck(:nbp_id)).uniq).order("name ASC")
+    @contacts = @company.work_histories.joins(:person).order("name ASC")
+    @nbp_companies = @company.nbp_companies.joins(:company).order("name ASC")
 
   end
 
