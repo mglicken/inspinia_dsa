@@ -4,7 +4,7 @@
   <div class="col-sm-offset-1 col-sm-10 col-md-offset-2 col-md-8">
     <div class="panel panel-default">
       <div class="panel-heading">
-        <h3 class="panel-title"><%= @sponsor.name %></h3>
+        <h3 class="panel-title"><%= @sponsor.name %> (<%= @sponsor.sponsor_type %>)</h3>
       </div>
       <div class="panel-body">
         <div class="row">
@@ -34,8 +34,6 @@
                   <%end%>                  
                 </address>                                  
               </dd>
-              <dt>Type:</dt>
-              <dd><%= @sponsor.sponsor_type %></dd>
               <% if @sponsor.description.present? %>
                 <dt>Description:</dt>
                 <% if @sponsor.description.length <= 600 %>
