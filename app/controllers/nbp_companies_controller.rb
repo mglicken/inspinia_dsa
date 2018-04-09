@@ -34,9 +34,13 @@ before_action :ensure_access
     @nbp_company.nbp_id = params[:nbp_id]
     @nbp_company.tier_id = params[:tier_id]
     @nbp_company.bucket_id = params[:bucket_id]
+    @nbp_company.include_strip = params[:include_strip]    
+    @nbp_company.strip = params[:strip]    
+    @nbp_company.note = params[:note]        
+
 
     if @nbp_company.save
-      redirect_to "/nbps/#{@nbp_company.nbp_id}/companies", :notice => "NBP company created successfully."
+      redirect_to "/nbps/#{@nbp_company.nbp_id}/companies", :notice => "#{@nbp_company.company.name} created successfully."
     else
       render 'new'
     end
@@ -53,9 +57,12 @@ before_action :ensure_access
     @nbp_company.nbp_id = params[:nbp_id]
     @nbp_company.tier_id = params[:tier_id]
     @nbp_company.bucket_id = params[:bucket_id]
-    
+    @nbp_company.include_strip = params[:include_strip]    
+    @nbp_company.strip = params[:strip]    
+    @nbp_company.note = params[:note]        
+
     if @nbp_company.save
-      redirect_to "/nbp_companies/#{@nbp_company.id}/", :notice => "NBP Company updated successfully!"
+      redirect_to "/nbps/#{@nbp_company.nbp_id}/companies", :notice => "#{@nbp_company.company.name} created successfully."
     else
       render 'edit'
     end

@@ -83,7 +83,13 @@
                 <div class="row">
                   <div class="col-md-12">
 
-                    Strip Content
+                    <strong>Lincoln Rationale: </strong><br>
+                    <div style="text-align: left">
+                      <%= company.nbp_companies.find_by(nbp_id: @nbp.id).strip %>
+                    </div>
+                    <div class="pull-right">
+                      <%= render('shared/edit_nbp_company_modal', nbp_company: NbpCompany.find_by(company_id: company.id, nbp_id: @nbp.id)) %>
+                    </div>
 
                   </div>
                 </div>

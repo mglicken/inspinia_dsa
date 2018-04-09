@@ -201,7 +201,7 @@ before_action :ensure_access
     for i in 0..(pdf_len-1)
       slide = Slide.new
       slide.number = i+1
-      slide.image_url = "http://res.cloudinary.com/mglicken/image/upload/c_scale,h_255,w_330/f_jpg,pg_#{ i+1 }/#{ public_id }.pdf"
+      slide.image_url = "http://res.cloudinary.com/mglicken/image/upload/f_jpg,pg_#{ i+1 }/#{ public_id }.pdf"
       slide.save
       
       teaser_slide = TeaserSlide.new
