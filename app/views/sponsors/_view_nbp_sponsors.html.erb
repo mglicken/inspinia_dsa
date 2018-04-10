@@ -22,7 +22,7 @@
                 <% end %>
                 <br>
                 <strong>Lincoln Rationale:</strong><br>
-                  <%= NbpSponsor.find_by(nbp_id: nbp.id, sponsor_id: @sponsor.id).rationale %>             
+                  <%= simple_format(NbpSponsor.find_by(nbp_id: nbp.id, sponsor_id: @sponsor.id).rationale) %>             
               </dl>
             </div>
           </div>

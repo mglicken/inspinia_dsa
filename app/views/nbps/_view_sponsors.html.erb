@@ -45,7 +45,7 @@
               <%end%>
 
               <strong>Lincoln Rationale: </strong><br>
-                <%= NbpSponsor.find_by(sponsor_id: sponsor.id, nbp_id: @nbp.id) .rationale%>
+                <%= simple_format(NbpSponsor.find_by(sponsor_id: sponsor.id, nbp_id: @nbp.id).rationale) %>
               
               <div class="pull-right">
                 <%= render('shared/edit_nbp_sponsor_modal', nbp_sponsor: NbpSponsor.where(sponsor_id: sponsor.id, nbp_id: @nbp.id).first) %>

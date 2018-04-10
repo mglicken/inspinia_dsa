@@ -1,5 +1,6 @@
 
 <div class="row container">
+<div class="col-lg-12">
 <% @nbp_companies.each do |nbp_company| %>
   <div class="col-xs-12 col-sm-6 col-md-4 col-lg-4 isotope-item">
     <% if nbp_company.tier_id == 1 %>
@@ -22,9 +23,9 @@
               <strong>NBP Date: </strong>
               <%= nbp_company.nbp.nbp_date%><br>
               <strong>Lincoln Rationale: </strong>
-              <%= nbp_company.strip %><br>
+              <%= simple_format(nbp_company.strip) %><br>
               <strong>Notes: </strong>
-              <%= nbp_company.note %>
+              <%= simple_format(nbp_company.note) %>
               
             </div>
           </div>
@@ -33,4 +34,5 @@
     </div>
   </div>
 <% end %>
+</div>
 </div>

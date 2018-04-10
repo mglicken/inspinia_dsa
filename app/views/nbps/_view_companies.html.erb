@@ -9,8 +9,10 @@
     <thead>
       <tr>
         <% @buckets.each do |bucket| %>
-          <td class="panel col" style="text-align: center; border-width: 3px; border-color: #FFFFFF; background-color: #006b6e; color: #ffffff; padding: 20px; width:<%= size_perc%>">
-            <strong><%= render('shared/edit_bucket_modal',nbp: @nbp, bucket: bucket) %></strong>
+          <td class="panel col" style="text-align: center; border-width: 3px; border-color: #FFFFFF; background-color: #006b6e; color: #ffffff; padding: 5px; width:<%= size_perc%>">
+              <div style="width: <%= 1050/@buckets.count %>px; text-align: center">
+                <%= render('shared/edit_bucket_modal',nbp: @nbp, bucket: bucket) %>
+              </div>
           </td>
         <% end %>
       </tr>
@@ -83,14 +85,14 @@
                 <div class="row">
                   <div class="col-md-12">
 
-                    <% if company.nbp_companies.find_by(nbp_id: @nbp.id).strip.present? %>
+                    <% if company.nbp_companies.find_by(bucket_id: @buckets[j-1].id).strip.present? %>
                       <div style="text-align: left">
-                      <strong>Lincoln Rationale: </strong><br>
-                        <%= company.nbp_companies.find_by(nbp_id: @nbp.id).strip %>
+                        <strong>Lincoln Rationale: </strong><br>
+                        <%= simple_format(company.nbp_companies.find_by(bucket_id: @buckets[j-1].id).strip) %>
                       </div>
                     <% end %>
                       <div class="pull-right">
-                        <%= render('shared/edit_nbp_company_modal', nbp_company: NbpCompany.find_by(company_id: company.id, nbp_id: @nbp.id)) %>
+                        <%= render('shared/edit_nbp_company_modal', nbp_company: company.nbp_companies.find_by(bucket_id: @buckets[j-1])) %>
                       </div>
 
                   </div>
@@ -108,7 +110,11 @@
   <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
   <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
   <script>
- $( function() {
+  $(function () {
+  $('[data-toggle="tooltip"]').tooltip()
+  })
+
+  $( function() {
     $( "#sortable11, #sortable12, #sortable13, #sortable14, #sortable21, #sortable22, #sortable23, #sortable24, #sortable31, #sortable32, #sortable33, #sortable34,#sortable41, #sortable42, #sortable43, #sortable44" ).sortable({
       connectWith: ".connectedSortable"
     }).disableSelection();
