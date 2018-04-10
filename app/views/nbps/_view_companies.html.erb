@@ -10,7 +10,7 @@
       <tr>
         <% @buckets.each do |bucket| %>
           <td class="panel col" style="text-align: center; border-width: 3px; border-color: #FFFFFF; background-color: #006b6e; color: #ffffff; padding: 5px; width:<%= size_perc%>">
-              <div style="width: <%= 1050/@buckets.count %>px; text-align: center">
+              <div style="width: <%= 1100/@buckets.count %>px; text-align: center">
                 <%= render('shared/edit_bucket_modal',nbp: @nbp, bucket: bucket) %>
               </div>
           </td>
