@@ -1,14 +1,32 @@
 class BucketsController < ApplicationController
 
-  before_action :ensure_access
+before_action :ensure_banker_access,  only: [:new, :create,  :edit, :update, :destroy, :import]
+before_action :ensure_view_access,  only: [:index, :search, :show]
 
-  def ensure_access
+  def ensure_admin_access
+    if current_user.access_id.present?
+      if current_user.access_id > 2
+        redirect_to root_url, :alert => "Not Authorized"
+      end
+    end
+  end
+
+  def ensure_banker_access
     if current_user.access_id.present?
       if current_user.access_id > 3
         redirect_to root_url, :alert => "Not Authorized"
       end
     end
-  end 
+  end
+
+  def ensure_view_access
+    if current_user.access_id.present?
+      if current_user.access_id > 4
+        redirect_to root_url, :alert => "Not Authorized"
+      end
+    end
+  end
+
 
   def index
     @buckets = Bucket.all

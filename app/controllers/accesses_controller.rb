@@ -1,8 +1,9 @@
 class AccessesController < ApplicationController
 
- before_action :ensure_access
+before_action :ensure_admin_access
 
-  def ensure_access
+
+  def ensure_admin_access
     if current_user.access_id.present?
       if current_user.access_id > 2
         redirect_to root_url, :alert => "Not Authorized"

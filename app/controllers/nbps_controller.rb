@@ -1,6 +1,32 @@
 class NbpsController < ApplicationController
 
-before_action :ensure_access
+before_action :ensure_admin_access,  only: [:index]
+before_action :ensure_banker_access,  only: [:new, :create, :copy_layout, :edit, :update, :destroy, :import]
+before_action :ensure_view_access,  only: [:search, :show, :show_companies, :show_sponsors]
+
+  def ensure_admin_access
+    if current_user.access_id.present?
+      if current_user.access_id > 2
+        redirect_to root_url, :alert => "Not Authorized"
+      end
+    end
+  end
+
+  def ensure_banker_access
+    if current_user.access_id.present?
+      if current_user.access_id > 3
+        redirect_to root_url, :alert => "Not Authorized"
+      end
+    end
+  end
+
+  def ensure_view_access
+    if current_user.access_id.present?
+      if current_user.access_id > 4
+        redirect_to root_url, :alert => "Not Authorized"
+      end
+    end
+  end
 
   def ensure_access
     if current_user.access_id.present?
@@ -142,17 +168,6 @@ before_action :ensure_access
   def import
     Nbp.import(params[:file])
     redirect_to "/models/", notice: "NBPs imported."
-  end
-
-  def import_strategics
-
-    NbpCompany.import(params[:file])
-    redirect_to "/nbps/#{1}/companies", notice: "Strategic Acquirers imported."
-  end
-
-  def import_financials
-    NbpSponsor.import(params[:file])
-    redirect_to "/nbps/#{1}/sponsors", notice: "Financial Acquirers imported."
   end
 
 end
