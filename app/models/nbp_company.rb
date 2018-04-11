@@ -23,7 +23,7 @@ belongs_to :bucket
 	end
 
 	def self.import(file)
-		allowed_attributes = [  "nbp_id", "company_id", "tier_id","bucket_id"]
+		allowed_attributes = [  "nbp_id", "company_id", "tier_id","bucket_id", "include_strip", "strip", "note"]
 		CSV.foreach(file.path,headers: true) do |row|
 			nbp_companies = find_by_id(row["id"]) || new
 			

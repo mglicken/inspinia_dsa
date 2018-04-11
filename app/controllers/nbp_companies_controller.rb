@@ -1,7 +1,7 @@
 class NbpCompaniesController < ApplicationController
 
 before_action :ensure_admin_access,  only: [:index, :show, :import]
-before_action :ensure_banker_access,  only: [:new, :create, :edit, :update, :destroy]
+before_action :ensure_banker_access,  only: [:new, :create, :edit, :update, :update_nbp_companies, :destroy]
 
   def ensure_admin_access
     if current_user.access_id.present?
@@ -93,22 +93,29 @@ before_action :ensure_banker_access,  only: [:new, :create, :edit, :update, :des
       @ids = @ids + block
     end
     @nbp = Nbp.find(NbpCompany.find(@ids.max).nbp_id)
-    
-    i=1
-    j=1
+    @buckets = @nbp.buckets.order("id ASC")
+    tier=1
+    bucket =1
     
     @blocks.each do |block|
         @ids = block.split(",").map { |s| s.to_i }
         @ids.each do |id|
+          if bucket == 5
             @nbp_company=NbpCompany.find(id)
-            @nbp_company.tier_id = i
-            @nbp_company.bucket_id  = @nbp.buckets[ j-2 ].id
-            @nbp_company.save  
+            @nbp_company.tier_id = tier - 1
+            @nbp_company.bucket_id  = @buckets[ bucket-2 ].id
+            @nbp_company.save
+          else
+            @nbp_company=NbpCompany.find(id)
+            @nbp_company.tier_id = tier
+            @nbp_company.bucket_id  = @buckets[ bucket-2 ].id
+            @nbp_company.save
+          end 
         end
-        j=j+1
-        if j>4
-          j=1
-          i=i+1
+        bucket = bucket+1
+        if bucket == 5
+          bucket= 1
+          tier = tier + 1
         end
     end
    
