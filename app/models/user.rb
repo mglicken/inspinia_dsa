@@ -9,5 +9,5 @@ class User < ApplicationRecord
   has_many  :favorite_slides, :dependent => :destroy
   has_many :slides, :through => :favorite_slides
   has_many :slide_layouts, :dependent => :destroy
-  
+  has_many :company_follows, :dependent => :destroy  
 end
