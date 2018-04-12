@@ -12,7 +12,7 @@
         <h4 class="modal-title" id="myModalLabel"><%= title %></h4>
       </div>
       <div class="modal-body">
-      <%= content %>
+      <%= simple_format(content) %>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
