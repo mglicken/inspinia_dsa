@@ -12,7 +12,7 @@
         <ul class="nav navbar-top-links navbar-right">
             <% if current_user.present? %>
                 <li>
-                    <span class="m-r-sm text-muted welcome-message" data-i18n="topnav.welcometext">Welcome <%= current_user.person.name %></span>
+                    <span class="m-r-sm text-muted welcome-message" data-i18n="topnav.welcometext"><a href="/dashboard/">Welcome, <%= current_user.person.name %></a></span>
                 </li>
 
             <% if current_user.access_id == 1 %>
