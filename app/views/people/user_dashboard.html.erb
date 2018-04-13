@@ -200,7 +200,7 @@
                                     <% note.people.each do |person|%>
                                         <strong style="font-size:10px"><%= person.name %></strong><br>
                                     <% end %>
-                                    <div><a href="/notes/<%=note.id%>"><%=note.detail%></a></div>
+                                    <div><a href="/notes/<%=note.id%>"><%=simple_format(note.detail)%></a></div>
                                 </div>
                             </div>
                         <% end %>

@@ -15,12 +15,12 @@
               <dt><%= @note.date %></dt>
               <% if @note.detail.length <= 1500 %>
                 <dd> <address>
-                  <%= @note.detail %>
+                  <%= simple_format(@note.detail) %>
                   </address>                                  
               </dd>
               <% else %>
                 <dd> <address>
-                    <%= @note.detail[0..1499] %><br>
+                    <%= simple_format(@note.detail)[0..1499] %><br>
                     <%= render('shared/content_modal', :content => @note.detail, :title => @note.title)%>
                     </address>                                  
                 </dd>

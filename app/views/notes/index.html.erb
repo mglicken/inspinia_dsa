@@ -29,12 +29,12 @@
           <% if note.detail.length <= 600 %>
             <dd> <address>
               <strong><%= note.date %></strong>
-              <%= note.detail %>
+              <%= simple_format(note.detail) %>
               </address>                                  
           </dd>
           <% else %>
             <dd> <address>
-                <%= note.detail[0..599] %><br>
+                <%= simple_format(note.detail)[0..599] %><br>
                 <a href="#" >Read More...</a>
                 </address>                                  
             </dd>

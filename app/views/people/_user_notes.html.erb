@@ -6,7 +6,7 @@
       <div class="panel-heading" >
         <h3 class="panel-title" style="font-size:12px">
             <strong><a href="/notes/<%= note.id%>"><%= note.title %></a></strong><br>
-            <%=note.detail %>
+            <%= simple_format(note.detail) %>
         </h3>
       </div>
     </div>

@@ -38,12 +38,12 @@
                 <dt>Description:</dt>
                 <% if @sponsor.description.length <= 600 %>
                   <dd> <address>
-                      <%= @sponsor.simple_format(description) %>
+                      <%= simple_format(@sponsor.description) %>
                       </address>                                  
                   </dd>
                 <% else %>
                   <dd> <address>
-                      <%= @sponsor.simple_format(description)[0..599] %>...<br>
+                      <%= simple_format(@sponsor.description)[0..599] %>...<br>
                       <%= render('shared/content_modal', :content => @sponsor.description, :title => "#{@sponsor.name} Description")%>
                       </address>                                  
                   </dd>
