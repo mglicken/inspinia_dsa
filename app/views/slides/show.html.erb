@@ -46,19 +46,19 @@
           <div class="col-md-12">
             <dl class="dl-horizontal">
             <% if @slide.nbp.present? %>   
-              <iframe src= "http://res.cloudinary.com/mglicken/image/upload/w_990,h_765,pg_<%= @slide.number %>/<%= @slide.nbp.image_id %>.jpg" style= "width:100%; height:750px;" frameborder="0"> </iframe>  
+              <iframe src= "http://res.cloudinary.com/mglicken/image/upload/c_scale,w_990,h_765/f_jpg,pg_<%= @slide.number %>/<%= @slide.nbp.image_id %>.pdf" style= "width:100%; height:750px;" frameborder="0"> </iframe>  
             <% end %>
             <% if @slide.cip.present? %> 
-              <iframe src= "http://res.cloudinary.com/mglicken/image/upload/w_990,h_765,pg_<%= @slide.number %>/<%= @slide.cip.image_id %>.jpg" style= "width:100%; height:750px;" frameborder="0"> </iframe>  
+              <iframe src= "http://res.cloudinary.com/mglicken/image/upload/c_scale,w_990,h_765/f_jpg,pg_<%= @slide.number %>/<%= @slide.cip.image_id %>.pdf" style= "width:100%; height:750px;" frameborder="0"> </iframe>  
             <% end %>
             <% if @slide.mp.present? %> 
-              <iframe src= "http://res.cloudinary.com/mglicken/image/upload/w_990,h_765,pg_pg_<%= @slide.number %>/<%= @slide.mp.image_id %>.jpg" style= "width:100%; height:750px;" frameborder="0"> </iframe>  
+              <iframe src= "http://res.cloudinary.com/mglicken/image/upload/c_scale,w_990,h_765/f_jpg,pg_<%= @slide.number %>/<%= @slide.mp.image_id %>.pdf" style= "width:100%; height:750px;" frameborder="0"> </iframe>  
             <% end %>
             <% if @slide.teaser.present? %> 
-              <iframe src= "http://res.cloudinary.com/mglicken/image/upload/w_765,h_990,pg_<%= @slide.number %>/<%= @slide.teaser.image_id %>.jpg" style= "width:100%; height:960px;" frameborder="0"> </iframe>  
+              <iframe src= "http://res.cloudinary.com/mglicken/image/upload/c_scale,w_765,h_990/f_jpg,pg_<%= @slide.number %>/<%= @slide.teaser.image_id %>.pdf" style= "width:100%; height:960px;" frameborder="0"> </iframe>  
             <% end %>
             <% if @slide.case_study.present? %> 
-              <iframe src= "http://res.cloudinary.com/mglicken/image/upload/w_990,h_765,pg_<%= @slide.number %>/<%= @slide.case_study.image_id %>.jpg" style= "width:100%; height:750px;" frameborder="0"> </iframe>  
+              <iframe src= "http://res.cloudinary.com/mglicken/image/upload/c_scale,w_990,h_765/f_jpg,pg_<%= @slide.number %>/<%= @slide.case_study.image_id %>.pdf" style= "width:100%; height:750px;" frameborder="0"> </iframe>  
             <% end %>
             </dl>
             <div class="btn-group btn-group-justified">
