@@ -25,18 +25,24 @@
                     <a href="/"><img src="http://www.lincolninternational.com/wp-content/uploads/LILogo_header.gif" width="90%"></img></a>
                 </div>
             </li>
-            <li class="<%= is_active_action('dashboard_1') %>"><%= link_to "User Dashboard", '/dashboard' %></li>
+                <li class="<%= is_active_controller('people') %>">
+                    <%= link_to '/dashboard' do %>
+                    <i class="fa fa-pie-chart"></i> <span class="nav-label" data-i18n="nav.people">User Dashboard</span>
+                    <% end %>
+                </li>
             <% if current_user.access_id <=2 %>
-                <li ><%= link_to "Access Dashboard", '/access_dashboard' %></li>
-                <li ><%= link_to "Upload Dashboard", '/models' %></li>
+                <li class="<%= is_active_controller('people') %>">
+                    <%= link_to '/access_dashboard' do %>
+                    <i class="fa fa-users"></i> <span class="nav-label" data-i18n="nav.people">Access Dashboard</span>
+                    <% end %>
+                </li>
+                <li class="<%= is_active_controller('accesses') %>">
+                    <%= link_to '/models' do %>
+                    <i class="fa fa-database"></i> <span class="nav-label" data-i18n="nav.accesses">Upload Dashboard</span>
+                    <% end %>
+                </li>
             <% end %>
-            <% if 2 ==1 %>
-            <li class="<%= is_active_action('dashboard_2') %>"><%= link_to "Dashboard v.2", dashboards_dashboard_2_path %></li>
-            <li class="<%= is_active_action('dashboard_3') %>"><%= link_to "Dashboard v.3", dashboards_dashboard_3_path %></li>
-            <li class="<%= is_active_action('dashboard_4_1') %>"><%= link_to "Dashboard v.4", dashboards_dashboard_4_1_path %></li>
-            <li class="<%= is_active_action('dashboard_5') %>"><%= link_to "Dashboard v.5", dashboards_dashboard_5_path %></li>
-            <% end %>
-            <% if 2 ==1 %>
+            <% if current_user.access_id ==1 %>
             <li class="<%= is_active_controller('layoutsoptions') %>">
                 <%= link_to layoutsoptions_index_path do %>
                 <i class="fa fa-diamond"></i> <span class="nav-label" data-i18n="nav.layouts">Layouts</span> <span class="label label-primary pull-right">NEW</span>
