@@ -94,8 +94,8 @@ before_action :ensure_banker_access,  only: [:new, :create, :edit, :update, :upd
     end
     @nbp = Nbp.find(NbpCompany.find(@ids.max).nbp_id)
     @buckets = @nbp.buckets.order("id ASC")
-    tier=1
-    bucket =1
+    tier = 1
+    bucket = 1
     
     @blocks.each do |block|
         @ids = block.split(",").map { |s| s.to_i }
@@ -112,9 +112,9 @@ before_action :ensure_banker_access,  only: [:new, :create, :edit, :update, :upd
             @nbp_company.save
           end 
         end
-        bucket = bucket+1
+        bucket = bucket + 1
         if bucket == 5
-          bucket= 1
+          bucket = 1
           tier = tier + 1
         end
     end
