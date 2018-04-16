@@ -100,7 +100,7 @@ before_action :ensure_banker_access,  only: [:new, :create, :edit, :update, :upd
     @blocks.each do |block|
         @ids = block.split(",").map { |s| s.to_i }
         @ids.each do |id|
-          if bucket == 4
+          if bucket == 5
             @nbp_company=NbpCompany.find(id)
             @nbp_company.tier_id = tier - 1
             @nbp_company.bucket_id  = @buckets[ bucket-2 ].id
