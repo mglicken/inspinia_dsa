@@ -34,6 +34,12 @@
              <dd> <a href="/companies/<%= @nbp.deal.company.id %>"><%= @nbp.deal.company.name %></a></dd>
              <dt>Date</dt>
              <dd><%= @nbp.nbp_date %></dd>
+             <dt>Tier 1:</dt>
+             <dd><%= @nbp_companies.where(tier_id: 1).count %></dd>
+             <dt>Tier 2:</dt>
+             <dd><%= @nbp_companies.where(tier_id: 2).count %></dd>
+             <dt>Other:</dt>
+             <dd><%= @nbp_companies.where(tier_id: [3,4]).count %></dd>
 
             </dl>
             <div class="btn-group btn-group-justified">

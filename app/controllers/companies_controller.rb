@@ -87,7 +87,7 @@ before_action :ensure_view_access,  only: [:index, :search, :show]
     @company = Company.find(params[:id])
     @followed = CompanyFollow.where(company_id: params[:id],user_id: current_user.id).present?
     @contacts = Person.where(id: @company.work_histories.joins(:person).order("name ASC").pluck(:person_id))
-    @nbp_companies = @company.nbp_companies.joins(:company).order("name ASC")
+    @nbp_companies = NbpCompany.where(company_id:  @company.children.ids.push(@company.id) ).joins(:company).order("name ASC")
 
   end
 

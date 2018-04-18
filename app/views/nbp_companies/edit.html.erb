@@ -39,7 +39,7 @@
               Company ID
             </label>
             <div class="col-sm-10">
-              <%= select_tag :company_id, options_from_collection_for_select(Company.all, :id, :name, @nbp_company.company_id), :class => "form-control" %>
+              <%= select_tag :company_id, options_from_collection_for_select(Company.order("name ASC"), :id, :name, @nbp_company.company_id), :class => "form-control" %>
             </div>
           </div>
 
