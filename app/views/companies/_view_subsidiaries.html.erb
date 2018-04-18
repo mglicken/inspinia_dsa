@@ -4,15 +4,13 @@
   <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 isotope-item">
     <div class="panel panel-default">
       <div class="panel-heading" >
-        <h3 class="panel-title" style="font-size:12px"><%= child.name %></h3>
+        <h3 class="panel-title" style="font-size:12px"><a href="/companies/<%=child.id %>"><%= child.name %></a></h3>
       </div>
       <div class="panel-body" >
         <div class="row">
           <div class="col-md-12">
             <dl class="dl-horizontal" style="font-size:10px" >
 
-              <dt>Company</dt>
-              <dd><a href="/companies/<%=child.id %>"><%= child.name %></a></dd>
               <dt>Acquisition Date</dt>
               <dd><%= child.subsidiary_parents.last.acquisition_date %>
               <dt>Acquisition Price</dt>
@@ -24,10 +22,8 @@
                 </a></dd>
               <% end %>
             </dl>
-            <div class="btn-group btn-group-justified">
-              <a href="/companies/<%= child.id %>" class="btn btn-lincoln">
-                <i class="fa fa-search-plus"></i>
-              </a>
+            <div class="pull-right">
+              <%= render('shared/edit_subsidiary_modal', subsidiary: @company.subsidiary_children.find_by(child_id: child.id)) %>
             </div>
           </div>
         </div>
