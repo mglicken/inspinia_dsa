@@ -1,7 +1,11 @@
 <br>
 <div class="pull-right">
-<%= render('shared/share_slide_layout_modal',slide_layout: @slide_layout) %>
-<%= render('shared/delete_slide_layout_modal',slide_layout: @slide_layout) %>
+  <div class="vertical-btn-group">
+    <br>  
+    <%= render('shared/share_slide_layout_modal',slide_layout: @slide_layout) %>
+    <%= render('shared/delete_slide_layout_modal',slide_layout: @slide_layout) %><br><br>
+    <a class="btn btn-success" href="/create_slide_layout_pdf/<%= @slide_layout.id %>">View PDF <i class="fa fa-file-pdf-o"></i></a>
+  </div>  
 </div>  
 <div class="page-header">
   <h1>
@@ -24,7 +28,7 @@
     <!-- Label and input for Deal Name -->
   <div class="form-group">
     <div class="col-lg-6">
-      <%= select_tag :deal_id, options_from_collection_for_select(Deal.all, :id, :name, @slide_layout.deal_id), :class => "form-control" %>
+      <%= select_tag :deal_id, options_from_collection_for_select(Deal.all, :id, :name, @slide_layout.deal_id), {:include_blank => 'Select Deal', :class => "form-control"} %>
     </div>
   </div>
 

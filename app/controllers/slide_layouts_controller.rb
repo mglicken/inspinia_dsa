@@ -94,7 +94,7 @@ before_action :ensure_banker_access,  only: [:show, :new, :create, :edit, :updat
           sls.save
         end
 
-        redirect_to "/slide_layouts/#{@slide_layout1.id}", :notice => "Slide Layout shared with #{@user.person.name} successfully."
+        redirect_to "/slide_layouts/#{@slide_layout.id}", :notice => "Slide Layout shared with #{@user.person.name} successfully."
       else
         render 'new'
       end
@@ -102,6 +102,13 @@ before_action :ensure_banker_access,  only: [:show, :new, :create, :edit, :updat
     end
   end
 
+  def create_pdf
+    @slide_layout = SlideLayout.find(params[:id])
+    @slide_layout.slides.each do |slide|
+      #Cloudinary::Uploader.add_tag("slide_layout_#{@slide_layout.id}", "pg_#{slide.slide_number}," , 'add')
+    end
+    redirect_to "/slide_layouts/#{@slide_layout.id}", :notice => "PDF created successfully."
+  end
 
   def edit
     @slide_layout = SlideLayout.find(params[:id])

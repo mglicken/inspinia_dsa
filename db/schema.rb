@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180407021059) do
+ActiveRecord::Schema.define(version: 20180418134847) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -151,6 +151,11 @@ ActiveRecord::Schema.define(version: 20180407021059) do
     t.text    "note"
   end
 
+  create_table "nbp_tags", force: :cascade do |t|
+    t.integer "nbp_id"
+    t.integer "tag_id"
+  end
+
   create_table "nbps", force: :cascade do |t|
     t.string  "name"
     t.integer "deal_id"
@@ -248,6 +253,12 @@ ActiveRecord::Schema.define(version: 20180407021059) do
     t.text    "description"
     t.date    "description_date"
     t.string  "linkedin_url"
+  end
+
+  create_table "strip_tags", force: :cascade do |t|
+    t.integer "nbp_company_id"
+    t.integer "tag_id"
+    t.integer "value"
   end
 
   create_table "subsidiaries", force: :cascade do |t|

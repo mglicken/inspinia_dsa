@@ -400,7 +400,24 @@ Myapp::Application.routes.draw do
   # DELETE
   get "/delete_nbp_sponsor/:id", :controller => "nbp_sponsors", :action => "destroy"
 
+  # Routes for the NBP Tags resource:
+  resources :nbp_tags do
+    collection {post :import}
+  end
+  # CREATE
+  get "/nbp_tags/new", :controller => "nbp_tags", :action => "new"
+  post "/create_nbp_tag", :controller => "nbp_tags", :action => "create"
+  
+  # READ
+  get "/nbp_tags", :controller => "nbp_tags", :action => "index"
+  get "/nbp_tags/:id", :controller => "nbp_tags", :action => "show"
 
+  # UPDATE
+  get "/nbp_tags/:id/edit", :controller => "nbp_tags", :action => "edit"
+  post "/update_nbp_tag/:id", :controller => "nbp_tags", :action => "update"
+
+  # DELETE
+  get "/delete_nbp_tag/:id", :controller => "nbp_tags", :action => "destroy"
 
 # Routes for the MP resource:
   resources :mps do
@@ -635,6 +652,7 @@ Myapp::Application.routes.draw do
   get "/slide_layouts/new", :controller => "slide_layouts", :action => "new"
   post "/create_slide_layout/:slide_ids/", :controller => "slide_layouts", :action => "create"
   post "/share_slide_layout/", :controller => "slide_layouts", :action => "share_layout"
+  get "/create_slide_layout_pdf/:id/", :controller => "slide_layouts", :action => "create_pdf"
 
 
   # READ
@@ -688,6 +706,25 @@ Myapp::Application.routes.draw do
 
   # DELETE
   get "/delete_slide_tag/:id", :controller => "slide_tags", :action => "destroy"
+
+  # Routes for the Strip Tags resource:
+  resources :strip_tags do
+    collection {post :import}
+  end
+  # CREATE
+  get "/strip_tags/new", :controller => "strip_tags", :action => "new"
+  post "/create_strip_tag", :controller => "strip_tags", :action => "create"
+  
+  # READ
+  get "/strip_tags", :controller => "strip_tags", :action => "index"
+  get "/strip_tags/:id", :controller => "strip_tags", :action => "show"
+
+  # UPDATE
+  get "/strip_tags/:id/edit", :controller => "strip_tags", :action => "edit"
+  post "/update_strip_tag/:id", :controller => "strip_tags", :action => "update"
+
+  # DELETE
+  get "/delete_strip_tag/:id", :controller => "strip_tags", :action => "destroy"
 
   # Routes for the Subsidiaries resource:
   resources :subsidiaries do

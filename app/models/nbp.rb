@@ -7,6 +7,8 @@ has_many :nbp_sponsors, :dependent => :destroy
 has_many :sponsors, :through => :nbp_sponsors
 has_many :nbp_companies, :dependent => :destroy
 has_many :companies, :through => :nbp_companies
+has_many :nbp_tags, :dependent => :destroy
+has_many :tags, :through => :nbp_tags
 
 	def self.to_csv
 		CSV.generate do |csv|

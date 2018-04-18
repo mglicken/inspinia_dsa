@@ -1,0 +1,56 @@
+
+<div class="page-header">
+  <h1>
+    NBP Tags
+    <a href="/nbp_tags/new" class="btn btn-success"><i class="fa fa-plus"></i></a>
+  </h1>
+</div>
+
+<!-- Responsive, Isotope-based layout example -->
+
+<div class="row">
+  <div class="col-xs-12">
+    <input type="text" id="quicksearch" placeholder="Search NBP Tags (start typing)" class="form-control">
+  </div>
+</div>
+
+<hr>
+
+<div class="row isotope-container">
+<% @nbp_tags.each do |nbp_tag| %>
+  <div class="col-xs-11 col-sm-11 col-md-11 col-lg-11 isotope-item">
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <h3 class="panel-title">nbp_tag # <%= nbp_tag.id %></h3>
+      </div>
+      <div class="panel-body">
+        <div class="row">
+          <div class="col-md-12">
+            <class="dl-horizontal">
+
+              <dt> NBP ID</dt>
+              <dd><%= nbp_tag.nbp_id %></dd>
+              <dt> Tag ID</dt>
+              <dd><%= nbp_tag.tag_id %></dd>          
+  
+
+            </dl>
+            <div class="btn-group btn-group-justified">
+              <a href="/nbp_tags/<%= nbp_tag.id %>" class="btn btn-primary">
+                <i class="fa fa-search-plus"></i>
+              </a>
+
+              <a href="/nbp_tags/<%= nbp_tag.id %>/edit" class="btn btn-warning">
+                <i class="fa fa-edit"></i>
+              </a>
+
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+<% end %>
+</div>
+
+<%= render('shared/quick_search_js') %>

@@ -14,10 +14,7 @@
 </div>
 
 <!-- Responsive, Isotope-based layout example -->
-
-
 <div class="row isotope-container">
-
 
   <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3 isotope-item">
     <div class="panel panel-success">
@@ -294,6 +291,19 @@
     </div>
   </div>
 
+  <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3 isotope-item">
+    <div class="panel panel-success">
+      <div class="panel-heading">
+        <h3 class="panel-title">
+        <a href="/nbp_tags"> NBP Tags </a>
+        </h3>
+      </div>
+      <div class="panel-body">
+      <%= render('shared/file_download_upload', path: "nbp_tags") %>
+      </div>
+    </div>
+  </div>
+
     <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3 isotope-item">
     <div class="panel panel-success">
       <div class="panel-heading">
@@ -446,6 +456,19 @@
       </div>
       <div class="panel-body">
       <%= render('shared/file_download_upload', path: "sponsor_notes") %>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3 isotope-item">
+    <div class="panel panel-success">
+      <div class="panel-heading">
+        <h3 class="panel-title">
+        <a href="/strip_tags"> Strip Tags </a>
+        </h3>
+      </div>
+      <div class="panel-body">
+      <%= render('shared/file_download_upload', path: "strip_tags") %>
       </div>
     </div>
   </div>

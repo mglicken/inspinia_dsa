@@ -3,6 +3,8 @@ validates_uniqueness_of :bucket_id, :scope => :company_id
 belongs_to :nbp
 belongs_to :company
 belongs_to :bucket
+has_many :strip_tags, :dependent => :destroy
+has_many :tags, :through => :strip_tags
 
 	def self.to_csv
 		CSV.generate do |csv|

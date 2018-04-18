@@ -1,0 +1,40 @@
+<!-- Responsive panel example-->
+
+<div class="row">
+  <div class="col-sm-offset-1 col-sm-10 col-md-offset-2 col-md-8">
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <h3 class="panel-title"> Strip Tag # <%= @strip_tag.id %></h3>
+      </div>
+      <div class="panel-body">
+        <div class="row">
+          <div class="col-md-12">
+            <dl>
+
+              <dt> NBP Company ID</dt>
+              <dd><%= @strip_tag.nbp_company_id %></dd>
+              <dt> Tag ID</dt>
+              <dd><%= @strip_tag.tag_id %></dd>
+              <dt> Value</dt>
+              <dd><%= @strip_tag.value %></dd>  
+
+            </dl>
+            <div class="btn-group btn-group-justified">
+              <a href="/strip_tags/<%= @strip_tag.id %>" class="btn btn-primary">
+                <i class="fa fa-chevron-left"></i>
+              </a>
+
+              <a href="/strip_tags/<%= @strip_tag.id %>/edit" class="btn btn-warning">
+                <i class="fa fa-edit"></i>
+              </a>
+
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- End responsive panel example -->
