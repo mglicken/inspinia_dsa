@@ -1,4 +1,4 @@
-
+  <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 
 <br>
 <div class="row">
@@ -30,22 +30,34 @@
           <div class="col-lg-12">
             <dl class="dl-horizontal" style="font-size:10px">
 
-             <dt>Deal:</dt>
-             <dd> <a href="/deals/<%= @nbp.deal_id %>"><%= @nbp.deal.name %></a></dd>
-             <dt>Company:</dt>
-             <dd> <a href="/companies/<%= @nbp.deal.company.id %>"><%= @nbp.deal.company.name %></a></dd>
-             <dt>Date:</dt>
-             <dd><%= @nbp.nbp_date %></dd>
-             <dt>Tier 1:</dt>
-             <dd><%= @nbp_companies.where(tier_id: 1).count %></dd>
-             <dt>Tier 2:</dt>
-             <dd><%= @nbp_companies.where(tier_id: 2).count %></dd>
-             <dt>Other:</dt>
-             <dd><%= @nbp_companies.where(tier_id: [3,4]).count %></dd>
-             <dt>NBP Matrix Tags:</dt>
-             <dd class="ui-widget">
-                 <input type="text" id="tags">
-             </dd>
+              <dt>Deal:</dt>
+              <dd> <a href="/deals/<%= @nbp.deal_id %>"><%= @nbp.deal.name %></a></dd>
+              <dt>Company:</dt>
+              <dd> <a href="/companies/<%= @nbp.deal.company.id %>"><%= @nbp.deal.company.name %></a></dd>
+              <dt>Date:</dt>
+              <dd><%= @nbp.nbp_date %></dd>
+              <dt>Tier 1:</dt>
+              <dd><%= @nbp_companies.where(tier_id: 1).count %></dd>
+              <dt>Tier 2:</dt>
+              <dd><%= @nbp_companies.where(tier_id: 2).count %></dd>
+              <dt>Other:</dt>
+              <dd><%= @nbp_companies.where(tier_id: [3,4]).count %></dd>
+              <dt>NBP Matrix Tags:</dt>
+              <dd class="ui-widget">
+                <form action="/create_nbp_tag/<%= @nbp.id%>" method="post" class="form-horizontal">
+                  <input name="authenticity_token" type="hidden" value="<%= form_authenticity_token %>">
+                  <input type="text" id="tags" name="name" style="width:300px" >
+                  <button class="btn btn-success btn-xs">
+                    Enter
+                  </button>
+                </form>
+              </dd>
+              <br>
+              <dd>
+              <% @nbp.nbp_tags.each do |nbp_tag|%>
+                <span class="label label-success"><%= nbp_tag.tag.name %><a href="/delete_nbp_tag/<%= nbp_tag.id %>" ><span style="font: blue">| | |</span><i class="fa fa-times" style="color:white"></i></a></span>
+              <%end%>
+              </dd>
             </dl>
             <div class="btn-group btn-group-justified">
               <a href="/nbps" class="btn btn-lincoln">

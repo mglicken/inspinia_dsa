@@ -53,7 +53,7 @@ before_action :ensure_banker_access,  only: [:new, :create, :edit, :update, :des
     respond_to do |format|
       format.html do
         if @nbp_tag.save
-          redirect_to "/slides/#{ params[:nbp_id] }", :notice => "NBP Tag added successfully."
+          redirect_to "/nbps/#{ params[:nbp_id] }/companies", :notice => "#{@nbp_tag.tag.name} Tag added successfully."
         else
           render 'new'
         end
@@ -64,6 +64,29 @@ before_action :ensure_banker_access,  only: [:new, :create, :edit, :update, :des
         render('create.js.erb')
       end
     end
+  end
+
+  def create_by_name
+    @nbp = Nbp.find(params[:nbp_id])
+    @tag_name = params[:name]
+    @nbp_tag = NbpTag.new
+    @nbp_tag.nbp_id = @nbp.id
+
+    if Tag.find_by(name: @tag_name).present?
+      @nbp_tag.tag_id = Tag.find_by(name: @tag_name).id
+    else
+      @tag = Tag.new
+      @tag.name = @tag_name
+      @tag.save
+      @nbp_tag.tag_id = @tag.tag_id
+    end
+
+    if @nbp_tag.save
+      redirect_to "/nbps/#{ params[:nbp_id] }/companies", :notice => "\"#{@tag_name}\" Tag added successfully."
+    else
+      render 'new'
+    end
+
   end
 
   def edit

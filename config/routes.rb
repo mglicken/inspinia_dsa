@@ -407,6 +407,7 @@ Myapp::Application.routes.draw do
   # CREATE
   get "/nbp_tags/new", :controller => "nbp_tags", :action => "new"
   post "/create_nbp_tag", :controller => "nbp_tags", :action => "create"
+  post "/create_nbp_tag/:nbp_id", :controller => "nbp_tags", :action => "create_by_name"
   
   # READ
   get "/nbp_tags", :controller => "nbp_tags", :action => "index"
