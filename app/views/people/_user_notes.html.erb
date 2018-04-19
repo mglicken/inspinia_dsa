@@ -1,24 +1,41 @@
+<div class="ibox float-e-margins">
+    <div class="ibox-title">
+        <h5>Notes</h5>
+        <div class="ibox-tools">
+            <a class="collapse-link">
+                <i class="fa fa-chevron-up"></i>
+            </a>
+            <a class="close-link">
+                <i class="fa fa-times"></i>
+            </a>
+        </div>
+    </div>
+    <div class="ibox-content ibox-heading">
+        <h3><i class="fa fa-envelope-o"></i> Notes Added</h3>
+        <small><i class="fa fa-tim"></i> You have <%=@notes.count%> notes.</small>
+    </div>
+    <div class="ibox-content">
+        <div class="feed-activity-list">
 
-<div class="row container">
-<% @notes.all.order("date desc").each do |note| %>
-  <div class="col-xs-9 col-sm-9 col-md-9 col-lg-9 isotope-item">
-    <div class="panel panel-default">
-      <div class="panel-heading" >
-        <h3 class="panel-title" style="font-size:12px">
-            <strong><a href="/notes/<%= note.id%>"><%= note.title %></a></strong><br>
-            <%= simple_format(note.detail) %>
-        </h3>
-      </div>
+            <% @notes.order('date ASC').each do |note| %>
+                <div class="feed-element">
+                    <div>
+                        <small class="pull-right text-navy"><%= note.date.to_s %></small>
+                        <% note.companies.each do |company|%>
+                            <strong><a href="/companies/<%= company.id %>"><%= company.name %></a></strong><br>
+                        <% end %>
+                        <% note.sponsors.each do |sponsor|%>
+                            <strong><a href="/sponsors/<%= sponsor.id %>"><%= sponsor.name %></a></strong><br>
+                        <% end %>
+                        <% note.people.each do |person|%>
+                            <strong style="font-size:10px"><a href="/people/<%= person.id %>"><%= person.name %></a></strong><br>
+                        <% end %>
+                        <div><a href="/notes/<%=note.id%>"><%=simple_format(note.detail)%></a></div>
+                    </div>
+                </div>
+            <% end %>
+
+        </div>
     </div>
-  </div>
-  <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2 isotope-item">
-    <div class="panel panel-default">
-      <div class="panel-heading" >
-        <h3 class="panel-title" style="font-size:12px">
-          <%= note.date %>
-        </h3>
-      </div>
-    </div>
-  </div>
-<% end %>
+</div>
 </div>

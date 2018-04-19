@@ -1,14 +1,43 @@
-
-<div class="row container">
-<% @deals.each do |deal| %>
-  <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 isotope-item">
-    <div class="panel panel-default">
-      <div class="panel-heading" >
-        <h3 class="panel-title" style="font-size:12px">
-          <strong><a href="/deals/<%=deal.id%>"><%= deal.name %></a></strong><br>
-        </h3>
-      </div>
+<div class="ibox float-e-margins">
+    <div class="ibox-title">
+        <h5>Projects</h5>
+        <div class="ibox-tools">
+            <a class="collapse-link">
+                <i class="fa fa-chevron-up"></i>
+            </a>
+            <a class="close-link">
+                <i class="fa fa-times"></i>
+            </a>
+        </div>
     </div>
-  </div>
-<% end %>
+    <div class="ibox-content">
+
+        <div class="row">
+            <div class="col-lg-12">
+                <table class="table table-hover margin bottom">
+                    <thead>
+                    <tr>
+                        <th style="width: 1%" class="text-center">No.</th>
+                        <th>Project</th>
+                        <th class="text-center">Date</th>
+                        <th class="text-center">Stage</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                            <%i=0%>
+                            <% current_user.person.deals.each do |deal| 
+                                i=i+1%>
+                    <tr>
+                        <td class="text-center"><%=i%></td>
+                        <td><a href="/deals/<%= deal.id %>"><%= deal.name %></a></td>
+                        <td class="text-center small"><%= Nbp.where(deal_id: deal.id).first.nbp_date %></td>
+                        <td class="text-center"><span class="label label-primary"><%= Tag.find(rand(3)+1).name%></span></td>
+
+                    </tr>
+                    <%end%>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
 </div>

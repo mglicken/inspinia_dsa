@@ -715,7 +715,7 @@ Myapp::Application.routes.draw do
   # CREATE
   get "/strip_tags/new", :controller => "strip_tags", :action => "new"
   post "/create_strip_tag", :controller => "strip_tags", :action => "create"
-  
+  get "/generate_strip_tags", :controller => "strip_tags", :action => "create_nbp_tag"  
   # READ
   get "/strip_tags", :controller => "strip_tags", :action => "index"
   get "/strip_tags/:id", :controller => "strip_tags", :action => "show"

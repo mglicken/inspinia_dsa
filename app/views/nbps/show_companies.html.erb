@@ -42,7 +42,7 @@
               <dd><%= @nbp_companies.where(tier_id: 2).count %></dd>
               <dt>Other:</dt>
               <dd><%= @nbp_companies.where(tier_id: [3,4]).count %></dd>
-              <dt>NBP Matrix Tags:</dt>
+              <dt>Acquirer Matrix Tags:</dt>
               <dd class="ui-widget">
                 <form action="/create_nbp_tag/<%= @nbp.id%>" method="post" class="form-horizontal">
                   <input name="authenticity_token" type="hidden" value="<%= form_authenticity_token %>">

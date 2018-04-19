@@ -120,95 +120,13 @@
 
     <div class="row">
         <div class="col-lg-12">
-            <div class="ibox float-e-margins">
-                <div class="ibox-title">
-                    <h5>Projects</h5>
-                    <div class="ibox-tools">
-                        <a class="collapse-link">
-                            <i class="fa fa-chevron-up"></i>
-                        </a>
-                        <a class="close-link">
-                            <i class="fa fa-times"></i>
-                        </a>
-                    </div>
-                </div>
-                <div class="ibox-content">
-
-                    <div class="row">
-                        <div class="col-lg-12">
-                            <table class="table table-hover margin bottom">
-                                <thead>
-                                <tr>
-                                    <th style="width: 1%" class="text-center">No.</th>
-                                    <th>Project</th>
-                                    <th class="text-center">Date</th>
-                                    <th class="text-center">Stage</th>
-                                </tr>
-                                </thead>
-                                <tbody>
-                                        <%i=0%>
-                                        <% current_user.person.deals.each do |deal| 
-                                            i=i+1%>
-                                <tr>
-                                    <td class="text-center"><%=i%></td>
-                                    <td><%= deal.name %></td>
-                                    <td class="text-center small"><%= Nbp.where(deal_id: deal.id).first.nbp_date %></td>
-                                    <td class="text-center"><span class="label label-primary"><%= Tag.find(rand(3)+1).name%></span></td>
-
-                                </tr>
-                                <%end%>
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-                </div>
-            </div>
+            <%= render('view_user_deals') %>
         </div>
     </div>
 
     <div class="row">
         <div class="col-lg-12">
-            <div class="ibox float-e-margins">
-                <div class="ibox-title">
-                    <h5>Notes</h5>
-                    <div class="ibox-tools">
-                        <a class="collapse-link">
-                            <i class="fa fa-chevron-up"></i>
-                        </a>
-                        <a class="close-link">
-                            <i class="fa fa-times"></i>
-                        </a>
-                    </div>
-                </div>
-                <div class="ibox-content ibox-heading">
-                    <h3><i class="fa fa-envelope-o"></i> Notes Added</h3>
-                    <small><i class="fa fa-tim"></i> You have <%=@notes.count%> notes.</small>
-                </div>
-                <div class="ibox-content">
-                    <div class="feed-activity-list">
-
-                        <% @notes.order('date ASC').each do |note| %>
-                            <div class="feed-element">
-                                <div>
-                                    <small class="pull-right text-navy"><%= note.date.to_s %></small>
-                                    <% note.companies.each do |company|%>
-                                        <strong><%= company.name %></strong><br>
-                                    <% end %>
-                                    <% note.sponsors.each do |sponsor|%>
-                                        <strong><%= sponsor.name %></strong><br>
-                                    <% end %>
-                                    <% note.people.each do |person|%>
-                                        <strong style="font-size:10px"><%= person.name %></strong><br>
-                                    <% end %>
-                                    <div><a href="/notes/<%=note.id%>"><%=simple_format(note.detail)%></a></div>
-                                </div>
-                            </div>
-                        <% end %>
-
-                    </div>
-                </div>
-            </div>
-        </div>
+            <%= render('user_notes') %>
     </div>
 
 </div>

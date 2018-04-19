@@ -1,7 +1,7 @@
 
 <% number_buckets = @buckets.count %>
 <% size_perc = "#{100/@buckets.count}%"%> 
-<% size = "#{12/ @buckets.count }" %> 
+<% size = "#{12/ @buckets.count }" %>
 <br>
 
 <div class="row container">
@@ -82,21 +82,21 @@
                 <strong ><a style="color:white" href="/companies/<%= company.id %>"><%= company.name %></a></strong>
               </div>
               <div class="panel-body" style="padding-top:5px; padding-bottom:5px;">
-                <div class="row">
-                  <div class="col-md-12">
 
-                    <% if company.nbp_companies.find_by(bucket_id: @buckets[j-1].id).strip.present? %>
-                      <div style="text-align: left">
-                        <strong>Lincoln Rationale: </strong><br>
-                        <%= simple_format(company.nbp_companies.find_by(bucket_id: @buckets[j-1].id).strip) %>
-                      </div>
-                    <% end %>
-                      <div class="pull-right">
-                        <%= render('shared/edit_nbp_company_modal', nbp_company: company.nbp_companies.find_by(bucket_id: @buckets[j-1])) %>
-                      </div>
 
+                <% if company.nbp_companies.find_by(bucket_id: @buckets[j-1].id).strip.present? %>
+                  <div style="text-align: left">
+                    <strong>Lincoln Rationale: </strong><br>
+                    <%= simple_format(company.nbp_companies.find_by(bucket_id: @buckets[j-1].id).strip) %>
                   </div>
+                <% end %>
+
+                  <%= render('view_strip_tags', company: company, bucket: @buckets[j-1]) %>
+
+                <div class="pull-right">
+                  <%= render('shared/edit_nbp_company_modal', nbp_company: company.nbp_companies.find_by(bucket_id: @buckets[j-1])) %>
                 </div>
+
               </div>
             </div>
           </div>

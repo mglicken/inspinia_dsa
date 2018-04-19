@@ -29,7 +29,6 @@ before_action :ensure_banker_access,  only: [:new, :create, :edit, :update, :des
 
   def index
     @strip_tags = StripTag.all
-
     respond_to do |format|
       format.html
       format.csv {send_data @strip_tags.to_csv }
@@ -65,6 +64,18 @@ before_action :ensure_banker_access,  only: [:new, :create, :edit, :update, :des
         render('create.js.erb')
       end
     end
+  end
+
+  def create_nbp_tag
+    NbpTag.all.each do |nbp_tag|
+      nbp_tag.nbp.nbp_companies.each do|nbp_company|
+        strip_tag = StripTag.new
+        strip_tag.nbp_company_id = nbp_company.id
+        strip_tag.tag_id = nbp_tag.tag_id
+        strip_tag.save
+      end
+    end
+    redirect_to "/models", :notice => "Strip Tags created and up to date."
   end
 
   def edit
