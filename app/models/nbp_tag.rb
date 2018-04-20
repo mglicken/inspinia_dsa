@@ -1,4 +1,6 @@
 class NbpTag < ActiveRecord::Base
+validates_uniqueness_of :tag_id, scope: :nbp_id
+
 belongs_to :tag
 belongs_to :nbp
 

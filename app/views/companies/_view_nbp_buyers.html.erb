@@ -25,6 +25,30 @@
               <%= nbp_company.nbp.nbp_date%><br>
               <strong>Lincoln Rationale: </strong>
               <%= simple_format(nbp_company.strip) %><br>
+              <table class="table">
+                <% nbp_company.strip_tags.each do |strip_tag|%>
+                <tr>
+                  <td>
+                    <%= strip_tag.tag.name %>
+                  </td>
+                  <td style="color:black;font-size: 11px;">
+                    <%if strip_tag.value.to_i == 1 %>
+                      <i class="fa fa-times"></i>
+                    <% elsif strip_tag.value.to_i == 2 %>
+                      <i class="fa fa-circle-o"></i>
+                    <% elsif strip_tag.value.to_i == 3 %>
+                      <i class="fa fa-dot-circle-o"></i>
+                    <% elsif strip_tag.value.to_i == 4 %>
+                      <i class="fa fa-cirle"></i>
+                    <% elsif strip_tag.value.to_i == 5 %>
+                      <i class="fa fa-check"></i>
+                    <% else %>
+                      No Data Entered
+                    <% end %>
+                  </td>
+                </tr>
+                <% end %>
+              </table>
               <strong>Notes: </strong>
               <%= simple_format(nbp_company.note) %>
               

@@ -116,6 +116,10 @@ before_action :ensure_banker_access,  only: [:new, :create, :edit, :update, :des
 
   def destroy
     @nbp_tag = NbpTag.find(params[:id])
+    StripTag.where(nbp_company_id: @nbp_tag.nbp.nbp_companies.ids, tag_id: @nbp_tag.tag_id).each do |strip_tag|
+      strip_tag.destroy
+    end
+
     @nbp_tag.destroy
 
     respond_to do |format|
