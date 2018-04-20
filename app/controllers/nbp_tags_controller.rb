@@ -86,7 +86,7 @@ before_action :ensure_banker_access,  only: [:new, :create, :edit, :update, :des
       @nbp.nbp_companies.each do |nbp_company|
         strip_tag = StripTag.new
         strip_tag.tag_id = @tag.id
-        strip_tag.nbp_company_id = @nbp_tag.tag_id
+        strip_tag.nbp_company_id = nbp_company.id
         strip_tag.save
       end
       redirect_to "/nbps/#{ params[:nbp_id] }/companies", :notice => "\"#{@tag_name}\" Tag added successfully."

@@ -62,4 +62,21 @@ wb = xlsx_package.workbook
 	    sheet.column_widths *(sheet_widths)
 	end
 
+	wb.add_worksheet(name: "nbp_companies") do |sheet|
+  
+	  sheet.add_row ["id", "nbp_id", "company_id", "company_id", "include", "strip", "note"]
+	  
+	  # each nbp_company is a row on your spreadsheet
+	  @nbp_companies.joins(:company).order("name ASC").each do |nbp_company|
+	    sheet.add_row [
+	    	nbp_company.id,
+	    	nbp_company.nbp_id,
+	    	nbp_company.company.id,
+	    	nbp_company.company.name,
+	    	nbp_company.include_strip,
+	    	nbp_company.strip,
+	    	nbp_company.note]
+	  end
+end
+
 end	
