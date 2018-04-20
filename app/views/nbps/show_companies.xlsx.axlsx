@@ -13,26 +13,51 @@ wb = xlsx_package.workbook
 
 	wb.add_worksheet(name: "Strategic Acquirers") do |sheet|
 	  
-	  # Header
-	  sheet.add_row ["Strategic Buyer List"], :style => [title_1]
-	  sheet.add_row [Date.current()], :style => [date_1]
-	  sheet.add_row []
+	    # Header
+	    sheet.add_row ["Strategic Buyer List"], :style => [title_1]
+	    sheet.add_row [Date.current()], :style => [date_1]
+	    sheet.add_row []
 
-	# Title Row
-	  sheet.add_row ["Company", "Tier", "Bucket", "Include", "Rationale"], :style => [header_1, header_1, header_1, header_1, header_1]
+		# Title Row
+		title_row = ["Company","Tier","Bucket"]
+	    @nbp.nbp_tags.each do |nbp_tag|
+	   		title_row.push(nbp_tag.tag.name)
+	    end
+		title_row.push("Include").push("Rationale")
+	    title_style = [header_1, header_1, header_1]
+	    @nbp.nbp_tags.each do |nbp_tag|
+	    	title_style.push(header_1)
+	    end
+		title_style.push(header_1).push(header_1)
+
+    	sheet.add_row title_row, style: title_style
+	   
 	  
-	  # each nbp_company is a row on your spreadsheet
-	  @nbp_companies.order(bucket_id: :asc, tier_id: :asc).each do |nbp_company|
-	    sheet.add_row [nbp_company.company.name,
-	    nbp_company.tier_id,
-	    nbp_company.bucket.title,
-	    if 	nbp_company.include_strip
-	    	"X"
-	    end,
-	    nbp_company.strip], :style => [row_1, row_2, row_1, row_2, row_3]
-	  end
-	  sheet.auto_filter = "A4:E" + (@nbp_companies.count + 4).to_s
-	  sheet.column_widths 40, 10, 55, 10, 60
+	    # each nbp_company is a row on your spreadsheet
+	    @nbp_companies.order(bucket_id: :asc, tier_id: :asc).each do |nbp_company|
+		    row = [nbp_company.company.name, nbp_company.tier_id, nbp_company.bucket.title]
+		    nbp_company.strip_tags.each do |strip_tag|
+		    	row.push(strip_tag.value)
+		    end
+		    if 	nbp_company.include_strip
+		    	row.push("X")
+		    end
+		    row.push(nbp_company.strip)
+		    row_style = [row_1, row_2, row_1]
+		    nbp_company.strip_tags.each do |strip_tag|
+		    	row_style.push(row_2)
+		    end
+		    row_style.push(row_2).push(row_3)
+		    sheet.add_row row, style: row_style
+	    end
+		sheet_widths = [40, 10, 55]
+	    @nbp.nbp_tags.each do |nbp_tag|
+	    	sheet_widths.push(15)
+	    end
+	    sheet_widths.push(10).push(60)
+	    alpha_index = ["D","E","F","G","H","I","J","K","L","M","N","O","P","Q","R","S","T","U","V","W","X","Y","Z"]
+		sheet.auto_filter = "A4:" + alpha_index[@nbp.nbp_tags.count] + (@nbp_companies.count + 4).to_s
+	    sheet.column_widths *(sheet_widths)
 	end
 
 end	
