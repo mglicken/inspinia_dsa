@@ -1,48 +1,71 @@
-<style>
+  <style>
+    .strip-tags-selected { color: black;
+                            font-size: 11px;
+                            text-align: center;  }
+    .strip-tags-selected:hover { font-size: 11px;
+                                color:  #999999;
+                                text-align: center; }
+
+    .strip-tags-notselected { color: red;
+                            font-size: 8px;
+                            text-align: center;  }
+    .strip-tags-notselected:hover { font-size: 8px;
+                                color:  #efbab8;
+                                text-align: center; }
+
 </style>
 
 <% if company.nbp_companies.find_by(bucket_id: bucket.id).strip_tags.present? %>
+  <table class="table">
   <% company.nbp_companies.find_by(bucket_id: bucket.id).strip_tags.each do |strip_tag| %>
 
-
-      <div class="col-lg-4" style="text-align: left">
+    <tr>
+      <tr>
+      <td style="text-align: left">
         <strong> <%= strip_tag.tag.name %>:</strong>
-      </div>
-      <div class="col-lg-1" style="text-align: center">
-        <% if strip_tag.value == 1 %>
-          <%= link_to content_tag(:i,nil, class: 'fa fa-times'), "/strip_tags/edit/#{strip_tag.id}/1", :style=> "color:green;font-size: 20px;", :remote => true %>
-        <% else %>
-          <%= link_to content_tag(:i,nil, class: 'fa fa-times'), "/strip_tags/edit/#{strip_tag.id}/1", :style=> "color:black;font-size: 12px;", :remote => true %>
-        <% end %>
-      </div>
-      <div class="col-lg-2" style="text-align: center">
-        <% if strip_tag.value == 2 %>
-        <%= link_to content_tag(:i,nil, class: 'fa fa-circle-o'), "/strip_tags/edit/#{strip_tag.id}/2", :style=> "color:green;font-size: 20px;", :remote => true %>
-        <% else %>
-        <%= link_to content_tag(:i,nil, class: 'fa fa-circle-o'), "/strip_tags/edit/#{strip_tag.id}/2", :style=> "color:black;font-size: 12px;", :remote => true %>
-        <% end %>
-      </div>
-      <div class="col-lg-2" style="text-align: center">
-        <% if strip_tag.value == 3 %>
-        <%= link_to content_tag(:i,nil, class: 'fa fa-dot-circle-o'), "/strip_tags/edit/#{strip_tag.id}/3", :style=> "color:green;font-size: 20px;", :remote => true %>
-        <% else %>
-        <%= link_to content_tag(:i,nil, class: 'fa fa-dot-circle-o'), "/strip_tags/edit/#{strip_tag.id}/3", :style=> "color:black;font-size: 12px;", :remote => true %>
-        <% end %>
-      </div>
-      <div class="col-lg-2" style="text-align: center">
-        <% if strip_tag.value == 4 %>
-        <%= link_to content_tag(:i,nil, class: 'fa fa-circle'), "/strip_tags/edit/#{strip_tag.id}/4", :style=> "color:green;font-size: 20px;", :remote => true %>
-        <% else %>
-        <%= link_to content_tag(:i,nil, class: 'fa fa-circle'), "/strip_tags/edit/#{strip_tag.id}/4", :style=> "color:black;font-size: 12px;", :remote => true %>
-        <% end %>
-      </div>
-      <div class="col-lg-1" style="text-align: center">
-        <% if strip_tag.value == 5 %>
-        <%= link_to content_tag(:i,nil, class: 'fa fa-check'), "/strip_tags/edit/#{strip_tag.id}/5", :style=> "color:green;font-size: 20px;", :remote => true %>
-        <% else %>
-        <%= link_to content_tag(:i,nil, class: 'fa fa-check'), "/strip_tags/edit/#{strip_tag.id}/5", :style=> "color:black;font-size: 12px;", :remote => true %>
-        <% end %>
-      </div>
-<br>
+      </td>
+
+      <td>
+      <% if strip_tag.value == 1 %>
+        <%= link_to content_tag(:i,nil, class: 'fa fa-times'), "/update_strip_tag/#{strip_tag.id}/1", :id => "strip_tag_#{strip_tag.id}_1", :class => "strip-tags-selected", :remote => true  %>
+      <% else %>
+        <%= link_to content_tag(:i,nil, class: 'fa fa-times'), "/update_strip_tag/#{strip_tag.id}/1", :id => "strip_tag_#{strip_tag.id}_1", :class => "strip-tags-notselected", :remote => true  %>
+      <% end %>
+      </td>
+
+      <td>
+      <% if strip_tag.value == 2 %>
+        <%= link_to content_tag(:i,nil, class: 'fa fa-circle-o'), "/update_strip_tag/#{strip_tag.id}/2", :id => "strip_tag_#{strip_tag.id}_2", :class => "strip-tags-selected", :remote => true  %>
+      <% else %>
+        <%= link_to content_tag(:i,nil, class: 'fa fa-circle-o'), "/update_strip_tag/#{strip_tag.id}/2", :id => "strip_tag_#{strip_tag.id}_2", :class => "strip-tags-notselected", :remote => true  %>
+      <% end %>
+      </td>
+
+      <td>
+      <% if strip_tag.value == 3 %>
+        <%= link_to content_tag(:i,nil, class: 'fa fa-dot-circle-o'), "/update_strip_tag/#{strip_tag.id}/3", :id => "strip_tag_#{strip_tag.id}_3", :class => "strip-tags-selected", :remote => true  %>
+      <% else %>
+        <%= link_to content_tag(:i,nil, class: 'fa fa-dot-circle-o'), "/update_strip_tag/#{strip_tag.id}/3", :id => "strip_tag_#{strip_tag.id}_3", :class => "strip-tags-notselected", :remote => true  %>
+      <% end %>
+      </td>
+
+      <td>
+      <% if strip_tag.value == 4 %>
+        <%= link_to content_tag(:i,nil, class: 'fa fa-circle'), "/update_strip_tag/#{strip_tag.id}/4", :id => "strip_tag_#{strip_tag.id}_4", :class => "strip-tags-selected", :remote => true  %>
+      <% else %>
+        <%= link_to content_tag(:i,nil, class: 'fa fa-circle'), "/update_strip_tag/#{strip_tag.id}/4", :id => "strip_tag_#{strip_tag.id}_4", :class => "strip-tags-notselected", :remote => true  %>
+      <% end %>
+      </td>
+
+      <td>
+      <% if strip_tag.value == 5 %>
+        <%= link_to content_tag(:i,nil, class: 'fa fa-check'), "/update_strip_tag/#{strip_tag.id}/5", :id => "strip_tag_#{strip_tag.id}_5", :class => "strip-tags-selected", :remote => true  %>
+      <% else %>
+        <%= link_to content_tag(:i,nil, class: 'fa fa-check'), "/update_strip_tag/#{strip_tag.id}/5", :id => "strip_tag_#{strip_tag.id}_5", :class => "strip-tags-notselected", :remote => true  %>
+      <% end %>
+      </td>
+    </tr>
+
   <% end %>
+  </table>
 <% end %>

@@ -722,6 +722,7 @@ Myapp::Application.routes.draw do
 
   # UPDATE
   get "/strip_tags/:id/edit", :controller => "strip_tags", :action => "edit"
+  get "/update_strip_tag/:id/:value", :controller => "strip_tags", :action => "update_value"
   post "/update_strip_tag/:id", :controller => "strip_tags", :action => "update"
 
   # DELETE
