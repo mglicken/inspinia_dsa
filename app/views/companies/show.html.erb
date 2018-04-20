@@ -50,7 +50,7 @@
                   </dd>
                 <% else %>
                   <dd> <address>
-                      <%= simple_format(@company.description)[0..599] %>...<br>
+                      <%= simple_format(@company.description[0..599]) %>...<br>
                       <%= render('shared/content_modal', :content => @company.description, :title => "#{@company.name} Description")%>
                       </address>                                  
                   </dd>
