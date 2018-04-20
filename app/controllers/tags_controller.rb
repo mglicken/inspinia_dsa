@@ -29,11 +29,17 @@ before_action :ensure_banker_access,  only: [:show, :new, :create, :edit, :updat
 
   def index
     @tags = Tag.order("name ASC")
-    @query_tags = Tag.order(:name).where("lower(name) LIKE ?", "%#{params[:term].downcase}%")
+
     respond_to do |format|
       format.html
-      format.json {send_data @query_tags.map(&:name)}
       format.csv {send_data @tags.to_csv }
+    end
+  end
+
+  def index_query
+    @query_tags = Tag.order(:name).where("lower(name) LIKE ?", "%#{params[:term].downcase}%")
+    respond_to do |format|
+      format.json {send_data @query_tags.map(&:name)}
     end
   end
 
