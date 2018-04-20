@@ -41,6 +41,8 @@ wb = xlsx_package.workbook
 		    end
 		    if 	nbp_company.include_strip
 		    	row.push("X")
+		    else
+		    	row.push(nil)
 		    end
 		    row.push(nbp_company.strip)
 		    row_style = [row_1, row_2, row_1]

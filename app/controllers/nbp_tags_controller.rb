@@ -73,18 +73,19 @@ before_action :ensure_banker_access,  only: [:new, :create, :edit, :update, :des
     @nbp_tag.nbp_id = @nbp.id
 
     if Tag.find_by(name: @tag_name).present?
-      @nbp_tag.tag_id = Tag.find_by(name: @tag_name).id
+      @tag = Tag.find_by(name: @tag_name)
+      @nbp_tag.tag_id = @tag.id
     else
       @tag = Tag.new
       @tag.name = @tag_name
       @tag.save
-      @nbp_tag.tag_id = @tag.tag_id
+      @nbp_tag.tag_id = @tag.id
     end
 
     if @nbp_tag.save
       @nbp.nbp_companies.each do |nbp_company|
         strip_tag = StripTag.new
-        strip_tag.tag_id = tag.id
+        strip_tag.tag_id = @tag.id
         strip_tag.nbp_company_id = @nbp_tag.tag_id
         strip_tag.save
       end
