@@ -57,6 +57,13 @@ before_action :ensure_banker_access,  only: [:new, :create, :edit, :update, :upd
 
 
     if @nbp_company.save
+
+      @nbp_company.nbp.nbp_tags.each do |nbp_tag|
+        strip_tag = StripTag.new
+        strip_tag.tag_id = nbp_tag.tag_id
+        strip_tag.nbp_company = @nbp_company.id
+        strip_tag.save
+      end
       redirect_to "/nbps/#{@nbp_company.nbp_id}/companies", :notice => "#{@nbp_company.company.name} created successfully."
     else
       render 'new'
