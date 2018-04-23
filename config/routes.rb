@@ -137,6 +137,7 @@ Myapp::Application.routes.draw do
   post "/create_company", :controller => "companies", :action => "create"
   post "/create_subsidiary", :controller => "companies", :action => "create_subsidiary"
   get "/follow_company/:company_id/", :controller => "companies", :action => "follow"
+  get "/company_query/:bucket_id", :controller => "companies", :action => "index_query"  
 
   # READ
   get "/companies", :controller => "companies", :action => "index"
@@ -348,7 +349,8 @@ Myapp::Application.routes.draw do
   # CREATE
   get "/nbp_companies/new", :controller => "nbp_companies", :action => "new"
   post "/create_nbp_company", :controller => "nbp_companies", :action => "create"
-
+  post "/create_nbp_company/:nbp_id/", :controller => "nbp_companies", :action => "create_by_name"
+  
   # READ
   get "/nbp_companies", :controller => "nbp_companies", :action => "index"
   get "/nbp_companies/:id", :controller => "nbp_companies", :action => "show"

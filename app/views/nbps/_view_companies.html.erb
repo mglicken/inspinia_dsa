@@ -20,40 +20,7 @@
   </table> 
 </div>
 
-<div class="row container">
-    <thead>
-      <tr>
-        <% @buckets.each do |bucket| %>
-          <div class="col-sm-<%= size %> col-md-<%= size %> col-lg-<%= size %>">
-
-            <div class="col-lg-12">
-            <form action="/create_nbp_company" method="post"">
-              <!-- Hidden input for authenticity token to protect from forgery -->
-              <input name="authenticity_token" type="hidden" value="<%= form_authenticity_token %>">
-              <!-- Label and input for Company ID -->
-                    <%= select_tag :company_id, options_from_collection_for_select(Company.where(id: (Company.ids - NbpCompany.where(bucket_id: bucket.id).pluck(:company_id))).order("name ASC"), :id, :name), :class => "form-control" %>
-
-                  <!-- Label and input for Bucket ID -->
-                  <input type="hidden" name="nbp_id" value="<%= @nbp.id %>">
-
-                  <!-- Label and input for Tier ID -->
-                  <input type="hidden" name="tier_id" value="<%= 4 %>">
-
-                  <!-- Label and input for Bucket ID -->
-                  <input type="hidden" name="bucket_id" value="<%= bucket.id %>">
-
-                 
-                  <button class="btn btn-success">
-                    Add
-                  </button>
-            </form>
-            </div>
-          </div>
-        <% end %>
-      </tr>
-    </thead>
-</div>
-<br>
+  <%= render('view_bucket_labels', buckets: @buckets, nbp: @nbp, size: size) %>
 
 <% for i in 1..4 %>
   <%if i != 1 %>

@@ -70,6 +70,39 @@ before_action :ensure_banker_access,  only: [:new, :create, :edit, :update, :upd
     end
   end
 
+  def create_by_name
+    @nbp = Nbp.find(params[:nbp_id])
+    @company_name = params[:name]
+    @nbp_company = NbpCompany.new
+    @nbp_company.nbp_id = @nbp.id
+    @nbp_company.tier_id = params[:tier_id]
+    @nbp_company.bucket_id = params[:bucket_id]
+
+
+    if Company.find_by(name: @company_name).present?
+      @company = Company.find_by(name: @company_name)
+      @nbp_company.company_id = @company.id
+    else
+      @company = Company.new
+      @company.name = @company_name
+      @company.save
+      @nbp_company.company_id = @company.id
+    end
+
+    if @nbp_company.save
+      @nbp.nbp_tags.each do |nbp_tag|
+        strip_tag = StripTag.new
+        strip_tag.tag_id = nbp_tag.tag_id
+        strip_tag.nbp_company_id = @nbp_company.id
+        strip_tag.save
+      end
+      redirect_to "/nbps/#{ params[:nbp_id] }/companies", :notice => "\"#{@company_name}\" added to \"#{@nbp_company.bucket.name}\" successfully."
+    else
+      render 'new'
+    end
+
+  end
+
   def edit
     @nbp_company = NbpCompany.find(params[:id])
   end

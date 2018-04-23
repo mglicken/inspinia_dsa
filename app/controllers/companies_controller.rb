@@ -36,6 +36,14 @@ before_action :ensure_view_access,  only: [:index, :search, :show]
       format.csv {send_data @companies.to_csv }
     end
   end
+
+  def index_query
+    @query_companies = Company.where(id: (Company.ids - NbpCompany.where(bucket_id: bucket.id).pluck(:company_id))).order(:name).where("lower(name) LIKE ?", "%#{params[:term].downcase}%")
+    respond_to do |format|
+      format.json {send_data @query_companies.map(&:name)}
+    end
+  end
+
   def search
     @text = params[:search].downcase
     company_ids = []
