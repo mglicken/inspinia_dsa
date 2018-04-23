@@ -3,7 +3,7 @@ validates :title, :presence => true
 
 belongs_to :nbp
 has_many :nbp_companies
-has_many :companies, :through :nbp_companies
+has_many :companies, :through => :nbp_companies
 
 
 	def self.to_csv
