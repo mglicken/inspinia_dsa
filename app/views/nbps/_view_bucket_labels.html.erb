@@ -1,3 +1,6 @@
+
+<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+
 <div class="row container">
     <thead>
       <tr>
@@ -7,10 +10,12 @@
             <div class="col-lg-12">
               <div class="ui-widget">
                 <form action="/create_nbp_company/<%= nbp.id%>" method="post" class="form-horizontal">
+
                   <input name="authenticity_token" type="hidden" value="<%= form_authenticity_token %>">
-                  <input type="string" id="companies" name="name" style="width:250px" >
+                  <input type="text" id="companies_<%= bucket.id %>" name="name" style="width:250px" >
                   <input type="hidden" name="bucket_id" value="<%= bucket.id %>">
                   <input type="hidden" name="tier_id" value="<%= 4 %>">
+
                   <button class="btn btn-success btn-xs">
                     Enter
                   </button>
@@ -25,9 +30,12 @@
 </div>
 <br>
 
+<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 <script>
-$('#companies').autocomplete({
-    source: '/company_query/#{bucket.id}.json',
-});
-
+  <% buckets.each do |bucket|%>
+    $('#companies_<%=bucket.id%>').autocomplete({
+        source: '/company_query/<%= bucket.id%>/bucket.json',
+      });
+  <% end %>
 </script>

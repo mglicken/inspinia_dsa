@@ -137,10 +137,10 @@ Myapp::Application.routes.draw do
   post "/create_company", :controller => "companies", :action => "create"
   post "/create_subsidiary", :controller => "companies", :action => "create_subsidiary"
   get "/follow_company/:company_id/", :controller => "companies", :action => "follow"
-  get "/company_query/:bucket_id", :controller => "companies", :action => "index_query"  
 
   # READ
   get "/companies", :controller => "companies", :action => "index"
+  get "/company_query/:bucket_id/bucket", :controller => "companies", :action => "index_query"  
   get "/companies/:id", :controller => "companies", :action => "show"
   get "/company_search/:search", :controller => "companies", :action => "search"
 
