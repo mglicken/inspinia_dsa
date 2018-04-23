@@ -96,7 +96,7 @@ before_action :ensure_banker_access,  only: [:new, :create, :edit, :update, :upd
         strip_tag.nbp_company_id = @nbp_company.id
         strip_tag.save
       end
-      redirect_to "/nbps/#{ params[:nbp_id] }/companies", :notice => "\"#{@company_name}\" added to \"#{@nbp_company.bucket.name}\" successfully."
+      redirect_to "/nbps/#{ params[:nbp_id] }/companies", :notice => "\"#{@company_name}\" added to \"#{@nbp_company.bucket.title}\" successfully."
     else
       render 'new'
     end
