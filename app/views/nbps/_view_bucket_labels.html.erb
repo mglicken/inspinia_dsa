@@ -1,6 +1,7 @@
 
 <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 
+<%size_px = 1000/ buckets.count%>
 <div class="row container">
     <thead>
       <tr>
@@ -12,7 +13,7 @@
                 <form action="/create_nbp_company/<%= nbp.id%>" method="post" class="form-horizontal">
 
                   <input name="authenticity_token" type="hidden" value="<%= form_authenticity_token %>">
-                  <input type="text" id="companies_<%= bucket.id %>" name="name" style="width:250px" >
+                  <input type="text" id="companies_<%= bucket.id %>" name="name" style="width:<%= size_px%>px" >
                   <input type="hidden" name="bucket_id" value="<%= bucket.id %>">
                   <input type="hidden" name="tier_id" value="<%= 4 %>">
 

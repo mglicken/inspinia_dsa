@@ -66,6 +66,30 @@ before_action :ensure_banker_access,  only: [:new, :create, :edit, :update, :des
     end
   end
 
+  def create_by_name
+    @slide = Slide.find(params[:slide_id])
+    @tag_name = params[:name]
+    @slide_tag = SlideTag.new
+    @slide_tag.slide_id = @slide.id
+
+    if Tag.find_by(name: @tag_name).present?
+      @tag = Tag.find_by(name: @tag_name)
+      @slide_tag.tag_id = @tag.id
+    else
+      @tag = Tag.new
+      @tag.name = @tag_name
+      @tag.save
+      @slide_tag.tag_id = @tag.id
+    end
+
+    if @slide_tag.save
+      redirect_to "/slides/#{ params[:slide_id] }", :notice => "\"#{@tag_name}\" Tag added successfully."
+    else
+      render 'new'
+    end
+
+  end
+
   def edit
     @slide_tag = SlideTag.find(params[:id])
   end

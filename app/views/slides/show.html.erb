@@ -1,3 +1,4 @@
+  <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 <style>
   .pdf-image-1 {width: 100%;}
 </style>
@@ -6,7 +7,7 @@
 <br>
 
 <div class="row">
-  <div class="col-lg-offset-1 col-xs-10 col-sm-10 col-md-10 col-lg-10 isotope-item">
+  <div class= "col-offset-lg-1  col-xs-10 col-sm-10 col-md-10 col-lg-10 isotope-item">
     <div class="panel panel-default">
       <div class="pull-right" style="margin-right:25px">
           <% if @slide.favorite_slides.where(user_id: current_user.id).present? %>
@@ -66,8 +67,12 @@
     </div>
   </div>
 </div>
+<div class="row">
+  <div class="col-offset-lg-1 col-lg-10">
+    <%= render('view_tags', slide: @slide) %>
+  </div>
+</div>
 
-<%= render('view_tags') %>
 <br>
 <br>
 
