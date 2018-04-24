@@ -390,6 +390,7 @@ Myapp::Application.routes.draw do
   # CREATE
   get "/nbp_sponsors/new", :controller => "nbp_sponsors", :action => "new"
   post "/create_nbp_sponsor", :controller => "nbp_sponsors", :action => "create"
+  post "/create_nbp_sponsor/:nbp_id/", :controller => "nbp_sponsors", :action => "create_by_name"
 
   # READ
   get "/nbp_sponsors", :controller => "nbp_sponsors", :action => "index"
@@ -557,6 +558,7 @@ Myapp::Application.routes.draw do
 
   # READ
   get "/sponsors", :controller => "sponsors", :action => "index"
+  get "/sponsor_query", :controller => "sponsors", :action => "index_query"  
   get "/sponsors/:id", :controller => "sponsors", :action => "show"
   get "/sponsor_search/:search", :controller => "sponsors", :action => "search"
 

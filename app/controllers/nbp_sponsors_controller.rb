@@ -61,6 +61,29 @@ before_action :ensure_banker_access,  only: [:new, :create, :edit, :update, :des
     end
   end
 
+  def create_by_name
+    @nbp = Nbp.find(params[:nbp_id])
+    @sponsor_name = params[:name]
+    @nbp_sponsor = NbpSponsor.new
+    @nbp_sponsor.nbp_id = @nbp.id
+
+    if Sponsor.find_by(name: @sponsor_name).present?
+      @sponsor = Company.find_by(name: @sponsor_name)
+      @nbp_sponsor.company_id = @sponsor.id
+    else
+      @sponsor = Company.new
+      @sponsor.name = @sponsor_name
+      @sponsor.save
+      @nbp_sponsor.company_id = @sponsor.id
+    end
+
+    if @nbp_sponsor.save
+      redirect_to "/nbps/#{ params[:nbp_id] }/sponsors", :notice => "\"#{@sponsor_name}\" added successfully."
+    else
+      redirect_to "/nbps/#{ params[:nbp_id] }/sponsors", :notice => "\"#{@sponsor_name}\" already included."
+    end
+  end
+
   def edit
     @nbp_sponsor = NbpSponsor.find(params[:id])
   end

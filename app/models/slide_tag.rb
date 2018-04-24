@@ -1,4 +1,6 @@
 class SlideTag < ActiveRecord::Base
+validates_uniqueness_of :tag_id, scope: :slide_id
+
 belongs_to :tag
 belongs_to :slide
 

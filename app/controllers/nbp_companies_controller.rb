@@ -100,7 +100,6 @@ before_action :ensure_banker_access,  only: [:new, :create, :edit, :update, :upd
     else
       render 'new'
     end
-
   end
 
   def edit
