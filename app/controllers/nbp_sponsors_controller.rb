@@ -68,13 +68,13 @@ before_action :ensure_banker_access,  only: [:new, :create, :edit, :update, :des
     @nbp_sponsor.nbp_id = @nbp.id
 
     if Sponsor.find_by(name: @sponsor_name).present?
-      @sponsor = Company.find_by(name: @sponsor_name)
-      @nbp_sponsor.company_id = @sponsor.id
+      @sponsor = Sponsor.find_by(name: @sponsor_name)
+      @nbp_sponsor.sponsor_id = @sponsor.id
     else
-      @sponsor = Company.new
+      @sponsor = Sponsor.new
       @sponsor.name = @sponsor_name
       @sponsor.save
-      @nbp_sponsor.company_id = @sponsor.id
+      @nbp_sponsor.sponsor_id = @sponsor.id
     end
 
     if @nbp_sponsor.save
