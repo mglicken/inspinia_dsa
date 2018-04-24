@@ -1,4 +1,6 @@
 class NbpSponsor < ActiveRecord::Base
+validates_uniqueness_of :nbp_id, :scope => :sponsor_id
+
 belongs_to :nbp
 belongs_to :sponsor
 
