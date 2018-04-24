@@ -114,7 +114,7 @@ before_action :ensure_banker_access,  only: [:new, :create, :edit, :update, :des
 
     respond_to do |format|
       format.html do
-        redirect_to "/slide_tags/", :notice => "Slide Tag deleted."
+        redirect_to "/slides/#{@slide_tag.slide_id}", :notice => "Slide Tag deleted."
       end
       format.js do
         render('destroy.js.erb')
