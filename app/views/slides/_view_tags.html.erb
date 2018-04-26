@@ -17,7 +17,7 @@
           </p>
           <% @slide.slide_tags.joins(:tag).order("name ASC").each do |slide_tag|%>
 
-            <span class="label label-success"><a href="/tag_search/<%= slide_tag.tag.name %>"><%= slide_tag.tag.name %> <%= slide_tag.tag.slides.count%></a><a href="/delete_slide_tag/<%= slide_tag.id %>" ><span style="font: blue">| | |</span><i class="fa fa-times" style="color:white"></i></a></span>
+            <span class="label label-success"><%= slide_tag.tag.name %> (<%= slide_tag.tag.slides.count%>)<a href="/delete_slide_tag/<%= slide_tag.id %>" ><span style="color: #1D84C6">|||</span><i class="fa fa-times" style="color:white"></i></a></span></span>
           <%end%>
         </div>
   </div>
