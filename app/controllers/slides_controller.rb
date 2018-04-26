@@ -260,7 +260,7 @@ before_action :ensure_view_access,  only: [:show, :search]
 
       slide_tag = SlideTag.new
       slide_tag.slide_id = slide.id
-      slide_tag.tag_id = 30
+      slide_tag.tag_id = 148
       slide_tag.save
 
     end

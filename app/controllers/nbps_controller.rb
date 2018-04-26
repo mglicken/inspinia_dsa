@@ -161,6 +161,7 @@ before_action :ensure_view_access,  only: [:search, :show, :show_companies, :sho
     @nbp = Nbp.find(params[:id])
 
     @nbp.destroy
+    
 
     redirect_to "/nbps", :notice => "NBP deleted."
   end

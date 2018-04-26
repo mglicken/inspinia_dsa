@@ -53,7 +53,7 @@ before_action :ensure_banker_access,  only: [:new, :create, :edit, :update, :des
     respond_to do |format|
       format.html do
         if @strip_tag.save
-          redirect_to "/slides/#{ params[:nbp_company_id] }", :notice => "Strip Tag added successfully."
+          redirect_to "/nbps/#{ params[:nbp_company_id] }/companies", :notice => "Strip Tag added successfully."
         else
           render 'new'
         end

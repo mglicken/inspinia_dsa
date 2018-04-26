@@ -178,13 +178,13 @@ before_action :ensure_admin_access
 
     if @user.password == @user.password_confirmation
       if User.find_by(email: @user.email).present?
-        redirect_to '/access_dashboard', alert: 'Account already exists for this email address!'     
+        redirect_to '/access_dashboard', alert: "Account already exists for this email address!"     
       else
         @user.save
-        redirect_to '/access_dashboard', alert: '#{@user.email} account created successfully!'
+        redirect_to '/access_dashboard', alert: "#{@user.email} account created successfully!"
       end
     else
-      redirect_to '/access_dashboard', alert: 'Passwords must match!'      
+      redirect_to '/access_dashboard', alert: "Passwords must match!"      
     end
   end
 
