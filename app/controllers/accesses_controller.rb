@@ -164,6 +164,30 @@ before_action :ensure_admin_access
     end
   end
 
+  def new_user
+    @user = User.new
+  end
+
+  def create_user
+    @user = User.new
+    @user.email = params[:email]
+    @user.password = params[:password]
+    @user.password_confirmation = params[:password_confirmation]
+    @user.person_id = params[:person_id]        
+    @user.access_id = params[:access_id]
+
+    if @user.password == @user.password_confirmation
+      if User.find_by(email: @user.email).present?
+        redirect_to '/access_dashboard', alert: 'Account already exists for this email address!'     
+      else
+        @user.save
+        redirect_to '/access_dashboard', alert: '#{@user.email} account created successfully!'
+      end
+    else
+      redirect_to '/access_dashboard', alert: 'Passwords must match!'      
+    end
+  end
+
   def edit
     @access = Access.find(params[:id])
   end

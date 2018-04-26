@@ -1,0 +1,73 @@
+<!-- Validation failure messages -->
+
+<% if @user.errors.any? %>
+  <% @user.errors.full_messages.each do |message| %>
+    <div class="alert alert-dismissable alert-danger">
+      <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+      <%= message %>
+    </div>
+  <% end %>
+<% end %>
+
+
+<br>
+<div class="row">
+  <div class="col-lg-offset-1 col-lg-8">
+        <div class="ibox float-e-margins">
+            <div class="ibox-title">
+                <h5>Create User</h5>
+            </div>
+            <div class="ibox-content">
+                <form enctype="multipart/form-data" action="/create_user_7tiZNpQdP7XnFuIuRUSx8l9h6HffrOZIRoHqQ7krtLOakdXuc9" method="post" class="form-horizontal">
+                    <!-- Hidden input for authenticity token to protect from forgery -->
+                    <input name="authenticity_token" type="hidden" value="<%= form_authenticity_token %>">
+                    
+                    <p>Must be an administrator to create a user. If you are not an administrator please contact Jeff Foydl at jfoydl@lincolninternational.com for assistance.</p>
+                    <div class="form-group"><label class="col-lg-2 control-label">Email</label>
+
+                        <div class="col-lg-10"><input type="email" name="email" placeholder="Email" class="form-control"> <span class="help-block m-b-none">Example first.last@lincolninternational.com</span>
+                        </div>
+                    </div>
+                    <div class="form-group"><label class="col-lg-2 control-label">Password</label>
+
+                        <div class="col-lg-10"><input type="password" name="password" placeholder="Password" class="form-control"></div>
+                    </div>
+                    <div class="form-group"><label class="col-lg-2 control-label">Confirm Password</label>
+
+                        <div class="col-lg-10"><input type="password" name="password_confirmation" placeholder="Password" class="form-control"></div>
+                    </div>
+
+                    <div class="form-group"><label class="col-lg-2 control-label">Person</label>
+                        <div class="col-lg-10">
+                          <%= select_tag :person_id, options_from_collection_for_select(Person.where(employee: true).order('backwards_name ASC'), :id, :backwards_name), :class => "form-control chosen-select" %>
+                        </div>
+                    </div>
+
+                    <div class="form-group"><label class="col-lg-2 control-label">Access</label>
+                        <div class="col-lg-10">
+                          <%= select_tag :access_id, options_from_collection_for_select(Access.all, :id, :name), :class => "form-control chosen-select" %>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="col-lg-offset-2 col-lg-10">
+                            <button class="btn btn-sm btn-white" type="submit">Create User</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+  </div>
+</div>
+
+
+<script>
+    $('.chosen-select').chosen({width: "100%"});
+
+    $(".select2_demo_1").select2();
+    $(".select2_demo_2").select2();
+    $(".select2_demo_3").select2({
+        placeholder: "Select a state",
+        allowClear: true
+    });
+</script>
