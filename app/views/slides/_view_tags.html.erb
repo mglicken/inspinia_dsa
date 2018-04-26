@@ -15,7 +15,7 @@
               </button>
             </form>
           </p>
-          <% @slide.slide_tags.order(:name).each do |slide_tag|%>
+          <% @slide.slide_tags.joins(:tag).order("name ASC").each do |slide_tag|%>
 
             <span class="label label-success"><%= slide_tag.tag.name %><a href="/delete_slide_tag/<%= slide_tag.id %>" ><span style="font: blue">| | |</span><i class="fa fa-times" style="color:white"></i></a></span>
           <%end%>
