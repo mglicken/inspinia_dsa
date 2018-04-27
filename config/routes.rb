@@ -769,6 +769,8 @@ Myapp::Application.routes.draw do
   get "/tag_query", :controller => "tags", :action => "index_query"  
   get "/tags/:id", :controller => "tags", :action => "show"
   get "/tag_search/:search", :controller => "tags", :action => "search"
+  get "/view_slides/:tag_id", :controller => "tags", :action => "view_slides"
+
 
   # UPDATE
   get "/tags/:id/edit", :controller => "tags", :action => "edit"

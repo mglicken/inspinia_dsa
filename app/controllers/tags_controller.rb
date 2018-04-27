@@ -54,6 +54,11 @@ before_action :ensure_banker_access,  only: [:show, :new, :create, :edit, :updat
     @tags=Tag.where(id: tag_ids)
   end
 
+  def view_slides
+    @tag = Tag.find(params[:tag_id])
+    @slides = @tag.slides
+  end
+
   def show
     @tag = Tag.find(params[:id])
   end
