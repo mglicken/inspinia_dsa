@@ -1,7 +1,8 @@
 class SlideLayoutsController < ApplicationController
 
 before_action :ensure_admin_access,  only: [:index, :import]
-before_action :ensure_banker_access,  only: [:show, :new, :create, :edit, :update, :destroy]
+before_action :ensure_banker_access,  only: [ :new, :create]
+before_action :ensure_banker_user_access,  only: [:show, :edit, :update, :destroy]
 
   def ensure_admin_access
     if current_user.access_id.present?
@@ -15,6 +16,18 @@ before_action :ensure_banker_access,  only: [:show, :new, :create, :edit, :updat
     if current_user.access_id.present?
       if current_user.access_id > 3
         redirect_to root_url, :alert => "Not Authorized"
+      end
+    end
+  end
+
+  def ensure_banker_user_access
+    if current_user.access_id.present?
+      if params[:user_id] !=  current_user.id
+        redirect_to root_url, :alert => "Not Authorized"
+      else
+        if current_user.access_id > 3
+          redirect_to root_url, :alert => "Not Authorized"
+        end
       end
     end
   end
