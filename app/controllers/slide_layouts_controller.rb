@@ -1,8 +1,8 @@
 class SlideLayoutsController < ApplicationController
 
-before_action :ensure_admin_access,  only: [:index, :import]
+before_action :ensure_admin_access,  only: [:create_pdf, :index, :import]
 before_action :ensure_banker_access,  only: [ :new, :create]
-before_action :ensure_banker_user_access,  only: [:show, :edit, :update, :destroy]
+before_action :ensure_banker_user_access,  only: [:show, :share_layout, :edit, :update, :destroy]
 
   def ensure_admin_access
     if current_user.access_id.present?
