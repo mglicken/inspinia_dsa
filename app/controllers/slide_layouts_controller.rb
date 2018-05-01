@@ -1,8 +1,8 @@
 class SlideLayoutsController < ApplicationController
 
-before_action :ensure_admin_access,  only: [:create_pdf, :index, :import]
-before_action :ensure_banker_access,  only: [ :new, :create]
-before_action :ensure_banker_user_access,  only: [:show, :share_layout, :edit, :update, :destroy]
+before_action :ensure_admin_access,  only: [ :index, :import]
+before_action :ensure_banker_access,  only: [ :new, :create, :create_pdf ,:show, :share_layout, :edit, :update, :destroy]
+before_action :ensure_banker_user_access,  only: []
 
   def ensure_admin_access
     if current_user.access_id.present?
@@ -116,11 +116,67 @@ before_action :ensure_banker_user_access,  only: [:show, :share_layout, :edit, :
   end
 
   def create_pdf
+    require 'combine_pdf'
+    require 'net/http'
+
     @slide_layout = SlideLayout.find(params[:id])
+    i=1
     @slide_layout.slides.each do |slide|
-      #Cloudinary::Uploader.add_tag("slide_layout_#{@slide_layout.id}", "pg_#{slide.slide_number}," , 'add')
+      #Cloudinary::Uploader.add_tag("slide_layout_#{@slide_layout.id}", "pg_#{slide.number}," , 'add')
+      p_id = "slide_layout-#{@slide_layout.id},page-#{i}"
+      pdf = CombinePDF.new
+      url = "https://res.cloudinary.com/mglicken/image/upload/#{p_id}.pdf"
+
+      if slide.teaser.present?
+        Cloudinary::Uploader.upload('https://res.cloudinary.com/mglicken/image/upload/pg_#{slide.number}/#{slide.teaser.image_id}.pdf',
+          tags: ["slide_layout_#{@slide_layout.id}"],
+          cloud_name: 'mglicken',
+          upload_preset: 'zq87ewvr',
+          format:"pdf",
+          public_id: p_id)
+
+      elsif slide.nbp.present?
+        Cloudinary::Uploader.upload("https://res.cloudinary.com/mglicken/image/upload/pg_#{slide.number}/#{slide.nbp.image_id}.pdf",
+          tags: ["slide_layout_#{@slide_layout.id}"],
+          cloud_name: 'mglicken',
+          upload_preset: 'zq87ewvr',
+          format:"pdf",
+          public_id: p_id)
+
+      elsif slide.cip.present?
+        Cloudinary::Uploader.upload("https://res.cloudinary.com/mglicken/image/upload/pg_#{slide.number}/#{slide.cip.image_id}.pdf",
+          tags: ["slide_layout_#{@slide_layout.id}"],
+          cloud_name: 'mglicken',
+          upload_preset: 'zq87ewvr',
+          format:"pdf",
+          public_id: p_id)
+
+      elsif slide.mp.present?
+        Cloudinary::Uploader.upload("https://res.cloudinary.com/mglicken/image/upload/pg_#{slide.number}/#{slide.mp.image_id}.pdf",
+          tags: ["slide_layout_#{@slide_layout.id}"],
+          cloud_name: 'mglicken',
+          upload_preset: 'zq87ewvr',
+          format:"pdf",
+          public_id: p_id)
+
+      elsif slide.case_study.present?           
+        Cloudinary::Uploader.upload("https://res.cloudinary.com/mglicken/image/upload/pg_#{slide.number}/#{slide.case_study.image_id}.pdf",
+          tags: ["slide_layout_#{@slide_layout.id}"],
+          cloud_name: 'mglicken',
+          upload_preset: 'zq87ewvr',
+          format:"pdf",
+          public_id: p_id)
+
+      end
+      i=i+1
     end
-    redirect_to "/slide_layouts/#{@slide_layout.id}", :notice => "PDF created successfully."
+
+    Cloudinary::Uploader.multi("slide_layout_#{@slide_layout.id}", format:"pdf")
+
+    Cloudinary::Api.delete_resources_by_prefix("slide_layout")
+
+
+    redirect_to "http://res.cloudinary.com/mglicken/image/multi/slide_layout_#{@slide_layout.id}.pdf", :notice => "PDF created successfully."
   end
 
   def edit
