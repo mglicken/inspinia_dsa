@@ -12,9 +12,13 @@
     <div class="panel panel-default">
       <div class="pull-right">
         <% if slide.favorite_slides.where(user_id: current_user.id).present? %>
-          <a href="/destroy_favorite_slide/<%=slide.favorite_slides.find_by(user_id: current_user.id).id %>" class="btn btn-lg btn-unfavorite" id="slide_<%=slide.id%>"><i class="fa fa-star"></i></a>
+          <%= link_to( "/destroy_favorite_slide/#{slide.favorite_slides.find_by(user_id: current_user.id).id }", class: "btn btn-lg btn-unfavorite", id: "slide_#{slide.id}", :remote => :true) do %>
+              <i class="fa fa-star"></i>
+          <% end %> 
         <% else %>
-          <a href="/create_favorite_slide/<%=current_user.id%>/<%=slide.id%>" class="btn btn-lg btn-favorite" id="slide_<%=slide.id%>"><i class="fa fa-star-o"></i></a>
+          <%= link_to( "/create_favorite_slide/#{current_user.id}/#{slide.id}", class: "btn btn-lg btn-favorite", id: "slide_#{slide.id}", :remote => :true) do %>
+              <i class="fa fa-star-o"></i>
+          <% end %> 
         <% end %>
       </div>  
       <div class="panel-heading">
