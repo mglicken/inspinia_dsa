@@ -171,12 +171,12 @@ before_action :ensure_banker_user_access,  only: []
       i=i+1
     end
 
-    Cloudinary::Uploader.multi("slide_layout_#{@slide_layout.id}", format:"pdf")
+    Cloudinary::Uploader.multi("slide_layout_#{@slide_layout.id}", format:"zip")
 
     Cloudinary::Api.delete_resources_by_prefix("slide_layout")
 
 
-    redirect_to "http://res.cloudinary.com/mglicken/image/multi/slide_layout_#{@slide_layout.id}.pdf", :notice => "PDF created successfully."
+    redirect_to "http://res.cloudinary.com/mglicken/image/multi/slide_layout_#{@slide_layout.id}.zip", :notice => "PDFs downloaded successfully."
   end
 
   def edit

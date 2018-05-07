@@ -1,6 +1,3 @@
-	<% if defined?(@favorite_slide) %>	
-		$('#slide_<%= @favorite_slide.slide_id %>').removeClass()
-		$('#slide_<%= @favorite_slide.slide_id %>').addClass("panel panel-success")
-		$('#slide_<%= @favorite_slide.slide_id %>_button').hide()
-	<% end %>
+	$('#slide_<%= @favorite_slide.slide_id %>:first i').removeClass("fa fa-star-o").addClass("fa fa-star");
+	$('#slide_<%= @favorite_slide.slide_id%>').attr("href", "/destroy_favorite_slide/<%= @favorite_slide.id %>");
 

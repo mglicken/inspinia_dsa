@@ -86,6 +86,8 @@ before_action :ensure_banker_access,  only: [:index, :new, :create, :edit, :upda
 
   def destroy
     @favorite_slide = FavoriteSlide.find(params[:id])
+    @slide = @favorite_slide.slide
+    @user = @favorite_slide.user
     @favorite_slide.destroy
 
     respond_to do |format|

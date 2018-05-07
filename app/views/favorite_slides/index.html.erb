@@ -56,7 +56,9 @@
         <div class="col-lg-6 isotope-item" id="<%=favorite_slide.slide_id%>">
           <div class="panel panel-default">
             <div class="pull-right">
-              <a href="/destroy_favorite_slide/<%=favorite_slide.id %>" class="btn btn-lg btn-unfavorite" id="slide_<%=favorite_slide.slide_id%>"><i class="fa fa-star"></i></a>
+              <%= link_to( "/destroy_favorite_slide/#{favorite_slide.id}", class: "btn btn-lg btn-unfavorite", id: "slide_#{favorite_slide.slide_id}", :remote => :true) do %>
+                  <i class="fa fa-star"></i>
+              <% end %>              
             </div>        
             <div class="panel-heading">
               <h3 class="panel-title">Slide# <%= favorite_slide.slide.number %></h3>
@@ -84,7 +86,9 @@
     <div class="col-lg-6 isotope-item" id="<%=favorite_slide.slide_id%>">
         <div class="panel panel-success">
           <div class="pull-right">
-            <a href="/destroy_favorite_slide/<%=favorite_slide.id %>" class="btn btn-lg btn-unfavorite" id="slide_<%=favorite_slide.slide_id%>"><i class="fa fa-star"></i></a>
+              <%= link_to( "/destroy_favorite_slide/#{favorite_slide.id}", class: "btn btn-lg btn-unfavorite", id: "slide_#{favorite_slide.slide_id}", :remote => :true) do %>
+                  <i class="fa fa-star"></i>
+              <% end %> 
           </div>        
           <div class="panel-heading">
             <h3 class="panel-title">Slide# <%= favorite_slide.slide.number %></h3>
