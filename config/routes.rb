@@ -661,7 +661,7 @@ Myapp::Application.routes.draw do
   post "/create_slide_layout/:slide_ids/", :controller => "slide_layouts", :action => "create"
   post "/share_slide_layout/", :controller => "slide_layouts", :action => "share_layout"
   get "/create_slide_layout_pdf/:id/", :controller => "slide_layouts", :action => "create_pdf"
-
+  get "/create_slide_layout_pptx/:id/", :controller => "slide_layouts", :action => "create_pptx"
 
   # READ
   get "/slide_layouts", :controller => "slide_layouts", :action => "index"

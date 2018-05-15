@@ -28,7 +28,7 @@ class Slide < ActiveRecord::Base
 		end
 	end
 	def self.import(file)
-		allowed_attributes = [ "number", "image_url"]
+		allowed_attributes = [ "number", "image_url", "ppt_address"]
 		CSV.foreach(file.path,headers: true) do |row|
 			slides = find_by_id(row["id"]) || new
 			

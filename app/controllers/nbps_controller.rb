@@ -110,7 +110,7 @@ before_action :ensure_view_access,  only: [:search, :show, :show_companies, :sho
       @bucket = Bucket.new
       @bucket.title = "Category 1"
       @nbp_id = @nbp.id
-      redirect_to "/nbps", :notice => "nbp created successfully."
+      redirect_to "/nbps/#{@nbp.id}", :notice => "nbp created successfully."
     else
       render 'new'
     end
@@ -150,8 +150,15 @@ before_action :ensure_view_access,  only: [:search, :show, :show_companies, :sho
     @nbp.image_id = params[:image_id]
     @nbp.name = params[:name]
 
+    @nbp.ppt_address = params[:ppt_address]
+
+    @nbp.slides.each do |slide|
+      slide.ppt_address = @nbp.ppt_address
+      slide.save
+    end
+
     if @nbp.save
-      redirect_to "/nbps", :notice => "NBP updated successfully."
+      redirect_to "/nbps/#{@nbp.id}", :notice => "NBP updated successfully."
     else
       render 'edit'
     end

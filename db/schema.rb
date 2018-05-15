@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180507205800) do
+ActiveRecord::Schema.define(version: 20180508010302) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -30,6 +30,7 @@ ActiveRecord::Schema.define(version: 20180507205800) do
     t.integer "deal_id"
     t.string  "image_id"
     t.string  "name"
+    t.string  "ppt_address"
   end
 
   create_table "case_study_slides", force: :cascade do |t|
@@ -47,6 +48,7 @@ ActiveRecord::Schema.define(version: 20180507205800) do
     t.integer "deal_id"
     t.date    "cip_date"
     t.string  "image_id"
+    t.string  "ppt_address"
   end
 
   create_table "companies", force: :cascade do |t|
@@ -126,6 +128,7 @@ ActiveRecord::Schema.define(version: 20180507205800) do
     t.integer "deal_id"
     t.date    "mp_date"
     t.string  "image_id"
+    t.string  "ppt_address"
   end
 
   create_table "nbp_companies", force: :cascade do |t|
@@ -161,6 +164,7 @@ ActiveRecord::Schema.define(version: 20180507205800) do
     t.integer "deal_id"
     t.date    "nbp_date"
     t.string  "image_id"
+    t.string  "ppt_address"
   end
 
   create_table "notes", force: :cascade do |t|
@@ -284,6 +288,7 @@ ActiveRecord::Schema.define(version: 20180507205800) do
     t.integer "deal_id"
     t.date    "teaser_date"
     t.string  "image_id"
+    t.string  "ppt_address"
   end
 
   create_table "users", force: :cascade do |t|

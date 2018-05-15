@@ -12,7 +12,7 @@ has_many :slides, :through => :teaser_slides, :dependent => :destroy
 		end
 	end
 	def self.import(file)
-		allowed_attributes = [ "deal_id", "teaser_date","image_id","name"]
+		allowed_attributes = [ "deal_id", "teaser_date","image_id","name", "ppt_address"]
 		CSV.foreach(file.path,headers: true) do |row|
 			teasers = find_by_id(row["id"]) || new
 			

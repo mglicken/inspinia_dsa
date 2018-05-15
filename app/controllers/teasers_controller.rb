@@ -62,7 +62,7 @@ before_action :ensure_view_access,  only: [:search, :show]
 
 
     if @teaser.save
-      redirect_to "/teasers", :notice => "Teaser created successfully."
+      redirect_to "/teasers/#{@teaser.id}", :notice => "Teaser created successfully."
     else
       render 'new'
     end
@@ -101,6 +101,13 @@ before_action :ensure_view_access,  only: [:search, :show]
     @teaser.name = params[:name]
     @teaser.teaser_date = params[:teaser_date]
     @teaser.image_id = params[:image_id]
+
+    @teaser.ppt_address = params[:ppt_address]
+
+    @teaser.slides.each do |slide|
+      slide.ppt_address = @teaser.ppt_address
+      slide.save
+    end
 
     if @teaser.save
       redirect_to "/teasers/#{@teaser.id}", :notice => "Teaser updated successfully."

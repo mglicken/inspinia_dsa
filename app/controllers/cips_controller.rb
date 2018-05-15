@@ -113,9 +113,15 @@ before_action :ensure_view_access,  only: [:search, :show]
     @cip.cip_date = params[:cip_date]
     @cip.image_id = params[:image_id]
     @cip.name = params[:name]
+    @cip.ppt_address = params[:ppt_address]
+
+    @cip.slides.each do |slide|
+      slide.ppt_address = @cip.ppt_address
+      slide.save
+    end
 
     if @cip.save
-      redirect_to "/cips", :notice => "CIP updated successfully."
+      redirect_to "/cips/#{@cip.id}", :notice => "CIP updated successfully."
     else
       render 'edit'
     end

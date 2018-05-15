@@ -23,7 +23,8 @@ gem 'combine_pdf'
 
 # Roo for reading Excel and Axlsx for writing Excel
 gem 'roo'
-gem 'rubyzip', '>= 1.2.1'
+gem 'rubyzip', '>= 1.2.1', require: 'zip'
+gem 'zip-zip'
 gem 'axlsx', git: 'https://github.com/randym/axlsx.git', ref: 'c8ac844'
 gem 'axlsx_rails'
 

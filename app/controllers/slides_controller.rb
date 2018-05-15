@@ -109,7 +109,7 @@ before_action :ensure_view_access,  only: [:show, :search]
 
     @slide.image_url = params[:image_url]
     @slide.number = params[:number]
-
+    @slide.ppt_address = params[:ppt_address]
 
     if @slide.save
       redirect_to "/slides", :notice => "Slide created successfully."
@@ -133,7 +133,8 @@ before_action :ensure_view_access,  only: [:show, :search]
       nbp_slide.nbp_id = params[:nbp_id]
       nbp_slide.slide_id = slide.id
       nbp_slide.save
-
+      slide.ppt_address = nbp_slide.nbp.ppt_address
+  
       slide_tag = SlideTag.new
       slide_tag.slide_id = slide.id
       slide_tag.tag_id = 1
@@ -164,6 +165,8 @@ before_action :ensure_view_access,  only: [:show, :search]
       cip_slide.cip_id = params[:cip_id]
       cip_slide.slide_id = slide.id
       cip_slide.save
+      slide.ppt_address = cip_slide.cip.ppt_address
+
 
       slide_tag = SlideTag.new
       slide_tag.slide_id = slide.id
@@ -194,7 +197,9 @@ before_action :ensure_view_access,  only: [:show, :search]
       mp_slide = MpSlide.new
       mp_slide.mp_id = params[:mp_id]
       mp_slide.slide_id = slide.id
-      mp_slide.save    
+      mp_slide.save  
+      slide.ppt_address = mp_slide.mp.ppt_address
+
 
       slide_tag = SlideTag.new
       slide_tag.slide_id = slide.id
@@ -226,6 +231,8 @@ before_action :ensure_view_access,  only: [:show, :search]
       teaser_slide.teaser_id = params[:teaser_id]
       teaser_slide.slide_id = slide.id
       teaser_slide.save
+      slide.ppt_address = teaser_slide.teaser.ppt_address
+
 
       slide_tag = SlideTag.new
       slide_tag.slide_id = slide.id
@@ -257,6 +264,8 @@ before_action :ensure_view_access,  only: [:show, :search]
       case_study_slide.case_study_id = params[:case_study_id]
       case_study_slide.slide_id = slide.id
       case_study_slide.save
+      slide.ppt_address = case_study_slide.case_study.ppt_address
+
 
       slide_tag = SlideTag.new
       slide_tag.slide_id = slide.id
@@ -282,6 +291,7 @@ before_action :ensure_view_access,  only: [:show, :search]
 
     @slide.image_url = params[:image_url]
     @slide.number = params[:number]
+    @slide.ppt_address = params[:ppt_address]
 
     if @slide.save
       redirect_to "/slides/#{@slide.id}/", :notice => "Slide updated successfully!"

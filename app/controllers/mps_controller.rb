@@ -71,7 +71,7 @@ before_action :ensure_banker_access
     @mp.name = params[:name]
 
     if @mp.save
-      redirect_to "/mps", :notice => "MP created successfully."
+      redirect_to "/mps/#{@mp.id}", :notice => "MP created successfully."
     else
       render 'new'
     end
@@ -111,8 +111,15 @@ before_action :ensure_banker_access
     @mp.image_id = params[:image_id]
     @mp.name = params[:name]
 
+    @mp.ppt_address = params[:ppt_address]
+
+    @mp.slides.each do |slide|
+      slide.ppt_address = @mp.ppt_address
+      slide.save
+    end
+
     if @mp.save
-      redirect_to "/mps", :notice => "MP updated successfully."
+      redirect_to "/mps/#{@mp.id}", :notice => "MP updated successfully."
     else
       render 'edit'
     end

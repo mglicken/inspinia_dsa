@@ -93,6 +93,12 @@ before_action :ensure_view_access,  only: [:index, :search, :show]
     @case_study.name = params[:name]
     @case_study.deal_id = params[:deal_id]
     @case_study.image_id = params[:image_id]
+    @case_study.ppt_address = params[:ppt_address]
+
+    @case_study.slides.each do |slide|
+      slide.ppt_address = @case_study.ppt_address
+      slide.save
+    end
 
     if @case_study.save
       redirect_to "/case_studies/#{@case_study.id}", :notice => "Case Study updated successfully."

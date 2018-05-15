@@ -21,7 +21,7 @@ class Cip < ActiveRecord::Base
 		end
 	end
 	def self.import(file)
-		allowed_attributes = [ "deal_id", "cip_date","image_id","name"]
+		allowed_attributes = [ "deal_id", "cip_date","image_id","name", "ppt_address"]
 		CSV.foreach(file.path,headers: true) do |row|
 			cips = find_by_id(row["id"]) || new
 			
