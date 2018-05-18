@@ -208,11 +208,11 @@ before_action :ensure_banker_user_access,  only: []
 
     #counter through all slides
     i = 1
-    tags = 2
+    tags = 1
     charts = 1
     embeddings = 1
     sls = 1
-    media = 2
+    media = 1
     content_types=[]
     slide_errors=[]
     #iterate through all slides
@@ -262,13 +262,14 @@ before_action :ensure_banker_user_access,  only: []
       #update /ppt/powerpoint.xml file
       sldId[(i-1)] = Nokogiri::XML::Node.new "sldId", @presentation_doc
       sldId[(i-1)]['id'] = "#{255+i}"
-      sldId[(i-1)]['r:id'] = "#{i}"
+      sldId[(i-1)]['r:id'] = "#{i+1}"
       sldIdLst.add_child(sldId[(i-1)])
       
       #update counter
       i = i + 1
     end
-
+    i = i - 1
+    @presentation_doc.xpath("//p:notesMasterId").first.attributes.first.second.value = "rId#{i+2}"
     #write to ppt/presentation.xml file
     File.open(presentation_file, 'w') {|f| f.write(@presentation_doc)}
 
@@ -324,11 +325,12 @@ before_action :ensure_banker_user_access,  only: []
     builder2 = Nokogiri::XML::Builder.with(x2) do |xml|
       xml.Relationships(xmlns: "http://schemas.openxmlformats.org/package/2006/relationships"){
        @slide_layout.slides.each do |relationship|
-          xml.Relationship(Id: "rId#{i}",Type: "http://schemas.openxmlformats.org/officeDocument/2006/relationships/slide", Target: "slides/slide#{i}.xml"){}
+          xml.Relationship(Id: "rId#{i+1}",Type: "http://schemas.openxmlformats.org/officeDocument/2006/relationships/slide", Target: "slides/slide#{i}.xml"){}
           #update counter
           i = i + 1
         end
-        xml.Relationship(Id: "rId#{i+1}", Type: "http://schemas.openxmlformats.org/officeDocument/2006/relationships/slideMaster", Target: "slideMasters/slideMaster1.xml"){}
+        i= i - 1
+        xml.Relationship(Id: "rId#{1}", Type: "http://schemas.openxmlformats.org/officeDocument/2006/relationships/slideMaster", Target: "slideMasters/slideMaster1.xml"){}
         xml.Relationship(Id: "rId#{i+2}", Type: "http://schemas.openxmlformats.org/officeDocument/2006/relationships/notesMaster", Target: "notesMaster/notesMaster1.xml"){}
         xml.Relationship(Id: "rId#{i+3}", Type: "http://schemas.openxmlformats.org/officeDocument/2006/relationships/presProps", Target: "presProps.xml"){}
         xml.Relationship(Id: "rId#{i+4}", Type: "http://schemas.openxmlformats.org/officeDocument/2006/relationships/viewProps", Target: "viewProps.xml"){}
@@ -346,28 +348,28 @@ before_action :ensure_banker_user_access,  only: []
       xml.Properties(xmlns: "http://schemas.openxmlformats.org/officeDocument/2006/extended-properties", 'xmlns:vt' => "http://schemas.openxmlformats.org/officeDocument/2006/docPropsVTypes" ){
         xml.Template("Slide Layout #{@slide_layout.id} Template"){}
         xml.Application("Microsoft Office PowerPoint"){}
-        xml.PresentationFormat(""){}
+        xml.PresentationFormat("On-screen Show (4:3)"){}
         xml.Slides("#{@slide_layout.slides.count}"){}
         xml.ScaleCrop("false"){}
         xml.HeadingPairs{
-          xml.vector(size: "4", baseType: "variant"){
-            xml.variant{
-              xml.lpstr("Theme"){}
+          xml.vector( size: "4", baseType: "variant"){
+            xml['vt'].variant{
+              xml['vt'].lpstr("Theme"){}
             }
-            xml.variant{
-              xml.i4("1"){}
+            xml['vt'].variant{
+              xml['vt'].i4("1"){}
             }
-            xml.variant{
-              xml.lpstr("Slide Titles"){}
+            xml['vt'].variant{
+              xml['vt'].lpstr("Slide Titles"){}
             } 
-            xml.variant{
-              xml.i4("#{@slide_layout.slides.count}"){}
+            xml['vt'].variant{
+              xml['vt'].i4("#{@slide_layout.slides.count}"){}
             }           
           }
         }
         xml.TitleOfParts{
-          xml.vector(size: "#{@slide_layout.slides.count + 1}", baseType: "lpstr"){
-            xml.lpstr("Slide Layout #{@slide_layout.id} Template"){}            
+          xml['vt'].vector(size: "#{@slide_layout.slides.count + 1}", baseType: "lpstr"){
+            xml['vt'].lpstr("Slide Layout #{@slide_layout.id} Template"){}            
             @slide_layout.slides.each do |relationship|
               slide_file = "C:/Users/Michael Glicken/Dropbox/Michael/dev/_test/slide_layout_#{@slide_layout.id}/XML/ppt/slides/slide#{i}.xml"
               slide_contents = File.open(slide_file)
@@ -377,18 +379,18 @@ before_action :ensure_banker_user_access,  only: []
                 children.each do |child|
                  st = st + child.text
                 end
-              xml.lpstr("#{st}"){}
+              xml['vt'].lpstr("#{st}"){}
               #update counter
               i = i + 1
             end
-
+            i = i - 1
           }
         }
 
         xml.LinksUpToDate("false"){}
         xml.SharedDoc("false"){}
         xml.HyperlinksChanged("false"){}
-        xml.AppVersion("14.0000"){}
+        xml.AppVersion("16.0000"){}
       }
     end
     #write to ppt/_rels/presentation.xml.rels file
@@ -402,6 +404,7 @@ before_action :ensure_banker_user_access,  only: []
           Dir.glob("**/*").reject {|fn| File.directory?(fn) }.each do |file|
             zipfile.add(file.sub(directory + '/', ''), file)
           end
+          zipfile.rename('_rels/a.rels', '_rels/.rels')
     end
     #convert to powerpoint 
     zip_name = "C:/Users/Michael Glicken/Dropbox/Michael/dev/_test/slide_layout_#{@slide_layout.id}/slide_layout_#{@slide_layout.id}.zip"
@@ -454,7 +457,7 @@ before_action :ensure_banker_user_access,  only: []
     end
 
     if @slide_layout.save
-      redirect_to "/slide_layouts/#{@slide_layout.id}", :notice => "Slide Layout updated successfully."
+      redirect_to "/slide_layouts/#{@slide_layout.id}", :notice => "Slide Layout updated successfully, duder."
     else
       render 'edit'
     end
