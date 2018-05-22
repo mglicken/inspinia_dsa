@@ -1,6 +1,3 @@
-
-
-
 <br>
 <div class="pull-right">
   <div class="vertical-btn-group">
@@ -13,7 +10,7 @@
 </div>  
 <div class="page-header">
   <h1>
-    <%= @slide_layout.name %> Slides
+    <%= @slide_layout.name %>
   </h1>
 </div>
 
@@ -49,26 +46,41 @@
 </form>
 
 <div class="row container">
-  <% i = 0 %>
-  <div class="col-lg-12 connectedSortable panel panel-default" id="sortable1" style="text-align:center; padding-top:25px; padding-bottom:25px; border-width:5px;">
-    <% Slide.where(id: @favorite_slides.pluck(:slide_id) - @slide_layout.slides.ids)[0..2].each do |slide| %>
-    <% i = i+1 %>
-    <div class="col-lg-4 isotope-item" id="<%=slide.id%>">
+  <div class="col-lg-6 page-header" style="text-align: center">
+    <h1>Favorited Slides</h1>
+  </div>
+  <div class="col-lg-6 page-header" style="text-align: center">
+    <h1><%= @slide_layout.name %> Slides</h1>
+  </div>
+</div>
+
+
+<div class="row container">
+  <div class="col-lg-6 connectedSortable" id="sortable1" style="text-align:center; padding-top:25px; padding-bottom:25px;  background-color: #f2f2f2">
+    <% Slide.where(id: @favorite_slides.pluck(:slide_id) - @slide_layout.slides.ids).each do |slide| %>
+    <div class="col-lg-6 isotope-item" id="<%=slide.id%>">
         <div class="panel panel-default">
           <div class="pull-right">
-            <% if slide.favorite_slides.where(user_id: current_user.id).present? %>
-              <%= link_to( "/destroy_favorite_slide/#{slide.favorite_slides.find_by(user_id: current_user.id).id }", class: "btn btn-lg btn-unfavorite", id: "slide_#{slide.id}", :remote => :true) do %>
-                  <i class="fa fa-star"></i>
-              <% end %> 
-            <% else %>
-              <%= link_to( "/create_favorite_slide/#{current_user.id}/#{slide.id}", class: "btn btn-lg btn-favorite", id: "slide_#{slide.id}", :remote => :true) do %>
-                  <i class="fa fa-star-o"></i>
-              <% end %> 
-            <% end %>
+            <%= link_to( "/destroy_favorite_slide/#{slide.favorite_slides.find_by(user_id: current_user.id).id }", class: "btn btn-lg btn-unfavorite", id: "slide_#{slide.id}", :remote => :true) do %>
+                <i class="fa fa-star"></i>
+            <% end %> 
           </div>        
           <div class="panel-heading">
-            <h3 class="panel-title"> Slide #<%= i %></h3>
-
+            <%if slide.nbp.present?%>
+              <h3 class="panel-title"><%= slide.nbp.name %> Slide #<%= slide.number %></h3>
+            <%end%>
+            <%if slide.cip.present?%>
+              <h3 class="panel-title"><%= slide.cip.name %> Slide #<%= slide.number %></h3>
+            <%end%>
+            <%if slide.mp.present?%>
+              <h3 class="panel-title"><%= slide.mp.name %> Slide #<%= slide.number %></h3>
+            <%end%>
+            <%if slide.teaser.present?%>
+              <h3 class="panel-title"><%= slide.teaser.name %> Slide #<%= slide.number %></h3>
+            <%end%>
+            <%if slide.case_study.present?%>
+              <h3 class="panel-title"><%= slide.case_study.name %> Slide #<%= slide.number %></h3>
+            <%end%>
           </div>
           <div class="panel-body">
             <div class="row">
@@ -82,15 +94,12 @@
       </div>
     <% end %>
   </div>
-
-</div>
-<div class="row container">
   <% i = 0 %>
-  <div class="col-lg-12 connectedSortable panel panel-primary" id="sortable2" style="text-align:center; padding-top:25px; padding-bottom:25px; border-width:5px;">
+  <div class="col-lg-6 connectedSortable panel panel-success" id="sortable2" style="text-align:center; padding-top:25px; padding-bottom:25px; border-width:5px;">
     <% @slide_layout.slides.each do |slide| %>
     <% i = i+1 %>
-    <div class="col-lg-4 isotope-item" id="<%=slide.id%>">
-        <div class="panel panel-primary">
+    <div class="col-lg-6 isotope-item" id="<%=slide.id%>">
+        <div class="panel panel-success">
           <div class="pull-right">
             <% if slide.favorite_slides.where(user_id: current_user.id).present? %>
               <%= link_to( "/destroy_favorite_slide/#{slide.favorite_slides.find_by(user_id: current_user.id).id }", class: "btn btn-lg btn-unfavorite", id: "slide_#{slide.id}", :remote => :true) do %>
