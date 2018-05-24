@@ -21,6 +21,9 @@ gem 'cloudinary'
 # Merging PDFs
 gem 'combine_pdf'
 
+# Scroll Bar for slide layout
+gem 'scrollbar-rails'
+
 # Roo for reading Excel and Axlsx for writing Excel
 gem 'roo'
 gem 'rubyzip', '>= 1.2.1', require: 'zip'

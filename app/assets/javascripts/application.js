@@ -6,6 +6,7 @@
 //
 //
 //= require jquery/jquery-3.1.1.min.js
+//= require jquery-ui/jquery-ui.min.js 
 //= require bootstrap-sprockets
 //= require metisMenu/jquery.metisMenu.js
 //= require pace/pace.min.js
@@ -14,3 +15,6 @@
 //= require inspinia.js
 //= require jquery-ujs/src/rails.js
 //= require select2
+//= require jquery.mCustomScrollbar
+//= require blueimp/jquery.blueimp-gallery.min.js
+//= require slick/slick.min.js
