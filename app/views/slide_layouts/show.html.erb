@@ -8,30 +8,33 @@
   white-space: nowrap;
   background-color: black;
   padding: 5px;
-  margin-bottom: 10px;
+  margin-bottom: 20px;
 }
 .card {
 display: inline-block;
+width:235px;
 }
 </style>
 
 
 <br>
-<div class="pull-right">
-  <div class="vertical-btn-group">
-    <br>  
-    <p><%= render('shared/share_slide_layout_modal',slide_layout: @slide_layout) %>
-    <%= render('shared/delete_slide_layout_modal',slide_layout: @slide_layout) %></p>
-    <p><a class="btn btn-success" href="/create_slide_layout_pdf/<%= @slide_layout.id %>">Download PDFs <i class="fa fa-file-pdf-o"></i></a></p>
-    <p><a class="btn btn-success" href="/create_slide_layout_pptx/<%= @slide_layout.id %>">Download PPTX <i class="fa fa-file-pdf-o"></i></a></p>
-  </div>  
-</div>  
-<div class="page-header">
-  <h1>
-    <%= @slide_layout.name %> Slides
-  </h1>
-</div>
 
+<div class="pull-right">
+   <div class="vertical-btn-group">
+    <br> 
+    <div class="horizontal-btn-grp" style="margin-bottom: 5px"> 
+        <%= render('shared/share_slide_layout_modal',slide_layout: @slide_layout) %>
+        <%= render('shared/delete_slide_layout_modal',slide_layout: @slide_layout) %>
+    </div>
+
+    <a class="btn btn-success" href="/create_slide_layout_pdf/<%= @slide_layout.id %>">Download PDFs <i class="fa fa-file-pdf-o"></i></a>
+    <a class="btn btn-success" href="/create_slide_layout_pptx/<%= @slide_layout.id %>">Download PPTX <i class="fa fa-file-pdf-o"></i></a>
+  </div>  
+</div> 
+<div class="row container">
+  <h2>
+    <%= @slide_layout.name %> Slides
+  </h2>
 
 <!-- Responsive, Isotope-based layout example -->
 <form method="post" class="form-horizontal" id="sl-form-id" name="sl-form-name"> 
@@ -44,8 +47,9 @@ display: inline-block;
 
   <input name="date" type="hidden" value="<%= Date.today %>">
 
+ 
     <!-- Label and input for Deal Name -->
-  <div class="form-group">
+  <div class="form-group" style="margin-bottom: 5px;">
     <div class="col-lg-6">
       <%= select_tag :deal_id, options_from_collection_for_select(Deal.all, :id, :name, @slide_layout.deal_id), {:include_blank => 'Select Deal', :class => "form-control"} %>
     </div>
@@ -62,19 +66,30 @@ display: inline-block;
     </div>
   </div>
 </form>
-
+</div>
 <div class="row container">
     <div id="sortable1" class="connectedSortable scrollbar">
 
         <% i = 0 %>
         <% Slide.where(id: @favorite_slides.pluck(:slide_id) - @slide_layout.slides.ids).each do |slide| %>
             <% i = i + 1 %>
+            <% if slide.teaser_slide.present?
+                title = slide.teaser.deal.company.name + " Teaser"
+            elsif slide.nbp_slide.present?
+                title = slide.nbp.deal.company.name + " NBP"
+            elsif slide.cip_slide.present?
+                title = slide.cip.deal.company.name + " CIP"
+            elsif slide.mpp_slide.present?
+                title = slide.mp.deal.company.name + " MP"
+            elsif slide.case_study_slide.present?
+                title = slide.case_study.deal.company.name + " CS"
+            end %>
 
                 <div class="card" id="<%=slide.id%>">
 
                     <div class="panel panel-default">
                         <div class="panel-heading">
-                             <h3 class="panel-title">Slide #<%= i %></h3>
+                             <h3 class="panel-title"><%= title %> - Slide #<%= slide.number %></h3>
                         </div>
                         <div class="panel-body">
                             <div class="row">
@@ -172,7 +187,7 @@ display: inline-block;
 
         $( "#sortable1, #sortable2" ).sortable({
             over: function(event, ui) {
-                ui.item.removeClass('scrollbar');
+                ui.item.removeClass('scrollbar card');
                 ui.item.addClass('col-lg-4 isotope-item');
 
             }
