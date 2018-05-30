@@ -1,14 +1,15 @@
 <style>
-.slick_demo_2 .ibox-content {
-    margin: 0 10px;
-}
+
 .scrollbar {
   overflow-x: scroll;
-  overflow-y: hidden;
+  overflow-y: scroll;
   white-space: nowrap;
   background-color: black;
   padding: 5px;
-  margin-bottom: 20px;
+  padding-top: 0px;
+  padding-bottom: 0px;
+  margin-bottom: 10px;
+  max-height: 275px
 }
 .card {
 display: inline-block;
@@ -16,10 +17,44 @@ width:235px;
 }
 </style>
 
+<div class="row container ibox-content" style="position: fixed; background-color: white; padding: 5px; padding-top: 20px; z-index: 10;"> 
+<div class="col-lg-12">
 
-<br>
+<div class="col-lg-8">
 
-<div class="pull-right">
+
+<!-- Responsive, Isotope-based layout example -->
+<form method="post" class="form-horizontal" id="sl-form-id" name="sl-form-name"> 
+<!-- Hidden input for authenticity token to protect from forgery -->
+  <input name="authenticity_token" type="hidden" value="<%= form_authenticity_token %>">
+
+  <input name="id" type="hidden" value="<%= @slide_layout.id %>">
+
+  <input name="user_id" type="hidden" value="<%= current_user.id %>"> 
+
+  <input name="date" type="hidden" value="<%= Date.today %>">
+
+ 
+    <!-- Label and input for Deal Name -->
+  <div class="form-group" style="margin-bottom: px;">
+    <div class="col-lg-11">
+      <%= select_tag :deal_id, options_from_collection_for_select(Deal.all, :id, :name, @slide_layout.deal_id), {:include_blank => 'Select Deal', :class => "form-control"} %>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <div class="col-lg-8">
+      <input type="string" id="name" name="name" placeholder="Enter Layout Name" class="form-control" value="<%=@slide_layout.name%>">
+    </div>
+    <div class="col-lg-1">
+      <button class="btn btn-lincoln" id="sl-button-id">
+        Update Layout
+      </button>
+    </div>
+  </div>
+</form>
+</div>
+<div class="col-lg-4" style="background-color: white; border-color: black; padding-bottom: 10px">
    <div class="vertical-btn-group">
     <br> 
     <div class="horizontal-btn-grp" style="margin-bottom: 5px"> 
@@ -31,42 +66,13 @@ width:235px;
     <a class="btn btn-success" href="/create_slide_layout_pptx/<%= @slide_layout.id %>">Download PPTX <i class="fa fa-file-pdf-o"></i></a>
   </div>  
 </div> 
-<div class="row container">
-  <h2>
-    <%= @slide_layout.name %> Slides
-  </h2>
-
-<!-- Responsive, Isotope-based layout example -->
-<form method="post" class="form-horizontal" id="sl-form-id" name="sl-form-name"> 
-<!-- Hidden input for authenticity token to protect from forgery -->
-  <input name="authenticity_token" type="hidden" value="<%= form_authenticity_token %>">
-
-  <input name="id" type="hidden" value="<%= @slide_layout.id %>">
-
-  <input name="user_id" type="hidden" value="<%= current_user.id %>">
-
-  <input name="date" type="hidden" value="<%= Date.today %>">
-
- 
-    <!-- Label and input for Deal Name -->
-  <div class="form-group" style="margin-bottom: 5px;">
-    <div class="col-lg-6">
-      <%= select_tag :deal_id, options_from_collection_for_select(Deal.all, :id, :name, @slide_layout.deal_id), {:include_blank => 'Select Deal', :class => "form-control"} %>
-    </div>
-  </div>
-
-  <div class="form-group">
-    <div class="col-lg-6">
-      <input type="string" id="name" name="name" placeholder="Enter Layout Name" class="form-control" value="<%=@slide_layout.name%>">
-    </div>
-    <div class="col-lg-1">
-      <button class="btn btn-lincoln" id="sl-button-id">
-        Update Layout
-      </button>
-    </div>
-  </div>
-</form>
 </div>
+
+<br>
+<div class="row container">
+<h3 class="text-center m">
+    <%=current_user.person.name%>'s Favorite Slides (Click and Drag into layout)
+</h3>
 <div class="row container">
     <div id="sortable1" class="connectedSortable scrollbar">
 
@@ -104,15 +110,46 @@ width:235px;
 
         <%end%>
     </div>
-
 </div>
+</div>
+</div>
+
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<div class = "row container" style=" position: relative; z-index: 1;">
+<h3 class="text-center m">
+    <%=@slide_layout.name%> Layout
+</h3>
 
 <div class="row container">
   <% i = 0 %>
-  <div class="col-lg-12 connectedSortable panel panel-primary" id="sortable2" style="text-align:center; padding-top:25px; padding-bottom:25px; border-width:5px;">
+  <div class="col-lg-12 connectedSortable ibox-content" id="sortable2" style="text-align:center; padding-top:25px; padding-bottom:25px; border-width:5px;border-color: #1ab394;">
     <% @slide_layout.slides.each do |slide| %>
     <% i = i+1 %>
-    <div class="col-lg-4 isotope-item" id="<%=slide.id%>">
+    <div class="col-lg-4 isotope-item" id="<%=slide.id%>" style="z-index: 1">
         <div class="panel panel-primary">
           <div class="pull-right">
             <% if slide.favorite_slides.where(user_id: current_user.id).present? %>
@@ -141,55 +178,22 @@ width:235px;
       </div>
     <% end %>
   </div>
-
 </div>
- 
+</div>
+
 
 <script>
 
    $( function() {
-        $('.slick_demo_2').slick({
-            infinite: true,
-            slidesToShow: 4,
-            slidesToScroll: 1,
-            centerMode: false,
-            responsive: [
-                {
-                    breakpoint: 1024,
-                    settings: {
-                        slidesToShow: 3,
-                        slidesToScroll: 3,
-                        infinite: true,
-                        dots: true
-                    }
-                },
-                {
-                    breakpoint: 600,
-                    settings: {
-                        slidesToShow: 2,
-                        slidesToScroll: 2
-                    }
-                },
-                {
-                    breakpoint: 500,
-                    settings: {
-                        slidesToShow: 1,
-                        slidesToScroll: 1
-                    }
-                }
-            ]
-        });
-
         // Sortable
         $( "#sortable1, #sortable2" ).sortable({
             connectWith: ".connectedSortable"
         })
 
         $( "#sortable1, #sortable2" ).sortable({
-            over: function(event, ui) {
+            out: function(event, ui) {
                 ui.item.removeClass('scrollbar card');
                 ui.item.addClass('col-lg-4 isotope-item');
-
             }
         })
 

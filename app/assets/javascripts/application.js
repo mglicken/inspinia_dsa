@@ -15,6 +15,3 @@
 //= require inspinia.js
 //= require jquery-ujs/src/rails.js
 //= require select2
-//= require jquery.mCustomScrollbar
-//= require blueimp/jquery.blueimp-gallery.min.js
-//= require slick/slick.min.js
