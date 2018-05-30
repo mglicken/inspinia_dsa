@@ -49,6 +49,7 @@ before_action :ensure_view_access,  only: [:user_dashboard, :search, :show]
   def user_dashboard
     @companies = Company.where(id: CompanyFollow.where(user_id:current_user.id).pluck(:company_id))
     @sponsors = Sponsor.where(id: SponsorFollow.where(user_id:current_user.id).pluck(:sponsor_id))
+    @slide_layouts = current_user.slide_layouts.order("id ASC")
     @deals = current_user.person.deals
     @notes = current_user.person.notes
   end

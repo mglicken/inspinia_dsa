@@ -4,6 +4,7 @@ has_many :nbp_sponsors, :dependent => :destroy
 has_many :fund_companies, :through => :funds
 has_many :companies, :through => :fund_companies
 has_many :sponsor_histories, :dependent => :destroy
+has_many :sponsor_follows, :dependent => :destroy
 has_many :people, :through => :sponsor_histories
 has_many :sponsor_notes, :dependent => :destroy
 has_many :notes, :through => :sponsor_notes

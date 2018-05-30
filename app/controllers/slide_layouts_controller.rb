@@ -100,10 +100,10 @@ before_action :ensure_banker_user_access,  only: []
       @slide_layout2.deal_id = @slide_layout1.deal_id
       if @slide_layout2.save
 
-        @slide_layout1.slides.each do |slide|
+        @slide_layout1.slide_layout_slides.order("id ASC").each do |slide_layout_slide|
           sls = SlideLayoutSlide.new
           sls.slide_layout_id = @slide_layout2.id
-          sls.slide_id = slide.id
+          sls.slide_id = slide_layout_slide.slide_id
           sls.save
         end
 
@@ -431,7 +431,7 @@ before_action :ensure_banker_user_access,  only: []
     if @slide_ids.count > @slide_layout.slides.count
       @slide_ids.each do |slide_id|
         if slide_number <= (@slide_layout.slides.count-1)
-          sls = @slide_layout.slide_layout_slides[slide_number]
+          sls = @slide_layout.slide_layout_slides.order("id ASC")[slide_number]
           sls.slide_id = slide_id
           sls.save
           slide_number = slide_number + 1
@@ -444,7 +444,7 @@ before_action :ensure_banker_user_access,  only: []
         end
       end
     else
-      @slide_layout.slide_layout_slides.each do |sls|
+      @slide_layout.slide_layout_slides.order("id ASC").each do |sls|
         if slide_number <= (@slide_ids.count-1)
           sls.slide_id = @slide_ids[slide_number]
           sls.save
@@ -457,7 +457,7 @@ before_action :ensure_banker_user_access,  only: []
     end
 
     if @slide_layout.save
-      redirect_to "/slide_layouts/#{@slide_layout.id}", :notice => "Slide Layout updated successfully, duder."
+      redirect_to "/slide_layouts/#{@slide_layout.id}", :notice => "Slide Layout updated successfully, check #{@slide_layout.slide_layout_slides.order("id ASC").pluck(:slide_id)} /// check #{params[:slide_ids]}."
     else
       render 'edit'
     end

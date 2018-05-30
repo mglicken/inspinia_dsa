@@ -15,9 +15,15 @@
 display: inline-block;
 width:235px;
 }
+.fixed-box {
+position: fixed;
+background-color: #F4F4F4;
+padding: 5px;
+padding-top: 20px;
+z-index: 10;
+}
 </style>
-
-<div class="row container ibox-content" style="position: fixed; background-color: white; padding: 5px; padding-top: 20px; z-index: 10;"> 
+<div class="row container ibox-content fixed-box"> 
 <div class="col-lg-12">
 
 <div class="col-lg-8">
@@ -33,7 +39,6 @@ width:235px;
   <input name="user_id" type="hidden" value="<%= current_user.id %>"> 
 
   <input name="date" type="hidden" value="<%= Date.today %>">
-
  
     <!-- Label and input for Deal Name -->
   <div class="form-group" style="margin-bottom: px;">
@@ -54,7 +59,7 @@ width:235px;
   </div>
 </form>
 </div>
-<div class="col-lg-4" style="background-color: white; border-color: black; padding-bottom: 10px">
+<div class="col-lg-4" style="padding-bottom: 10px">
    <div class="vertical-btn-group">
     <br> 
     <div class="horizontal-btn-grp" style="margin-bottom: 5px"> 
@@ -167,17 +172,17 @@ width:235px;
 <div class="row container">
   <% i = 0 %>
   <div class="col-lg-12 connectedSortable ibox-content" id="sortable2" style="text-align:center; padding-top:25px; padding-bottom:25px; border-width:5px;border-color: #1ab394;">
-    <% @slide_layout.slides.each do |slide| %>
+    <% @slide_layout.slide_layout_slides.order("id ASC").each do |slide_layout_slide| %>
     <% i = i+1 %>
-    <div class="col-lg-4 isotope-item" id="<%=slide.id%>" style="z-index: 1">
+    <div class="col-lg-4 isotope-item" id="<%=slide_layout_slide.slide_id%>">
         <div class="panel panel-primary">
           <div class="pull-right">
-            <% if slide.favorite_slides.where(user_id: current_user.id).present? %>
-              <%= link_to( "/destroy_favorite_slide/#{slide.favorite_slides.find_by(user_id: current_user.id).id }", class: "btn btn-lg btn-unfavorite", id: "slide_#{slide.id}", :remote => :true) do %>
+            <% if slide_layout_slide.slide.favorite_slides.where(user_id: current_user.id).present? %>
+              <%= link_to( "/destroy_favorite_slide/#{slide_layout_slide.slide.favorite_slides.find_by(user_id: current_user.id).id }", class: "btn btn-lg btn-unfavorite", id: "slide_#{slide_layout_slide.slide_id}", :remote => :true) do %>
                   <i class="fa fa-star"></i>
               <% end %> 
             <% else %>
-              <%= link_to( "/create_favorite_slide/#{current_user.id}/#{slide.id}", class: "btn btn-lg btn-favorite", id: "slide_#{slide.id}", :remote => :true) do %>
+              <%= link_to( "/create_favorite_slide/#{current_user.id}/#{slide_layout_slide.slide_id}", class: "btn btn-lg btn-favorite", id: "slide_#{slide_layout_slide.slide_id}", :remote => :true) do %>
                   <i class="fa fa-star-o"></i>
               <% end %> 
             <% end %>
@@ -190,7 +195,7 @@ width:235px;
             <div class="row">
               <div>
                
-                <%= link_to image_tag(slide.image_url, size:"95%",class: "img-responsive center-block"), "/slides/#{slide.id}" %>
+                <%= link_to image_tag(slide_layout_slide.slide.image_url, size:"95%",class: "img-responsive center-block"), "/slides/#{slide_layout_slide.slide_id}" %>
               </div>
             </div>
           </div>

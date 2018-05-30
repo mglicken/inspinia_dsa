@@ -1,6 +1,6 @@
 <div class="ibox float-e-margins">
     <div class="ibox-title">
-        <h5>Projects</h5>
+        <h5>Projects (<%= @person.deals.count %>)</h5>
         <div class="ibox-tools">
             <a class="collapse-link">
                 <i class="fa fa-chevron-up"></i>
@@ -25,7 +25,7 @@
                     </thead>
                     <tbody>
                             <%i=0%>
-                            <% current_user.person.deals.each do |deal| 
+                            <% @person.deals.each do |deal| 
                                 i=i+1%>
                     <tr>
                         <td class="text-center"><%=i%></td>

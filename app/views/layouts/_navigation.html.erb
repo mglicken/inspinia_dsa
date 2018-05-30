@@ -25,29 +25,62 @@
                     <a href="/"><img src="http://www.lincolninternational.com/wp-content/uploads/LILogo_header.gif" width="90%"></img></a>
                 </div>
             </li>
-                <li class="<%= is_active_controller('people') %>">
+                <li class="<%= is_active_action('user_dashboard') %>">
                     <%= link_to '/dashboard' do %>
-                    <i class="fa fa-pie-chart"></i> <span class="nav-label" data-i18n="nav.people">User Dashboard</span>
+                    <i class="fa fa-user-circle-o"></i> <span class="nav-label" data-i18n="nav.user_dashboard">User Dashboard</span>
                     <% end %>
                 </li>
             <% if current_user.access_id <=2 %>
-                <li class="<%= is_active_controller('people') %>">
+                <li class="<%= is_active_action('access_dashboard') %>">
                     <%= link_to '/access_dashboard' do %>
-                    <i class="fa fa-users"></i> <span class="nav-label" data-i18n="nav.people">Access Dashboard</span>
+                    <i class="fa fa-users"></i> <span class="nav-label" data-i18n="nav.access_dashboard">Access Dashboard</span>
                     <% end %>
                 </li>
-                <li class="<%= is_active_controller('accesses') %>">
+                <li class="<%= is_active_action('models') %>">
                     <%= link_to '/models' do %>
-                    <i class="fa fa-database"></i> <span class="nav-label" data-i18n="nav.accesses">Upload Dashboard</span>
+                    <i class="fa fa-database"></i> <span class="nav-label" data-i18n="nav.models">Upload Dashboard</span>
                     <% end %>
                 </li>
-            <% end %>
-            <% if current_user.access_id ==1 %>
-            <li class="<%= is_active_controller('layoutsoptions') %>">
-                <%= link_to layoutsoptions_index_path do %>
-                <i class="fa fa-diamond"></i> <span class="nav-label" data-i18n="nav.layouts">Layouts</span> <span class="label label-primary pull-right">NEW</span>
+            <li class="<%= is_active_controller('metrics') %>">
+                <%= link_to metrics_index_path do %>
+                <i class="fa fa-pie-chart"></i> <span class="nav-label" data-i18n="nav.metrics">Metrics</span>
                 <% end %>
             </li>
+            <% end %>
+            <li class="<%= is_active_controller('deals') %>">
+                <a href="#"><i class="fa fa-trophy"></i> <span class="nav-label" data-i18n="nav.deals">Deals</span><span class="fa arrow"></span></a>
+                <ul class="nav nav-second-level collapse <%= is_active_controller('deals', 'in') %>">
+                    <% current_user.person.deals.order("id ASC").each do |deal| %>
+                        <li class="<%= is_active_action('show')%>"><%= link_to deal.name, "/deals/#{deal.id}"%></li>
+                    <% end %>
+                </ul>
+            </li>
+            <li class="<%= is_active_controller('layouts') %>">
+                <a href="#"><i class="fa fa-th"></i> <span class="nav-label" data-i18n="nav.layouts">Slide Layouts</span><span class="fa arrow"></span></a>
+                <ul class="nav nav-second-level collapse <%= is_active_controller('layouts', 'in') %>">
+                    <li class="<%= is_active_action('index') %>"><%= link_to "Favorite Slides", "/favorite_slides" %></li>
+                    <% current_user.slide_layouts.order("id ASC").each do |slide_layout| %>
+                        <li class="<%= is_active_action('show')%>"><%= link_to slide_layout.name, "/slide_layouts/#{slide_layout.id}"%></li>
+                    <% end %>
+                </ul>
+            </li>
+            <li class="<%= is_active_controller('companies') %>">
+                <a href="#"><i class="fa fa-cogs"></i> <span class="nav-label" data-i18n="nav.companies">Companies</span><span class="fa arrow"></span></a>
+                <ul class="nav nav-second-level collapse <%= is_active_controller('companies', 'in') %>">
+                    <% current_user.company_follows.joins(:company).order("name ASC").each do |company_follow| %>
+                        <li class="<%= is_active_action('show')%>"><%= link_to company_follow.company.name, "/companies/#{company_follow.company_id}"%></li>
+                    <% end %>
+                </ul>
+            </li>
+            <li class="<%= is_active_controller('sponsors') %>">
+                <a href="#"><i class="fa fa-university"></i> <span class="nav-label" data-i18n="nav.sponsors">Financial Sponsors</span><span class="fa arrow"></span></a>
+                <ul class="nav nav-second-level collapse <%= is_active_controller('sponsors', 'in') %>">
+                    <% current_user.sponsor_follows.joins(:sponsor).order("name ASC").each do |sponsor_follow| %>
+                        <li class="<%= is_active_action('show')%>"><%= link_to sponsor_follow.sponsor.name, "/sponsors/#{sponsor_follow.sponsor_id}"%></li>
+                    <% end %>
+                </ul>
+            </li>
+            <% if current_user.access_id ==1 %>
             <li class="<%= is_active_controller('graphs') %>">
                 <a href="#"><i class="fa fa-bar-chart-o"></i> <span class="nav-label" data-i18n="nav.graphs">Graphs</span><span class="fa arrow"></span></a>
                 <ul class="nav nav-second-level collapse <%= is_active_controller('graphs', 'in') %>">

@@ -126,7 +126,7 @@ before_action :ensure_view_access,  only: [:search, :show, :show_companies, :sho
     @slide_layout.deal_id = @nbp.deal_id
 
     if @slide_layout.save
-      @nbp.slides.each do |slide|
+      @nbp.slides.order("number ASC").each do |slide|
         sls = SlideLayoutSlide.new
         sls.slide_id = slide.id
         sls.slide_layout_id = @slide_layout.id
