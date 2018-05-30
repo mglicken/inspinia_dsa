@@ -80,15 +80,35 @@ width:235px;
         <% Slide.where(id: @favorite_slides.pluck(:slide_id) - @slide_layout.slides.ids).each do |slide| %>
             <% i = i + 1 %>
             <% if slide.teaser_slide.present?
-                title = slide.teaser.deal.company.name + " Teaser"
+                if slide.teaser.deal.company.name.length > 15
+                    title = slide.teaser.deal.company.name[0..14] + "... Teaser"
+                else
+                    title = slide.teaser.deal.company.name + " Teaser"
+                end
             elsif slide.nbp_slide.present?
-                title = slide.nbp.deal.company.name + " NBP"
+                if slide.nbp.deal.company.name.length > 15
+                    title = slide.nbp.deal.company.name[0..14] + "... NBP"
+                else
+                    title = slide.nbp.deal.company.name + " NBP"
+                end
             elsif slide.cip_slide.present?
-                title = slide.cip.deal.company.name + " CIP"
+                if slide.cip.deal.company.name.length > 15
+                    title = slide.cip.deal.company.name[0..14] + "... CIP"
+                else
+                    title = slide.cip.deal.company.name + " CIP"
+                end
             elsif slide.mpp_slide.present?
-                title = slide.mp.deal.company.name + " MP"
+                if slide.mp.deal.company.name.length > 15
+                    title = slide.mp.deal.company.name[0..14] + "... MP"
+                else
+                    title = slide.mp.deal.company.name + " MP"
+                end
             elsif slide.case_study_slide.present?
-                title = slide.case_study.deal.company.name + " CS"
+                if slide.cs.deal.company.name.length > 15
+                    title = slide.cs.deal.company.name[0..14] + "... CS"
+                else
+                    title = slide.cs.deal.company.name + " CS"
+                end
             end %>
 
                 <div class="card" id="<%=slide.id%>">
