@@ -1,9 +1,9 @@
 source 'https://rubygems.org'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-gem 'rails', '5.0'
-gem 'activesupport', '~> 5.0'
-gem 'railties', '~> 5.0'
+gem 'rails', '5.0.1'
+gem 'activesupport', '~> 5.0.1'
+gem 'railties', '~> 5.0.1'
 gem 'bootstrap-sass', '~> 3.3.7'
 gem 'font-awesome-rails', '4.7.0.1'
 
