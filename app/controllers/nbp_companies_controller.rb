@@ -134,28 +134,21 @@ before_action :ensure_banker_access,  only: [:new, :create, :edit, :update, :upd
     @nbp = Nbp.find(NbpCompany.find(@ids.max).nbp_id)
     @buckets = @nbp.buckets.order("id ASC")
     tier = 1
-    bucket = 1
+    bucket = 0
     
     @blocks.each do |block|
         @ids = block.split(",").map { |s| s.to_i }
         @ids.each do |id|
-          if bucket == 5
-            @nbp_company=NbpCompany.find(id)
-            @nbp_company.tier_id = tier - 1
-            @nbp_company.bucket_id  = @buckets[ bucket-2 ].id
-            @nbp_company.save
-          else
             @nbp_company=NbpCompany.find(id)
             @nbp_company.tier_id = tier
-            @nbp_company.bucket_id  = @buckets[ bucket-2 ].id
+            @nbp_company.bucket_id  = @buckets.order("id ASC")[ bucket-1 ].id
             @nbp_company.save
-          end 
         end
         bucket = bucket + 1
         if bucket == 5
           bucket = 1
           tier = tier + 1
-        end
+        end 
     end
    
     if @nbp_company.save

@@ -1,15 +1,10 @@
 
 <!-- Button trigger modal -->
 
-<%if @slide_layout.present?%>
-  <div class="btn btn-danger" data-toggle="modal" data-target="#myModalDeleteSlideLayout_<%= slide_layout.id %>">
+
+<div class="btn btn-danger" data-toggle="modal" data-target="#myModalDeleteSlideLayout_<%= @slide_layout.id %>">
     <i class="fa fa-trash-o"></i>
-  </div>
-<%else%>
-  <div class="btn" data-toggle="modal" data-target="#myModalDeleteSlideLayout_<%= slide_layout.id %>">
-    <i class="fa fa-trash-o"></i>
-  </div>
-<%end%>
+</div>
 <!-- Modal -->
 <div class="modal fade" id="myModalDeleteSlideLayout_<%= slide_layout.id %>" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
   <div class="modal-dialog" role="document">
@@ -36,12 +31,7 @@
 <!-- Responsive panel example -->
 
 <div class="row">
-  <div class="col-sm-offset-0 col-sm-12 col-md-offset-0 col-md-12">
-    <div class="panel panel-default">
-      <div class="panel-heading">
-        <h3 class="panel-title">Delete Slide Layout</h3>
-      </div>
-      <div class="panel-body">
+
 
         <form enctype="multipart/form-data" action="/delete_slide_layout/<%= slide_layout.id %>" method="get" class="form-horizontal">
           <!-- Hidden input for authenticity token to protect from forgery -->
@@ -62,13 +52,7 @@
 
         </form>
 
-      </div>
-    </div>
-  </div>
 </div>
-
-<!-- End responsive panel example -->
-
 
       </div>
       <div class="modal-footer">

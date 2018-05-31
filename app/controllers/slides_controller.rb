@@ -40,28 +40,33 @@ before_action :ensure_view_access,  only: [:show, :search]
   def show
     @slide = Slide.find(params[:id].to_i)
     @tags = Tag.all.order("name ASC")
-    if NbpSlide.find_by(slide_id: @slide.id).present?
-      @nbp = NbpSlide.find_by(slide_id: @slide.id).nbp
+    if @slide.nbp.present?
+      @nbp = @slide.nbp
+      @image_id = @nbp.image_id
     else
       @nbp = nil
     end
-    if CipSlide.find_by(slide_id: @slide.id).present?
-      @cip = CipSlide.find_by(slide_id: @slide.id).cip
+    if @slide.cip.present?
+      @cip = @slide.cip
+      @image_id = @cip.image_id
     else
       @cip = nil
     end      
-    if MpSlide.find_by(slide_id: @slide.id).present?
-      @mp = MpSlide.find_by(slide_id: @slide.id).mp
+    if @slide.mp.present?
+      @mp = @slide.mp
+      @image_id = @mp.image_id
     else
       @mp = nil
     end    
-    if TeaserSlide.find_by(slide_id: @slide.id).present?
-      @teaser = TeaserSlide.find_by(slide_id: @slide.id).teaser
+    if @slide.teaser.present?
+      @teaser = @slide.teaser
+      @image_id = @teaser.image_id
     else
       @teaser = nil
     end  
-    if CaseStudySlide.find_by(slide_id: @slide.id).present?
-      @case_study = CaseStudySlide.find_by(slide_id: @slide.id).case_study
+    if @slide.case_study.present?
+      @case_study = @slide.case_study
+      @image_id = @case_study.image_id
     else
       @case_study = nil
     end  

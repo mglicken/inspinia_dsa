@@ -210,7 +210,6 @@ PLATFORMS
 DEPENDENCIES
   axlsx!
   axlsx_rails
-  bcrypt
   bootstrap-sass (~> 3.3.7)
   cloudinary
   coffee-rails (~> 4.0.0)
@@ -231,4 +230,4 @@ DEPENDENCIES
   zip-zip
 
 BUNDLED WITH
-   1.16.1
+   1.16.2

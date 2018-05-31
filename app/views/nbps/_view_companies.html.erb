@@ -74,15 +74,19 @@
   </div>
 <% end %>
 
-
-  <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
-  <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
   <script>
 
   $( function() {
     $( "#sortable11, #sortable12, #sortable13, #sortable14, #sortable21, #sortable22, #sortable23, #sortable24, #sortable31, #sortable32, #sortable33, #sortable34,#sortable41, #sortable42, #sortable43, #sortable44" ).sortable({
+
       connectWith: ".connectedSortable"
-    }).disableSelection();
+
+    });
+
+    $( "#sortable11, #sortable12, #sortable13, #sortable14, #sortable21, #sortable22, #sortable23, #sortable24, #sortable31, #sortable32, #sortable33, #sortable34,#sortable41, #sortable42, #sortable43, #sortable44" ).sortable({
+      axis: "y"
+
+    });
 
   });
 

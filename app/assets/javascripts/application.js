@@ -15,3 +15,5 @@
 //= require inspinia.js
 //= require jquery-ujs/src/rails.js
 //= require select2
+//= require pdfjs/pdf.js
+//= require pdfjs/pdf.worker.js
