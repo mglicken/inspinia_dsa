@@ -1,4 +1,3 @@
-# encoding: UTF-8
 # This file is auto-generated from the current state of the database. Instead
 # of editing this file, please use the migrations feature of Active Record to
 # incrementally modify your database, and then regenerate this schema definition.
@@ -52,19 +51,19 @@ ActiveRecord::Schema.define(version: 20180508010302) do
   end
 
   create_table "companies", force: :cascade do |t|
-    t.string  "name"
-    t.float   "revenue"
-    t.float   "ebitda"
-    t.string  "address"
-    t.string  "city"
-    t.string  "state"
-    t.string  "zip"
-    t.integer "phone",            limit: 8
-    t.string  "web_address"
-    t.text    "description"
-    t.date    "description_date"
-    t.string  "linkedin_url"
-    t.string  "quote"
+    t.string "name"
+    t.float  "revenue"
+    t.float  "ebitda"
+    t.string "address"
+    t.string "city"
+    t.string "state"
+    t.string "zip"
+    t.bigint "phone"
+    t.string "web_address"
+    t.text   "description"
+    t.date   "description_date"
+    t.string "linkedin_url"
+    t.string "quote"
   end
 
   create_table "company_follows", force: :cascade do |t|
@@ -183,8 +182,8 @@ ActiveRecord::Schema.define(version: 20180508010302) do
     t.string  "city"
     t.string  "state"
     t.string  "zip"
-    t.integer "phone",          limit: 8
-    t.integer "cell",           limit: 8
+    t.bigint  "phone"
+    t.bigint  "cell"
     t.string  "email_address"
     t.string  "image_url"
     t.boolean "employee"
@@ -253,7 +252,7 @@ ActiveRecord::Schema.define(version: 20180508010302) do
     t.string  "city"
     t.string  "state"
     t.string  "zip"
-    t.integer "phone",            limit: 8
+    t.bigint  "phone"
     t.string  "web_address"
     t.text    "description"
     t.date    "description_date"
@@ -306,10 +305,9 @@ ActiveRecord::Schema.define(version: 20180508010302) do
     t.datetime "updated_at",                          null: false
     t.integer  "access_id"
     t.integer  "person_id"
+    t.index ["email"], name: "index_users_on_email", unique: true, using: :btree
+    t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
   end
-
-  add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
-  add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
 
   create_table "work_histories", force: :cascade do |t|
     t.integer "person_id"
