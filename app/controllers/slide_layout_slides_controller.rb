@@ -22,7 +22,7 @@ before_action :ensure_banker_user_access,  only: [:edit, :update, :destroy]
 
   def ensure_banker_user_access
     if current_user.access_id.present?
-      if params[:user_id] !=  current_user.id
+      if SlideLayoutSlide.find(params[:id]).slide_layout.user_id !=  current_user.id
         redirect_to root_url, :alert => "Not Authorized"
       else
         if current_user.access_id > 3
@@ -101,10 +101,16 @@ before_action :ensure_banker_user_access,  only: [:edit, :update, :destroy]
 
   def destroy
     @slide_layout_slide = SlideLayoutSlide.find(params[:id])
-
     @slide_layout_slide.destroy
 
-    redirect_to "/slide_layouts/#{ @slide_layout_slide.slide_layout_id}", :notice => "Slide layout slide deleted."
+    respond_to do |format|
+      format.html do
+        redirect_to "/slide_layouts/#{ @slide_layout_slide.slide_layout_id}", :notice => "Slide layout slide deleted."  
+      end
+      format.js do
+        render('destroy.js.erb')
+      end
+    end
   end
 
   def import

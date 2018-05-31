@@ -23,7 +23,7 @@
 
 <!-- Validation failure messages -->
 
-<% if @nbp.blank?%>
+<% if @nbp.blank? %>
   <% @nbp = Nbp.new %>
 <% end %>
 <% if @nbp.errors.any? %>
@@ -34,8 +34,6 @@
     </div>
   <% end %>
 <% end %>
-
-<!-- Responsive panel example -->
 
 <div class="row">
 
@@ -97,9 +95,6 @@
         </form>
 
 </div>
-
-<!-- End responsive panel example -->
-
 
       </div>
       <div class="modal-footer">

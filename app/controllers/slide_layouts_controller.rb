@@ -457,7 +457,7 @@ before_action :ensure_banker_user_access,  only: []
     end
 
     if @slide_layout.save
-      redirect_to "/slide_layouts/#{@slide_layout.id}", :notice => "Slide Layout updated successfully, check #{@slide_layout.slide_layout_slides.order("id ASC").pluck(:slide_id)} /// check #{params[:slide_ids]}."
+      redirect_to "/slide_layouts/#{@slide_layout.id}", :notice => "Slide Layout updated successfully."
     else
       render 'edit'
     end
