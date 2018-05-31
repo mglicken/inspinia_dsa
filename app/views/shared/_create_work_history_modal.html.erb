@@ -22,8 +22,6 @@
       </div>
       <div class="modal-body">
 
-
-
 <!-- Validation failure messages -->
 
 <% if @work_history.blank?%>
@@ -41,16 +39,6 @@
 <!-- Responsive panel example -->
 
 <div class="row">
-  <div class="col-sm-offset-0 col-sm-12 col-md-offset-0 col-md-12">
-    <div class="panel panel-default">
-      <div class="panel-heading">
-        <% if company == 0 %>        
-          <h3 class="panel-title">Add to a Company</h3>
-        <% else %>
-          <h3 class="panel-title">Add Person</h3>
-        <% end %>
-      </div>
-      <div class="panel-body">
 
         <form enctype="multipart/form-data" action="/create_work_history" method="post" class="form-horizontal">
           <!-- Hidden input for authenticity token to protect from forgery -->
@@ -132,9 +120,6 @@
 
         </form>
 
-      </div>
-    </div>
-  </div>
 </div>
 
 <!-- End responsive panel example -->

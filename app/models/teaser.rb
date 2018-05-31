@@ -1,4 +1,6 @@
 class Teaser < ActiveRecord::Base
+validates :name, :presence => true, :uniqueness => true
+
 belongs_to :deal
 has_many :teaser_slides, :dependent => :destroy
 has_many :slides, :through => :teaser_slides, :dependent => :destroy

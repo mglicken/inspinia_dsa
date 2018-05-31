@@ -1,4 +1,6 @@
 class Nbp < ActiveRecord::Base
+validates :name, :presence => true, :uniqueness => true
+
 belongs_to :deal
 has_many :nbp_slides, :dependent => :destroy
 has_many :buckets, :dependent => :destroy

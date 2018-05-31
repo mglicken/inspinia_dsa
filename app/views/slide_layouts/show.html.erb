@@ -102,17 +102,17 @@ z-index: 10;
                 else
                     title = slide.cip.deal.company.name + " CIP"
                 end
-            elsif slide.mpp_slide.present?
+            elsif slide.mp_slide.present?
                 if slide.mp.deal.company.name.length > 15
                     title = slide.mp.deal.company.name[0..14] + "... MP"
                 else
                     title = slide.mp.deal.company.name + " MP"
                 end
             elsif slide.case_study_slide.present?
-                if slide.cs.deal.company.name.length > 15
-                    title = slide.cs.deal.company.name[0..14] + "... CS"
+                if slide.case_study.deal.company.name.length > 15
+                    title = slide.case_study.deal.company.name[0..14] + "... CS"
                 else
-                    title = slide.cs.deal.company.name + " CS"
+                    title = slide.case_study.deal.company.name + " CS"
                 end
             end %>
 

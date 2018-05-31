@@ -41,16 +41,7 @@
 <!-- Responsive panel example -->
 
 <div class="row">
-  <div class="col-sm-offset-0 col-sm-12 col-md-offset-0 col-md-12">
-    <div class="panel panel-default">
-      <div class="panel-heading">
-        <% if fund == 0 %>        
-          <h3 class="panel-title">Add to a Fund</h3>
-        <% else %>
-          <h3 class="panel-title">Add Company</h3>
-        <% end %>
-      </div>
-      <div class="panel-body">
+
 
         <form enctype="multipart/form-data" action="/create_fund_company" method="post" class="form-horizontal">
           <!-- Hidden input for authenticity token to protect from forgery -->
@@ -125,10 +116,6 @@
           </div>
 
         </form>
-
-      </div>
-    </div>
-  </div>
 </div>
 
 <!-- End responsive panel example -->
