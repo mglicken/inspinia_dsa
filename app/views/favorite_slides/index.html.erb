@@ -1,126 +1,223 @@
+<style>
+.scrollbar {
+  overflow-x: scroll;
+  overflow-y: scroll;
+  white-space: nowrap;
+  background-color: black;
+  padding: 5px;
+  padding-bottom: 0px;
+  margin-right: 10px;
+  max-height: 275px
+}
+.card {
+display: inline-block;
+width:235px;
+}
+.fixed-box {
+position: fixed;
+background-color: #F4F4F4;
+padding: 5px;
+padding-top: 10px;
+margin-bottom: 0px;
+margin-top: 0px;
+padding-bottom: 0px;
+z-index: 10;
+}
+</style>
 
-<div class="page-header">
-  <h1>
-    <%= current_user.person.name%>'s Favorited Slides
-  </h1>
+<div class="row container ibox-content fixed-box"> 
+<div class="col-lg-12" style="padding-top: 5px; padding-bottom: 0px;">
+
+<div class="col-lg-8">
+
+
+  <form method="post" class="form-horizontal" id="sl-form-id" name="sl-form-name"> 
+  <!-- Hidden input for authenticity token to protect from forgery -->
+    <input name="authenticity_token" type="hidden" value="<%= form_authenticity_token %>">
+
+    <input name="user_id" type="hidden" value="<%= current_user.id %>"> 
+
+    <input name="date" type="hidden" value="<%= Date.today %>">
+   
+      <!-- Label and input for Deal Name -->
+    <div class="form-group" style="margin-bottom: 5px;">
+      <div class="col-lg-11">
+        <%= select_tag :deal_id, options_from_collection_for_select(Deal.order("name ASC").all, :id, :name), {:include_blank => 'Select Deal', :class => "form-control"} %>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <div class="col-lg-8">
+        <input type="string" id="name" name="name" placeholder="Enter Layout Name" class="form-control">
+      </div>
+      <div class="col-lg-1">
+        <button class="btn btn-lincoln" id="sl-button-id">
+          Create Layout
+        </button>
+      </div>
+    </div>
+  </form>
 </div>
 
-<% if @slide_layout.blank?%>
-  <% @slide_layout = SlideLayout.new %>
-<% end %>
-<% if @slide_layout.errors.any? %>
-  <% @slide_layout.errors.full_messages.each do |message| %>
-    <div class="alert alert-dismissable alert-danger">
-      <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-      <%= message %>
-    </div>
-  <% end %>
-<% end %>
-
-<!-- Responsive, Isotope-based layout example -->
-<form method="post" class="form-inline" id="sl-form-id" name="sl-form-name"> 
-<!-- Hidden input for authenticity token to protect from forgery -->
-  <input name="authenticity_token" type="hidden" value="<%= form_authenticity_token %>">
-
-  <input name="user_id" type="hidden" value=<%= current_user.id %>>
-
-  <input name="date" type="hidden" value=<%= Date.today %>>
-
-  <div class="row">
-    <div class="col-md-12">
-      <input type="string" id="name" name="name" placeholder="Enter Layout Name" class="form-control">
-      <button class="btn btn-lincoln" id="sl-button-id">
-        Create Layout
-      </button>
-    </div>
-  </div>
-</form>
-
+</div>
 
 <br>
 <div class="row container">
-  <div class="col-lg-6 page-header" style="text-align: center">
-    <h1>Favorited Slides</h1><div style="color:#FFFFFF">()</div>
-  </div>
-  <div class="col-lg-6 page-header" style="text-align: center">
-    <h1> New Layout </h1> (Enter name above)
-  </div>
-</div>
+<div class="ibox float-e-margins">
+    <div class="ibox-title">
+        <h5><%=current_user.person.name %>'s Favorite Slides (Click and Drag Favorite Slides to Create New Layout)</h5>
+        <div class="ibox-tools">
+            <a class="collapse-link">
+                <i class="fa fa-chevron-up"></i>
+            </a>
+        </div>
+    </div>
+    <div class="ibox-content">
+      <div class="row container">
+        <div class=" col-lg-12">
+          <div id="sortable1" class="connectedSortable scrollbar">
+              <% i = 0 %>
+              <% current_user.favorite_slides[1..(current_user.favorite_slides.count-1)].each do |favorite_slide| %>
+                <% i = i + 1 %>
+                <% if favorite_slide.slide.teaser_slide.present?
+                    if favorite_slide.slide.teaser.deal.company.name.length > 15
+                        title = favorite_slide.slide.teaser.deal.company.name[0..14] + "... Teaser"
+                    else
+                        title = favorite_slide.slide.teaser.deal.company.name + " Teaser"
+                    end
+                elsif favorite_slide.slide.nbp_slide.present?
+                    if favorite_slide.slide.nbp.deal.company.name.length > 15
+                        title = favorite_slide.slide.nbp.deal.company.name[0..14] + "... NBP"
+                    else
+                        title = favorite_slide.slide.nbp.deal.company.name + " NBP"
+                    end
+                elsif favorite_slide.slide.cip_slide.present?
+                    if favorite_slide.slide.cip.deal.company.name.length > 15
+                        title = favorite_slide.slide.cip.deal.company.name[0..14] + "... CIP"
+                    else
+                        title = favorite_slide.slide.cip.deal.company.name + " CIP"
+                    end
+                elsif favorite_slide.slide.mp_slide.present?
+                    if favorite_slide.slide.mp.deal.company.name.length > 15
+                        title = favorite_slide.slide.mp.deal.company.name[0..14] + "... MP"
+                    else
+                        title = favorite_slide.slide.mp.deal.company.name + " MP"
+                    end
+                elsif favorite_slide.slide.case_study_slide.present?
+                    if favorite_slide.slide.case_study.deal.company.name.length > 15
+                        title = favorite_slide.slide.case_study.deal.company.name[0..14] + "... CS"
+                    else
+                        title = favorite_slide.slide.case_study.deal.company.name + " CS"
+                    end
+                end %>
 
-<div class="row container">
-  <div class="col-lg-6 connectedSortable" id="sortable1" style="text-align:center; padding-top:25px; padding-bottom:25px;  background-color: #f2f2f2">
-    <% if @favorite_slides.count == 0 %>
+                <div class="card" id="<%= favorite_slide.slide.id%>">
 
-    <% else %>
-      <% @favorite_slides[1..(@favorite_slides.count-1)].each do |favorite_slide| %>
-        <div class="col-lg-6 isotope-item" id="<%=favorite_slide.slide_id%>">
-          <div class="panel panel-default">
-            <div class="pull-right">
-              <%= link_to( "/destroy_favorite_slide/#{favorite_slide.id}", class: "btn btn-lg btn-unfavorite", id: "slide_#{favorite_slide.slide_id}", :remote => :true) do %>
-                  <i class="fa fa-star"></i>
-              <% end %>              
-            </div>        
-            <div class="panel-heading">
-              <h3 class="panel-title">Slide# <%= favorite_slide.slide.number %></h3>
-
-            </div>
-            <div class="panel-body">
-              <div class="row">
-                <div>
-          
-                  <%= link_to image_tag(favorite_slide.slide.image_url, size:"95%",class: "img-responsive center-block"), "/slides/#{favorite_slide.slide.id}" %>
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                             <h3 class="panel-title"><%= title %> - Slide #<%= favorite_slide.slide.number %></h3>
+                        </div>
+                        <div class="panel-body">
+                            <div class="row">
+                                <div>
+                                    <%= link_to image_tag(favorite_slide.slide.image_url, size:"95%",class: "img-responsive center-block"), "/slides/#{favorite_slide.slide_id}" %>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-              </div>
+              <%end%>
             </div>
           </div>
         </div>
-      <% end %>
-    <% end %>
+      </div>
+    </div>
   </div>
-  <div class="col-lg-6 connectedSortable panel panel-success" id="sortable2" style="text-align:center; padding-top:25px; padding-bottom:25px; border-width:5px;">
-    <% if @favorite_slides.count == 0 %>
+</div>
+  <br>
+  <br>
+  <br>
+  <br>
+  <br>
+  <br>
+  <br>
+  <br>
+  <br>
+<div >
+  <br>
+  <br>
+  <br>
+  <br>
+  <br>
+  <br>
+  <br>
+  <br>
+  <br>
+  <br>
+  <br>
+  <br>
+  <br>
+  <br>
+  <br>
+  <br>
+  <br>
+  <br>
+<div>
+<div class = "row container" style=" position: relative; z-index: 1;">
+<h3 class="text-center m">
+    New Layout (Enter name above)
+</h3>
 
-    <% else %>
-
-    <% favorite_slide = @favorite_slides.first %>
-    <div class="col-lg-6 isotope-item" id="<%=favorite_slide.slide_id%>">
-        <div class="panel panel-success">
+<div class="row container">
+  <% i = 1 %>
+  <div class="col-lg-12 connectedSortable ibox-content" id="sortable2" style="text-align:center; padding-top:25px; padding-bottom:25px; border-width:5px;border-color: #1ab394;">
+    <div class="col-lg-4 isotope-item" id="<%= current_user.favorite_slides[0].slide_id %>">
+        <div class="panel panel-primary">
           <div class="pull-right">
-              <%= link_to( "/destroy_favorite_slide/#{favorite_slide.id}", class: "btn btn-lg btn-unfavorite", id: "slide_#{favorite_slide.slide_id}", :remote => :true) do %>
+              <%= link_to( "/destroy_favorite_slide/#{current_user.favorite_slides[0].id }", class: "btn btn-lg btn-unfavorite", id: "slide_#{current_user.favorite_slides[0].slide_id}", :remote => :true) do %>
                   <i class="fa fa-star"></i>
               <% end %> 
-          </div>        
+           </div>        
           <div class="panel-heading">
-            <h3 class="panel-title">Slide# <%= favorite_slide.slide.number %></h3>
-
+            <h3 class="panel-title"> Slide #<%= i %></h3>
           </div>
           <div class="panel-body">
             <div class="row">
-              <div>               
-                <%= link_to image_tag(favorite_slide.slide.image_url, size:"95%", class: "img-responsive center-block"), "/slides/#{favorite_slide.slide.id}" %>
+              <div>
+                <%= link_to image_tag(current_user.favorite_slides[0].slide.image_url, size:"95%",class: "img-responsive center-block"), "/slides/#{current_user.favorite_slides[0].slide_id}" %>
               </div>
             </div>
           </div>
         </div>
       </div>
+
   </div>
-  <% end %>
+</div>
 </div>
 
 
-  <script>
- $( function() {
+<script>
+
+  $( function() {
+    // Sortable
     $( "#sortable1, #sortable2" ).sortable({
-      connectWith: ".connectedSortable"
-    }).disableSelection();
+        connectWith: ".connectedSortable"
+    })
+
+    $( "#sortable1, #sortable2" ).sortable({
+        out: function(event, ui) {
+            ui.item.removeClass('scrollbar card');
+            ui.item.addClass('col-lg-4 isotope-item');
+        }
+    })
   });
 
- var form = document.getElementById("sl-form-id");
+  var form = document.getElementById("sl-form-id");
 
   document.getElementById("sl-button-id").addEventListener("click", function () {
     var idsInOrder = $("#sortable2").sortable("toArray");
-    form.action = "/create_slide_layout/"+ String(idsInOrder);
+    form.action = "/create_slide_layout/" + String(idsInOrder);
     form.submit();
   });
-
-  </script>
+  
+</script>

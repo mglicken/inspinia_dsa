@@ -10,18 +10,18 @@
   max-height: 275px
 }
 .card {
-display: inline-block;
-width:235px;
+  display: inline-block;
+  width:235px;
 }
 .fixed-box {
-position: fixed;
-background-color: #F4F4F4;
-padding: 5px;
-padding-top: 10px;
-margin-bottom: 0px;
-margin-top: 0px;
-padding-bottom: 0px;
-z-index: 10;
+  position: fixed;
+  background-color: #F4F4F4;
+  padding: 5px;
+  padding-top: 10px;
+  margin-bottom: 0px;
+  margin-top: 0px;
+  padding-bottom: 0px;
+  z-index: 10;
 }
 </style>
 
@@ -44,7 +44,7 @@ z-index: 10;
     <!-- Label and input for Deal Name -->
   <div class="form-group" style="margin-bottom: 0px;">
     <div class="col-lg-11">
-      <%= select_tag :deal_id, options_from_collection_for_select(Deal.all, :id, :name, @slide_layout.deal_id), {:include_blank => 'Select Deal', :class => "form-control"} %>
+      <%= select_tag :deal_id, options_from_collection_for_select(Deal.order("name ASC").all, :id, :name, @slide_layout.deal_id), {:include_blank => 'Select Deal', :class => "form-control"} %>
     </div>
   </div>
 
@@ -77,15 +77,10 @@ z-index: 10;
 <div class="row container">
 <div class="ibox float-e-margins">
     <div class="ibox-title">
-        <h5>
-          <%=current_user.person.name%>'s Favorite Slides (Click and Drag Favorite Slides into <%= @slide_layout.name%> "Layout")
-        </h5>
+        <h5><%=current_user.person.name%>'s Favorite Slides (Click and Drag Favorite Slides into <%= @slide_layout.name%>)</h5>
         <div class="ibox-tools">
             <a class="collapse-link">
                 <i class="fa fa-chevron-up"></i>
-            </a>
-            <a class="close-link">
-                <i class="fa fa-times"></i>
             </a>
         </div>
     </div>
@@ -152,36 +147,37 @@ z-index: 10;
     </div>
   </div>
 </div>
-
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
+  <br>
+  <br>
+  <br>
+  <br>
+  <br>
+  <br>
+  <br>
+  <br>
+<div >
+  <br>
+  <br>
+  <br>
+  <br>
+  <br>
+  <br>
+  <br>
+  <br>
+  <br>
+  <br>
+  <br>
+  <br>
+  <br>
+  <br>
+  <br>
+  <br>
+  <br>
+  <br>
+<div>
 <div class = "row container" style=" position: relative; z-index: 1;">
 <h3 class="text-center m">
-    <%=@slide_layout.name%> Layout
+    <%=@slide_layout.name%>
 </h3>
 
 <div class="row container">
