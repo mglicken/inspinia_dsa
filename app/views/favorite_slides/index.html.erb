@@ -30,7 +30,6 @@ z-index: 10;
 
 <div class="col-lg-8">
 
-
   <form method="post" class="form-horizontal" id="sl-form-id" name="sl-form-name"> 
   <!-- Hidden input for authenticity token to protect from forgery -->
     <input name="authenticity_token" type="hidden" value="<%= form_authenticity_token %>">
@@ -67,7 +66,7 @@ z-index: 10;
     <div class="ibox-title">
         <h5><%=current_user.person.name %>'s Favorite Slides (Click and Drag Favorite Slides to Create New Layout)</h5>
         <div class="ibox-tools">
-            <a class="collapse-link">
+            <a class="collapse-link" id="content-box">
                 <i class="fa fa-chevron-up"></i>
             </a>
         </div>
@@ -143,7 +142,7 @@ z-index: 10;
   <br>
   <br>
   <br>
-<div >
+<div class="" id="blank-content">
   <br>
   <br>
   <br>
@@ -162,7 +161,7 @@ z-index: 10;
   <br>
   <br>
   <br>
-<div>
+</div>
 <div class = "row container" style=" position: relative; z-index: 1;">
 <h3 class="text-center m">
     New Layout (Enter name above)
@@ -210,6 +209,17 @@ z-index: 10;
             ui.item.addClass('col-lg-4 isotope-item');
         }
     })
+
+      $( "#content-box" ).click(function() {
+        if($("#blank-content").is(":visible") ) {
+          $( "#blank-content" ).hide();
+        } 
+        else {
+          $( "#blank-content" ).show();
+        }
+
+      }); 
+
   });
 
   var form = document.getElementById("sl-form-id");

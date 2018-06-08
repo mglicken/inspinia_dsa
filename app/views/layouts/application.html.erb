@@ -59,8 +59,9 @@
         <div id="page-wrapper" class="gray-bg <%= @extra_class %>">
 
             <!-- Page wrapper -->
-            <%= render 'layouts/topnavbar' %>
-
+            <% if current_user.present? %>            
+                <%= render 'layouts/topnavbar' %>
+            <% end %>
               <div class="container">
                 <% if notice.present? %>
                   <div class="alert alert-dismissable alert-success">

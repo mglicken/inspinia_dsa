@@ -79,7 +79,7 @@ before_action :ensure_banker_user_access,  only: []
         sls.slide_id = slide_id
         sls.save
       end
-        redirect_to "/slide_layouts/#{@slide_layout.id}", :notice => "Slide Layout created successfully."
+        redirect_to "/slide_layouts/#{@slide_layout.id}"
       else
         render 'new'
       end
@@ -457,7 +457,7 @@ before_action :ensure_banker_user_access,  only: []
     end
 
     if @slide_layout.save
-      redirect_to "/slide_layouts/#{@slide_layout.id}", :notice => "Slide Layout updated successfully."
+      redirect_to "/slide_layouts/#{@slide_layout.id}"
     else
       render 'edit'
     end
