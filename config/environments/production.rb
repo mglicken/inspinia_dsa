@@ -59,6 +59,10 @@ Myapp::Application.configure do
 
   # Precompile additional assets.
   # application.js, application.css, and all non-JS/CSS in app/assets folder are already added.
+  
+  #Mailer Host
+  config.action_mailer.delivery_method = :smtp
+  config.action_mailer.default_url_options = {:host => 'inspinia-dsa-production.herokuapp.com', :protocol => 'https'}
 
   # Ignore bad email addresses and do not raise email delivery errors.
   # Set this to true and configure the email server for immediate delivery to raise delivery errors.

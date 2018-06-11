@@ -111,7 +111,6 @@ before_action :ensure_banker_user_access,  only: []
       else
         render 'new'
       end
-
     end
   end
 
