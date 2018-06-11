@@ -116,15 +116,12 @@ before_action :ensure_banker_user_access,  only: []
   end
 
   def create_pdf
-    require 'combine_pdf'
-    require 'net/http'
 
     @slide_layout = SlideLayout.find(params[:id])
     i=1
     @slide_layout.slides.each do |slide|
       #Cloudinary::Uploader.add_tag("slide_layout_#{@slide_layout.id}", "pg_#{slide.number}," , 'add')
       p_id = "slide_layout-#{@slide_layout.id},page-#{i}"
-      pdf = CombinePDF.new
       url = "https://res.cloudinary.com/mglicken/image/upload/#{p_id}.pdf"
 
       if slide.teaser.present?
