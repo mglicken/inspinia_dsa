@@ -258,6 +258,44 @@ Myapp::Application.routes.draw do
   # DELETE
   get "/delete_deal_person/:id", :controller => "deal_people", :action => "destroy"
 
+ # Routes for the Deal Stages resource:
+  resources :deal_stages do
+    collection {post :import}
+  end  
+  # CREATE
+  get "/deal_stages/new", :controller => "deal_stages", :action => "new"
+  post "/create_deal_stage", :controller => "deal_stages", :action => "create"
+
+  # READ
+  get "/deal_stages", :controller => "deal_stages", :action => "index"
+  get "/deal_stages/:id", :controller => "deal_stages", :action => "show"
+
+  # UPDATE
+  get "/deal_stages/:id/edit", :controller => "deal_stages", :action => "edit"
+  post "/update_deal_stage/:id", :controller => "deal_stages", :action => "update"
+
+  # DELETE
+  get "/delete_deal_stage/:id", :controller => "deal_stages", :action => "destroy"
+
+   # Routes for the Deal Types resource:
+  resources :deal_types do
+    collection {post :import}
+  end  
+  # CREATE
+  get "/deal_types/new", :controller => "deal_types", :action => "new"
+  post "/create_deal_type", :controller => "deal_types", :action => "create"
+
+  # READ
+  get "/deal_types", :controller => "deal_types", :action => "index"
+  get "/deal_types/:id", :controller => "deal_types", :action => "show"
+
+  # UPDATE
+  get "/deal_types/:id/edit", :controller => "deal_types", :action => "edit"
+  post "/update_deal_type/:id", :controller => "deal_types", :action => "update"
+
+  # DELETE
+  get "/delete_deal_type/:id", :controller => "deal_types", :action => "destroy"
+
   # Routes for the Favorite_Slide resource:
   resources :favorite_slides do
     collection {post :import}
