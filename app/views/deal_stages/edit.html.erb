@@ -1,0 +1,53 @@
+<!-- Validation failure messages -->
+
+<% if @deal_stage.errors.any? %>
+  <% @deal_stage.errors.full_messages.each do |message| %>
+    <div class="alert alert-dismissable alert-danger">
+      <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+      <%= message %>
+    </div>
+  <% end %>
+<% end %>
+
+<!-- Responsive panel example -->
+
+<div class="row">
+  <div class="col-sm-offset-1 col-sm-10 col-md-offset-2 col-md-8">
+    <div class="panel panel-default">
+  
+      <div class="panel-heading">
+        <h3 class="panel-title">Edit Deal Stage</h3>
+      </div>
+      <div class="panel-body">
+        <form action="/update_deal_stage/<%= @deal_stage.id %>" method="post" class="form-horizontal">
+          <!-- Hidden input for authenticity token to protect from forgery -->
+          <input name="authenticity_token" type="hidden" value="<%= form_authenticity_token %>">
+
+          <!-- Label and input for Deal Stage Name -->
+          <div class="form-group">
+            <label for="name" class="col-sm-2 control-label">
+              Deal Stage Name
+            </label>
+            <div class="col-sm-10">
+              <input type="string" id="name" name="name" placeholder="e.g., Associate" class="form-control" value="<%= @deal_stage.name %>">
+            </div>
+          </div>
+
+
+          <div class="form-group">
+            <div class="col-sm-offset-2 col-sm-10">
+              <button class="btn btn-warning">
+                Update Deal Stage
+              </button>
+              or
+              <a href="/deal_stages/<%= @deal_stage.id %>">Cancel</a>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- End responsive panel example -->

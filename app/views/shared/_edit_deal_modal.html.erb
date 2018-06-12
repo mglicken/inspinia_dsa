@@ -1,4 +1,3 @@
-
 <!-- Button trigger modal -->
 <div class="btn btn-edit" data-toggle="modal" data-target="#myModalEditDeal_<%=deal.id %>">
   <i class="fa fa-edit"></i>
@@ -41,7 +40,26 @@
 
           <input type="hidden" name="name"  value="<%= deal.name %>">
 
+          <!-- Label and input for Deal Type -->
+          <div class="form-group">
+            <label for="deal_type_id" class="col-sm-2 control-label">
+              Type
+            </label>
+            <div class="col-sm-10">
+              <%= select_tag :deal_type_id, options_from_collection_for_select(DealType.all, :id, :name, @deal.deal_type_id), :class => "form-control" %>
+            </div>
+          </div>
 
+          <!-- Label and input for Deal Stage -->
+          <div class="form-group">
+            <label for="deal_stage_id" class="col-sm-2 control-label">
+              Stage
+            </label>
+            <div class="col-sm-10">
+              <%= select_tag :deal_stage_id, options_from_collection_for_select(DealStage.all, :id, :name, @deal.deal_stage_id), :class => "form-control" %>
+            </div>
+          </div>
+          
           <!-- Label and input for name -->
           <div class="form-group">
             <label for="name" class="col-sm-2 control-label">
@@ -94,7 +112,6 @@
     </div>
   </div>
 </div>
-
 
       </div>
       <div class="modal-footer">
