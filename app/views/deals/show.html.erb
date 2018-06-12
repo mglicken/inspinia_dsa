@@ -5,7 +5,14 @@
     <div class="ibox">
     <div class="ibox-content">
       <div class="panel-heading">
-        <h3 class="panel-title" style="font-size:14px"><%= @deal.name %></h3>
+        <% if @deal.deal_stage_id == 15 %>
+        <div class="pull-right label label-primary m-r-sm"><%= @deal.deal_stage.name%></div>
+        <% elsif @deal.deal_stage_id == 16 || @deal.deal_stage_id == 17 || @deal.deal_stage_id == 18 %>
+        <div class="pull-right label label-danger m-r-sm"><%= @deal.deal_stage.name%></div>
+        <% else %>
+        <div class="pull-right label label-warning m-r-sm"><%= @deal.deal_stage.name%></div>
+        <% end %>
+        <h3 class="panel-title" style="font-size:14px"><%= @deal.name %> - <%= @deal.deal_type.name %></h3>
       </div>
       <div class="panel-body">
         <div class="row">

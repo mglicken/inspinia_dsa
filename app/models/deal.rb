@@ -5,6 +5,8 @@ validates :company, :presence => true
 
 
 belongs_to 	:company
+belongs_to  :deal_stage
+belongs_to 	:deal_type
 has_many	:teaser, :dependent => :destroy
 has_many 	:teaser_slides, :through => :teaser
 has_many 	:slides, :through => :teaser_slides
@@ -32,7 +34,7 @@ has_many 	:people, :through => :deal_people
 		end
 	end
 	def self.import(file)
-		allowed_attributes = [ "name", "project_alias", "project_code", "company_id"]
+		allowed_attributes = [ "name", "project_alias", "project_code", "company_id", "deal_stage_id", "deal_type_id"]
 		CSV.foreach(file.path,headers: true) do |row|
 			deals = find_by_id(row["id"]) || new
 			

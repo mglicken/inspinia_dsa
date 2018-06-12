@@ -166,6 +166,8 @@ before_action :ensure_view_access,  only: [:index, :search, :search_all, :show]
     @deal.company_id = params[:company_id]
     @deal.project_alias = params[:project_alias]
     @deal.project_code = params[:project_code]
+    @deal.deal_stage_id = params[:deal_stage_id]
+    @deal.deal_type_id = params[:deal_type_id]
 
     if @deal.save
         case_study.deal_id = @deal.id
@@ -203,6 +205,8 @@ before_action :ensure_view_access,  only: [:index, :search, :search_all, :show]
     @deal.company_id = params[:company_id]
     @deal.project_alias = params[:project_alias]
     @deal.project_code = params[:project_code]
+    @deal.deal_stage_id = params[:deal_stage_id]
+    @deal.deal_type_id = params[:deal_type_id]
 
     if @deal.save
        redirect_to "/deals/#{@deal.id}", :notice => "Deal updated successfully."
