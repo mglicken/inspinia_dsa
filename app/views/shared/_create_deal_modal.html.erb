@@ -66,7 +66,7 @@
               Type
             </label>
             <div class="col-sm-10">
-              <%= select_tag :deal_type_id, options_from_collection_for_select(DealType.all, :id, :name, @deal.deal_type_id), :class => "form-control" %>
+              <%= select_tag :deal_type_id, options_from_collection_for_select(DealType.order('name ASC'), :id, :name, @deal.deal_type_id), :class => "form-control" %>
             </div>
           </div>
 
@@ -76,7 +76,7 @@
               Stage
             </label>
             <div class="col-sm-10">
-              <%= select_tag :deal_stage_id, options_from_collection_for_select(DealStage.all, :id, :name, @deal.deal_stage_id), :class => "form-control" %>
+              <%= select_tag :deal_stage_id, options_from_collection_for_select(DealStage.order('name ASC'), :id, :name, @deal.deal_stage_id), :class => "form-control" %>
             </div>
           </div>
 

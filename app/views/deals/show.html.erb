@@ -6,11 +6,11 @@
     <div class="ibox-content">
       <div class="panel-heading">
         <% if @deal.deal_stage_id == 15 %>
-        <div class="pull-right label label-primary m-r-sm"><%= @deal.deal_stage.name%></div>
+          <div class="pull-right label label-primary m-r-sm"><%= @deal.deal_stage.name%></div>
         <% elsif @deal.deal_stage_id == 16 || @deal.deal_stage_id == 17 || @deal.deal_stage_id == 18 %>
-        <div class="pull-right label label-danger m-r-sm"><%= @deal.deal_stage.name%></div>
+          <div class="pull-right label label-danger m-r-sm"><%= @deal.deal_stage.name%></div>
         <% else %>
-        <div class="pull-right label label-warning m-r-sm"><%= @deal.deal_stage.name%></div>
+          <div class="pull-right label label-warning m-r-sm"><%= @deal.deal_stage.name%></div>
         <% end %>
         <h3 class="panel-title" style="font-size:14px"><%= @deal.name %> - <%= @deal.deal_type.name %></h3>
       </div>
@@ -36,15 +36,15 @@
               <dt>NBPs</dt>
                 <% Nbp.where(deal_id: @deal).order("nbp_date DESC").each do |nbp| %>
                   <% if NbpSlide.where(nbp_id: nbp.id).present? %>
-                    <dd> <a href="/nbps/<%=nbp.id %>"><%= nbp.name%> (<%= nbp.nbp_date%>)</a></dd>
+                    <dd> <a href="/nbps/<%= nbp.id %>"><%= nbp.name%> (<%= nbp.nbp_date%>)</a></dd>
                   <% else %>
-                    <dd> <a href="/nbps/<%=nbp.id %>">No Documents Uploaded</a></dd>
+                    <dd> <a href="/nbps/<%= nbp.id %>">No Documents Uploaded</a></dd>
                   <% end %>
                 <% end %>
                 <dt>CIPs</dt>
                 <% Cip.where(deal_id: @deal).order("cip_date DESC").each do |cip| %>
                   <% if CipSlide.where(cip_id: cip.id).present? %>
-                    <dd> <a href="/cips/<%=cip.id %>"><%= cip.name%> (<%= cip.cip_date%>)</a></dd>
+                    <dd> <a href="/cips/<%=cip.id %>"><%= cip.name %> (<%= cip.cip_date %>)</a></dd>
                   <% else %>
                     <dd> <a href="/cips/<%=cip.id %>"> No Documents Uploaded</a></dd>
                   <% end %>

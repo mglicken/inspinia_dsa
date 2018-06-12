@@ -7,9 +7,9 @@
                     <h5>Projects</h5>
                 </div>
                 <div class="ibox-content">
-                    <h1 class="no-margins"><%=@deals.count%></h1>
-                    <div class="stat-percent font-bold text-success"><%=@deals.count%> <i class="fa fa-th"></i></div>
-                    <small>Total # of Projects </small>
+                    <h1 class="no-margins"><%=(@deals.pluck(:deal_stage_id) - [15,17,18]).count %></h1>
+                    <div class="stat-percent font-bold text-success"><%=@deals.count - (@deals.pluck(:deal_stage_id)- [15]).count %> <i class="fa fa-th"></i></div>
+                    <small>Total # of Projects Closed </small>
                 </div>
             </div>
         </div>
