@@ -23,6 +23,19 @@
   padding-bottom: 0px;
   z-index: 10;
 }
+.btn-favorites{
+  position:absolute;
+  top:115px;
+  left:100px;
+  color: #ffffff;
+  background-color: #ffbf00
+}
+.btn-layout{
+  position:absolute;
+  top:0px;
+  right:30px;
+  color: #ffbf00;
+}
 </style>
 
 <div class="row container ibox-content fixed-box"> 
@@ -123,8 +136,11 @@
                     end
                 end %>
 
-                <div class="card" id="<%=slide.id%>">
+                <div class="card" id="<%=slide.id%>" style="position:relative; left:5px; top:0px;">
 
+                  <%= link_to( "/destroy_favorite_slide/#{slide.favorite_slides.find_by(user_id: current_user.id).id }", class: "btn btn-lg btn-favorites", id: "slide_#{slide.id}", :remote => :true) do %>
+                      <i class="fa fa-star"></i>
+                  <% end %> 
                     <div class="panel panel-default">
                         <div class="panel-heading">
                              <h3 class="panel-title"><%= title %> - Slide #<%= slide.number %></h3>
@@ -189,15 +205,15 @@
         <div class="panel panel-primary">
           <div class="pull-right">
             <% if slide_layout_slide.slide.favorite_slides.where(user_id: current_user.id).present? %>
-              <%= link_to( "/destroy_favorite_slide/#{slide_layout_slide.slide.favorite_slides.find_by(user_id: current_user.id).id }", class: "btn btn-lg btn-unfavorite", id: "slide_#{slide_layout_slide.slide_id}", :remote => :true) do %>
+              <%= link_to( "/destroy_favorite_slide/#{slide_layout_slide.slide.favorite_slides.find_by(user_id: current_user.id).id }", class: "btn btn-lg btn-layout", id: "slide_#{slide_layout_slide.slide_id}", :remote => :true) do %>
                   <i class="fa fa-star"></i>
               <% end %> 
             <% else %>
-              <%= link_to( "/create_favorite_slide/#{current_user.id}/#{slide_layout_slide.slide_id}", class: "btn btn-lg btn-favorite", id: "slide_#{slide_layout_slide.slide_id}", :remote => :true) do %>
+              <%= link_to( "/create_favorite_slide/#{current_user.id}/#{slide_layout_slide.slide_id}", class: "btn btn-lg btn-layout", id: "slide_#{slide_layout_slide.slide_id}", :remote => :true) do %>
                   <i class="fa fa-star-o"></i>
               <% end %> 
             <% end %>
-            <%= link_to content_tag(:i,nil,class: 'fa fa-times'), "/delete_slide_layout_slide/#{ slide_layout_slide.id }", :class => "btn btn-xs", :style=> "padding-top:0px; padding-right:10px; color:white;", :remote => true  %>
+            <%= link_to content_tag(:i,nil,class: 'fa fa-times'), "/delete_slide_layout_slide/#{ slide_layout_slide.id }", :class => "btn btn-xs", :style=> "padding-top:10px; padding-right:10px; color:white;", :remote => true  %>
           </div>        
           <div class="panel-heading">
             <h3 class="panel-title"> Slide #<%= i %></h3>

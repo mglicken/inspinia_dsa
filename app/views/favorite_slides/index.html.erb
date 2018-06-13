@@ -23,6 +23,19 @@ margin-top: 0px;
 padding-bottom: 0px;
 z-index: 10;
 }
+.btn-favorites{
+  position:absolute;
+  top:115px;
+  left:100px;
+  color: #ffffff;
+  background-color: #ffbf00
+}
+.btn-layout{
+  position:absolute;
+  top:0px;
+  right:10px;
+  color: #ffbf00;
+}
 </style>
 
 <div class="row container ibox-content fixed-box"> 
@@ -110,13 +123,19 @@ z-index: 10;
                     end
                 end %>
 
-                <div class="card" id="<%= favorite_slide.slide.id%>">
+                <div class="card" id="<%= favorite_slide.id %>" style="position:relative; top:0px;left:0px;">
+
+              <%= link_to( "/destroy_favorite_slide/#{favorite_slide.id }", class: "btn btn-lg btn-favorites", id: "slide_#{favorite_slide.slide_id}", :remote => :true) do %>
+                  <i class="fa fa-star"></i>
+              <% end %> 
+
 
                     <div class="panel panel-default">
                         <div class="panel-heading">
                              <h3 class="panel-title"><%= title %> - Slide #<%= favorite_slide.slide.number %></h3>
                         </div>
                         <div class="panel-body">
+
                             <div class="row">
                                 <div>
                                     <%= link_to image_tag(favorite_slide.slide.image_url, size:"95%",class: "img-responsive center-block"), "/slides/#{favorite_slide.slide_id}" %>
@@ -172,8 +191,8 @@ z-index: 10;
   <div class="col-lg-12 connectedSortable ibox-content" id="sortable2" style="text-align:center; padding-top:25px; padding-bottom:25px; border-width:5px;border-color: #1ab394;">
     <div class="col-lg-4 isotope-item" id="<%= current_user.favorite_slides[0].slide_id %>">
         <div class="panel panel-primary">
-          <div class="pull-right">
-              <%= link_to( "/destroy_favorite_slide/#{current_user.favorite_slides[0].id }", class: "btn btn-lg btn-unfavorite", id: "slide_#{current_user.favorite_slides[0].slide_id}", :remote => :true) do %>
+          <div class="pull-right" id="slide-btn">
+              <%= link_to( "/destroy_favorite_slide/#{current_user.favorite_slides[0].id }", class: "btn btn-lg btn-layout", id: "slide_#{current_user.favorite_slides[0].slide_id}", :remote => :true) do %>
                   <i class="fa fa-star"></i>
               <% end %> 
            </div>        
@@ -204,9 +223,10 @@ z-index: 10;
     })
 
     $( "#sortable1, #sortable2" ).sortable({
-        out: function(event, ui) {
+        over: function(event, ui) {
             ui.item.removeClass('scrollbar card');
             ui.item.addClass('col-lg-4 isotope-item');
+
         }
     })
 
