@@ -12,7 +12,7 @@ belongs_to :slide
 		end
 	end
 	def self.import(file)
-		allowed_attributes = [ "cip_id", "slide_id"]
+		allowed_attributes = [ "cip_id", "slide_id", "ppt_address"]
 		CSV.foreach(file.path,headers: true) do |row|
 			cip_slides = find_by_id(row["id"]) || new
 			

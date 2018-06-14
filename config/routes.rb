@@ -483,7 +483,25 @@ Myapp::Application.routes.draw do
   # DELETE
   get "/delete_nda/:id", :controller => "ndas", :action => "destroy"
 
-# Routes for the MP resource:
+  # Routes for the NDA Slides resource:
+  resources :nda_slides do
+    collection {post :import}
+  end
+  # CREATE
+  get "/nda_slides/new", :controller => "nda_slides", :action => "new"
+  post "/create_nda_slide", :controller => "nda_slides", :action => "create"
+  # READ
+  get "/nda_slides", :controller => "nda_slides", :action => "index"
+  get "/nda_slides/:id", :controller => "nda_slides", :action => "show"
+
+  # UPDATE
+  get "/nda_slides/:id/edit", :controller => "nda_slides", :action => "edit"
+  post "/update_nda_slide/:id", :controller => "nda_slides", :action => "update"
+
+  # DELETE
+  get "/delete_nda_slide/:id", :controller => "nda_slides", :action => "destroy"
+
+  # Routes for the MP resource:
   resources :mps do
     collection {post :import}
   end

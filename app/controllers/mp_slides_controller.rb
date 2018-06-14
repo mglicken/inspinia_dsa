@@ -50,7 +50,7 @@ before_action :ensure_banker_access,  only: [:new, :create, :edit, :update, :des
 
     @mp_slide.slide_id = params[:slide_id]
     @mp_slide.mp_id = params[:mp_id]
-
+    @mp_slide.ppt_address = params[:ppt_address]
 
     if @mp_slide.save
       redirect_to "/mps", :notice => "MP Slide created successfully."
@@ -68,6 +68,7 @@ before_action :ensure_banker_access,  only: [:new, :create, :edit, :update, :des
 
     @mp_slide.slide_id = params[:slide_id]
     @mp_slide.mp_id = params[:mp_id]
+    @mp_slide.ppt_address = params[:ppt_address]
 
     if @mp_slide.save
       redirect_to "/mp_slides/#{@mp_slide.id}/", :notice => "MP slide updated successfully!"

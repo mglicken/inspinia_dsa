@@ -50,7 +50,7 @@ before_action :ensure_banker_access,  only: [:new, :create, :edit, :update, :des
 
     @teaser_slide.slide_id = params[:slide_id]
     @teaser_slide.teaser_id = params[:teaser_id]
-
+    @teaser_slide.ppt_address = params[:ppt_address]
 
     if @teaser_slide.save
       redirect_to "/teasers", :notice => "Teaser Slide created successfully."
@@ -68,7 +68,7 @@ before_action :ensure_banker_access,  only: [:new, :create, :edit, :update, :des
 
     @teaser_slide.slide_id = params[:slide_id]
     @teaser_slide.teaser_id = params[:teaser_id]
-
+    @teaser_slide.ppt_address = params[:ppt_address]
 
     if @teaser_slide.save
       redirect_to "/teaser_slides/#{@teaser_slide.id}/", :notice => "Teaser Slide updated successfully!"

@@ -1,7 +1,7 @@
 <!-- Validation failure messages -->
 
-<% if @cip_slide.errors.any? %>
-  <% @cip_slide.errors.full_messages.each do |message| %>
+<% if @nda_slide.errors.any? %>
+  <% @nda_slide.errors.full_messages.each do |message| %>
     <div class="alert alert-dismissable alert-danger">
       <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
       <%= message %>
@@ -15,13 +15,12 @@
   <div class="col-sm-offset-1 col-sm-10 col-md-offset-2 col-md-8">
     <div class="panel panel-default">
       <div class="panel-heading">
-        <h3 class="panel-title">Add CIP Slide</h3>
+        <h3 class="panel-title">Add NDA Slide</h3>
       </div>
       <div class="panel-body">
-        <form action="/create_cip_slide" method="post" class="form-horizontal">
+        <form action="/create_nda_slide" method="post" class="form-horizontal">
           <!-- Hidden input for authenticity token to protect from forgery -->
           <input name="authenticity_token" type="hidden" value="<%= form_authenticity_token %>">
-
 
           <!-- Label and input for Slide ID -->
           <div class="form-group">
@@ -29,27 +28,37 @@
               Slide ID
             </label>
             <div class="col-sm-10">
-              <input type="integer" id="slide_id" name="slide_id" placeholder="e.g., 17" class="form-control" value="<%= @cip_slide.slide_id %>">
+              <input type="integer" id="slide_id" name="slide_id" placeholder="e.g., 17" class="form-control" value="<%= @nda_slide.slide_id %>">
             </div>
           </div>
 
-          <!-- Label and input for CIP ID -->
+          <!-- Label and input for NDA ID -->
           <div class="form-group">
-            <label for="cip_id" class="col-sm-2 control-label">
-              CIP ID
+            <label for="nda_id" class="col-sm-2 control-label">
+              NDA ID
             </label>
             <div class="col-sm-10">
-              <input type="integer" id="cip_id" name="cip_id" placeholder="e.g., 17" class="form-control" value="<%= @cip_slide.cip_id %>">
+              <input type="integer" id="nda_id" name="nda_id" placeholder="e.g., 17" class="form-control" value="<%= @nda_slide.nda_id %>">
+            </div>
+          </div>
+
+          <!-- Label and input for PPT Address ID -->
+          <div class="form-group">
+            <label for="ppt_address" class="col-sm-2 control-label">
+              PPT Address
+            </label>
+            <div class="col-sm-10">
+              <input type="ppt_address" id="ppt_address" name="ppt_address" placeholder="e.g., H Drive Address" class="form-control" value="<%= @nda_slide.ppt_address %>">
             </div>
           </div>
 
           <div class="form-group">
             <div class="col-sm-offset-2 col-sm-10">
               <button class="btn btn-success">
-                Create CIP Slide
+                Create NDA Slide
               </button>
               or
-              <a href="/cip_slides">Cancel</a>
+              <a href="/nda_slides">Cancel</a>
             </div>
           </div>
         </form>

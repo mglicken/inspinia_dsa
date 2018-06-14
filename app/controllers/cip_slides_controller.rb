@@ -52,7 +52,7 @@ before_action :ensure_banker_access,  only: [:new, :create, :edit, :update, :des
 
     @cip_slide.slide_id = params[:slide_id]
     @cip_slide.cip_id = params[:cip_id]
-
+    @cip_slide.ppt_address = params[:ppt_address]
 
     if @cip_slide.save
       redirect_to "/cips", :notice => "CIP Slide created successfully."
@@ -70,7 +70,7 @@ before_action :ensure_banker_access,  only: [:new, :create, :edit, :update, :des
 
     @cip_slide.slide_id = params[:slide_id]
     @cip_slide.cip_id = params[:cip_id]
-
+    @cip_slide.ppt_address = params[:ppt_address]
 
     if @cip_slide.save
       redirect_to "/cip_slides/#{@cip_slide.id}/", :notice => "CIP slide updated successfully!"

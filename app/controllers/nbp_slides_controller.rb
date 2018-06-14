@@ -50,7 +50,7 @@ before_action :ensure_banker_access,  only: [:new, :create, :edit, :update, :des
 
     @nbp_slide.slide_id = params[:slide_id]
     @nbp_slide.nbp_id = params[:nbp_id]
-
+    @nbp_slide.ppt_address = params[:ppt_address]
 
     if @nbp_slide.save
       redirect_to "/nbps", :notice => "NBP Slide created successfully."
@@ -68,7 +68,7 @@ before_action :ensure_banker_access,  only: [:new, :create, :edit, :update, :des
 
     @nbp_slide.slide_id = params[:slide_id]
     @nbp_slide.nbp_id = params[:nbp_id]
-
+    @nbp_slide.ppt_address = params[:ppt_address]
 
     if @nbp_slide.save
       redirect_to "/nbp_slides/#{@nbp_slide.id}/", :notice => "NBP slide updated successfully!"

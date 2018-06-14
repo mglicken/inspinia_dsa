@@ -1,8 +1,7 @@
-<%= render('shared/file_download_upload', path: "cip_slides") %>
 <div class="page-header">
   <h1>
-    CIP Slides
-    <a href="/cip_slides/new" class="btn btn-lg btn-success"><i class="fa fa-plus"></i></a>
+    NDA Slides
+    <a href="/nda_slides/new" class="btn btn-lg btn-success"><i class="fa fa-plus"></i></a>
   </h1>
 </div>
 
@@ -10,18 +9,18 @@
 
 <div class="row">
   <div class="col-xs-12">
-    <input type="text" id="quicksearch" placeholder="Search CIPs (start typing)" class="form-control">
+    <input type="text" id="quicksearch" placeholder="Search NDAs (start typing)" class="form-control">
   </div>
 </div>
 
 <hr>
 
 <div class="row isotope-container">
-<% @cip_slides.each do |cip_slide| %>
+<% @nda_slides.each do |nda_slide| %>
   <div class="col-xs-11 col-sm-11 col-md-11 col-lg-11 isotope-item">
     <div class="panel panel-default">
       <div class="panel-heading">
-        <h3 class="panel-title">CIP_Slide # <%= cip_slide.id %></h3>
+        <h3 class="panel-title">nda_Slide # <%= nda_slide.id %></h3>
       </div>
       <div class="panel-body">
         <div class="row">
@@ -29,17 +28,17 @@
             <class="dl-horizontal">
 
               <dt> Slide ID</dt>
-              <dd><%= cip_slide.slide_id %></dd>
-              <dt> CIP ID</dt>
-              <dd><%= cip_slide.cip_id %></dd>          
+              <dd><%= nda_slide.slide_id %></dd>
+              <dt> NDA ID</dt>
+              <dd><%= nda_slide.nda_id %></dd>          
 
             </dl>
             <div class="btn-group btn-group-justified">
-              <a href="/cip_slides/<%= cip_slide.id %>" class="btn btn-primary">
+              <a href="/nda_slides/<%= nda_slide.id %>" class="btn btn-primary">
                 <i class="fa fa-search-plus"></i>
               </a>
 
-              <a href="/cip_slides/<%= cip_slide.id %>/edit" class="btn btn-warning">
+              <a href="/nda_slides/<%= nda_slide.id %>/edit" class="btn btn-warning">
                 <i class="fa fa-edit"></i>
               </a>
 

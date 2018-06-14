@@ -51,7 +51,7 @@ before_action :ensure_banker_access,  only: [:new, :create, :edit, :update, :des
 
     @case_study_slide.slide_id = params[:slide_id]
     @case_study_slide.case_study_id = params[:case_study_id]
-
+    @case_study_slide.ppt_address = params[:ppt_address]
 
     if @case_study_slide.save
       redirect_to "/case_studies", :notice => "Case Study Slide created successfully."
@@ -69,7 +69,7 @@ before_action :ensure_banker_access,  only: [:new, :create, :edit, :update, :des
 
     @case_study_slide.slide_id = params[:slide_id]
     @case_study_slide.case_study_id = params[:case_study_id]
-
+    @case_study_slide.ppt_address = params[:ppt_address]
 
     if @case_study_slide.save
       redirect_to "/case_study_slides/#{@case_study_slide.id}/", :notice => "Case Study Slide updated successfully!"
