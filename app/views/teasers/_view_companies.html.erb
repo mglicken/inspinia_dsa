@@ -1,3 +1,19 @@
+  <style>
+    .strip-tags-selected { color: black;
+                            font-size: 11px;
+                            text-align: center;  }
+    .strip-tags-selected:hover { font-size: 11px;
+                                color:  #999999;
+                                text-align: center; }
+
+    .strip-tags-notselected { color: red;
+                            font-size: 8px;
+                            text-align: center;  }
+    .strip-tags-notselected:hover { font-size: 8px;
+                                color:  #efbab8;
+                                text-align: center; }
+
+</style>
 
 <div class="page-header">
   <h1>
@@ -25,6 +41,51 @@
                 <strong ><a style="color:white" href="/companies/<%= company.id %>"><%= company.name %></a></strong>
               </div>
               <div class="panel-body" style="padding-top:5px; padding-bottom:5px;">
+
+
+
+  <table class="table">
+    <thead>
+    <tr>
+        <th></th>
+        <th>Declined</th>
+        <th>Negotiating</th>
+        <th>Complete</th>
+
+    </tr>
+    </thead>
+    <tbody>
+    <tr>
+      <td style="text-align: left">
+        <strong> NDA:</strong>
+      </td>
+
+      <td style="text-align: center">
+      <% if @teaser.teaser_companies.find_by(company_id: company.id).nda.status == 1 %>
+        <%= link_to content_tag(:i,nil, class: 'fa fa-times'), "/update_nda/#{@teaser.teaser_companies.find_by(company_id: company.id).nda_id}/1", :id => "company_#{company.id}_1", :class => "strip-tags-selected", :remote => true  %>
+      <% else %>
+        <%= link_to content_tag(:i,nil, class: 'fa fa-times'), "/update_nda/#{@teaser.teaser_companies.find_by(company_id: company.id).nda_id}/1", :id => "company_#{company.id}_1", :class => "strip-tags-notselected", :remote => true  %>
+      <% end %>
+      </td>
+
+      <td style="text-align: center">
+      <% if @teaser.teaser_companies.find_by(company_id: company.id).nda.status == 2 %>
+        <%= link_to content_tag(:i,nil, class: 'fa fa-times'), "/update_nda/#{@teaser.teaser_companies.find_by(company_id: company.id).nda_id}/1", :id => "company_#{company.id}_1", :class => "strip-tags-selected", :remote => true  %>
+      <% else %>
+        <%= link_to content_tag(:i,nil, class: 'fa fa-times'), "/update_nda/#{@teaser.teaser_companies.find_by(company_id: company.id).nda_id}/1", :id => "company_#{company.id}_1", :class => "strip-tags-notselected", :remote => true  %>
+      <% end %>
+      </td>
+
+      <td style="text-align: center">
+      <% if @teaser.teaser_companies.find_by(company_id: company.id).nda.status == 3 %>
+        <%= link_to content_tag(:i,nil, class: 'fa fa-times'), "/update_nda/#{@teaser.teaser_companies.find_by(company_id: company.id).nda_id}/1", :id => "company_#{company.id}_1", :class => "strip-tags-selected", :remote => true  %>
+      <% else %>
+        <%= link_to content_tag(:i,nil, class: 'fa fa-times'), "/update_nda/#{@teaser.teaser_companies.find_by(company_id: company.id).nda_id}/1", :id => "company_#{company.id}_1", :class => "strip-tags-notselected", :remote => true  %>
+      <% end %>
+      </td>
+    </tr>
+    <tbody>
+  </table>
 
               </div>
             </div>
