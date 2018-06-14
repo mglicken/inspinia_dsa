@@ -1,6 +1,7 @@
 class Sponsor < ActiveRecord::Base
 has_many :funds, :dependent => :destroy
 has_many :nbp_sponsors, :dependent => :destroy
+has_many :teaser_sponsors, :dependent => :destroy
 has_many :fund_companies, :through => :funds
 has_many :companies, :through => :fund_companies
 has_many :sponsor_histories, :dependent => :destroy

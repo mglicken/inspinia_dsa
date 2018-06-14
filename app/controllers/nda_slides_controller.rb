@@ -1,4 +1,4 @@
-class NdaSlidesController < ApplicationController
+class NDASlidesController < ApplicationController
 
 before_action :ensure_admin_access,  only: [:index, :show, :import]
 before_action :ensure_banker_access,  only: [:new, :create, :edit, :update, :destroy]

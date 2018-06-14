@@ -404,7 +404,6 @@ Myapp::Application.routes.draw do
   # DELETE
   get "/delete_nbp_company/:id", :controller => "nbp_companies", :action => "destroy"
 
-
   # Routes for the NBP_Slides resource:
   resources :nbp_slides do
     collection {post :import}
@@ -500,6 +499,26 @@ Myapp::Application.routes.draw do
 
   # DELETE
   get "/delete_nda_slide/:id", :controller => "nda_slides", :action => "destroy"
+
+
+  # Routes for the Teaser Companies resource:
+  resources :teaser_companies do
+    collection {post :import}
+  end  
+  # CREATE
+  get "/teaser_companies/new", :controller => "teaser_companies", :action => "new"
+  post "/create_teaser_company", :controller => "teaser_companies", :action => "create"
+  
+  # READ
+  get "/teaser_companies", :controller => "teaser_companies", :action => "index"
+  get "/teaser_companies/:id", :controller => "teaser_companies", :action => "show"
+
+  # UPDATE
+  get "/teaser_companies/:id/edit", :controller => "teaser_companies", :action => "edit"
+  post "/update_teaser_company/:id", :controller => "teaser_companies", :action => "update"
+ 
+  # DELETE
+  get "/delete_teaser_company/:id", :controller => "teaser_companies", :action => "destroy"
 
   # Routes for the MP resource:
   resources :mps do

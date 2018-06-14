@@ -1,5 +1,6 @@
 class Nda < ActiveRecord::Base
-	validates :name, :presence => true, :uniqueness => true
+	validates :name, :presence => true
+	validates :deal, :presence => true
 
 	belongs_to :deal
 

@@ -4,6 +4,10 @@ validates :name, :presence => true, :uniqueness => true
 belongs_to :deal
 has_many :teaser_slides, :dependent => :destroy
 has_many :slides, :through => :teaser_slides, :dependent => :destroy
+has_many :teaser_companies, :dependent => :destroy
+has_many :companies, :through => :teaser_companies
+has_many :teaser_sponsors, :dependent => :destroy
+has_many :sponsors, :through => :teaser_sponsors
 
 	def self.to_csv
 		CSV.generate do |csv|

@@ -1,0 +1,69 @@
+<!-- Validation failure messages -->
+
+<% if @teaser_company.errors.any? %>
+  <% @teaser_company.errors.full_messages.each do |message| %>
+    <div class="alert alert-dismissable alert-danger">
+      <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+      <%= message %>
+    </div>
+  <% end %>
+<% end %>
+
+<!-- Responsive panel example -->
+
+<div class="row">
+  <div class="col-sm-offset-1 col-sm-10 col-md-offset-2 col-md-8">
+    <div class="panel panel-default">
+  
+      <div class="panel-heading">
+        <h3 class="panel-title">Edit Teaser Company</h3>
+      </div>
+      <div class="panel-body">
+        <form action="/update_teaser_company/<%= @teaser_company.id %>" method="post" class="form-horizontal">
+          <!-- Hidden input for authenticity token to protect from forgery -->
+          <input name="authenticity_token" type="hidden" value="<%= form_authenticity_token %>">
+
+          <!-- Label and input for Teaser ID -->
+          <div class="form-group">
+            <label for="teaser_id" class="col-sm-2 control-label">
+              Teaser ID
+            </label>
+            <div class="col-sm-10">
+              <input type="integer" id="teaser_id" name="teaser_id" placeholder="e.g., 17" class="form-control" value="<%= @teaser_company.teaser_id %>">
+            </div>
+          </div>
+          <!-- Label and input for Company ID -->
+          <div class="form-group">
+            <label for="company_id" class="col-sm-2 control-label">
+              Company ID
+            </label>
+            <div class="col-sm-10">
+              <input type="integer" id="company_id" name="company_id" placeholder="e.g., 17" class="form-control" value="<%= @teaser_company.company_id %>">
+            </div>
+          </div>
+          <!-- Label and input for NDA ID -->
+          <div class="form-group">
+            <label for="nda_id" class="col-sm-2 control-label">
+              NDA ID
+            </label>
+            <div class="col-sm-10">
+              <input type="integer" id="nda_id" name="nda_id" placeholder="e.g., 17" class="form-control" value="<%= @teaser_company.nda_id %>">
+            </div>
+          </div>
+          <div class="form-group">
+            <div class="col-sm-offset-2 col-sm-10">
+              <button class="btn btn-warning">
+                Update Teaser Company
+              </button>
+              or
+              <a href="/teaser_companies/<%= @teaser_company.id %>">Cancel</a>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- End responsive panel example -->

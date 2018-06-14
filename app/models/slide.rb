@@ -4,11 +4,13 @@ class Slide < ActiveRecord::Base
 	has_many  :favorite_slides, :dependent => :destroy
 	has_many :users, :through => :favorite_slides
 	has_one  :nbp_slide, :dependent => :destroy
+	has_one  :nda_slide, :dependent => :destroy
 	has_one  :cip_slide, :dependent => :destroy
 	has_one  :mp_slide, :dependent => :destroy
 	has_one  :teaser_slide, :dependent => :destroy
 	has_one  :case_study_slide, :dependent => :destroy
 	has_one :nbp, :through => :nbp_slide
+	has_one :nda, :through => :nda_slide
 	has_one :cip, :through => :cip_slide
 	has_one :mp, :through => :mp_slide
 	has_one :teaser, :through => :teaser_slide

@@ -9,6 +9,7 @@ class Company < ActiveRecord::Base
 	has_many :company_notes, :dependent => :destroy
 	has_many :notes, :through => :company_notes
 	has_many :nbp_companies, :dependent => :destroy
+	has_many :teaser_companies, :dependent => :destroy
 	has_many :company_follows, :dependent => :destroy
 
 	has_many :subsidiary_parents, class_name: "Subsidiary", foreign_key: "child_id", dependent: :destroy
