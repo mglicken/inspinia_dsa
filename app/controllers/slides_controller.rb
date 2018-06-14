@@ -46,6 +46,12 @@ before_action :ensure_view_access,  only: [:show, :search]
     else
       @nbp = nil
     end
+    if @slide.nda.present?
+      @nda = @slide.nda
+      @image_id = @nda.image_id
+    else
+      @nda = nil
+    end
     if @slide.cip.present?
       @cip = @slide.cip
       @image_id = @cip.image_id
@@ -142,7 +148,7 @@ before_action :ensure_view_access,  only: [:show, :search]
   
       slide_tag = SlideTag.new
       slide_tag.slide_id = slide.id
-      slide_tag.tag_id = 1
+      slide_tag.tag_id = Tag.find_by(name: "NBP")
       slide_tag.save
 
     end
@@ -175,7 +181,7 @@ before_action :ensure_view_access,  only: [:show, :search]
 
       slide_tag = SlideTag.new
       slide_tag.slide_id = slide.id
-      slide_tag.tag_id = 2
+      slide_tag.tag_id = Tag.find_by(name: "CIP")
       slide_tag.save        
 
     end
@@ -208,7 +214,7 @@ before_action :ensure_view_access,  only: [:show, :search]
 
       slide_tag = SlideTag.new
       slide_tag.slide_id = slide.id
-      slide_tag.tag_id = 3
+      slide_tag.tag_id = Tag.find_by(name: "MP")
       slide_tag.save
 
     end
@@ -216,6 +222,39 @@ before_action :ensure_view_access,  only: [:show, :search]
     if slide.save
       mp_slide.mp.save
       redirect_to "/mps/#{mp_slide.mp_id}", :notice => "MP slides uploaded successfully. Please start tagging slides to aid searches."
+    else
+      render 'new'
+    end
+  end
+
+  def create_nda_slides
+    public_id = Cloudinary::Api.resources(type:"upload")["resources"].first["public_id"]
+    pdf_len = Cloudinary::Api.resource( public_id , pages: true)["pages"].to_i
+
+
+    for i in 0..(pdf_len-1)
+      slide = Slide.new
+      slide.number = i+1
+      slide.image_url = "http://res.cloudinary.com/mglicken/image/upload/f_jpg,pg_#{ i+1 }/#{ public_id }.pdf"
+      slide.save
+      
+      nda_slide = ndaSlide.new
+      nda_slide.nda_id = params[:nda_id]
+      nda_slide.slide_id = slide.id
+      nda_slide.save
+      slide.ppt_address = nda_slide.nda.ppt_address
+
+
+      slide_tag = SlideTag.new
+      slide_tag.slide_id = slide.id
+      slide_tag.tag_id = Tag.find_by(name: "NDA")
+      slide_tag.save
+
+    end
+    nda_slide.nda.image_id = public_id
+    if slide.save
+      nda_slide.nda.save
+      redirect_to "/ndas/#{nda_slide.nda_id}", :notice => "NDA slides uploaded successfully. Please start tagging slides to aid searches."
     else
       render 'new'
     end
@@ -241,7 +280,7 @@ before_action :ensure_view_access,  only: [:show, :search]
 
       slide_tag = SlideTag.new
       slide_tag.slide_id = slide.id
-      slide_tag.tag_id = 1
+      slide_tag.tag_id = Tag.find_by(name: "Teaser")
       slide_tag.save
 
     end
@@ -274,7 +313,7 @@ before_action :ensure_view_access,  only: [:show, :search]
 
       slide_tag = SlideTag.new
       slide_tag.slide_id = slide.id
-      slide_tag.tag_id = 148
+      slide_tag.tag_id = Tag.find_by(name: "Case Study")
       slide_tag.save
 
     end

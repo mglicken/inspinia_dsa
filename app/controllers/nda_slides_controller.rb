@@ -49,13 +49,12 @@ before_action :ensure_banker_access,  only: [:new, :create, :edit, :update, :des
   def create
     @nda_slide = NdaSlide.new
 
-
     @nda_slide.slide_id = params[:slide_id]
     @nda_slide.nda_id = params[:nda_id]
     @nda_slide.ppt_address = params[:ppt_address]
 
     if @nda_slide.save
-      redirect_to "/ndas", :notice => "NDA Slide created successfully."
+      redirect_to "/ndas/#{@nda_slide.nda_id}", :notice => "NDA Slide created successfully."
     else
       render 'new'
     end
@@ -73,7 +72,7 @@ before_action :ensure_banker_access,  only: [:new, :create, :edit, :update, :des
     @nda_slide.ppt_address = params[:ppt_address]
 
     if @nda_slide.save
-      redirect_to "/nda_slides/#{@nda_slide.id}/", :notice => "NDA Slide updated successfully!"
+      redirect_to "/ndas/#{@nda_slide.nda_id}", :notice => "NDA Slide updated successfully!"
     else
       render 'edit'
     end
@@ -84,7 +83,7 @@ before_action :ensure_banker_access,  only: [:new, :create, :edit, :update, :des
 
     @nda_slide.destroy
 
-    redirect_to "/ndas", :notice => "NDA Slide deleted."
+    redirect_to "/ndas/#{@nda_slide.nda_id}", :notice => "NDA Slide deleted."
   end
   
   def import

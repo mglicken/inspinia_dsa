@@ -63,7 +63,7 @@ before_action :ensure_view_access,  only: [:show]
 
 
     if @nda.save
-      redirect_to "/ndas", :notice => "NDA created successfully."
+      redirect_to "/ndas/#{@nda.id}", :notice => "NDA created successfully."
     else
       render 'new'
     end
