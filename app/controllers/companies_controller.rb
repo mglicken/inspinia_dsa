@@ -37,6 +37,13 @@ before_action :ensure_view_access,  only: [:index, :search, :show]
   end
 
   def index_query
+    @query_companies = Company.where("lower(name) LIKE ?", "%#{params[:term].downcase}%")
+    respond_to do |format|
+      format.json {send_data @query_companies.map(&:name)}
+    end
+  end
+  
+  def nbp_index_query
     @query_companies = Company.where(id: (Company.ids - NbpCompany.where(bucket_id: params[:bucket_id]).pluck(:company_id))).where("lower(name) LIKE ?", "%#{params[:term].downcase}%")
     respond_to do |format|
       format.json {send_data @query_companies.map(&:name)}

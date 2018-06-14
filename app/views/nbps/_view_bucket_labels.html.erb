@@ -32,7 +32,7 @@
 <script>
   <% buckets.each do |bucket|%>
     $('#companies_<%=bucket.id%>').autocomplete({
-        source: '/company_query/<%= bucket.id%>/bucket.json',
+        source: '/nbp_company_query/<%= bucket.id%>/bucket.json',
       });
   <% end %>
 </script>

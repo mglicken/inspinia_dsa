@@ -55,13 +55,42 @@ before_action :ensure_banker_access,  only: [:new, :create, :edit, :update, :des
     @nda = Nda.new
     @nda.name = @teaser_sponsor.teaser.deal.sponsor.name + " / " + @teaser_sponsor.sponsor.name + " NDA"
     @nda.deal_id = @teaser_sponsor.teaser.deal_id
-    @nda.nda_date = Date.current()
+    @nda.nda_date = @teaser_sponsor.teaser.teaser_date
     @nda.save
 
     @teaser_sponsor.nda_id = @nda.id
 
     if @teaser_sponsor.save
       redirect_to "/teasers/#{@teaser_sponsor.teaser_id}", :notice => "Teaser Sponsor created successfully."
+    else
+      render 'new'
+    end
+  end
+
+  def create_by_name
+    @teaser = Teaser.find(params[:teaser_id])
+    @sponsor_name = params[:name]
+    @teaser_sponsor = TeaserSponsor.new
+    @teaser_sponsor.teaser_id = @teaser.id
+    if Sponsor.find_by(name: @sponsor_name).present?
+      @sponsor = Sponsor.find_by(name: @sponsor_name)
+      @teaser_sponsor.sponsor_id = @sponsor.id
+    else
+      @sponsor = Sponsor.new
+      @sponsor.name = @sponsor_name
+      @sponsor.save
+      @teaser_sponsor.sponsor_id = @sponsor.id
+    end
+    @nda = Nda.new
+    @nda.name = @teaser.deal.company.name + " / " + @sponsor.name + " NDA"
+    @nda.deal_id = @teaser.deal_id
+    @nda.nda_date = @teaser.teaser_date
+    @nda.save
+
+    @teaser_sponsor.nda_id = @nda.id
+
+    if @teaser_sponsor.save
+      redirect_to "/teasers/#{ params[:teaser_id] }/sponsors", :notice => "\"#{@sponsor_name}\" added to \"#{@teaser.name}\" successfully."
     else
       render 'new'
     end

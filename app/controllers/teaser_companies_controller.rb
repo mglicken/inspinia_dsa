@@ -55,13 +55,42 @@ before_action :ensure_banker_access,  only: [:new, :create, :edit, :update, :des
     @nda = Nda.new
     @nda.name = @teaser_company.teaser.deal.company.name + " / " + @teaser_company.company.name + " NDA"
     @nda.deal_id = @teaser_company.teaser.deal_id
-    @nda.nda_date = Date.current()
+    @nda.nda_date = @teaser_company.teaser.teaser_date
     @nda.save
 
     @teaser_company.nda_id = @nda.id
 
     if @teaser_company.save
       redirect_to "/ndas", :notice => "Teaser Company created successfully."
+    else
+      render 'new'
+    end
+  end
+
+  def create_by_name
+    @teaser = Teaser.find(params[:teaser_id])
+    @company_name = params[:name]
+    @teaser_company = TeaserCompany.new
+    @teaser_company.teaser_id = @teaser.id
+    if Company.find_by(name: @company_name).present?
+      @company = Company.find_by(name: @company_name)
+      @teaser_company.company_id = @company.id
+    else
+      @company = Company.new
+      @company.name = @company_name
+      @company.save
+      @teaser_company.company_id = @company.id
+    end
+    @nda = Nda.new
+    @nda.name = @teaser.deal.company.name + " / " + @company.name + " NDA"
+    @nda.deal_id = @teaser.deal_id
+    @nda.nda_date = @teaser.teaser_date
+    @nda.save
+
+    @teaser_company.nda_id = @nda.id
+
+    if @teaser_company.save
+      redirect_to "/teasers/#{ params[:teaser_id] }/companies", :notice => "\"#{@company_name}\" added to \"#{@teaser.name}\" successfully."
     else
       render 'new'
     end

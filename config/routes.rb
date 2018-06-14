@@ -143,7 +143,8 @@ Myapp::Application.routes.draw do
 
   # READ
   get "/companies", :controller => "companies", :action => "index"
-  get "/company_query/:bucket_id/bucket", :controller => "companies", :action => "index_query"  
+  get "/nbp_company_query/:bucket_id/bucket", :controller => "companies", :action => "nbp_index_query"
+  get "/company_query", :controller => "companies", :action => "index_query"  
   get "/companies/:id", :controller => "companies", :action => "show"
   get "/company_search/:search", :controller => "companies", :action => "search"
 
@@ -507,6 +508,7 @@ Myapp::Application.routes.draw do
   # CREATE
   get "/teaser_sponsors/new", :controller => "teaser_sponsors", :action => "new"
   post "/create_teaser_sponsor", :controller => "teaser_sponsors", :action => "create"
+  post "/create_teaser_sponsor/:teaser_id/", :controller => "teaser_sponsors", :action => "create_by_name"
   
   # READ
   get "/teaser_sponsors", :controller => "teaser_sponsors", :action => "index"
@@ -526,7 +528,7 @@ Myapp::Application.routes.draw do
   # CREATE
   get "/teaser_companies/new", :controller => "teaser_companies", :action => "new"
   post "/create_teaser_company", :controller => "teaser_companies", :action => "create"
-  
+  post "/create_teaser_company/:teaser_id/", :controller => "teaser_companies", :action => "create_by_name"  
   # READ
   get "/teaser_companies", :controller => "teaser_companies", :action => "index"
   get "/teaser_companies/:id", :controller => "teaser_companies", :action => "show"
@@ -903,6 +905,8 @@ Myapp::Application.routes.draw do
   # READ
   get "/teasers", :controller => "teasers", :action => "index"
   get "/teasers/:id", :controller => "teasers", :action => "show"
+  get "/teasers/:id/sponsors", :controller => "teasers", :action => "show_sponsors"
+  get "/teasers/:id/companies", :controller => "teasers", :action => "show_companies"
 
   # UPDATE
   get "/teasers/:id/edit", :controller => "teasers", :action => "edit"

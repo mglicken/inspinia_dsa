@@ -48,6 +48,30 @@ before_action :ensure_view_access,  only: [:search, :show]
     @url = "/create_teaser_slide/#{params[:id]}"
   end
 
+  def show_sponsors
+    @teaser = Teaser.find(params[:id])
+    @teaser_sponsors = @teaser.teaser_sponsors
+    @sponsors = @teaser.sponsors.order("name ASC")
+    respond_to do |format|
+      format.html
+      format.xlsx {
+        response.headers['Content-Disposition'] = 'attachment; filename="Financial_Acquirers_List.xlsx"'
+        }
+    end
+  end
+  
+  def show_companies
+    @teaser = Teaser.find(params[:id])
+    @teaser_companies = @teaser.teaser_companies
+    @companies = @teaser.companies.order("name ASC")
+    respond_to do |format|
+      format.html
+      format.xlsx {
+        response.headers['Content-Disposition'] = 'attachment; filename="Strategic_Acquirers_List.xlsx"'
+        }
+    end
+  end
+
   def new
     @teaser = Teaser.new
   end
