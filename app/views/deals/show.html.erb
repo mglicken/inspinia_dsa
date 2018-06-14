@@ -25,20 +25,20 @@
               <dd><%= @deal.project_alias %></dd>
               <dt>Project Code</dt>
               <dd><%= @deal.project_code %></dd>
-              <dt>Teasers</dt>
-                <% Teaser.where(deal_id: @deal).order("teaser_date DESC").each do |teaser| %>
-                  <% if TeaserSlide.where(teaser_id: teaser.id).present? %>
-                    <dd> <a href="/teasers/<%=teaser.id %>"><%= teaser.name%> (<%= teaser.teaser_date%>)</a></dd>
-                  <% else %>
-                    <dd> <a href="/teasers/<%=teaser.id %>">No Documents Uploaded</a></dd>
-                  <% end %>
-                <% end %>
               <dt>NBPs</dt>
                 <% Nbp.where(deal_id: @deal).order("nbp_date DESC").each do |nbp| %>
                   <% if NbpSlide.where(nbp_id: nbp.id).present? %>
                     <dd> <a href="/nbps/<%= nbp.id %>"><%= nbp.name%> (<%= nbp.nbp_date%>)</a></dd>
                   <% else %>
                     <dd> <a href="/nbps/<%= nbp.id %>">No Documents Uploaded</a></dd>
+                  <% end %>
+                <% end %>
+              <dt>Teasers</dt>
+                <% Teaser.where(deal_id: @deal).order("teaser_date DESC").each do |teaser| %>
+                  <% if TeaserSlide.where(teaser_id: teaser.id).present? %>
+                    <dd> <a href="/teasers/<%=teaser.id %>"><%= teaser.name%> (<%= teaser.teaser_date%>)</a></dd>
+                  <% else %>
+                    <dd> <a href="/teasers/<%=teaser.id %>">No Documents Uploaded</a></dd>
                   <% end %>
                 <% end %>
                 <dt>CIPs</dt>

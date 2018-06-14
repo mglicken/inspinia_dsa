@@ -1,0 +1,44 @@
+<br>
+<br>
+
+<div class="row">
+  <div class="col-lg-offset-2 col-lg-7">
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <% if NdaSlide.where(nda_id: @nda.id).empty? %>
+          <a href="#" class="btn btn-lincoln pull-right" text-align="center" id="upload_widget_opener">Upload NDA PDF</a>
+        <% end %> 
+        <h3 class="panel-title" style="font-size:28px"><%= @nda.name %></h3>
+      </div>
+      <div class="panel-body">
+        <div class="row">
+          <div class="col-lg-12">
+            <dl class="dl-horizontal" style="font-size:10px">
+
+             <dt>Deal</dt>
+             <dd> <a href="/deals/<%= @nda.deal_id %>"><%= @nda.deal.name %></a></dd>
+             <dt>Company</dt>
+             <dd> <a href="/companies/<%= @nda.deal.company.id %>"><%= @nda.deal.company.name %></a></dd>
+             <dt>Date</dt>
+             <dd><%= @nda.nda_date %></dd>
+
+            </dl>
+            <div class="btn-group btn-group-justified">
+              <%= render('shared/edit_nda_modal', :cip => @nda)%>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<%= render('view_slides') %>
+
+<%= render('shared/quick_search_js') %>
+
+<% if NdaSlide.where(nda_id: @nda.id).empty? %>
+  <%= render('shared/upload_widget',url: "/create_nda_slide/#{@nda.id}", p_id: @p_id) %>
+<% end %>
+

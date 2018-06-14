@@ -464,6 +464,25 @@ Myapp::Application.routes.draw do
   # DELETE
   get "/delete_nbp_tag/:id", :controller => "nbp_tags", :action => "destroy"
 
+  # Routes for the NDA resource:
+  resources :ndas do
+    collection {post :import}
+  end
+  # CREATE
+  get "/ndas/new", :controller => "ndas", :action => "new"
+  post "/create_nda", :controller => "ndas", :action => "create"
+
+  # READ
+  get "/ndas", :controller => "ndas", :action => "index"
+  get "/ndas/:id", :controller => "ndas", :action => "show"
+
+  # UPDATE
+  get "/ndas/:id/edit", :controller => "ndas", :action => "edit"
+  post "/update_nda/:id", :controller => "ndas", :action => "update"
+
+  # DELETE
+  get "/delete_nda/:id", :controller => "ndas", :action => "destroy"
+
 # Routes for the MP resource:
   resources :mps do
     collection {post :import}

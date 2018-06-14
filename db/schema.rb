@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180611210935) do
+ActiveRecord::Schema.define(version: 20180614152601) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -176,6 +176,13 @@ ActiveRecord::Schema.define(version: 20180611210935) do
     t.string  "ppt_address"
   end
 
+  create_table "ndas", force: :cascade do |t|
+    t.string  "name"
+    t.integer "deal_id"
+    t.date    "nda_date"
+    t.string  "image_id"
+  end
+
   create_table "notes", force: :cascade do |t|
     t.string "title"
     t.text   "detail"
@@ -287,9 +294,21 @@ ActiveRecord::Schema.define(version: 20180611210935) do
     t.string "name"
   end
 
+  create_table "teaser_companies", force: :cascade do |t|
+    t.integer "teaser_id"
+    t.integer "company_id"
+    t.integer "nda_id"
+  end
+
   create_table "teaser_slides", force: :cascade do |t|
     t.integer "teaser_id"
     t.integer "slide_id"
+  end
+
+  create_table "teaser_sponsors", force: :cascade do |t|
+    t.integer "teaser_id"
+    t.integer "sponsor_id"
+    t.integer "nda_id"
   end
 
   create_table "teasers", force: :cascade do |t|

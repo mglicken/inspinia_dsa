@@ -41,11 +41,6 @@
                     <i class="fa fa-database"></i> <span class="nav-label" data-i18n="nav.models">Upload Dashboard</span>
                     <% end %>
                 </li>
-            <li class="<%= is_active_controller('metrics') %>">
-                <%= link_to metrics_index_path do %>
-                <i class="fa fa-pie-chart"></i> <span class="nav-label" data-i18n="nav.metrics">Metrics</span>
-                <% end %>
-            </li>
             <% end %>
             <li class="<%= is_active_controller('deals') %>">
                 <a href="#"><i class="fa fa-trophy"></i> <span class="nav-label" data-i18n="nav.deals">Deals</span><span class="fa arrow"></span></a>

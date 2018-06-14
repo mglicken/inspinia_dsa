@@ -1,4 +1,11 @@
-
+<style>
+.btn-layout{
+  position:absolute;
+  top:0px;
+  right:30px;
+  color: #ffbf00;
+}
+</style>
 
 <div class="row">
   <div class="col-xs-12">
@@ -18,7 +25,7 @@
               <i class="fa fa-star"></i>
           <% end %> 
         <% else %>
-          <%= link_to( "/create_favorite_slide/#{current_user.id}/#{slide.id}", class: "btn btn-lg btn-favorite", id: "slide_#{slide.id}", :remote => :true) do %>
+          <%= link_to( "/create_favorite_slide/#{current_user.id}/#{slide.id}", class: "btn btn-lg btn-layout", id: "slide_#{slide.id}", :remote => :true) do %>
               <i class="fa fa-star-o"></i>
           <% end %> 
         <% end %>
