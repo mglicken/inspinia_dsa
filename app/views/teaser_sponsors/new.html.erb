@@ -1,7 +1,7 @@
 <!-- Validation failure messages -->
 
-<% if @teaser_company.errors.any? %>
-  <% @teaser_company.errors.full_messages.each do |message| %>
+<% if @teaser_sponsor.errors.any? %>
+  <% @teaser_sponsor.errors.full_messages.each do |message| %>
     <div class="alert alert-dismissable alert-danger">
       <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
       <%= message %>
@@ -15,10 +15,10 @@
   <div class="col-sm-offset-1 col-sm-10 col-md-offset-2 col-md-8">
     <div class="panel panel-default">
       <div class="panel-heading">
-        <h3 class="panel-title">Add Teaser Company</h3>
+        <h3 class="panel-title">Add Teaser Sponsor</h3>
       </div>
       <div class="panel-body">
-        <form action="/create_teaser_company" method="post" class="form-horizontal">
+        <form action="/create_teaser_sponsor" method="post" class="form-horizontal">
           <!-- Hidden input for authenticity token to protect from forgery -->
           <input name="authenticity_token" type="hidden" value="<%= form_authenticity_token %>">
 
@@ -28,16 +28,16 @@
               Teaser ID
             </label>
             <div class="col-sm-10">
-              <input type="integer" id="teaser_id" name="teaser_id" placeholder="e.g., 17" class="form-control" value="<%= @teaser_company.teaser_id %>">
+              <input type="integer" id="teaser_id" name="teaser_id" placeholder="e.g., 17" class="form-control" value="<%= @teaser_sponsor.teaser_id %>">
             </div>
           </div>
-          <!-- Label and input for Company ID -->
+          <!-- Label and input for Sponsor ID -->
           <div class="form-group">
-            <label for="company_id" class="col-sm-2 control-label">
-              Company ID
+            <label for="sponsor_id" class="col-sm-2 control-label">
+              Sponsor ID
             </label>
             <div class="col-sm-10">
-              <input type="integer" id="company_id" name="company_id" placeholder="e.g., 17" class="form-control" value="<%= @teaser_company.company_id %>">
+              <input type="integer" id="sponsor_id" name="sponsor_id" placeholder="e.g., 17" class="form-control" value="<%= @teaser_sponsor.sponsor_id %>">
             </div>
           </div>
           <!-- Label and input for NDA ID -->
@@ -46,16 +46,16 @@
               NDA ID
             </label>
             <div class="col-sm-10">
-              <input type="integer" id="nda_id" name="nda_id" placeholder="e.g., 17" class="form-control" value="<%= @teaser_company.nda_id %>">
+              <input type="integer" id="nda_id" name="nda_id" placeholder="e.g., 17" class="form-control" value="<%= @teaser_sponsor.nda_id %>">
             </div>
           </div>
           <div class="form-group">
             <div class="col-sm-offset-2 col-sm-10">
               <button class="btn btn-success">
-                Create Teaser Company
+                Create Teaser Sponsor
               </button>
               or
-              <a href="/teaser_companies">Cancel</a>
+              <a href="/teaser_sponsors">Cancel</a>
             </div>
           </div>
         </form>

@@ -500,6 +500,24 @@ Myapp::Application.routes.draw do
   # DELETE
   get "/delete_nda_slide/:id", :controller => "nda_slides", :action => "destroy"
 
+  # Routes for the Teaser Sponsors resource:
+  resources :teaser_sponsors do
+    collection {post :import}
+  end  
+  # CREATE
+  get "/teaser_sponsors/new", :controller => "teaser_sponsors", :action => "new"
+  post "/create_teaser_sponsor", :controller => "teaser_sponsors", :action => "create"
+  
+  # READ
+  get "/teaser_sponsors", :controller => "teaser_sponsors", :action => "index"
+  get "/teaser_sponsors/:id", :controller => "teaser_sponsors", :action => "show"
+
+  # UPDATE
+  get "/teaser_sponsors/:id/edit", :controller => "teaser_sponsors", :action => "edit"
+  post "/update_teaser_sponsor/:id", :controller => "teaser_sponsors", :action => "update"
+ 
+  # DELETE
+  get "/delete_teaser_sponsor/:id", :controller => "teaser_sponsors", :action => "destroy"
 
   # Routes for the Teaser Companies resource:
   resources :teaser_companies do

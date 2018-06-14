@@ -55,13 +55,13 @@ before_action :ensure_banker_access,  only: [:new, :create, :edit, :update, :des
     @nda = Nda.new
     @nda.name = @teaser_company.teaser.deal.company.name + " / " + @teaser_company.company.name + " NDA"
     @nda.deal_id = @teaser_company.teaser.deal_id
-    @nda.nda_date = = Date.current()
+    @nda.nda_date = Date.current()
     @nda.save
 
     @teaser_company.nda_id = @nda.id
 
     if @teaser_company.save
-      redirect_to "/ndas", :notice => "NDA Slide created successfully."
+      redirect_to "/ndas", :notice => "Teaser Company created successfully."
     else
       render 'new'
     end
@@ -79,7 +79,7 @@ before_action :ensure_banker_access,  only: [:new, :create, :edit, :update, :des
     @teaser_company.nda_id = params[:nda_id]
 
     if @teaser_company.save
-      redirect_to "/teaser_companies/#{@teaser_company.id}/", :notice => "NDA Slide updated successfully!"
+      redirect_to "/teaser_companies/#{@teaser_company.id}/", :notice => "Teaser Company updated successfully!"
     else
       render 'edit'
     end
@@ -90,11 +90,11 @@ before_action :ensure_banker_access,  only: [:new, :create, :edit, :update, :des
 
     @teaser_company.destroy
 
-    redirect_to "/ndas", :notice => "NDA Slide deleted."
+    redirect_to "/teasers/#{@teaser_company.teaser_id}", :notice => "Teaser Company deleted."
   end
   
   def import
     TeaserCompany.import(params[:file])
-    redirect_to "/models/", notice: "NDA Slides imported"
+    redirect_to "/models/", notice: "Teaser Companies imported"
   end
 end

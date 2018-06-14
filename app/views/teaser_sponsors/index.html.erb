@@ -1,0 +1,57 @@
+
+<div class="page-header">
+  <h1>
+    Teaser Sponsors
+    <a href="/teaser_sponsors/new" class="btn btn-lg btn-success"><i class="fa fa-plus"></i></a>
+  </h1>
+</div>
+
+<!-- Responsive, Isotope-based layout example -->
+
+<div class="row">
+  <div class="col-xs-12">
+    <input type="text" id="quicksearch" placeholder="Search Teaser Sponsors (start typing)" class="form-control">
+  </div>
+</div>
+
+<hr>
+
+<div class="row isotope-container">
+<% @teaser_sponsors.each do |teaser_sponsor| %>
+  <div class="col-xs-11 col-sm-11 col-md-11 col-lg-11 isotope-item">
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <h3 class="panel-title">teaser_sponsor # <%= teaser_sponsor.id %></h3>
+      </div>
+      <div class="panel-body">
+        <div class="row">
+          <div class="col-md-12">
+            <class="dl-horizontal">
+
+              <dt> Teaser ID</dt>
+              <dd><%= teaser_sponsor.teaser_id %></dd> 
+              <dt> Sponsor ID</dt>
+              <dd><%= teaser_sponsor.sponsor_id %></dd>
+              <dt> NDA ID</dt>
+              <dd><%= teaser_sponsor.nda_id %></dd>         
+
+            </dl>
+            <div class="btn-group btn-group-justified">
+              <a href="/teaser_sponsors/<%= teaser_sponsor.id %>" class="btn btn-primary">
+                <i class="fa fa-search-plus"></i>
+              </a>
+
+              <a href="/teaser_sponsors/<%= teaser_sponsor.id %>/edit" class="btn btn-warning">
+                <i class="fa fa-edit"></i>
+              </a>
+
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+<% end %>
+</div>
+
+<%= render('shared/quick_search_js') %>
