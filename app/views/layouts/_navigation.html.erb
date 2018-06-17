@@ -45,7 +45,7 @@
             <li class="<%= is_active_controller('deals') %>">
                 <a href="#"><i class="fa fa-trophy"></i> <span class="nav-label" data-i18n="nav.deals">Deals</span><span class="fa arrow"></span></a>
                 <ul class="nav nav-second-level collapse <%= is_active_controller('deals', 'in') %>">
-                    <% current_user.person.deals.order("id ASC").each do |deal| %>
+                    <% current_user.person.deals.order("name ASC").each do |deal| %>
                         <li class="<%= is_active_action('show')%>"><%= link_to deal.name, "/deals/#{deal.id}"%></li>
                     <% end %>
                 </ul>
@@ -54,7 +54,7 @@
                 <a href="#"><i class="fa fa-th"></i> <span class="nav-label" data-i18n="nav.layouts">Slide Layouts</span><span class="fa arrow"></span></a>
                 <ul class="nav nav-second-level collapse <%= is_active_controller('layouts', 'in') %>">
                     <li class="<%= is_active_action('index') %>"><%= link_to "Favorite Slides", "/favorite_slides" %></li>
-                    <% current_user.slide_layouts.order("id ASC").each do |slide_layout| %>
+                    <% current_user.slide_layouts.order("name ASC").each do |slide_layout| %>
                         <li class="<%= is_active_action('show')%>"><%= link_to slide_layout.name, "/slide_layouts/#{slide_layout.id}"%></li>
                     <% end %>
                 </ul>

@@ -15,82 +15,93 @@
 
 </style>
 
-<div class="page-header">
-  <h1>
-    Strategic Acquirers (<%= @companies.count%>)
-  </h1>
-</div>
-
-<div class="row">
-  <div class="col-lg-12">
-    <input type="text" id="quicksearch" placeholder="Search Companies (start typing)" class="form-control">
-  </div>
-</div>
-
 <br>
+<table class="table table-hover dataTables-example">
+<thead>
+<tr>
+    <th width = "30%" style="text-align: center">Company</th>
+    <th width="10%" style="text-align: center">Declined</th>
+    <th width="10%" style="text-align: center">Negotiating</th>
+    <th width="10%" style="text-align: center">Complete</th>
+    <th>Notes</th>
+</tr>
+</thead>
+<tbody>
+<% @companies.each do |company| %>
+<% if @teaser.teaser_companies.find_by(company_id: company.id).nda.status == 1 %>
+  <tr class="danger">
+<% elsif @teaser.teaser_companies.find_by(company_id: company.id).nda.status == 2 %>
+  <tr class="warning">
+<% elsif @teaser.teaser_companies.find_by(company_id: company.id).nda.status == 3 %>
+  <tr class="success">
+<% end %>
 
-  <div class="row container">
-        <% @companies.each do |company| %>
-          <div class="col-lg-4 isotope-item" id="<%=company.id%>">
-              <div class="panel panel-primary">
-              <div class="panel-heading" style="padding-top:5px; padding-bottom:10px;">
-                <div class="pull-right">
-                    <%= link_to content_tag(:i,nil,class: 'fa fa-times'), "/delete_teaser_company/#{ @teaser_companies.find_by(company_id: company.id, teaser_id: @teaser.id).id }", :class => "btn btn-xs", :style=> "padding-top:0px; color:white;", :remote => true  %>
-
-                </div>
-                <strong ><a style="color:white" href="/companies/<%= company.id %>"><%= company.name %></a></strong>
-              </div>
-              <div class="panel-body" style="padding-top:5px; padding-bottom:5px;">
-
-
-
-  <table class="table">
-    <thead>
-    <tr>
-        <th></th>
-        <th>Declined</th>
-        <th>Negotiating</th>
-        <th>Complete</th>
-
-    </tr>
-    </thead>
-    <tbody>
-    <tr>
-      <td style="text-align: left">
-        <strong> NDA:</strong>
-      </td>
-
-      <td style="text-align: center">
+    <td><%=company.name%></td>
+    <td style="text-align: center">
       <% if @teaser.teaser_companies.find_by(company_id: company.id).nda.status == 1 %>
-        <%= link_to content_tag(:i,nil, class: 'fa fa-times'), "/update_nda/#{@teaser.teaser_companies.find_by(company_id: company.id).nda_id}/1", :id => "company_#{company.id}_1", :class => "strip-tags-selected", :remote => true  %>
+        <%= link_to content_tag(:i,nil, class: 'fa fa-times'), "/update_teaser_company/#{@teaser.teaser_companies.find_by(company_id: company.id).id}/1", :id => "company_#{company.id}_1", :class => "strip-tags-selected", :remote => true  %>
       <% else %>
-        <%= link_to content_tag(:i,nil, class: 'fa fa-times'), "/update_nda/#{@teaser.teaser_companies.find_by(company_id: company.id).nda_id}/1", :id => "company_#{company.id}_1", :class => "strip-tags-notselected", :remote => true  %>
+        <%= link_to content_tag(:i,nil, class: 'fa fa-times'), "/update_teaser_company/#{@teaser.teaser_companies.find_by(company_id: company.id).id}/1", :id => "company_#{company.id}_1", :class => "strip-tags-notselected", :remote => true  %>
       <% end %>
-      </td>
-
-      <td style="text-align: center">
+    </td>
+    <td style="text-align: center">
       <% if @teaser.teaser_companies.find_by(company_id: company.id).nda.status == 2 %>
-        <%= link_to content_tag(:i,nil, class: 'fa fa-times'), "/update_nda/#{@teaser.teaser_companies.find_by(company_id: company.id).nda_id}/1", :id => "company_#{company.id}_1", :class => "strip-tags-selected", :remote => true  %>
+        <%= link_to content_tag(:i,nil, class: 'fa fa-times'), "/update_teaser_company/#{@teaser.teaser_companies.find_by(company_id: company.id).id}/2", :id => "company_#{company.id}_2", :class => "strip-tags-selected", :remote => true  %>
       <% else %>
-        <%= link_to content_tag(:i,nil, class: 'fa fa-times'), "/update_nda/#{@teaser.teaser_companies.find_by(company_id: company.id).nda_id}/1", :id => "company_#{company.id}_1", :class => "strip-tags-notselected", :remote => true  %>
+        <%= link_to content_tag(:i,nil, class: 'fa fa-times'), "/update_teaser_company/#{@teaser.teaser_companies.find_by(company_id: company.id).id}/2", :id => "company_#{company.id}_2", :class => "strip-tags-notselected", :remote => true  %>
       <% end %>
-      </td>
+    </td>
+    <td style="text-align: center">
+    <% if @teaser.teaser_companies.find_by(company_id: company.id).nda.status == 3 %>
+      <%= link_to content_tag(:i,nil, class: 'fa fa-times'), "/update_teaser_company/#{@teaser.teaser_companies.find_by(company_id: company.id).id}/3", :id => "company_#{company.id}_3", :class => "strip-tags-selected", :remote => true  %>
+    <% else %>
+      <%= link_to content_tag(:i,nil, class: 'fa fa-times'), "/update_teaser_company/#{@teaser.teaser_companies.find_by(company_id: company.id).id}/3", :id => "company_#{company.id}_3", :class => "strip-tags-notselected", :remote => true  %>
+    <% end %>
+    </td>
+    <td>...</td>
+</tr>
+<%end%>
+</tbody>
+</table>
 
-      <td style="text-align: center">
-      <% if @teaser.teaser_companies.find_by(company_id: company.id).nda.status == 3 %>
-        <%= link_to content_tag(:i,nil, class: 'fa fa-times'), "/update_nda/#{@teaser.teaser_companies.find_by(company_id: company.id).nda_id}/1", :id => "company_#{company.id}_1", :class => "strip-tags-selected", :remote => true  %>
-      <% else %>
-        <%= link_to content_tag(:i,nil, class: 'fa fa-times'), "/update_nda/#{@teaser.teaser_companies.find_by(company_id: company.id).nda_id}/1", :id => "company_#{company.id}_1", :class => "strip-tags-notselected", :remote => true  %>
-      <% end %>
-      </td>
-    </tr>
-    <tbody>
-  </table>
 
-              </div>
-            </div>
-          </div>
-        <% end %>
 
-  </div>
+<% content_for :javascript do %>
 
+<script type="text/javascript">
+
+
+$(function() {
+
+    $('.dataTables-example').DataTable({
+        pageLength: 25,
+        responsive: true,
+        dom: '<"html5buttons"B>lTfgitp',
+        buttons: [
+            { extend: 'copy'},
+            {extend: 'csv'},
+            {extend: 'excel', title: 'ExampleFile'},
+            {extend: 'pdf', title: 'ExampleFile'},
+
+            {extend: 'print',
+                customize: function (win){
+                    $(win.document.body).addClass('white-bg');
+                    $(win.document.body).css('font-size', '10px');
+
+                    $(win.document.body).find('table')
+                            .addClass('compact')
+                            .css('font-size', 'inherit');
+                }
+            }
+        ]
+
+    });
+
+
+});
+
+
+
+</script>
+
+<% end %>

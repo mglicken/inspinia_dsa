@@ -517,7 +517,8 @@ Myapp::Application.routes.draw do
   # UPDATE
   get "/teaser_sponsors/:id/edit", :controller => "teaser_sponsors", :action => "edit"
   post "/update_teaser_sponsor/:id", :controller => "teaser_sponsors", :action => "update"
- 
+  get "/update_teaser_sponsor/:id/:status", :controller => "teaser_sponsors", :action => "update_status"
+
   # DELETE
   get "/delete_teaser_sponsor/:id", :controller => "teaser_sponsors", :action => "destroy"
 
@@ -536,6 +537,7 @@ Myapp::Application.routes.draw do
   # UPDATE
   get "/teaser_companies/:id/edit", :controller => "teaser_companies", :action => "edit"
   post "/update_teaser_company/:id", :controller => "teaser_companies", :action => "update"
+  get "/update_teaser_company/:id/:status", :controller => "teaser_companies", :action => "update_status"
  
   # DELETE
   get "/delete_teaser_company/:id", :controller => "teaser_companies", :action => "destroy"

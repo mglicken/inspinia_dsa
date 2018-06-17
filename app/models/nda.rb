@@ -13,7 +13,7 @@ class Nda < ActiveRecord::Base
 		end
 	end
 	def self.import(file)
-		allowed_attributes = [ "name", "deal_id", "nda_date","image_id"]
+		allowed_attributes = [ "name", "deal_id", "nda_date","image_id","status", "status_date"]
 		CSV.foreach(file.path,headers: true) do |row|
 			ndas = find_by_id(row["id"]) || new
 			

@@ -1,0 +1,8 @@
+$('#company_<%= @company.id %>_1').removeClass()
+$('#company_<%= @company.id %>_1').addClass("strip-tags-notselected")
+$('#company_<%= @company.id %>_2').removeClass()
+$('#company_<%= @company.id %>_2').addClass("strip-tags-notselected")
+$('#company_<%= @company.id %>_3').removeClass()
+$('#company_<%= @company.id %>_3').addClass("strip-tags-notselected")
+$('#company_<%= @company.id %>_<%= @nda.status %>').removeClass()
+$('#company_<%= @company.id %>_<%= @nda.status %>').addClass("strip-tags-selected")

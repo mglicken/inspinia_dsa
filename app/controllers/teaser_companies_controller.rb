@@ -56,6 +56,7 @@ before_action :ensure_banker_access,  only: [:new, :create, :edit, :update, :des
     @nda.name = @teaser_company.teaser.deal.company.name + " / " + @teaser_company.company.name + " NDA"
     @nda.deal_id = @teaser_company.teaser.deal_id
     @nda.nda_date = @teaser_company.teaser.teaser_date
+    @nda.status_date = Date.current
     @nda.save
 
     @teaser_company.nda_id = @nda.id
@@ -85,6 +86,7 @@ before_action :ensure_banker_access,  only: [:new, :create, :edit, :update, :des
     @nda.name = @teaser.deal.company.name + " / " + @company.name + " NDA"
     @nda.deal_id = @teaser.deal_id
     @nda.nda_date = @teaser.teaser_date
+    @nda.status_date = Date.current
     @nda.save
 
     @teaser_company.nda_id = @nda.id
@@ -111,6 +113,19 @@ before_action :ensure_banker_access,  only: [:new, :create, :edit, :update, :des
       redirect_to "/teaser_companies/#{@teaser_company.id}/", :notice => "Teaser Company updated successfully!"
     else
       render 'edit'
+    end
+  end
+  def update_status
+
+    @nda = TeaserCompany.find(params[:id]).nda
+    @company = TeaserCompany.find(params[:id]).company
+    @nda.status = params[:status]
+    @nda.status_date = Date.current
+    @nda.save
+    respond_to do |format|
+      format.js do
+        render('update.js.erb')
+      end
     end
   end
 

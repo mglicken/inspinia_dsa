@@ -1,0 +1,8 @@
+$('#sponsor_<%= @sponsor.id %>_1').removeClass()
+$('#sponsor_<%= @sponsor.id %>_1').addClass("strip-tags-notselected")
+$('#sponsor_<%= @sponsor.id %>_2').removeClass()
+$('#sponsor_<%= @sponsor.id %>_2').addClass("strip-tags-notselected")
+$('#sponsor_<%= @sponsor.id %>_3').removeClass()
+$('#sponsor_<%= @sponsor.id %>_3').addClass("strip-tags-notselected")
+$('#sponsor_<%= @sponsor.id %>_<%= @nda.status %>').removeClass()
+$('#sponsor_<%= @sponsor.id %>_<%= @nda.status %>').addClass("strip-tags-selected")

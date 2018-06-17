@@ -60,7 +60,8 @@ before_action :ensure_view_access,  only: [:show]
     @nda.deal_id = params[:deal_id]
     @nda.nda_date = params[:nda_date]
     @nda.image_id = params[:image_id]
-
+    @nda.status = params[:status]
+    @nda.status_date = params[:status_date]
 
     if @nda.save
       redirect_to "/ndas/#{@nda.id}", :notice => "NDA created successfully."
@@ -76,11 +77,13 @@ before_action :ensure_view_access,  only: [:show]
   def update
     @nda = Nda.find(params[:id])
 
+    @nda.name = params[:name]
     @nda.deal_id = params[:deal_id]
     @nda.nda_date = params[:nda_date]
     @nda.image_id = params[:image_id]
-    @nda.name = params[:name]
-
+    @nda.status = params[:status]
+    @nda.status_date = params[:status_date]
+    
     @nda.slides.each do |slide|
       slide.ppt_address = @nda.ppt_address
       slide.save
