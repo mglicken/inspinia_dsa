@@ -6,3 +6,11 @@ $('#sponsor_<%= @sponsor.id %>_3').removeClass()
 $('#sponsor_<%= @sponsor.id %>_3').addClass("strip-tags-notselected")
 $('#sponsor_<%= @sponsor.id %>_<%= @nda.status %>').removeClass()
 $('#sponsor_<%= @sponsor.id %>_<%= @nda.status %>').addClass("strip-tags-selected")
+$('#row_<%= @sponsor.id %>').removeClass()
+<% if @nda.status == 1 %>
+    $('#row_<%= @sponsor.id %>').addClass('danger')
+<% elsif @nda.status == 2 %>
+    $('#row_<%= @sponsor.id %>').addClass('warning')
+<% elsif @nda.status == 3 %>
+	$('#row_<%= @sponsor.id %>').addClass('success')
+<% end %>

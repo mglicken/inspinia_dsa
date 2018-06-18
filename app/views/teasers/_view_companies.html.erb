@@ -16,7 +16,7 @@
 </style>
 
 <br>
-<table class="table table-hover dataTables-example">
+<table class="table table-hover dataTables-NDA">
 <thead>
 <tr>
     <th width = "30%" style="text-align: center">Company</th>
@@ -29,11 +29,11 @@
 <tbody>
 <% @companies.each do |company| %>
 <% if @teaser.teaser_companies.find_by(company_id: company.id).nda.status == 1 %>
-  <tr class="danger">
+  <tr id="row_<%=company.id%>" class="danger">
 <% elsif @teaser.teaser_companies.find_by(company_id: company.id).nda.status == 2 %>
-  <tr class="warning">
+  <tr id="row_<%=company.id%>" class="warning">
 <% elsif @teaser.teaser_companies.find_by(company_id: company.id).nda.status == 3 %>
-  <tr class="success">
+  <tr id="row_<%=company.id%>" class="success">
 <% end %>
 
     <td><a href="/companies/<%=company.id%>"><%=company.name%></a></td>
@@ -73,8 +73,8 @@
 
 $(function() {
 
-    $('.dataTables-example').DataTable({
-        pageLength: 25,
+    $('.dataTables-NDA').DataTable({
+        pageLength: 100,
         responsive: true,
         dom: '<"html5buttons"B>lTfgitp',
         buttons: [
