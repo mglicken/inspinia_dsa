@@ -36,7 +36,7 @@
   <tr class="success">
 <% end %>
 
-    <td><%=company.name%></td>
+    <td><a href="/companies/<%=company.id%>"><%=company.name%></a></td>
     <td style="text-align: center">
       <% if @teaser.teaser_companies.find_by(company_id: company.id).nda.status == 1 %>
         <%= link_to content_tag(:i,nil, class: 'fa fa-times'), "/update_teaser_company/#{@teaser.teaser_companies.find_by(company_id: company.id).id}/1", :id => "company_#{company.id}_1", :class => "strip-tags-selected", :remote => true  %>

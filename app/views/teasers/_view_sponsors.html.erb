@@ -36,7 +36,7 @@
   <tr class="success">
 <% end %>
 
-    <td><%=sponsor.name%></td>
+    <td><a href="/sponsors/<%=sponsor.id%>"><%=sponsor.name%></a></td>
     <td style="text-align: center">
       <% if @teaser.teaser_sponsors.find_by(sponsor_id: sponsor.id).nda.status == 1 %>
         <%= link_to content_tag(:i,nil, class: 'fa fa-times'), "/update_teaser_sponsor/#{@teaser.teaser_sponsors.find_by(sponsor_id: sponsor.id).id}/1", :id => "sponsor_#{sponsor.id}_1", :class => "strip-tags-selected", :remote => true  %>
