@@ -4,13 +4,13 @@ $('#company_<%= @company.id %>_2').removeClass()
 $('#company_<%= @company.id %>_2').addClass("strip-tags-notselected")
 $('#company_<%= @company.id %>_3').removeClass()
 $('#company_<%= @company.id %>_3').addClass("strip-tags-notselected")
-$('#company_<%= @company.id %>_<%= @nda.status %>').removeClass()
-$('#company_<%= @company.id %>_<%= @nda.status %>').addClass("strip-tags-selected")
+$('#company_<%= @company.id %>_<%= @ioi.status %>').removeClass()
+$('#company_<%= @company.id %>_<%= @ioi.status %>').addClass("strip-tags-selected")
 $('#row_<%= @company.id %>').removeClass()
-<% if @nda.status == 1 %>
+<% if @ioi.status == 1 %>
     $('#row_<%= @company.id %>').addClass('danger')
-<% elsif @nda.status == 2 %>
+<% elsif @ioi.status == 2 %>
     $('#row_<%= @company.id %>').addClass('warning')
-<% elsif @nda.status == 3 %>
+<% elsif @ioi.status == 3 %>
 	$('#row_<%= @company.id %>').addClass('success')
 <% end %>

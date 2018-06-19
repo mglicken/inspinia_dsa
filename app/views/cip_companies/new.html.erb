@@ -1,0 +1,67 @@
+<!-- Validation failure messages -->
+
+<% if @cip_company.errors.any? %>
+  <% @cip_company.errors.full_messages.each do |message| %>
+    <div class="alert alert-dismissable alert-danger">
+      <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+      <%= message %>
+    </div>
+  <% end %>
+<% end %>
+
+<!-- Responsive panel example -->
+
+<div class="row">
+  <div class="col-sm-offset-1 col-sm-10 col-md-offset-2 col-md-8">
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <h3 class="panel-title">Add CIP Company</h3>
+      </div>
+      <div class="panel-body">
+        <form action="/create_cip_company" method="post" class="form-horizontal">
+          <!-- Hidden input for authenticity token to protect from forgery -->
+          <input name="authenticity_token" type="hidden" value="<%= form_authenticity_token %>">
+
+          <!-- Label and input for CIP ID -->
+          <div class="form-group">
+            <label for="cip_id" class="col-sm-2 control-label">
+              CIP ID
+            </label>
+            <div class="col-sm-10">
+              <input type="integer" id="cip_id" name="cip_id" placeholder="e.g., 17" class="form-control" value="<%= @cip_company.cip_id %>">
+            </div>
+          </div>
+          <!-- Label and input for Company ID -->
+          <div class="form-group">
+            <label for="company_id" class="col-sm-2 control-label">
+              Company ID
+            </label>
+            <div class="col-sm-10">
+              <input type="integer" id="company_id" name="company_id" placeholder="e.g., 17" class="form-control" value="<%= @cip_company.company_id %>">
+            </div>
+          </div>
+          <!-- Label and input for IOI ID -->
+          <div class="form-group">
+            <label for="ioi_id" class="col-sm-2 control-label">
+              IOI ID
+            </label>
+            <div class="col-sm-10">
+              <input type="integer" id="ioi_id" name="ioi_id" placeholder="e.g., 17" class="form-control" value="<%= @cip_company.ioi_id %>">
+            </div>
+          </div>
+          <div class="form-group">
+            <div class="col-sm-offset-2 col-sm-10">
+              <button class="btn btn-success">
+                Create CIP Company
+              </button>
+              or
+              <a href="/cip_companies">Cancel</a>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- End responsive panel example -->

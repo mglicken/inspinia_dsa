@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180614220534) do
+ActiveRecord::Schema.define(version: 20180619132642) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -37,9 +37,21 @@ ActiveRecord::Schema.define(version: 20180614220534) do
     t.integer "slide_id"
   end
 
+  create_table "cip_companies", force: :cascade do |t|
+    t.integer "cip_id"
+    t.integer "company_id"
+    t.integer "ioi_id"
+  end
+
   create_table "cip_slides", force: :cascade do |t|
     t.integer "cip_id"
     t.integer "slide_id"
+  end
+
+  create_table "cip_sponsors", force: :cascade do |t|
+    t.integer "cip_id"
+    t.integer "sponsor_id"
+    t.integer "ioi_id"
   end
 
   create_table "cips", force: :cascade do |t|
@@ -125,6 +137,29 @@ ActiveRecord::Schema.define(version: 20180614220534) do
     t.integer "open_year"
     t.integer "close_year"
     t.string  "link"
+  end
+
+  create_table "highlights", force: :cascade do |t|
+    t.string "name"
+  end
+
+  create_table "ioi_highlights", force: :cascade do |t|
+    t.integer "ioi_id"
+    t.integer "highlight_id"
+    t.text    "detail"
+  end
+
+  create_table "ioi_slides", force: :cascade do |t|
+    t.integer "ioi_id"
+    t.integer "slide_id"
+    t.string  "ppt_address"
+  end
+
+  create_table "iois", force: :cascade do |t|
+    t.string  "name"
+    t.integer "deal_id"
+    t.date    "ioi_date"
+    t.string  "image_id"
   end
 
   create_table "mp_slides", force: :cascade do |t|

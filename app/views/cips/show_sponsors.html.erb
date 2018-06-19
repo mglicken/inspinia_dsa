@@ -1,0 +1,40 @@
+<br>
+<div class="row">
+  <div class="col-lg-offset-2 col-lg-7">
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <h3 class="panel-title" style="font-size:28px"><%= @cip.name %></h3>
+      </div>
+      <div class="panel-body">
+        <div class="row">
+          <div class="col-lg-12">
+            <dl class="dl-horizontal" style="font-size:10px">
+
+               <dt>Deal:</dt>
+               <dd> <a href="/deals/<%= @cip.deal_id %>"><%= @cip.deal.name %></a></dd>
+               <dt>Company:</dt>
+               <dd> <a href="/companies/<%= @cip.deal.company.id %>"><%= @cip.deal.company.name %></a></dd>
+               <dt>Date:</dt>
+               <dd><%= @cip.cip_date %></dd>
+
+            </dl>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+    <div class="col-lg-3">
+    <div class="btn-group-vertical">
+
+      <%= render('add_sponsor_autocomplete', cip: @cip) %>
+      
+    </div>
+  </div> 
+</div>
+<a class="btn btn-lincoln" href="/cips/<%= @cip.id %>">View Slides</a>
+<a class="btn btn-lincoln" href="/cips/<%= @cip.id %>/companies">View Strategic Acquirers</a>
+
+
+<%= render('view_sponsors') %>
+<%= render('shared/quick_search_js') %>

@@ -39,11 +39,17 @@
   </div>
 </div>
 
+<a class="btn btn-lincoln" href="/cips/<%= @cip.id %>/sponsors">View Financial Acquirers</a>
+<a class="btn btn-lincoln" href="/cips/<%= @cip.id %>/companies">View Strategic Acquirers</a>
+<br>
+<br>
 <%= render('view_slides') %>
 
 <%= render('shared/quick_search_js') %>
 
-<% if CipSlide.where(cip_id: @cip.id).empty? %>
+<% if @cip.image_id.nil? %>
+  <%= render('shared/upload_widget',url: "/create_cip_slide/#{@cip.id}", p_id: @p_id) %>
+<% elsif @cip.image_id == "" %>
   <%= render('shared/upload_widget',url: "/create_cip_slide/#{@cip.id}", p_id: @p_id) %>
 <% end %>
 

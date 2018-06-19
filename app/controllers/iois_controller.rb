@@ -1,4 +1,4 @@
-class NdasController < ApplicationController
+class IoisController < ApplicationController
 
 before_action :ensure_view_access,  only: [:index]
 before_action :ensure_banker_access,  only: [:new, :create, :edit, :update, :destroy, :import]
@@ -29,78 +29,79 @@ before_action :ensure_view_access,  only: [:show]
   end
 
   def index
-    @ndas = Nda.all
+    @iois = Ioi.all
 
     respond_to do |format|
       format.html
-      format.csv {send_data @ndas.to_csv }
+      format.csv {send_data @iois.to_csv }
     end
   end
 
   def show
-    @nda = Nda.find(params[:id])
+    @ioi = Ioi.find(params[:id])
     a = ["0","1","2","3","4","5","6","7","8","9","a","b","c","d","e","f","g","h","i","j","k","l","m","n","o","p","q","r","s","t","u","v","w","x","y","z"]
     b=""
     for i in 0..63
       b=b+a[rand(35)]
     end
     @p_id = b
-    @url = "/create_nda_slide/#{params[:id]}"
+    @url = "/create_ioi_slide/#{params[:id]}"
   end
 
   def new
-    @nda = Nda.new
+    @ioi = Ioi.new
   end
 
   def create
-    @nda = Nda.new
+    @ioi = Ioi.new
 
 
-    @nda.name = params[:name]
-    @nda.deal_id = params[:deal_id]
-    @nda.nda_date = params[:nda_date]
-    @nda.image_id = params[:image_id]
-    @nda.status = params[:status]
-    @nda.status_date = params[:status_date]
+    @ioi.name = params[:name]
+    @ioi.deal_id = params[:deal_id]
+    @ioi.ioi_date = params[:ioi_date]
+    @ioi.image_id = params[:image_id]
 
-    if @nda.save
-      redirect_to "/ndas/#{@nda.id}", :notice => "NDA created successfully."
+    if @ioi.save
+      redirect_to "/iois/#{@ioi.id}", :notice => "IOI created successfully."
     else
       render 'new'
     end
   end
 
   def edit
-    @nda = Nda.find(params[:id])
+    @ioi = Ioi.find(params[:id])
   end
 
   def update
-    @nda = Nda.find(params[:id])
+    @ioi = Ioi.find(params[:id])
 
-    @nda.name = params[:name]
-    @nda.deal_id = params[:deal_id]
-    @nda.nda_date = params[:nda_date]
-    @nda.image_id = params[:image_id]
-    @nda.status = params[:status]
-    @nda.status_date = params[:status_date]
+    @ioi.name = params[:name]
+    @ioi.deal_id = params[:deal_id]
+    @ioi.ioi_date = params[:ioi_date]
+    @ioi.image_id = params[:image_id]
     
-    if @nda.save
-      redirect_to "/ndas/#{@nda.id}", :notice => "NDA updated successfully."
+    @ioi.slides.each do |slide|
+      slide.ppt_address = @ioi.ppt_address
+      slide.save
+    end
+
+    if @ioi.save
+      redirect_to "/iois/#{@ioi.id}", :notice => "IOI updated successfully."
     else
       render 'edit'
     end
   end
 
   def destroy
-    @nda = Nda.find(params[:id])
+    @ioi = Ioi.find(params[:id])
 
-    @nda.destroy
+    @ioi.destroy
 
-    redirect_to "/ndas", :notice => "NDA deleted."
+    redirect_to "/iois", :notice => "IOI deleted."
   end
 
   def import
-    Nda.import(params[:file])
-    redirect_to "/models/", notice: "NDAs imported"
+    Ioi.import(params[:file])
+    redirect_to "/models/", notice: "IOIs imported"
   end
 end

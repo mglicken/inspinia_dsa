@@ -59,6 +59,30 @@ before_action :ensure_view_access,  only: [:search, :show]
     @url = "/create_cip_slide/#{params[:id]}"
   end
 
+  def show_sponsors
+    @cip = Cip.find(params[:id])
+    @cip_sponsors = @cip.cip_sponsors
+    @sponsors = @cip.sponsors.order("name ASC")
+    respond_to do |format|
+      format.html
+      format.xlsx {
+        response.headers['Content-Disposition'] = 'attachment; filename="Financial_Acquirers_List.xlsx"'
+        }
+    end
+  end
+  
+  def show_companies
+    @cip = Cip.find(params[:id])
+    @cip_companies = @cip.cip_companies
+    @companies = @cip.companies.order("name ASC")
+    respond_to do |format|
+      format.html
+      format.xlsx {
+        response.headers['Content-Disposition'] = 'attachment; filename="Strategic_Acquirers_List.xlsx"'
+        }
+    end
+  end
+
   def new
     @cip = Cip.new
   end

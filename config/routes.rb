@@ -67,6 +67,8 @@ Myapp::Application.routes.draw do
   get "/cips", :controller => "cips", :action => "index"
   get "/cips/:id", :controller => "cips", :action => "show"
   get "/cip_search/:search", :controller => "cips", :action => "search"
+  get "/cips/:id/sponsors", :controller => "cips", :action => "show_sponsors"
+  get "/cips/:id/companies", :controller => "cips", :action => "show_companies"
 
   # UPDATE
   get "/cips/:id/edit", :controller => "cips", :action => "edit"
@@ -92,6 +94,47 @@ Myapp::Application.routes.draw do
 
   # DELETE
   get "/delete_cip_slide/:id", :controller => "cip_slides", :action => "destroy"
+
+# Routes for the CIP Sponsors resource:
+  resources :cip_sponsors do
+    collection {post :import}
+  end  
+  # CREATE
+  get "/cip_sponsors/new", :controller => "cip_sponsors", :action => "new"
+  post "/create_cip_sponsor", :controller => "cip_sponsors", :action => "create"
+  post "/create_cip_sponsor/:cip_id/", :controller => "cip_sponsors", :action => "create_by_name"
+  
+  # READ
+  get "/cip_sponsors", :controller => "cip_sponsors", :action => "index"
+  get "/cip_sponsors/:id", :controller => "cip_sponsors", :action => "show"
+
+  # UPDATE
+  get "/cip_sponsors/:id/edit", :controller => "cip_sponsors", :action => "edit"
+  post "/update_cip_sponsor/:id", :controller => "cip_sponsors", :action => "update"
+  get "/update_cip_sponsor/:id/:status", :controller => "cip_sponsors", :action => "update_status"
+
+  # DELETE
+  get "/delete_cip_sponsor/:id", :controller => "cip_sponsors", :action => "destroy"
+
+  # Routes for the CIP Companies resource:
+  resources :cip_companies do
+    collection {post :import}
+  end  
+  # CREATE
+  get "/cip_companies/new", :controller => "cip_companies", :action => "new"
+  post "/create_cip_company", :controller => "cip_companies", :action => "create"
+  post "/create_cip_company/:cip_id/", :controller => "cip_companies", :action => "create_by_name"  
+  # READ
+  get "/cip_companies", :controller => "cip_companies", :action => "index"
+  get "/cip_companies/:id", :controller => "cip_companies", :action => "show"
+
+  # UPDATE
+  get "/cip_companies/:id/edit", :controller => "cip_companies", :action => "edit"
+  post "/update_cip_company/:id", :controller => "cip_companies", :action => "update"
+  get "/update_cip_company/:id/:status", :controller => "cip_companies", :action => "update_status"
+ 
+  # DELETE
+  get "/delete_cip_company/:id", :controller => "cip_companies", :action => "destroy"
 
 # Routes for the Case_Studies resource:
   resources :case_studies do
@@ -356,6 +399,62 @@ Myapp::Application.routes.draw do
 
   # DELETE
   get "/delete_fund_company/:id", :controller => "fund_companies", :action => "destroy"
+
+  # Routes for the Highlights resource:
+  resources :highlights do
+    collection {post :import}
+  end  
+  # CREATE
+  get "/highlights/new", :controller => "highlights", :action => "new"
+  post "/create_highlight", :controller => "highlights", :action => "create"
+
+  # READ
+  get "/highlights", :controller => "highlights", :action => "index"
+  get "/highlights/:id", :controller => "highlights", :action => "show"
+
+  # UPDATE
+  get "/highlights/:id/edit", :controller => "highlights", :action => "edit"
+  post "/update_highlight/:id", :controller => "highlights", :action => "update"
+
+  # DELETE
+  get "/delete_highlight/:id", :controller => "highlights", :action => "destroy"
+
+  # Routes for the IOIs resource:
+  resources :iois do
+    collection {post :import}
+  end  
+  # CREATE
+  get "/iois/new", :controller => "iois", :action => "new"
+  post "/create_ioi", :controller => "iois", :action => "create"
+
+  # READ
+  get "/iois", :controller => "iois", :action => "index"
+  get "/iois/:id", :controller => "iois", :action => "show"
+
+  # UPDATE
+  get "/iois/:id/edit", :controller => "iois", :action => "edit"
+  post "/update_ioi/:id", :controller => "iois", :action => "update"
+
+  # DELETE
+  get "/delete_ioi/:id", :controller => "iois", :action => "destroy"
+
+  # Routes for the IOI Slides resource:
+  resources :ioi_slides do
+    collection {post :import}
+  end
+  # CREATE
+  get "/ioi_slides/new", :controller => "ioi_slides", :action => "new"
+  post "/create_ioi_slide", :controller => "ioi_slides", :action => "create"
+  # READ
+  get "/ioi_slides", :controller => "ioi_slides", :action => "index"
+  get "/ioi_slides/:id", :controller => "ioi_slides", :action => "show"
+
+  # UPDATE
+  get "/ioi_slides/:id/edit", :controller => "ioi_slides", :action => "edit"
+  post "/update_ioi_slide/:id", :controller => "ioi_slides", :action => "update"
+
+  # DELETE
+  get "/delete_ioi_slide/:id", :controller => "ioi_slides", :action => "destroy"
 
   # Routes for the NBP resource:
   resources :nbps do

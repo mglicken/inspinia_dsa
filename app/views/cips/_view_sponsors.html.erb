@@ -1,0 +1,86 @@
+  <style>
+    .strip-tags-selected { color: black;
+                            font-size: 11px;
+                            text-align: center;  }
+    .strip-tags-selected:hover { font-size: 11px;
+                                color:  #999999;
+                                text-align: center; }
+
+    .strip-tags-notselected { color: red;
+                            font-size: 8px;
+                            text-align: center;  }
+    .strip-tags-notselected:hover { font-size: 8px;
+                                color:  #efbab8;
+                                text-align: center; }
+
+</style>
+<br>
+<br>
+<div class="ibox-content">
+<table class="table table-hover dataTables-IOI">
+<thead>
+<tr>
+    <th width = "30%" style="text-align: center">Sponsor</th>
+    <th width="10%" style="text-align: center">Declined</th>
+    <th width="10%" style="text-align: center">Negotiating</th>
+    <th width="10%" style="text-align: center">Complete</th>
+    <th>Notes</th>
+</tr>
+</thead>
+<tbody>
+<% @sponsors.each do |sponsor| %>
+  <tr id="row_<%=sponsor.id%>">
+
+
+    <td><a href="/sponsors/<%=sponsor.id%>"><%=sponsor.name%></a></td>
+    <td style="text-align: center">
+        1
+    </td>
+    <td style="text-align: center">
+        2
+    </td>
+    <td style="text-align: center">
+        3
+    </td>
+    <td>...</td>
+</tr>
+<%end%>
+</tbody>
+</table>
+</div>
+
+
+<script type="text/javascript">
+
+$(function() {
+
+    $('.dataTables-IOI').DataTable({
+        pageLength: 100,
+        responsive: true,
+        dom: '<"html5buttons"B>lTfgitp',
+        buttons: [
+            { extend: 'copy'},
+            {extend: 'csv'},
+            {extend: 'excel', title: 'ExampleFile'},
+            {extend: 'pdf', title: 'ExampleFile'},
+
+            {extend: 'print',
+                customize: function (win){
+                    $(win.document.body).addClass('white-bg');
+                    $(win.document.body).css('font-size', '10px');
+
+                    $(win.document.body).find('table')
+                            .addClass('compact')
+                            .css('font-size', 'inherit');
+                }
+            }
+        ]
+
+    });
+
+
+});
+
+</script>
+
+

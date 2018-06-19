@@ -50,6 +50,16 @@
               <%= file_field_tag :file %><br>
               <%= submit_tag "Import", class: "btn btn-warning btn-group-justified"%> 
               <%end %>
+            <%elsif path == "cip_sponsors" %>
+              <%= form_tag import_cip_sponsors_path, multipart: true do %>
+              <%= file_field_tag :file %><br>
+              <%= submit_tag "Import", class: "btn btn-warning btn-group-justified"%> 
+              <%end %>   
+            <%elsif path == "cip_companies" %>
+              <%= form_tag import_cip_companies_path, multipart: true do %>
+              <%= file_field_tag :file %><br>
+              <%= submit_tag "Import", class: "btn btn-warning btn-group-justified"%> 
+              <%end %>
             <% elsif path == "companies" %>
               <%= form_tag import_companies_path, multipart: true do %>
               <%= file_field_tag :file %><br>
@@ -102,6 +112,21 @@
               <%end %>
             <% elsif path == "fund_companies" %>
               <%= form_tag import_fund_companies_path, multipart: true do %>
+              <%= file_field_tag :file %><br>
+              <%= submit_tag "Import", class: "btn btn-warning btn-group-justified"%> 
+              <%end %>
+            <% elsif path == "highlights" %>
+              <%= form_tag import_highlights_path, multipart: true do %>
+              <%= file_field_tag :file %><br>
+              <%= submit_tag "Import", class: "btn btn-warning btn-group-justified"%> 
+              <%end %>
+            <% elsif path == "iois" %>
+              <%= form_tag import_iois_path, multipart: true do %>
+              <%= file_field_tag :file %><br>
+              <%= submit_tag "Import", class: "btn btn-warning btn-group-justified"%> 
+              <%end %>
+            <% elsif path == "ioi_slides" %>
+              <%= form_tag import_ioi_slides_path, multipart: true do %>
               <%= file_field_tag :file %><br>
               <%= submit_tag "Import", class: "btn btn-warning btn-group-justified"%> 
               <%end %>

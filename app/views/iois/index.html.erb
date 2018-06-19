@@ -1,0 +1,39 @@
+<div class="page-header">
+  <h1>
+    IOIs
+    <a href="/iois/new" class="btn btn-lg btn-success"><i class="fa fa-plus"></i></a>
+  </h1>
+</div>
+
+<!-- Responsive, Isotope-based layout example -->
+
+<div class="row">
+  <div class="col-xs-12">
+    <input type="text" id="quicksearch" placeholder="Search IOIs (start typing)" class="form-control">
+  </div>
+</div>
+
+<hr>
+
+<div class="row isotope-container">
+<% @iois.order("ioi_date DESC").each do |ioi| %>
+  <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 isotope-item">
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <h3 class="panel-title"><a href="/iois/<%= ioi.id %>">
+            <%= ioi.name %></a></h3>
+      </div>
+      <% if ioi.ioi_date.nil? | ioi.ioi_date == "" %>      
+      <div class="panel-body">
+        <dl>
+          <dt></dt>
+          <dd><%= ioi.ioi_date %></dd>
+        </dl>
+      </div>
+      <% end %>
+    </div>
+  </div>
+<% end %>
+</div>
+
+<%= render('shared/quick_search_js') %>
