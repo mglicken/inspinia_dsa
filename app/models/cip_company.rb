@@ -13,7 +13,7 @@ belongs_to :ioi
 		end
 	end
 	def self.import(file)
-		allowed_attributes = [ "cip_id", "company_id", "ioi_id"]
+		allowed_attributes = [ "cip_id", "company_id", "ioi_id", "declined"]
 		CSV.foreach(file.path,headers: true) do |row|
 			cip_companies = find_by_id(row["id"]) || new
 			

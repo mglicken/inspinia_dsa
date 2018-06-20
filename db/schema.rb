@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180619132642) do
+ActiveRecord::Schema.define(version: 20180619183634) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -41,6 +41,7 @@ ActiveRecord::Schema.define(version: 20180619132642) do
     t.integer "cip_id"
     t.integer "company_id"
     t.integer "ioi_id"
+    t.boolean "declined"
   end
 
   create_table "cip_slides", force: :cascade do |t|
@@ -52,6 +53,7 @@ ActiveRecord::Schema.define(version: 20180619132642) do
     t.integer "cip_id"
     t.integer "sponsor_id"
     t.integer "ioi_id"
+    t.boolean "declined"
   end
 
   create_table "cips", force: :cascade do |t|

@@ -57,6 +57,7 @@ before_action :ensure_banker_access,  only: [:new, :create, :edit, :update, :des
     @ioi.ioi_date = Date.current
     @ioi.save
     @cip_company.ioi_id = params[:ioi_id]
+    @cip_company.declined = params[:declined]
 
     if @cip_company.save
       redirect_to "/cips/#{@cip_company.cip_id}", :notice => "CIP Company created successfully."
@@ -97,6 +98,7 @@ before_action :ensure_banker_access,  only: [:new, :create, :edit, :update, :des
     @cip_company.cip_id = params[:cip_id]
     @cip_company.company_id = params[:company_id]
     @cip_company.ioi_id = params[:ioi_id]
+    @cip_company.declined = params[:declined]
 
     if @cip_company.save
       redirect_to "/cip_companies/#{@cip_company.id}/", :notice => "CIP Company updated successfully!"
@@ -106,11 +108,39 @@ before_action :ensure_banker_access,  only: [:new, :create, :edit, :update, :des
   end
 
   def update_status
+    @cip_company = CipCompany.find(params[:id])
+    @company = @cip_company.company
+    @cip = @cip_company.cip
+    @status = params[:status].to_i
+    
 
-    respond_to do |format|
-      format.js do
-        render('update.js.erb')
+    if @status == 1
+      if @cip_company.ioi.present?
+        @ioi = @cip_company.ioi
+        @ioi.destroy
+        @cip_company.declined = true
+      else
+        @ioi=nil
+        @cip_company.declined = false
       end
+    else
+      @ioi = Ioi.new
+      @ioi.name = @@company.name + " IOI"
+      @ioi_date = Date.current
+      @ioi.deal_id = @cip.deal_id
+      @ioi.save
+      @cip_company.ioi_id = @ioi.id
+      @cip_company.declined = false
+    end
+
+    if @cip_company.save
+      respond_to do |format|
+        format.js do
+          render('update.js.erb')
+        end
+      end
+    else
+    redirect_to "/cips/<%= @cip.id%>/companies", notice: "Error"
     end
   end
 

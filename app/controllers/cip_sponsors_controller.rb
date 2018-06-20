@@ -106,11 +106,43 @@ before_action :ensure_banker_access,  only: [:new, :create, :edit, :update, :des
   end
 
   def update_status
+    @cip_sponsor = CipSponsor.find(params[:id])
+    @sponsor = @cip_sponsor.sponsor
+    @cip = @cip_sponsor.cip
+    @status = params[:status].to_i
 
-    respond_to do |format|
-      format.js do
-        render('update.js.erb')
+    if @status == 1
+      if @cip_sponsor.ioi.present?
+        @ioi = @cip_sponsor.ioi
+        @ioi.destroy
+        @cip_sponsor.ioi_id = nil
+        @cip_sponsor.declined = true
+      else
+        @ioi=nil
+        if @cip_sponsor.declined == true  
+          @cip_sponsor.declined = false        
+        else
+          @cip_sponsor.declined = true
+        end
       end
+    else
+      @ioi = Ioi.new
+      @ioi.name = @cip.deal.company.name + " / " + @sponsor.name + " IOI"
+      @ioi_date = Date.current
+      @ioi.deal_id = @cip.deal_id
+      @ioi.save
+      @cip_sponsor.ioi_id = @ioi.id
+      @cip_sponsor.declined = false
+    end
+
+    if @cip_sponsor.save
+      respond_to do |format|
+        format.js do
+          render('update.js.erb')
+        end
+      end
+    else
+    redirect_to "/cips/<%= @cip.id%>/sponsors", notice: "Error"
     end
   end
 

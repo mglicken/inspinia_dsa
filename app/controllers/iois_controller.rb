@@ -95,9 +95,10 @@ before_action :ensure_view_access,  only: [:show]
   def destroy
     @ioi = Ioi.find(params[:id])
 
+    @cip =@ioi.deal.cip
     @ioi.destroy
 
-    redirect_to "/iois", :notice => "IOI deleted."
+    redirect_to "/cips/<%= @cip.id %>/sponsors", :notice => "IOI deleted."
   end
 
   def import

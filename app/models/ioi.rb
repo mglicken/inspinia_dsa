@@ -3,6 +3,12 @@ class Ioi < ActiveRecord::Base
 	validates :deal, :presence => true
 
 	belongs_to :deal
+	has_many :ioi_slides, :dependent => :destroy
+	has_many :slides, :through => :ioi_slides, :dependent => :destroy
+	has_many :cip_sponsors, :dependent => :destroy
+	has_many :sponsors, :through => :cip_sponsors
+	has_many :cip_companies, :dependent => :destroy
+	has_many :companies, :through => :cip_companies
 
 	def self.to_csv
 		CSV.generate do |csv|

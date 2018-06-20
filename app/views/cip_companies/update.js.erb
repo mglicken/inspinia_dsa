@@ -1,16 +1,16 @@
 $('#company_<%= @company.id %>_1').removeClass()
-$('#company_<%= @company.id %>_1').addClass("strip-tags-notselected")
 $('#company_<%= @company.id %>_2').removeClass()
-$('#company_<%= @company.id %>_2').addClass("strip-tags-notselected")
-$('#company_<%= @company.id %>_3').removeClass()
-$('#company_<%= @company.id %>_3').addClass("strip-tags-notselected")
-$('#company_<%= @company.id %>_<%= @ioi.status %>').removeClass()
-$('#company_<%= @company.id %>_<%= @ioi.status %>').addClass("strip-tags-selected")
 $('#row_<%= @company.id %>').removeClass()
-<% if @ioi.status == 1 %>
+<% if @status == 1 %>
     $('#row_<%= @company.id %>').addClass('danger')
-<% elsif @ioi.status == 2 %>
-    $('#row_<%= @company.id %>').addClass('warning')
-<% elsif @ioi.status == 3 %>
+	$('#company_<%= @company.id %>_2').addClass("strip-tags-notselected")
+	<% if @cip_company.declined %>
+		$('#company_<%= @company.id %>_1').addClass("strip-tags-selected")		
+	<% else %>
+		$('#company_<%= @company.id %>_1').addClass("strip-tags-notselected")
+	<% end %>
+<% else %>
 	$('#row_<%= @company.id %>').addClass('success')
+	$('#company_<%= @company.id %>_1').addClass("strip-tags-notselected")
+	$('#company_<%= @company.id %>_2').addClass("strip-tags-selected")
 <% end %>

@@ -21,28 +21,44 @@
 <thead>
 <tr>
     <th width = "30%" style="text-align: center">Sponsor</th>
-    <th width="10%" style="text-align: center">Declined</th>
-    <th width="10%" style="text-align: center">Negotiating</th>
-    <th width="10%" style="text-align: center">Complete</th>
+    <th width="8%" style="text-align: center">Declined</th>
+    <th width="8%" style="text-align: center">IOI</th>
     <th>Notes</th>
+    <th width="8%" style="text-align: center"></th>
 </tr>
 </thead>
 <tbody>
 <% @sponsors.each do |sponsor| %>
-  <tr id="row_<%=sponsor.id%>">
-
+    <% if @cip.cip_sponsors.find_by(sponsor_id: sponsor.id).ioi.present? %> 
+        <tr id="row_<%=sponsor.id%>" class="success">
+    <% elsif @cip.cip_sponsors.find_by(sponsor_id: sponsor.id).declined? %> 
+        <tr id="row_<%=sponsor.id%>" class="danger">
+    <% else %>
+        <tr id="row_<%=sponsor.id%>">
+    <% end %>
 
     <td><a href="/sponsors/<%=sponsor.id%>"><%=sponsor.name%></a></td>
     <td style="text-align: center">
-        1
+      <% if @cip.cip_sponsors.find_by(sponsor_id: sponsor.id).declined %>
+        <%= link_to content_tag(:i,nil, class: 'fa fa-times'), "/update_cip_sponsor/#{@cip.cip_sponsors.find_by(sponsor_id: sponsor.id).id}/1", :id => "sponsor_#{sponsor.id}_1", :class => "strip-tags-selected", :remote => true  %>
+      <% else %>
+        <%= link_to content_tag(:i,nil, class: 'fa fa-times'), "/update_cip_sponsor/#{@cip.cip_sponsors.find_by(sponsor_id: sponsor.id).id}/1", :id => "sponsor_#{sponsor.id}_1", :class => "strip-tags-notselected", :remote => true  %>
+      <% end %>
     </td>
     <td style="text-align: center">
-        2
-    </td>
-    <td style="text-align: center">
-        3
+      <% if @cip.cip_sponsors.find_by(sponsor_id: sponsor.id).ioi.present? %>
+        <%= render('shared/delete_ioi_modal', :ioi => @cip.cip_sponsors.find_by(sponsor_id: sponsor.id).ioi) %>
+      <% else %>
+        <%= link_to content_tag(:i,nil, class: 'fa fa-times'), "/update_cip_sponsor/#{@cip.cip_sponsors.find_by(sponsor_id: sponsor.id).id}/2", :id => "sponsor_#{sponsor.id}_2", :class => "strip-tags-notselected", :remote => true  %>
+      <% end %>
     </td>
     <td>...</td>
+    <td>
+        <% if @cip.cip_sponsors.find_by(sponsor_id: sponsor.id).ioi.present? %>
+            <%= render('shared/edit_ioi_modal', :ioi => @cip.cip_sponsors.find_by(sponsor_id: sponsor.id).ioi) %>
+        <% end %>
+        <%= render('shared/delete_cip_sponsor_modal', :cip_sponsor => @cip.cip_sponsors.find_by(sponsor_id: sponsor.id))%>
+    </td>
 </tr>
 <%end%>
 </tbody>
