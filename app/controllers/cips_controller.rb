@@ -62,6 +62,13 @@ before_action :ensure_view_access,  only: [:search, :show]
   def show_sponsors
     @cip = Cip.find(params[:id])
     @cip_sponsors = @cip.cip_sponsors
+    if @cip.cip_sponsors.present?
+      @iois = Ioi.where(id: @cip_sponsors.pluck(:ioi_id))
+      @declined = @cip_sponsors.where(declined: true)
+    else
+      @iois = nil
+      @declined = nil
+    end
     @sponsors = @cip.sponsors.order("name ASC")
     respond_to do |format|
       format.html

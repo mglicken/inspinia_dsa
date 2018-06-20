@@ -20,11 +20,18 @@
 <table class="table table-hover dataTables-IOI">
 <thead>
 <tr>
-    <th width = "30%" style="text-align: center">Sponsor</th>
+    <th width = "25%" style="text-align: center">Sponsor</th>
     <th width="8%" style="text-align: center">Declined</th>
     <th width="8%" style="text-align: center">IOI</th>
     <th>Notes</th>
     <th width="8%" style="text-align: center"></th>
+</tr>
+<tr>
+    <th style="text-align: center">(<%=@sponsors.count%>)</th>
+    <th style="text-align: center">(<%=@declined.count%>)</th>
+    <th style="text-align: center">(<%=@iois.count%>)</th>
+    <th></th>
+    <th></th>
 </tr>
 </thead>
 <tbody>
