@@ -15,6 +15,7 @@
 //= require inspinia.js
 //= require jquery-ujs/src/rails.js
 //= require select2
+//= require typehead/bootstrap3-typeahead.min.js
 //= require pdfjs/pdf.js
 //= require pdfjs/pdf.worker.js
 //= require iCheck/icheck.min.js

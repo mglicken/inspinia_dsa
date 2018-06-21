@@ -59,10 +59,19 @@
         <%= link_to content_tag(:i,nil, class: 'fa fa-times'), "/update_cip_sponsor/#{@cip.cip_sponsors.find_by(sponsor_id: sponsor.id).id}/2", :id => "sponsor_#{sponsor.id}_2", :class => "strip-tags-notselected", :remote => true  %>
       <% end %>
     </td>
-    <td>...</td>
+    <td>
+        <% if CipSponsor.find_by(cip_id: @cip.id, sponsor_id: sponsor.id).ioi.present? %>
+            <% CipSponsor.find_by(cip_id: @cip.id, sponsor_id: sponsor.id).ioi.ioi_highlights.each do |ioi_highlight| %>
+                <strong><%= ioi_highlight.highlight.name %>:</strong> <%= ioi_highlight.detail %><br>
+            <% end %>
+        <% else %>
+            ....
+        <% end %>
+    
+    </td>
     <td>
         <% if @cip.cip_sponsors.find_by(sponsor_id: sponsor.id).ioi.present? %>
-            <%= render('shared/edit_ioi_modal', :ioi => @cip.cip_sponsors.find_by(sponsor_id: sponsor.id).ioi) %>
+            <a class="btn btn-edit btn-xs" href="/iois/<%= @cip.cip_sponsors.find_by(sponsor_id: sponsor.id).ioi_id %>"><i class="fa fa-edit"></i></a>
         <% end %>
         <%= render('shared/delete_cip_sponsor_modal', :cip_sponsor => @cip.cip_sponsors.find_by(sponsor_id: sponsor.id))%>
     </td>

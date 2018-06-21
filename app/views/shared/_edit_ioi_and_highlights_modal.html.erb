@@ -1,0 +1,108 @@
+
+<!-- Button trigger modal -->
+<div class="btn btn-edit btn-xs" data-toggle="modal" data-target="#myModalEditIOI_<%=ioi.id %>">
+  <i class="fa fa-edit"></i>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="myModalEditIOI_<%=ioi.id %>" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="myModalLabel">Edit <%= ioi.deal.name %> IOI Details</h4>
+      </div>
+      <div class="modal-body">
+
+
+
+<% if ioi.errors.any? %>
+  <% ioi.errors.full_messages.each do |message| %>
+    <div class="alert alert-dismissable alert-danger">
+      <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+      <%= message %>
+    </div>
+  <% end %>
+<% end %>
+
+<!-- Responsive panel example -->
+
+<div class="row">
+  <div class="col-lg-12">
+
+        <form action="/update_ioi/<%= ioi.id %>" method="post" class="form-horizontal">
+          <!-- Hidden input for authenticity token to protect from forgery -->
+          <input name="authenticity_token" type="hidden" value="<%= form_authenticity_token %>">
+
+          <!-- Label and input for name -->
+          <div class="form-group">
+            <label for="name" class="col-lg-2 control-label">
+              IOI Document Title
+            </label>
+            <div class="col-lg-10">
+              <input type="string" id="name" name="name" placeholder="e.g., Company Name / Acquirer Name IOI" class="form-control" value="<%= ioi.name %>">
+            </div>
+          </div>
+
+          <!-- Label and input for Deal Name -->
+          <div class="form-group">
+            <label for="name" class="col-lg-2 control-label">
+              Deal
+            </label>
+            <div class="col-lg-10">
+              <%= select_tag :deal_id, options_from_collection_for_select(Deal.all, :id, :name, ioi.deal_id), :class => "form-control" %>
+            </div>
+          </div>
+          <!-- Label and input for IOI Date -->
+          <div class="form-group">
+            <label for="ioi_date" class="col-lg-2 control-label">
+              IOI Date
+            </label>
+            <div class="col-lg-10">
+              <input type="date" id="ioi_date" name="ioi_date" placeholder="e.g., 09/09/2017" class="form-control" value="<%= Date.current %>">
+            </div>
+          </div>
+
+          <input type="hidden" name="image_id" value="<%= ioi.image_id %>">
+
+          <!-- Update each highlight -->
+          <% ioi.ioi_highlights.each do |ioi_highlight| %>
+            <% if %>
+              <div class="form-group">
+                <label for="<%=ioi_highlight.highlight.name%>_detail" class="col-sm-2 control-label">
+                  <%= ioi_highlight.highlight.name%>:
+                </label>
+                <div class="col-sm-10">
+                  <textarea id="ioi_highlight.highlight.name%>_detail" name="ioi_highlight.highlight.name%>_detail" placeholder="e.g., Based on 2019 Adjusted EBITDA..." class="form-control" rows="3"><%= ioi_highlight.detail %></textarea>
+                </div>
+              </div> 
+
+              <input type="hidden" name="ioi_highlight.highlight.name%>_ioi_id" value="<%= ioi.id %> ">
+              <input type="hidden" name="ioi_highlight.highlight.name" value="<%= ioi_highlight.highlight_id %>">
+            <% end %>
+
+          <% end %>
+
+
+          <div class="form-group">
+            <div class="col-lg-offset-2 col-lg-3">
+              <button class="btn btn-warning">
+                Update IOI
+              </button>
+              or
+              <a href="/iois/<%= ioi.id %>">Cancel</a>
+            </div>
+          </div>
+        </form>
+
+  </div>
+</div>
+
+
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>

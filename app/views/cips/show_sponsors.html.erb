@@ -17,7 +17,21 @@
                <dt>Date:</dt>
                <dd><%= @cip.cip_date %></dd>
 
+
+                  <dt>IOI Summary Points:</dt>
             </dl>
+              <form style="font-size:10px; padding-left:30px; padding-right: 30px; text-align:justify-all;">
+                  <% Highlight.order("name ASC").each do |highlight| %>
+                      <% if highlight.id % 3 == 0 %>
+                        <br>
+                      <%end%>
+                      <% if IoiHighlight.where(ioi_id: (CipSponsor.where(cip_id: @cip.id).pluck(:ioi_id) + CipCompany.where(cip_id: @cip.id).pluck(:ioi_id)), highlight_id: highlight.id).present? %>
+                        <input type="checkbox" name="<%= highlight.id%>" id="inlineCheckbox1" checked><label style="margin-left:5px; margin-right: 10px;"><%= highlight.name %></label>
+                      <% else %>
+                        <input type="checkbox" name="<%= highlight.id%>" id="inlineCheckbox1"><label style="margin-left:5px; margin-right: 10px;"><%= highlight.name %></label>
+                      <% end %>
+                  <% end %>
+              </form>
           </div>
         </div>
       </div>
@@ -38,3 +52,15 @@
 
 <%= render('view_sponsors') %>
 <%= render('shared/quick_search_js') %>
+
+<script>
+$("[type=checkbox]").change(function () {
+    if ($(this).is(':checked')) {
+        var highlight_id = $(this).attr('name');
+        window.location.replace("/ioi_highlight_checkbox/" + highlight_id + "/<%=@cip.id%>" + "/2/1");
+    } else {
+        var highlight_id = $(this).name();
+        window.location.replace("/ioi_highlight_checkbox/" + highlight_id + "/<%=@cip.id%>" + "/2/2");
+    }
+});
+</script>

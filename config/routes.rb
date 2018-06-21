@@ -438,6 +438,26 @@ Myapp::Application.routes.draw do
   # DELETE
   get "/delete_ioi/:id", :controller => "iois", :action => "destroy"
 
+  # Routes for the IOI Highlights resource:
+  resources :ioi_highlights do
+    collection {post :import}
+  end
+  # CREATE
+  get "/ioi_highlights/new", :controller => "ioi_highlights", :action => "new"
+  post "/create_ioi_highlight", :controller => "ioi_highlights", :action => "create"
+  get "/ioi_highlight_checkbox/:highlight_id/:cip_id/:type_id/:status", :controller => "ioi_highlights", :action => "checkbox"
+  
+  # READ
+  get "/ioi_highlights", :controller => "ioi_highlights", :action => "index"
+  get "/ioi_highlights/:id", :controller => "ioi_highlights", :action => "show"
+
+  # UPDATE
+  get "/ioi_highlights/:id/edit", :controller => "ioi_highlights", :action => "edit"
+  post "/update_ioi_highlight/:id", :controller => "ioi_highlights", :action => "update"
+
+  # DELETE
+  get "/delete_ioi_highlight/:id", :controller => "ioi_highlights", :action => "destroy"
+  
   # Routes for the IOI Slides resource:
   resources :ioi_slides do
     collection {post :import}

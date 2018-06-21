@@ -5,11 +5,13 @@ class Ioi < ActiveRecord::Base
 	belongs_to :deal
 	has_many :ioi_slides, :dependent => :destroy
 	has_many :slides, :through => :ioi_slides, :dependent => :destroy
-	has_many :cip_sponsors, :dependent => :destroy
-	has_many :sponsors, :through => :cip_sponsors
-	has_many :cip_companies, :dependent => :destroy
-	has_many :companies, :through => :cip_companies
-
+	has_one :cip_sponsor
+	has_one :sponsor, :through => :cip_sponsor
+	has_one :cip_company
+	has_one :company, :through => :cip_company
+	has_many :ioi_highlights, :dependent => :destroy
+	has_many :highlights, :through => :ioi_highlights
+	
 	def self.to_csv
 		CSV.generate do |csv|
 			csv << column_names

@@ -57,7 +57,13 @@ before_action :ensure_view_access,  only: [:show, :search]
       @image_id = @cip.image_id
     else
       @cip = nil
-    end      
+    end
+    if @slide.ioi.present?
+      @ioi = @slide.ioi
+      @image_id = @ioi.image_id
+    else
+      @ioi = nil
+    end
     if @slide.mp.present?
       @mp = @slide.mp
       @image_id = @mp.image_id
@@ -238,7 +244,7 @@ before_action :ensure_view_access,  only: [:show, :search]
       slide.image_url = "http://res.cloudinary.com/mglicken/image/upload/f_jpg,pg_#{ i+1 }/#{ public_id }.pdf"
       slide.save
       
-      nda_slide = ndaSlide.new
+      nda_slide = NdaSlide.new
       nda_slide.nda_id = params[:nda_id]
       nda_slide.slide_id = slide.id
       nda_slide.save
@@ -260,6 +266,38 @@ before_action :ensure_view_access,  only: [:show, :search]
     end
   end
 
+  def create_ioi_slides
+    public_id = Cloudinary::Api.resources(type:"upload")["resources"].first["public_id"]
+    pdf_len = Cloudinary::Api.resource( public_id , pages: true)["pages"].to_i
+
+
+    for i in 0..(pdf_len-1)
+      slide = Slide.new
+      slide.number = i+1
+      slide.image_url = "http://res.cloudinary.com/mglicken/image/upload/f_jpg,pg_#{ i+1 }/#{ public_id }.pdf"
+      slide.save
+      
+      ioi_slide = IoiSlide.new
+      ioi_slide.ioi_id = params[:ioi_id]
+      ioi_slide.slide_id = slide.id
+      ioi_slide.save
+      slide.ppt_address = ioi_slide.ioi.ppt_address
+
+
+      slide_tag = SlideTag.new
+      slide_tag.slide_id = slide.id
+      slide_tag.tag_id = Tag.find_by(name: "IOI")
+      slide_tag.save
+
+    end
+    ioi_slide.ioi.image_id = public_id
+    if slide.save
+      ioi_slide.ioi.save
+      redirect_to "/iois/#{ioi_slide.ioi_id}", :notice => "IOI slides uploaded successfully. Please start tagging slides to aid searches."
+    else
+      render 'new'
+    end
+  end
   def create_teaser_slides
     public_id = Cloudinary::Api.resources(type:"upload")["resources"].first["public_id"]
     pdf_len = Cloudinary::Api.resource( public_id , pages: true)["pages"].to_i

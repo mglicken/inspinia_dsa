@@ -85,6 +85,14 @@ before_action :ensure_view_access,  only: [:show]
       slide.save
     end
 
+    @ioi.name = params[:name]
+    @ioi.deal_id = params[:deal_id]
+    @ioi.ioi_date = params[:ioi_date]
+    @ioi.image_id = params[:image_id]
+
+
+    #Highlight 1
+
     if @ioi.save
       redirect_to "/iois/#{@ioi.id}", :notice => "IOI updated successfully."
     else

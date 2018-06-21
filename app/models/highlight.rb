@@ -1,6 +1,9 @@
 class Highlight < ActiveRecord::Base
 	validates :name, :presence => true, :uniqueness => true
 
+	has_many :ioi_highlights, :dependent => :destroy
+	has_many :iois, :through => :ioi_highlights
+
 	def self.to_csv
 		CSV.generate do |csv|
 			csv << column_names
