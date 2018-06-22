@@ -30,9 +30,9 @@
 <div class="row">
   <div class="col-lg-12">
 
-        <form action="/update_ioi/<%= ioi.id %>" method="post" class="form-horizontal">
+        <form id="ioi_elements" class="form-horizontal">
           <!-- Hidden input for authenticity token to protect from forgery -->
-          <input name="authenticity_token" type="hidden" value="<%= form_authenticity_token %>">
+          <input id="authenticity_token" type="hidden" value="<%= form_authenticity_token %>">
 
           <!-- Label and input for name -->
           <div class="form-group">
@@ -63,30 +63,26 @@
             </div>
           </div>
 
-          <input type="hidden" name="image_id" value="<%= ioi.image_id %>">
+          <input type="hidden" id="image_id" value="<%= ioi.image_id %>">
 
           <!-- Update each highlight -->
-          <% ioi.ioi_highlights.each do |ioi_highlight| %>
-            <% if %>
+          <% ioi.ioi_highlights.order("highlight_id asc").each do |ioi_highlight| %>
               <div class="form-group">
-                <label for="<%=ioi_highlight.highlight.name%>_detail" class="col-sm-2 control-label">
+                <label for="<%=ioi_highlight.id%>" class="col-sm-2 control-label">
                   <%= ioi_highlight.highlight.name%>:
                 </label>
                 <div class="col-sm-10">
-                  <textarea id="ioi_highlight.highlight.name%>_detail" name="ioi_highlight.highlight.name%>_detail" placeholder="e.g., Based on 2019 Adjusted EBITDA..." class="form-control" rows="3"><%= ioi_highlight.detail %></textarea>
+                  <textarea id="<%=ioi_highlight.id%>"  class="form-control" rows="3"><%= ioi_highlight.detail %></textarea>
                 </div>
               </div> 
-
-              <input type="hidden" name="ioi_highlight.highlight.name%>_ioi_id" value="<%= ioi.id %> ">
-              <input type="hidden" name="ioi_highlight.highlight.name" value="<%= ioi_highlight.highlight_id %>">
-            <% end %>
-
           <% end %>
+
+
 
 
           <div class="form-group">
             <div class="col-lg-offset-2 col-lg-3">
-              <button class="btn btn-warning">
+              <button class="btn btn-lincoln">
                 Update IOI
               </button>
               or
@@ -106,3 +102,27 @@
     </div>
   </div>
 </div>
+
+<script>
+$('#ioi_elements').submit(function() {
+    // get all the inputs into an array.
+    var $inputs = $('#ioi_elements :input');
+
+    var ids = [];
+    var details = [];
+    var i =0;
+    $inputs.each(function() {
+        ids[i] = $(this).attr("id");
+        details[i] = $(this).val();
+        i=i+1;
+    });
+
+
+    $.post("/update_ioi_and_highlights/",
+     {'authenticity_token':details[0],
+      'ioi_id':<%=ioi.id%>,
+      'ids[]':ids,
+      'details[]': details
+     });
+});
+</script>

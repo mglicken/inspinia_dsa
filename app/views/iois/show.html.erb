@@ -21,6 +21,11 @@
              <dd> <a href="/companies/<%= @ioi.deal.company.id %>"><%= @ioi.deal.company.name %></a></dd>
              <dt>Date</dt>
              <dd><%= @ioi.ioi_date %></dd>
+             <br>
+             <%@ioi.ioi_highlights.order("highlight_id asc").each do |ioi_highlight|%>
+              <dt><%= ioi_highlight.highlight.name%>:</dt>
+              <dd><%= ioi_highlight.detail%></dd>
+             <%end%>
 
             </dl>
             <div class="btn-group btn-group-justified">

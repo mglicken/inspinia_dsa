@@ -130,6 +130,11 @@
               <%= file_field_tag :file %><br>
               <%= submit_tag "Import", class: "btn btn-warning btn-group-justified"%> 
               <%end %>
+            <% elsif path == "ioi_highlights" %>
+              <%= form_tag import_ioi_highlights_path, multipart: true do %>
+              <%= file_field_tag :file %><br>
+              <%= submit_tag "Import", class: "btn btn-warning btn-group-justified"%> 
+              <%end %>
             <% elsif path == "mps" %>
               <%= form_tag import_mps_path, multipart: true do %>
               <%= file_field_tag :file %><br>

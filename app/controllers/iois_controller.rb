@@ -90,14 +90,38 @@ before_action :ensure_view_access,  only: [:show]
     @ioi.ioi_date = params[:ioi_date]
     @ioi.image_id = params[:image_id]
 
-
-    #Highlight 1
-
     if @ioi.save
       redirect_to "/iois/#{@ioi.id}", :notice => "IOI updated successfully."
     else
       render 'edit'
     end
+  end
+
+  def update_ioi_and_highlights
+
+    ids = params[:ids]
+
+    details = params[:details]
+    @ioi = Ioi.find(params[:ioi_id])
+    @ioi.name = details[1]
+    @ioi.deal_id = details[2].to_i
+    @ioi.ioi_date = details[3]
+    counter = 6
+    ids[5..(ids.count-1)].each do |id|
+
+      ioi_highlight = IoiHighlight.find(id.to_i)
+      ioi_highlight.detail = details[(counter-1)]
+      ioi_highlight.save
+
+      counter = counter + 1
+    end
+
+    if @ioi.save
+      redirect_to "/iois/#{@ioi.id}", :alert => "IOI updated successfully."
+    else
+      redirect_to "/iois/#{@ioi.id}", :alert => "IOI update failed."
+    end
+
   end
 
   def destroy

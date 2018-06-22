@@ -13,7 +13,7 @@ class Highlight < ActiveRecord::Base
 		end
 	end
 	def self.import(file)
-		allowed_attributes = [ "name"]
+		allowed_attributes = ["name"]
 		CSV.foreach(file.path,headers: true) do |row|
 			highlights = find_by_id(row["id"]) || new
 			

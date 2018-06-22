@@ -131,6 +131,15 @@ before_action :ensure_banker_access,  only: [:new, :create, :edit, :update, :des
       @ioi.save
       @cip_company.ioi_id = @ioi.id
       @cip_company.declined = false
+      #Create IoiHighlights for each Highlight associated with other IOIs
+      if IoiHighlight.where(ioi_id: (@cip_company.cip.cip_sponsors.pluck(:ioi_id) + @cip_company.cip.cip_companies.pluck(:ioi_id)).uniq).present?
+        Highlight.where(id: IoiHighlight.where(ioi_id: (@cip_company.cip.cip_sponsors.pluck(:ioi_id) + @cip_company.cip.cip_companies.pluck(:ioi_id)).uniq).pluck(:highlight_id).uniq).each do |highlight|
+          ioi_highlight = IoiHighlight.new
+          ioi_highlight.ioi_id = @ioi.id
+          ioi_highlight.highlight_id = highlight.id
+          ioi_highlight.save
+        end
+      end
     end
 
     if @cip_company.save

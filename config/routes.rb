@@ -434,6 +434,7 @@ Myapp::Application.routes.draw do
   # UPDATE
   get "/iois/:id/edit", :controller => "iois", :action => "edit"
   post "/update_ioi/:id", :controller => "iois", :action => "update"
+  post "/update_ioi_and_highlights/", :controller => "iois", :action => "update_ioi_and_highlights" 
 
   # DELETE
   get "/delete_ioi/:id", :controller => "iois", :action => "destroy"
