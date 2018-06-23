@@ -45,7 +45,8 @@ before_action :ensure_banker_access,  only: [:new, :create, :edit, :update, :des
 
   def create
     @highlight = Highlight.new
-
+    @highlight.ioi_include = params[:ioi_include]
+    @highlight.loi_include = params[:loi_include]
 
     @highlight.name = params[:name]
 
@@ -64,6 +65,8 @@ before_action :ensure_banker_access,  only: [:new, :create, :edit, :update, :des
     @highlight = Highlight.find(params[:id])
 
     @highlight.name = params[:name]
+    @highlight.ioi_include = params[:ioi_include]
+    @highlight.loi_include = params[:loi_include]
 
     if @highlight.save
       redirect_to "/highlights/#{@highlight.id}/", :notice => "Highlight updated successfully!"

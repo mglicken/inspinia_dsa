@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180619183634) do
+ActiveRecord::Schema.define(version: 20180623222659) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -142,7 +142,9 @@ ActiveRecord::Schema.define(version: 20180619183634) do
   end
 
   create_table "highlights", force: :cascade do |t|
-    t.string "name"
+    t.string  "name"
+    t.boolean "ioi_include"
+    t.boolean "loi_include"
   end
 
   create_table "ioi_highlights", force: :cascade do |t|

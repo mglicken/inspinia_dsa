@@ -33,6 +33,33 @@
             </div>
           </div>
 
+          <!-- Label and input for IOI -->
+          <div class="form-group">
+            <label for="ioi_include" class="col-sm-2 control-label">
+              Include for IOIs
+            </label>
+            <div class="col-sm-10">
+              <% if @highlight.ioi_include %>
+                <input type="checkbox" id="ioi_include" name="ioi_include" class="form-control" checked>
+              <% else %>
+                <input type="checkbox" id="ioi_include" name="ioi_include" class="form-control">
+              <% end %>
+            </div>
+          </div>
+
+          <!-- Label and input for LOI -->
+          <div class="form-group">
+            <label for="loi_include" class="col-sm-2 control-label">
+              Include for LOIs
+            </label>
+            <div class="col-sm-10">
+              <% if @highlight.loi_include %>
+                <input type="checkbox" id="loi_include" name="loi_include" class="form-control" checked>
+              <% else %>
+                <input type="checkbox" id="loi_include" name="loi_include" class="form-control">
+              <% end %>
+            </div>
+          </div>
 
           <div class="form-group">
             <div class="col-sm-offset-2 col-sm-10">
