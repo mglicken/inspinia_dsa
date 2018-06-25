@@ -3,7 +3,7 @@
   <div class="col-lg-offset-2 col-lg-7">
     <div class="panel panel-default">
       <div class="panel-heading">
-        <h3 class="panel-title" style="font-size:28px"><%= @cip.name %></h3>
+        <h3 class="panel-title" style="font-size:28px"><%= @mp.name %></h3>
       </div>
       <div class="panel-body">
         <div class="row">
@@ -11,21 +11,21 @@
             <dl class="dl-horizontal" style="font-size:10px">
 
                <dt>Deal:</dt>
-               <dd> <a href="/deals/<%= @cip.deal_id %>"><%= @cip.deal.name %></a></dd>
+               <dd> <a href="/deals/<%= @mp.deal_id %>"><%= @mp.deal.name %></a></dd>
                <dt>Company:</dt>
-               <dd> <a href="/companies/<%= @cip.deal.company.id %>"><%= @cip.deal.company.name %></a></dd>
+               <dd> <a href="/companies/<%= @mp.deal.company.id %>"><%= @mp.deal.company.name %></a></dd>
                <dt>Date:</dt>
-               <dd><%= @cip.cip_date %></dd>
+               <dd><%= @mp.mp_date %></dd>
 
 
-                  <dt>IOI Summary Bullets:</dt>
+                  <dt>LOI Summary Bullets:</dt>
             </dl>
               <form style="font-size:10px; padding-left:30px; padding-right: 30px; text-align:justify-all;">
-                  <% Highlight.where(ioi_include: true).order("id ASC").each do |highlight| %>
+                  <% Highlight.where(loi_include: true).order("id ASC").each do |highlight| %>
                       <% if highlight.id % 3 == 0 %>
                         <br>
                       <%end%>
-                      <% if IoiHighlight.where(ioi_id: (CipSponsor.where(cip_id: @cip.id).pluck(:ioi_id) + CipCompany.where(cip_id: @cip.id).pluck(:ioi_id)), highlight_id: highlight.id).present? %>
+                      <% if LoiHighlight.where(loi_id: (MpSponsor.where(mp_id: @mp.id).pluck(:loi_id) + MpCompany.where(mp_id: @mp.id).pluck(:loi_id)), highlight_id: highlight.id).present? %>
                         <input type="checkbox" name="<%= highlight.id%>" id="inlineCheckbox1" checked><label style="margin-left:5px; margin-right: 10px;"><%= highlight.name %></label>
                       <% else %>
                         <input type="checkbox" name="<%= highlight.id%>" id="inlineCheckbox1"><label style="margin-left:5px; margin-right: 10px;"><%= highlight.name %></label>
@@ -41,13 +41,13 @@
     <div class="col-lg-3">
     <div class="btn-group-vertical">
 
-      <%= render('add_company_autocomplete', cip: @cip) %>
+      <%= render('add_company_autocomplete', mp: @mp) %>
       
     </div>
   </div> 
 </div>
-<a class="btn btn-lincoln" href="/cips/<%= @cip.id %>">View Slides</a>
-<a class="btn btn-lincoln" href="/cips/<%= @cip.id %>/sponsors">View Financial Acquirers</a>
+<a class="btn btn-lincoln" href="/mps/<%= @mp.id %>">View Slides</a>
+<a class="btn btn-lincoln" href="/mps/<%= @mp.id %>/sponsors">View Financial Acquirers</a>
 
 
 <%= render('view_companies') %>
@@ -57,10 +57,10 @@
 $("[type=checkbox]").change(function () {
     if ($(this).is(':checked')) {
         var highlight_id = $(this).attr('name');
-        window.location.replace("/ioi_highlight_checkbox/" + highlight_id + "/<%=@cip.id%>" + "/2/1");
+        window.location.replace("/loi_highlight_checkbox/" + highlight_id + "/<%=@mp.id%>" + "/2/1");
     } else {
         var highlight_id = $(this).name();
-        window.location.replace("/ioi_highlight_checkbox/" + highlight_id + "/<%=@cip.id%>" + "/2/2");
+        window.location.replace("/loi_highlight_checkbox/" + highlight_id + "/<%=@mp.id%>" + "/2/2");
     }
 });
 </script>

@@ -18,7 +18,7 @@
                <dd><%= @cip.cip_date %></dd>
 
 
-                  <dt>IOI Summary Points:</dt>
+                  <dt>IOI Summary Bullets:</dt>
             </dl>
               <form style="font-size:10px; padding-left:30px; padding-right: 30px; text-align:justify-all;">
                   <% Highlight.where(ioi_include: true).order("id ASC").each do |highlight| %>

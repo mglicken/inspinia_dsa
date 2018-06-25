@@ -160,6 +160,16 @@
               <%= file_field_tag :file %><br>
               <%= submit_tag "Import", class: "btn btn-warning btn-group-justified"%> 
               <%end %>
+            <%elsif path == "mp_sponsors" %>
+              <%= form_tag import_mp_sponsors_path, multipart: true do %>
+              <%= file_field_tag :file %><br>
+              <%= submit_tag "Import", class: "btn btn-warning btn-group-justified"%> 
+              <%end %>   
+            <%elsif path == "mp_companies" %>
+              <%= form_tag import_mp_companies_path, multipart: true do %>
+              <%= file_field_tag :file %><br>
+              <%= submit_tag "Import", class: "btn btn-warning btn-group-justified"%> 
+              <%end %>
             <% elsif path == "nbps" %>
               <%= form_tag import_nbps_path, multipart: true do %>
               <%= file_field_tag :file %><br>

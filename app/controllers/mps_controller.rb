@@ -1,6 +1,8 @@
 class MpsController < ApplicationController
 
-before_action :ensure_banker_access
+before_action :ensure_view_access,  only: [:index]
+before_action :ensure_banker_access,  only: [:new, :create, :copy_layout, :edit, :update, :destroy, :import]
+before_action :ensure_view_access,  only: [:search, :show]
 
   def ensure_admin_access
     if current_user.access_id.present?
@@ -57,6 +59,36 @@ before_action :ensure_banker_access
     @url = "/create_mp_slide/#{params[:id]}"
   end
 
+  def show_sponsors
+    @mp = Mp.find(params[:id])
+    @mp_sponsors = @mp.mp_sponsors
+    @lois = Loi.where(id: @mp_sponsors.pluck(:loi_id))
+    @declined = @mp_sponsors.where(declined: true)
+
+    @sponsors = @mp.sponsors.order("name ASC")
+    respond_to do |format|
+      format.html
+      format.xlsx {
+        response.headers['Content-Disposition'] = 'attachment; filename="Financial_Acquirers_List.xlsx"'
+        }
+    end
+  end
+  
+  def show_companies
+    @mp = Mp.find(params[:id])
+    @mp_companies = @mp.mp_companies
+    @lois = Loi.where(id: @mp_companies.pluck(:loi_id))
+    @declined = @mp_companies.where(declined: true)
+
+    @companies = @mp.companies.order("name ASC")
+    respond_to do |format|
+      format.html
+      format.xlsx {
+        response.headers['Content-Disposition'] = 'attachment; filename="Strategic_Acquirers_List.xlsx"'
+        }
+    end
+  end
+
   def new
     @mp = Mp.new
   end
@@ -64,25 +96,21 @@ before_action :ensure_banker_access
   def create
     @mp = Mp.new
 
-
     @mp.deal_id = params[:deal_id]
     @mp.mp_date = params[:mp_date]
     @mp.image_id = params[:image_id]
     @mp.name = params[:name]
 
+
     if @mp.save
-      redirect_to "/mps/#{@mp.id}", :notice => "MP created successfully."
+      redirect_to "/mps", :notice => "MP created successfully."
     else
       render 'new'
     end
   end
 
-  def edit
-    @mp = Mp.find(params[:id])
-  end
-
   def copy_layout
-    @mp = Mp.find(params[:mp_id])
+    @mp = mp.find(params[:mp_id])
     @slide_layout = SlideLayout.new
 
     @slide_layout.name = @mp.name
@@ -103,6 +131,10 @@ before_action :ensure_banker_access
     end
   end
 
+  def edit
+    @mp = Mp.find(params[:id])
+  end
+
   def update
     @mp = Mp.find(params[:id])
 
@@ -110,7 +142,6 @@ before_action :ensure_banker_access
     @mp.mp_date = params[:mp_date]
     @mp.image_id = params[:image_id]
     @mp.name = params[:name]
-
     @mp.ppt_address = params[:ppt_address]
 
     @mp.slides.each do |slide|

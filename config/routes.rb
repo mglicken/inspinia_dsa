@@ -733,6 +733,8 @@ Myapp::Application.routes.draw do
   get "/mps", :controller => "mps", :action => "index"
   get "/mps/:id", :controller => "mps", :action => "show"
   get "/mp_search/:search", :controller => "mps", :action => "search"
+  get "/mps/:id/sponsors", :controller => "mps", :action => "show_sponsors"
+  get "/mps/:id/companies", :controller => "mps", :action => "show_companies"
 
   # UPDATE
   get "/mps/:id/edit", :controller => "mps", :action => "edit"
@@ -760,6 +762,46 @@ Myapp::Application.routes.draw do
   # DELETE
   get "/delete_mp_slide/:id", :controller => "mp_slides", :action => "destroy"
 
+# Routes for the MP Sponsors resource:
+  resources :mp_sponsors do
+    collection {post :import}
+  end  
+  # CREATE
+  get "/mp_sponsors/new", :controller => "mp_sponsors", :action => "new"
+  post "/create_mp_sponsor", :controller => "mp_sponsors", :action => "create"
+  post "/create_mp_sponsor/:mp_id/", :controller => "mp_sponsors", :action => "create_by_name"
+  
+  # READ
+  get "/mp_sponsors", :controller => "mp_sponsors", :action => "index"
+  get "/mp_sponsors/:id", :controller => "mp_sponsors", :action => "show"
+
+  # UPDATE
+  get "/mp_sponsors/:id/edit", :controller => "mp_sponsors", :action => "edit"
+  post "/update_mp_sponsor/:id", :controller => "mp_sponsors", :action => "update"
+  get "/update_mp_sponsor/:id/:status", :controller => "mp_sponsors", :action => "update_status"
+
+  # DELETE
+  get "/delete_mp_sponsor/:id", :controller => "mp_sponsors", :action => "destroy"
+
+  # Routes for the MP Companies resource:
+  resources :mp_companies do
+    collection {post :import}
+  end  
+  # CREATE
+  get "/mp_companies/new", :controller => "mp_companies", :action => "new"
+  post "/create_mp_company", :controller => "mp_companies", :action => "create"
+  post "/create_mp_company/:mp_id/", :controller => "mp_companies", :action => "create_by_name"  
+  # READ
+  get "/mp_companies", :controller => "mp_companies", :action => "index"
+  get "/mp_companies/:id", :controller => "mp_companies", :action => "show"
+
+  # UPDATE
+  get "/mp_companies/:id/edit", :controller => "mp_companies", :action => "edit"
+  post "/update_mp_company/:id", :controller => "mp_companies", :action => "update"
+  get "/update_mp_company/:id/:status", :controller => "mp_companies", :action => "update_status"
+ 
+  # DELETE
+  get "/delete_mp_company/:id", :controller => "mp_companies", :action => "destroy"
 
   # Routes for the Note resource:
   resources :notes do

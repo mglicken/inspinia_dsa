@@ -1,0 +1,16 @@
+$('#company_<%= @company.id %>_1').removeClass()
+$('#company_<%= @company.id %>_2').removeClass()
+$('#row_<%= @company.id %>').removeClass()
+<% if @status == 1 %>
+    $('#row_<%= @company.id %>').addClass('danger')
+	$('#company_<%= @company.id %>_2').addClass("strip-tags-notselected")
+	<% if @mp_company.declined %>
+		$('#company_<%= @company.id %>_1').addClass("strip-tags-selected")		
+	<% else %>
+		$('#company_<%= @company.id %>_1').addClass("strip-tags-notselected")
+	<% end %>
+<% else %>
+	$('#row_<%= @company.id %>').addClass('success')
+	$('#company_<%= @company.id %>_1').addClass("strip-tags-notselected")
+	$('#company_<%= @company.id %>_2').addClass("strip-tags-selected")
+<% end %>

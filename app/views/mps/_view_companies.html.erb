@@ -1,0 +1,117 @@
+  <style>
+    .strip-tags-selected { color: black;
+                            font-size: 11px;
+                            text-align: center;  }
+    .strip-tags-selected:hover { font-size: 11px;
+                                color:  #999999;
+                                text-align: center; }
+
+    .strip-tags-notselected { color: red;
+                            font-size: 8px;
+                            text-align: center;  }
+    .strip-tags-notselected:hover { font-size: 8px;
+                                color:  #efbab8;
+                                text-align: center; }
+
+</style>
+<br>
+<br>
+<div class="ibox-content">
+<table class="table table-hover dataTables-LOI">
+<thead>
+<tr>
+    <th width = "25%" style="text-align: center">Strategic</th>
+    <th width="8%" style="text-align: center">Declined</th>
+    <th width="8%" style="text-align: center">LOI</th>
+    <th>Notes</th>
+    <th width="8%" style="text-align: center"></th>
+</tr>
+<tr>
+    <th style="text-align: center">(<%=@companies.count%>)</th>
+    <th style="text-align: center">(<%=@declined.count%>)</th>
+    <th style="text-align: center">(<%=@lois.count%>)</th>
+    <th></th>
+    <th></th>
+</tr>
+</thead>
+<tbody>
+<% @companies.each do |company| %>
+    <% if @mp.mp_companies.find_by(company_id: company.id).loi.present? %> 
+        <tr id="row_<%=company.id%>" class="success">
+    <% elsif @mp.mp_companies.find_by(company_id: company.id).declined? %> 
+        <tr id="row_<%=company.id%>" class="danger">
+    <% else %>
+        <tr id="row_<%=company.id%>">
+    <% end %>
+
+    <td><a href="/companies/<%=company.id%>"><%=company.name%></a></td>
+    <td style="text-align: center">
+      <% if @mp.mp_companies.find_by(company_id: company.id).declined %>
+        <%= link_to content_tag(:i,nil, class: 'fa fa-times'), "/update_mp_company/#{@mp.mp_companies.find_by(company_id: company.id).id}/1", :id => "company_#{company.id}_1", :class => "strip-tags-selected", :remote => true  %>
+      <% else %>
+        <%= link_to content_tag(:i,nil, class: 'fa fa-times'), "/update_mp_company/#{@mp.mp_companies.find_by(company_id: company.id).id}/1", :id => "company_#{company.id}_1", :class => "strip-tags-notselected", :remote => true  %>
+      <% end %>
+    </td>
+    <td style="text-align: center">
+      <% if @mp.mp_companies.find_by(company_id: company.id).loi.present? %>
+        <%= render('shared/delete_loi_modal', :loi => @mp.mp_companies.find_by(company_id: company.id).loi) %>
+      <% else %>
+        <%= link_to content_tag(:i,nil, class: 'fa fa-times'), "/update_mp_company/#{@mp.mp_companies.find_by(company_id: company.id).id}/2", :id => "company_#{company.id}_2", :class => "strip-tags-notselected", :remote => true  %>
+      <% end %>
+    </td>
+    <td>
+        <% if MpCompany.find_by(mp_id: @mp.id, company_id: company.id).loi.present? %>
+            <% MpCompany.find_by(mp_id: @mp.id, company_id: company.id).loi.loi_highlights.each do |loi_highlight| %>
+                <strong><%= loi_highlight.highlight.name %>:</strong> <%= loi_highlight.detail %><br>
+            <% end %>
+        <% else %>
+            ....
+        <% end %>
+    
+    </td>
+    <td>
+        <% if @mp.mp_companies.find_by(company_id: company.id).loi.present? %>
+            <a class="btn btn-edit btn-xs" href="/lois/<%= @mp.mp_companies.find_by(company_id: company.id).loi_id %>"><i class="fa fa-edit"></i></a>
+        <% end %>
+        <%= render('shared/delete_mp_company_modal', :mp_company => @mp.mp_companies.find_by(company_id: company.id))%>
+    </td>
+</tr>
+<%end%>
+</tbody>
+</table>
+</div>
+
+<script type="text/javascript">
+
+$(function() {
+
+    $('.dataTables-LOI').DataTable({
+        pageLength: 100,
+        responsive: true,
+        dom: '<"html5buttons"B>lTfgitp',
+        buttons: [
+            { extend: 'copy'},
+            {extend: 'csv'},
+            {extend: 'excel', title: 'ExampleFile'},
+            {extend: 'pdf', title: 'ExampleFile'},
+
+            {extend: 'print',
+                customize: function (win){
+                    $(win.document.body).addClass('white-bg');
+                    $(win.document.body).css('font-size', '10px');
+
+                    $(win.document.body).find('table')
+                            .addClass('compact')
+                            .css('font-size', 'inherit');
+                }
+            }
+        ]
+
+    });
+
+
+});
+
+</script>
+
+

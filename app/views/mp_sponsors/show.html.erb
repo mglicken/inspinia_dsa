@@ -1,0 +1,40 @@
+<!-- Responsive panel example-->
+
+<div class="row">
+  <div class="col-sm-offset-1 col-sm-10 col-md-offset-2 col-md-8">
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <h3 class="panel-title"> MP Sponsor # <%= @mp_sponsor.id %></h3>
+      </div>
+      <div class="panel-body">
+        <div class="row">
+          <div class="col-md-12">
+            <dl>
+
+              <dt> MP ID</dt>
+              <dd><%= @mp_sponsor.mp_id %></dd>  
+              <dt> Sponsor ID</dt>
+              <dd><%= @mp_sponsor.sponsor_id %></dd>
+              <dt> LOI ID</dt>
+              <dd><%= @mp_sponsor.loi_id %></dd>
+
+            </dl>
+            <div class="btn-group btn-group-justified">
+              <a href="/seasers/<%= @mp_sponsor.mp_id %>" class="btn btn-primary">
+                <i class="fa fa-reply"></i>
+              </a>
+
+              <a href="/mp_sponsors/<%= @mp_sponsor.id %>/edit" class="btn btn-warning">
+                <i class="fa fa-edit"></i>
+              </a>
+
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- End responsive panel example -->
