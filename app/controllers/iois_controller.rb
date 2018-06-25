@@ -60,6 +60,8 @@ before_action :ensure_view_access,  only: [:show]
     @ioi.deal_id = params[:deal_id]
     @ioi.ioi_date = params[:ioi_date]
     @ioi.image_id = params[:image_id]
+    @ioi.low_purchase_price = params[:low_purchase_price]
+    @ioi.high_purchase_price = params[:high_purchase_price]
 
     if @ioi.save
       redirect_to "/iois/#{@ioi.id}", :notice => "IOI created successfully."
@@ -79,16 +81,13 @@ before_action :ensure_view_access,  only: [:show]
     @ioi.deal_id = params[:deal_id]
     @ioi.ioi_date = params[:ioi_date]
     @ioi.image_id = params[:image_id]
+    @ioi.low_purchase_price = params[:low_purchase_price]
+    @ioi.high_purchase_price = params[:high_purchase_price]
     
     @ioi.slides.each do |slide|
       slide.ppt_address = @ioi.ppt_address
       slide.save
     end
-
-    @ioi.name = params[:name]
-    @ioi.deal_id = params[:deal_id]
-    @ioi.ioi_date = params[:ioi_date]
-    @ioi.image_id = params[:image_id]
 
     if @ioi.save
       redirect_to "/iois/#{@ioi.id}", :notice => "IOI updated successfully."

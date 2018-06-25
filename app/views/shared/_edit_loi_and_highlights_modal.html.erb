@@ -1,23 +1,23 @@
 
 <!-- Button trigger modal -->
-<div class="btn btn-edit btn-xs" data-toggle="modal" data-target="#myModalEditIOI_<%=ioi.id %>">
+<div class="btn btn-edit btn-xs" data-toggle="modal" data-target="#myModalEditLOI_<%=loi.id %>">
   <i class="fa fa-edit"></i>
 </div>
 
 <!-- Modal -->
-<div class="modal fade" id="myModalEditIOI_<%=ioi.id %>" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+<div class="modal fade" id="myModalEditLOI_<%=loi.id %>" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        <h4 class="modal-title" id="myModalLabel">Edit <%= ioi.deal.name %> IOI Details</h4>
+        <h4 class="modal-title" id="myModalLabel">Edit <%= loi.deal.name %> LOI Details</h4>
       </div>
       <div class="modal-body">
 
 
 
-<% if ioi.errors.any? %>
-  <% ioi.errors.full_messages.each do |message| %>
+<% if loi.errors.any? %>
+  <% loi.errors.full_messages.each do |message| %>
     <div class="alert alert-dismissable alert-danger">
       <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
       <%= message %>
@@ -30,17 +30,17 @@
 <div class="row">
   <div class="col-lg-12">
 
-        <form id="ioi_elements" class="form-horizontal">
+        <form id="loi_elements" class="form-horizontal">
           <!-- Hidden input for authenticity token to protect from forgery -->
           <input id="authenticity_token" type="hidden" value="<%= form_authenticity_token %>">
 
           <!-- Label and input for name -->
           <div class="form-group">
             <label for="name" class="col-lg-2 control-label">
-              IOI Document Title
+              LOI Document Title
             </label>
             <div class="col-lg-10">
-              <input type="string" id="name" name="name" placeholder="e.g., Company Name / Acquirer Name IOI" class="form-control" value="<%= ioi.name %>">
+              <input type="string" id="name" name="name" placeholder="e.g., Company Name / Acquirer Name loi" class="form-control" value="<%= loi.name %>">
             </div>
           </div>
 
@@ -50,20 +50,32 @@
               Deal
             </label>
             <div class="col-lg-10">
-              <%= select_tag :deal_id, options_from_collection_for_select(Deal.all, :id, :name, ioi.deal_id), :class => "form-control" %>
+              <%= select_tag :deal_id, options_from_collection_for_select(Deal.all, :id, :name, loi.deal_id), :class => "form-control" %>
             </div>
           </div>
-          <!-- Label and input for IOI Date -->
+          <!-- Label and input for LOI Date -->
           <div class="form-group">
-            <label for="ioi_date" class="col-lg-2 control-label">
-              IOI Date
+            <label for="loi_date" class="col-lg-2 control-label">
+              LOI Date
             </label>
             <div class="col-lg-10">
-              <input type="date" id="ioi_date" name="ioi_date" placeholder="e.g., 09/09/2017" class="form-control" value="<%= Date.current %>">
+              <input type="date" id="loi_date" name="loi_date" placeholder="e.g., 09/09/2017" class="form-control" value="<%= Date.current %>">
             </div>
           </div>
 
-          <input type="hidden" id="image_id" value="<%= ioi.image_id %>">
+          <input type="hidden" id="image_id" value="<%= loi.image_id %>">
+
+          <!-- Update each highlight -->
+          <% loi.loi_highlights.order("highlight_id asc").each do |loi_highlight| %>
+              <div class="form-group">
+                <label for="<%=loi_highlight.id%>" class="col-sm-2 control-label">
+                  <%= loi_highlight.highlight.name%>:
+                </label>
+                <div class="col-sm-10">
+                  <textarea id="<%=loi_highlight.id%>"  class="form-control" rows="3"><%= loi_highlight.detail %></textarea>
+                </div>
+              </div> 
+          <% end %>
 
           <!-- Label and input for Low Purchase Price ($ millions) -->
           <div class="form-group">
@@ -71,7 +83,7 @@
               Low Purchase Price ($ millions)
             </label>
             <div class="col-sm-10">
-              <input type="string" id="low_purchase_price" name="low_purchase_price" placeholder="10.1" class="form-control" value="<%= ioi.low_purchase_price %>">
+              <input type="string" id="low_purchase_price" name="low_purchase_price" placeholder="10.1" class="form-control" value="<%= loi.low_purchase_price %>">
             </div>
           </div>
           <!-- Label and input for High Purchase Price ($ millions) -->
@@ -80,32 +92,19 @@
               High Purchase Price ($ millions)
             </label>
             <div class="col-sm-10">
-              <input type="string" id="high_purchase_price" name="high_purchase_price" placeholder="10.1" class="form-control" value="<%= ioi.high_purchase_price %>">
+              <input type="string" id="high_purchase_price" name="high_purchase_price" placeholder="10.1" class="form-control" value="<%= loi.high_purchase_price %>">
             </div>
           </div>
-
-          <!-- Update each highlight -->
-          <% ioi.ioi_highlights.order("highlight_id asc").each do |ioi_highlight| %>
-              <div class="form-group">
-                <label for="<%=ioi_highlight.id%>" class="col-sm-2 control-label">
-                  <%= ioi_highlight.highlight.name%>:
-                </label>
-                <div class="col-sm-10">
-                  <textarea id="<%=ioi_highlight.id%>"  class="form-control" rows="3"><%= ioi_highlight.detail %></textarea>
-                </div>
-              </div> 
-          <% end %>
-
 
 
 
           <div class="form-group">
             <div class="col-lg-offset-2 col-lg-3">
               <button class="btn btn-lincoln">
-                Update IOI
+                Update LOI
               </button>
               or
-              <a href="/iois/<%= ioi.id %>">Cancel</a>
+              <a href="/lois/<%= loi.id %>">Cancel</a>
             </div>
           </div>
         </form>
@@ -123,9 +122,9 @@
 </div>
 
 <script>
-$('#ioi_elements').submit(function() {
+$('#loi_elements').submit(function() {
     // get all the inputs into an array.
-    var $inputs = $('#ioi_elements :input');
+    var $inputs = $('#loi_elements :input');
 
     var ids = [];
     var details = [];
@@ -137,9 +136,9 @@ $('#ioi_elements').submit(function() {
     });
 
 
-    $.post("/update_ioi_and_highlights/",
+    $.post("/update_loi_and_highlights/",
      {'authenticity_token':details[0],
-      'ioi_id':<%=ioi.id%>,
+      'loi_id':<%=loi.id%>,
       'ids[]':ids,
       'details[]': details
      });

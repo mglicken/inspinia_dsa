@@ -1,7 +1,7 @@
 <!-- Validation failure messages -->
 
-<% if @ioi.errors.any? %>
-  <% @ioi.errors.full_messages.each do |message| %>
+<% if @loi.errors.any? %>
+  <% @loi.errors.full_messages.each do |message| %>
     <div class="alert alert-dismissable alert-danger">
       <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
       <%= message %>
@@ -14,22 +14,21 @@
 <div class="row">
   <div class="col-sm-offset-1 col-sm-10 col-md-offset-2 col-md-8">
     <div class="panel panel-default">
-  
       <div class="panel-heading">
-        <h3 class="panel-title">Edit <%= @ioi.deal.name %> IOI</h3>
+        <h3 class="panel-title">Add LOI</h3>
       </div>
       <div class="panel-body">
-        <form action="/update_ioi/<%= @ioi.id %>" method="post" class="form-horizontal">
+        <form action="/create_loi" method="post" class="form-horizontal">
           <!-- Hidden input for authenticity token to protect from forgery -->
           <input name="authenticity_token" type="hidden" value="<%= form_authenticity_token %>">
 
-          <!-- Label and input for name -->
+         <!-- Label and input for name -->
           <div class="form-group">
             <h5><label for="name" class="col-sm-2 control-label">
-              IOI Document Title
+              LOI Dcoument Title
             </label></h5>
             <div class="col-sm-10">
-              <input type="string" id="name" name="name" placeholder="e.g., Company Name / Acquirer Name IOI" class="form-control" value="<%= @ioi.name %>">
+              <input type="string" id="name" name="name" placeholder="e.g., Company Name / Acquirer Name loi" class="form-control" value="<%= @loi.name %>">
             </div>
           </div>
 
@@ -39,16 +38,16 @@
               Deal
             </label>
             <div class="col-sm-10">
-              <%= select_tag :deal_id, options_from_collection_for_select(Deal.all, :id, :name, @ioi.deal_id), :class => "form-control" %>
+              <%= select_tag :deal_id, options_from_collection_for_select(Deal.all, :id, :name, @loi.deal_id), :class => "form-control" %>
             </div>
           </div>
-          <!-- Label and input for IOI Date -->
+          <!-- Label and input for LOI Date -->
           <div class="form-group">
-            <label for="ioi_date" class="col-sm-2 control-label">
-              IOI Date
+            <label for="loi_date" class="col-sm-2 control-label">
+              LOI Date
             </label>
             <div class="col-sm-10">
-              <input type="date" id="ioi_date" name="ioi_date" placeholder="e.g., 09/09/2017" class="form-control" value="<%= @ioi.ioi_date %>">
+              <input type="date" id="loi_date" name="loi_date" placeholder="e.g., 09/09/2017" class="form-control" value="<%= @loi.loi_date %>">
             </div>
           </div>
           <!-- Label and input for Image ID -->
@@ -57,7 +56,7 @@
               Image ID
             </label>
             <div class="col-sm-10">
-              <input type="string" id="image_id" name="image_id" placeholder="alkdjsagflj231564651658134e8" class="form-control" value="<%= @ioi.image_id %>">
+              <input type="string" id="image_id" name="image_id" placeholder="alkdjsagflj231564651658134e8" class="form-control" value="<%= @loi.image_id %>">
             </div>
           </div>
           <!-- Label and input for Low Purchase Price ($ millions) -->
@@ -66,7 +65,7 @@
               Low Purchase Price ($ millions)
             </label>
             <div class="col-sm-10">
-              <input type="string" id="low_purchase_price" name="low_purchase_price" placeholder="10.1" class="form-control" value="<%= @ioi.low_purchase_price %>">
+              <input type="string" id="low_purchase_price" name="low_purchase_price" placeholder="10.1" class="form-control" value="<%= @loi.low_purchase_price %>">
             </div>
           </div>
           <!-- Label and input for High Purchase Price ($ millions) -->
@@ -75,17 +74,17 @@
               High Purchase Price ($ millions)
             </label>
             <div class="col-sm-10">
-              <input type="string" id="high_purchase_price" name="high_purchase_price" placeholder="10.1" class="form-control" value="<%= @ioi.high_purchase_price %>">
+              <input type="string" id="high_purchase_price" name="high_purchase_price" placeholder="10.1" class="form-control" value="<%= @loi.high_purchase_price %>">
             </div>
           </div>
 
           <div class="form-group">
             <div class="col-sm-offset-2 col-sm-10">
-              <button class="btn btn-warning">
-                Update IOI
+              <button class="btn btn-success">
+                Create LOI
               </button>
               or
-              <a href="/iois/<%= @ioi.id %>">Cancel</a>
+              <a href="/lois">Cancel</a>
             </div>
           </div>
         </form>
@@ -93,6 +92,5 @@
     </div>
   </div>
 </div>
-
 
 <!-- End responsive panel example -->

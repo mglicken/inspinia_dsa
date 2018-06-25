@@ -21,7 +21,7 @@ class Ioi < ActiveRecord::Base
 		end
 	end
 	def self.import(file)
-		allowed_attributes = [ "name", "deal_id", "ioi_date","image_id"]
+		allowed_attributes = [ "name", "deal_id", "ioi_date","image_id","low_purchase_price","high_purchase_price"]
 		CSV.foreach(file.path,headers: true) do |row|
 			iois = find_by_id(row["id"]) || new
 			

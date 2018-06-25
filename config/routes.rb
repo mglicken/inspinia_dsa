@@ -477,6 +477,64 @@ Myapp::Application.routes.draw do
   # DELETE
   get "/delete_ioi_slide/:id", :controller => "ioi_slides", :action => "destroy"
 
+  # Routes for the LOIs resource:
+  resources :lois do
+    collection {post :import}
+  end  
+  # CREATE
+  get "/lois/new", :controller => "lois", :action => "new"
+  post "/create_loi", :controller => "lois", :action => "create"
+
+  # READ
+  get "/lois", :controller => "lois", :action => "index"
+  get "/lois/:id", :controller => "lois", :action => "show"
+
+  # UPDATE
+  get "/lois/:id/edit", :controller => "lois", :action => "edit"
+  post "/update_loi/:id", :controller => "lois", :action => "update"
+  post "/update_loi_and_highlights/", :controller => "lois", :action => "update_loi_and_highlights" 
+
+  # DELETE
+  get "/delete_loi/:id", :controller => "lois", :action => "destroy"
+
+  # Routes for the LOI Highlights resource:
+  resources :loi_highlights do
+    collection {post :import}
+  end
+  # CREATE
+  get "/loi_highlights/new", :controller => "loi_highlights", :action => "new"
+  post "/create_loi_highlight", :controller => "loi_highlights", :action => "create"
+  get "/loi_highlight_checkbox/:highlight_id/:cip_id/:type_id/:status", :controller => "loi_highlights", :action => "checkbox"
+  
+  # READ
+  get "/loi_highlights", :controller => "loi_highlights", :action => "index"
+  get "/loi_highlights/:id", :controller => "loi_highlights", :action => "show"
+
+  # UPDATE
+  get "/loi_highlights/:id/edit", :controller => "loi_highlights", :action => "edit"
+  post "/update_loi_highlight/:id", :controller => "loi_highlights", :action => "update"
+
+  # DELETE
+  get "/delete_loi_highlight/:id", :controller => "loi_highlights", :action => "destroy"
+  
+  # Routes for the LOI Slides resource:
+  resources :loi_slides do
+    collection {post :import}
+  end
+  # CREATE
+  get "/loi_slides/new", :controller => "loi_slides", :action => "new"
+  post "/create_loi_slide", :controller => "loi_slides", :action => "create"
+  # READ
+  get "/loi_slides", :controller => "loi_slides", :action => "index"
+  get "/loi_slides/:id", :controller => "loi_slides", :action => "show"
+
+  # UPDATE
+  get "/loi_slides/:id/edit", :controller => "loi_slides", :action => "edit"
+  post "/update_loi_slide/:id", :controller => "loi_slides", :action => "update"
+
+  # DELETE
+  get "/delete_loi_slide/:id", :controller => "loi_slides", :action => "destroy"
+
   # Routes for the NBP resource:
   resources :nbps do
     collection {
