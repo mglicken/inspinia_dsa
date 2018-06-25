@@ -112,20 +112,24 @@ before_action :ensure_banker_access,  only: [:new, :create, :edit, :update, :des
     @company = @cip_company.company
     @cip = @cip_company.cip
     @status = params[:status].to_i
-    
 
     if @status == 1
       if @cip_company.ioi.present?
         @ioi = @cip_company.ioi
         @ioi.destroy
+        @cip_company.ioi_id = nil
         @cip_company.declined = true
       else
         @ioi=nil
-        @cip_company.declined = false
+        if @cip_company.declined == true  
+          @cip_company.declined = false        
+        else
+          @cip_company.declined = true
+        end
       end
     else
       @ioi = Ioi.new
-      @ioi.name = @@company.name + " IOI"
+      @ioi.name = @cip.deal.company.name + " / " + @company.name + " IOI"
       @ioi_date = Date.current
       @ioi.deal_id = @cip.deal_id
       @ioi.save

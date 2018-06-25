@@ -14,45 +14,74 @@
                                 text-align: center; }
 
 </style>
-
+<br>
 <br>
 <div class="ibox-content">
 <table class="table table-hover dataTables-IOI">
 <thead>
 <tr>
-    <th width = "30%" style="text-align: center">Company</th>
-    <th width="10%" style="text-align: center">Declined</th>
-    <th width="10%" style="text-align: center">Negotiating</th>
-    <th width="10%" style="text-align: center">Complete</th>
+    <th width = "25%" style="text-align: center">Strategic</th>
+    <th width="8%" style="text-align: center">Declined</th>
+    <th width="8%" style="text-align: center">IOI</th>
     <th>Notes</th>
+    <th width="8%" style="text-align: center"></th>
+</tr>
+<tr>
+    <th style="text-align: center">(<%=@companies.count%>)</th>
+    <th style="text-align: center">(<%=@declined.count%>)</th>
+    <th style="text-align: center">(<%=@iois.count%>)</th>
+    <th></th>
+    <th></th>
 </tr>
 </thead>
 <tbody>
 <% @companies.each do |company| %>
-  <tr id="row_<%=company.id%>">
+    <% if @cip.cip_companies.find_by(company_id: company.id).ioi.present? %> 
+        <tr id="row_<%=company.id%>" class="success">
+    <% elsif @cip.cip_companies.find_by(company_id: company.id).declined? %> 
+        <tr id="row_<%=company.id%>" class="danger">
+    <% else %>
+        <tr id="row_<%=company.id%>">
+    <% end %>
 
     <td><a href="/companies/<%=company.id%>"><%=company.name%></a></td>
     <td style="text-align: center">
-        1
+      <% if @cip.cip_companies.find_by(company_id: company.id).declined %>
+        <%= link_to content_tag(:i,nil, class: 'fa fa-times'), "/update_cip_company/#{@cip.cip_companies.find_by(company_id: company.id).id}/1", :id => "company_#{company.id}_1", :class => "strip-tags-selected", :remote => true  %>
+      <% else %>
+        <%= link_to content_tag(:i,nil, class: 'fa fa-times'), "/update_cip_company/#{@cip.cip_companies.find_by(company_id: company.id).id}/1", :id => "company_#{company.id}_1", :class => "strip-tags-notselected", :remote => true  %>
+      <% end %>
     </td>
     <td style="text-align: center">
-        2
+      <% if @cip.cip_companies.find_by(company_id: company.id).ioi.present? %>
+        <%= render('shared/delete_ioi_modal', :ioi => @cip.cip_companies.find_by(company_id: company.id).ioi) %>
+      <% else %>
+        <%= link_to content_tag(:i,nil, class: 'fa fa-times'), "/update_cip_company/#{@cip.cip_companies.find_by(company_id: company.id).id}/2", :id => "company_#{company.id}_2", :class => "strip-tags-notselected", :remote => true  %>
+      <% end %>
     </td>
-    <td style="text-align: center">
-        3
+    <td>
+        <% if CipCompany.find_by(cip_id: @cip.id, company_id: company.id).ioi.present? %>
+            <% CipCompany.find_by(cip_id: @cip.id, company_id: company.id).ioi.ioi_highlights.each do |ioi_highlight| %>
+                <strong><%= ioi_highlight.highlight.name %>:</strong> <%= ioi_highlight.detail %><br>
+            <% end %>
+        <% else %>
+            ....
+        <% end %>
+    
     </td>
-    <td>...</td>
+    <td>
+        <% if @cip.cip_companies.find_by(company_id: company.id).ioi.present? %>
+            <a class="btn btn-edit btn-xs" href="/iois/<%= @cip.cip_companies.find_by(company_id: company.id).ioi_id %>"><i class="fa fa-edit"></i></a>
+        <% end %>
+        <%= render('shared/delete_cip_company_modal', :cip_company => @cip.cip_companies.find_by(company_id: company.id))%>
+    </td>
 </tr>
 <%end%>
 </tbody>
 </table>
 </div>
 
-
-<% content_for :javascript do %>
-
 <script type="text/javascript">
-
 
 $(function() {
 
@@ -83,8 +112,6 @@ $(function() {
 
 });
 
-
-
 </script>
 
-<% end %>
+
