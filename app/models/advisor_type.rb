@@ -1,10 +1,7 @@
-class Highlight < ActiveRecord::Base
+class AdvisorType < ActiveRecord::Base
 	validates :name, :presence => true, :uniqueness => true
 
-	has_many :ioi_highlights, :dependent => :destroy
-	has_many :iois, :through => :ioi_highlights
-	has_many :loi_highlights, :dependent => :destroy
-	has_many :lois, :through => :loi_highlights
+	has_many :diligence_advisors, :dependent => :destroy
 
 	def self.to_csv
 		CSV.generate do |csv|
@@ -15,7 +12,7 @@ class Highlight < ActiveRecord::Base
 		end
 	end
 	def self.import(file)
-		allowed_attributes = ["name", "ioi_include", "loi_include"]
+		allowed_attributes = ["name", "cip_include", "mp_include"]
 		CSV.foreach(file.path,headers: true) do |row|
 			highlights = find_by_id(row["id"]) || new
 			

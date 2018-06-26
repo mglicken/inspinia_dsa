@@ -1,0 +1,79 @@
+<!-- Validation failure messages -->
+
+<% if @advisor_type.errors.any? %>
+  <% @advisor_type.errors.full_messages.each do |message| %>
+    <div class="alert alert-dismissable alert-danger">
+      <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+      <%= message %>
+    </div>
+  <% end %>
+<% end %>
+
+<!-- Responsive panel example -->
+
+<div class="row">
+  <div class="col-sm-offset-1 col-sm-10 col-md-offset-2 col-md-8">
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <h3 class="panel-title">Add Advisor Type</h3>
+      </div>
+      <div class="panel-body">
+        <form action="/create_advisor_type" method="post" class="form-horizontal">
+          <!-- Hidden input for authenticity token to protect from forgery -->
+          <input name="authenticity_token" type="hidden" value="<%= form_authenticity_token %>">
+
+
+          <!-- Label and input for Name -->
+          <div class="form-group">
+            <label for="name" class="col-sm-2 control-label">
+            Name
+            </label>
+            <div class="col-sm-10">
+              <input type="string" id="name" name="name" placeholder="e.g., Basis of Valuation" class="form-control" value="<%= @advisor_type.name %>">
+            </div>
+          </div>
+
+          <!-- Label and input for CIP -->
+          <div class="form-group">
+            <label for="cip_include" class="col-sm-2 control-label">
+              Include for CIPs
+            </label>
+            <div class="col-sm-10">
+              <% if @advisor_type.cip_include %>
+                <input type="checkbox" id="cip_include" name="cip_include" class="form-control" checked>
+              <% else %>
+                <input type="checkbox" id="cip_include" name="cip_include" class="form-control">
+              <% end %>
+            </div>
+          </div>
+
+          <!-- Label and input for MP -->
+          <div class="form-group">
+            <label for="mp_include" class="col-sm-2 control-label">
+              Include for MPs
+            </label>
+            <div class="col-sm-10">
+              <% if @advisor_type.mp_include %>
+                <input type="checkbox" id="mp_include" name="mp_include" class="form-control" checked>
+              <% else %>
+                <input type="checkbox" id="mp_include" name="mp_include" class="form-control">
+              <% end %>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <div class="col-sm-offset-2 col-sm-10">
+              <button class="btn btn-success">
+                Create Advisor Type
+              </button>
+              or
+              <a href="/advisor_types">Cancel</a>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- End responsive panel example -->

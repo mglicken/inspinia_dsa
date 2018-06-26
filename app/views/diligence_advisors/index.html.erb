@@ -1,0 +1,69 @@
+
+<div class="page-header">
+  <h1>
+    Diligence Advisors
+    <a href="/diligence_advisors/new" class="btn btn-success"><i class="fa fa-plus"></i></a>
+  </h1>
+</div>
+
+<!-- Responsive, Isotope-based layout example -->
+
+<div class="row">
+  <div class="col-xs-12">
+    <input type="text" id="quicksearch" placeholder="Search Diligence Advisors (start typing)" class="form-control">
+  </div>
+</div>
+
+<hr>
+
+<div class="row isotope-container">
+<% @diligence_advisors.each do |diligence_advisor| %>
+  <div class="col-xs-11 col-sm-11 col-md-11 col-lg-11 isotope-item">
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <h3 class="panel-title">diligence_advisor # <%= diligence_advisor.id %></h3>
+      </div>
+      <div class="panel-body">
+        <div class="row">
+          <div class="col-md-12">
+            <class="dl-horizontal">
+
+              <dt> Type:</dt>
+              <dd><%= diligence_advisor.diligence_advisor.name%></dd>
+              <dt> Person:</dt>
+              <dd><%= diligence_advisor.person.name %></dd>          
+              <dt> Company:</dt>
+              <dd><%= diligence_advisor.company.name %></dd>
+              <% if diligence_advisor.cip_company.present? %>
+                <dt> CIP:</dt>
+                <dd><a href="/cips/<%= diligence_advisor.cip_company.cip.id %>/advisors"><%= diligence_advisor.cip_company.cip.name %></a></dd>
+              <% elsif diligence_advisor.cip_sponsor.present? %>
+                <dt> CIP:</dt>
+                <dd><a href="/cips/<%= diligence_advisor.cip_sponsor.cip.id %>/advisors"><%= diligence_advisor.cip_sponsor.cip.name %></a></dd>
+              <% elsif diligence_advisor.mp_company.present? %>
+                <dt> MP:</dt>
+                <dd><a href="/mps/<%= diligence_advisor.mp_company.mp.id %>/advisors"><%= diligence_advisor.mp_company.mp.name %></a></dd>
+              <%elsif diligence_advisor.mp_sponsor.present? %>
+                <dt> MP:</dt>
+                <dd><a href="/mps/<%= diligence_advisor.mp_sponsor.mp.id %>/advisors"><%= diligence_advisor.mp_sponsor.mp.name %></a></dd>
+              <% end %>
+            </dl>
+            <div class="btn-group btn-group-justified">
+              <a href="/diligence_advisors/<%= diligence_advisor.id %>" class="btn btn-primary">
+                <i class="fa fa-search-plus"></i>
+              </a>
+
+              <a href="/diligence_advisors/<%= diligence_advisor.id %>/edit" class="btn btn-warning">
+                <i class="fa fa-edit"></i>
+              </a>
+
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+<% end %>
+</div>
+
+<%= render('shared/quick_search_js') %>

@@ -54,7 +54,7 @@ before_action :ensure_banker_access,  only: [:new, :create, :edit, :update, :des
     respond_to do |format|
       format.html do
         if @ioi_highlight.save
-          redirect_to "/nbps/#{ params[:ioi_id] }/companies", :notice => "#{@ioi_highlight.tag.name} Tag added successfully."
+          redirect_to "/cips/#{ params[:ioi_id] }/companies", :notice => "#{@ioi_highlight.highlight.name} Highlight added successfully."
         else
           render 'new'
         end

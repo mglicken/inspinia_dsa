@@ -89,6 +89,17 @@ before_action :ensure_view_access,  only: [:search, :show]
     end
   end
 
+  def show_advisors
+    @cip = Cip.find(params[:id])
+
+    @diligence_advisors = @cip.diligence_advisors
+    @people_advisors = Person.where(id: @cip.diligence_advisors.pluck(:person_id)).order("name ASC")
+    @company_advisors = Company.where(id: @cip.diligence_advisors.pluck(:company_id)).order("name ASC")
+    respond_to do |format|
+      format.html
+    end
+  end
+
   def new
     @cip = Cip.new
   end

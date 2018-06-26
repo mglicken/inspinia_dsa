@@ -54,7 +54,7 @@ before_action :ensure_banker_access,  only: [:new, :create, :edit, :update, :des
     respond_to do |format|
       format.html do
         if @loi_highlight.save
-          redirect_to "/nbps/#{ params[:loi_id] }/companies", :notice => "#{@loi_highlight.tag.name} Tag added successfully."
+          redirect_to "/mps/#{ params[:loi_id] }/companies", :notice => "#{@loi_highlight.highlight.name} Highlight added successfully."
         else
           render 'new'
         end
@@ -70,32 +70,32 @@ before_action :ensure_banker_access,  only: [:new, :create, :edit, :update, :des
   def checkbox
     @status = params[:status].to_i
     @highlight = Highlight.find(params[:highlight_id])
-    @cip = Cip.find(params[:cip_id])
+    @mp = Mp.find(params[:mp_id])
     if @status == 1
       if params[:type_id] == 1
-        @lois = Loi.where(id: CipCompany.where(cip_id: @cip.id).pluck(:loi_id))
+        @lois = Loi.where(id: MpCompany.where(mp_id: @mp.id).pluck(:loi_id))
         @lois.order('name ASC').each do |loi|
           loi_highlight = LoiHighlight.new
           loi_highlight.highlight_id = @highlight.id
           loi_highlight.loi_id = loi.id
           loi_highlight.save
         end  
-        redirect_to "/cips/#{ @cip.id }/companies", :notice => "#{@highlight.name} added successfully."
+        redirect_to "/mps/#{ @mp.id }/companies", :notice => "#{@highlight.name} added successfully."
       else
-        @lois = Loi.where(id: CipSponsor.where(cip_id: @cip.id).pluck(:loi_id))
+        @lois = Loi.where(id: MpSponsor.where(mp_id: @mp.id).pluck(:loi_id))
         @lois.order('name ASC').each do |loi|
           loi_highlight = LoiHighlight.new
           loi_highlight.highlight_id = @highlight.id
           loi_highlight.loi_id = loi.id
           loi_highlight.save
         end  
-        redirect_to "/cips/#{ @cip.id }/sponsors", :notice => "#{@highlight.name} added successfully."
+        redirect_to "/mps/#{ @mp.id }/sponsors", :notice => "#{@highlight.name} added successfully."
       end
     else
       if params[:type_id] == 1
-        redirect_to "/cips/#{ @cip.id }/companies", :notice => "#{@highlight.name} cannot be removed. #{@status}"
+        redirect_to "/mps/#{ @mp.id }/companies", :notice => "#{@highlight.name} cannot be removed. #{@status}"
       else
-        redirect_to "/cips/#{ @cip.id }/sponsors", :notice => "#{@highlight.name} cannot be removed. #{@status}"
+        redirect_to "/mps/#{ @mp.id }/sponsors", :notice => "#{@highlight.name} cannot be removed. #{@status}"
       end
     end 
 

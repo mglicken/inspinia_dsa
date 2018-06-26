@@ -33,6 +33,25 @@ Myapp::Application.routes.draw do
   # DELETE
   get "/delete_access/:id", :controller => "accesses", :action => "destroy"
 
+  # Routes for the Advisor Types resource:
+  resources :advisor_types do
+    collection {post :import}
+  end  
+  # CREATE
+  get "/advisor_types/new", :controller => "advisor_types", :action => "new"
+  post "/create_advisor_type", :controller => "advisor_types", :action => "create"
+
+  # READ
+  get "/advisor_types", :controller => "advisor_types", :action => "index"
+  get "/advisor_types/:id", :controller => "advisor_types", :action => "show"
+
+  # UPDATE
+  get "/advisor_types/:id/edit", :controller => "advisor_types", :action => "edit"
+  post "/update_advisor_type/:id", :controller => "advisor_types", :action => "update"
+
+  # DELETE
+  get "/delete_advisor_type/:id", :controller => "advisor_types", :action => "destroy"
+
   # Routes for the Bucket resource:
   resources :buckets do
     collection {post :import}
@@ -69,6 +88,7 @@ Myapp::Application.routes.draw do
   get "/cip_search/:search", :controller => "cips", :action => "search"
   get "/cips/:id/sponsors", :controller => "cips", :action => "show_sponsors"
   get "/cips/:id/companies", :controller => "cips", :action => "show_companies"
+  get "/cips/:id/advisors", :controller => "cips", :action => "show_advisors"
 
   # UPDATE
   get "/cips/:id/edit", :controller => "cips", :action => "edit"

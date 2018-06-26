@@ -1,0 +1,106 @@
+<!-- Validation failure messages -->
+
+<% if @diligence_advisor.errors.any? %>
+  <% @diligence_advisor.errors.full_messages.each do |message| %>
+    <div class="alert alert-dismissable alert-danger">
+      <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+      <%= message %>
+    </div>
+  <% end %>
+<% end %>
+
+<!-- Responsive panel example -->
+
+<div class="row">
+  <div class="col-sm-offset-1 col-sm-10 col-md-offset-2 col-md-8">
+    <div class="panel panel-default">
+  
+      <div class="panel-heading">
+        <h3 class="panel-title">Edit Diligence Advisor</h3>
+      </div>
+      <div class="panel-body">
+        <form action="/update_diligence_advisor/<%= @diligence_advisor.id %>" method="post" class="form-horizontal">
+          <!-- Hidden input for authenticity token to protect from forgery -->
+          <input name="authenticity_token" type="hidden" value="<%= form_authenticity_token %>">
+
+          <!-- Label and input for Advisor Type ID -->
+          <div class="form-group">
+            <label for="advisor_type_id" class="col-sm-2 control-label">
+              Advisor Type
+            </label>
+            <div class="col-sm-10">
+              <%= select_tag :advisor_type_id, options_from_collection_for_select(AdvisorType.order('name ASC'), :id, :name, @diligence_advisor.advisor_type_id), :class => "form-control" %>
+            </div>
+          </div>
+          <!-- Label and input for Person ID -->
+          <div class="form-group">
+            <label for="person_id" class="col-sm-2 control-label">
+              Person
+            </label>
+            <div class="col-sm-10">
+              <%= select_tag :person_id, options_from_collection_for_select(Person.order('name ASC'), :id, :name, @diligence_advisor.person_id), :class => "form-control" %>
+            </div>
+          </div>
+          <!-- Label and input for Company ID -->
+          <div class="form-group">
+            <label for="company_id" class="col-sm-2 control-label">
+              Company
+            </label>
+            <div class="col-sm-10">
+              <%= select_tag :company_id, options_from_collection_for_select(Company.order('name ASC'), :id, :name, @diligence_advisor.company_id), :class => "form-control" %>
+            </div>
+          </div>
+          <!-- Label and input for CIP Company ID -->
+          <div class="form-group">
+            <label for="cip_company_id" class="col-sm-2 control-label">
+              CIP Company ID
+            </label>
+            <div class="col-sm-10">
+              <input type="integer" id="cip_company_id" name="cip_company_id" placeholder="e.g., 47" class="form-control" value="<%= @diligence_advisor.cip_company_id %>">
+            </div>
+          </div>
+          <!-- Label and input for CIP Sponsor ID -->
+          <div class="form-group">
+            <label for="cip_sponsor_id" class="col-sm-2 control-label">
+              CIP Sponsor ID
+            </label>
+            <div class="col-sm-10">
+              <input type="integer" id="cip_sponsor_id" name="cip_sponsor_id" placeholder="e.g., 47" class="form-control" value="<%= @diligence_advisor.cip_sponsor_id %>">
+            </div>
+          </div>
+          <!-- Label and input for MP Company ID -->
+          <div class="form-group">
+            <label for="mp_company_id" class="col-sm-2 control-label">
+              MP Company ID
+            </label>
+            <div class="col-sm-10">
+              <input type="integer" id="mp_company_id" name="mp_company_id" placeholder="e.g., 47" class="form-control" value="<%= @diligence_advisor.mp_company_id %>">
+            </div>
+          </div>
+          <!-- Label and input for MP Sponsor ID -->
+          <div class="form-group">
+            <label for="mp_sponsor_id" class="col-sm-2 control-label">
+              MP Sponsor ID
+            </label>
+            <div class="col-sm-10">
+              <input type="integer" id="mp_sponsor_id" name="mp_sponsor_id" placeholder="e.g., 47" class="form-control" value="<%= @diligence_advisor.mp_sponsor_id %>">
+            </div>
+          </div>
+
+          <div class="form-group">
+            <div class="col-sm-offset-2 col-sm-10">
+              <button class="btn btn-warning">
+                Update Diligence Advisor
+              </button>
+              or
+              <a href="/diligence_advisors/<%= @diligence_advisor.id %>">Cancel</a>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- End responsive panel example -->
