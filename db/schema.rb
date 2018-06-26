@@ -10,13 +10,19 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180625181322) do
+ActiveRecord::Schema.define(version: 20180626164321) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
   create_table "accesses", force: :cascade do |t|
     t.string "name"
+  end
+
+  create_table "advisor_types", force: :cascade do |t|
+    t.string  "name"
+    t.boolean "mp_include"
+    t.boolean "cip_include"
   end
 
   create_table "buckets", force: :cascade do |t|
@@ -116,6 +122,16 @@ ActiveRecord::Schema.define(version: 20180625181322) do
     t.integer "project_code"
     t.integer "deal_stage_id"
     t.integer "deal_type_id"
+  end
+
+  create_table "diligence_advisors", force: :cascade do |t|
+    t.integer "mp_sponsor_id"
+    t.integer "mp_company_id"
+    t.integer "cip_sponsor_id"
+    t.integer "cip_company_id"
+    t.integer "person_id"
+    t.integer "company_id"
+    t.integer "advisor_type_id"
   end
 
   create_table "favorite_slides", force: :cascade do |t|
