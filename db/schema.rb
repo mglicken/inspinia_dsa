@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180626185740) do
+ActiveRecord::Schema.define(version: 20180626200502) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -208,6 +208,7 @@ ActiveRecord::Schema.define(version: 20180626185740) do
     t.integer "mp_id"
     t.integer "company_id"
     t.integer "loi_id"
+    t.boolean "declined"
   end
 
   create_table "mp_slides", force: :cascade do |t|
@@ -219,6 +220,7 @@ ActiveRecord::Schema.define(version: 20180626185740) do
     t.integer "mp_id"
     t.integer "sponsor_id"
     t.integer "loi_id"
+    t.boolean "declined"
   end
 
   create_table "mps", force: :cascade do |t|

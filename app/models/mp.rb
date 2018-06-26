@@ -1,9 +1,13 @@
 class Mp < ActiveRecord::Base
-validates :name, :presence => true, :uniqueness => true
+	validates :name, :presence => true, :uniqueness => true
 
-belongs_to :deal
-has_many :mp_slides, :dependent => :destroy
-has_many :slides, :through => :mp_slides, :dependent => :destroy
+	belongs_to :deal
+	has_many :mp_slides, :dependent => :destroy
+	has_many :slides, :through => :mp_slides, :dependent => :destroy
+	has_many :mp_sponsors, :dependent => :destroy
+	has_many :sponsors, :through => :mp_sponsors
+	has_many :mp_companies, :dependent => :destroy
+	has_many :companies, :through => :mp_companies
 
 	def self.to_csv
 		CSV.generate do |csv|
