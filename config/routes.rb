@@ -524,7 +524,7 @@ Myapp::Application.routes.draw do
   # CREATE
   get "/loi_highlights/new", :controller => "loi_highlights", :action => "new"
   post "/create_loi_highlight", :controller => "loi_highlights", :action => "create"
-  get "/loi_highlight_checkbox/:highlight_id/:cip_id/:type_id/:status", :controller => "loi_highlights", :action => "checkbox"
+  get "/loi_highlight_checkbox/:highlight_id/:mp_id/:type_id/:status", :controller => "loi_highlights", :action => "checkbox"
   
   # READ
   get "/loi_highlights", :controller => "loi_highlights", :action => "index"
