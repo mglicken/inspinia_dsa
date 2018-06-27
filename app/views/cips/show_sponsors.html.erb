@@ -22,7 +22,7 @@
                       <% if highlight.id % 3 == 0 %>
                         <br>
                       <%end%>
-                      <% if IoiHighlight.where(ioi_id: (CipSponsor.where(cip_id: @cip.id).pluck(:ioi_id) + CipCocipany.where(cip_id: @cip.id).pluck(:ioi_id)), highlight_id: highlight.id).present? %>
+                      <% if IoiHighlight.where(ioi_id: (CipSponsor.where(cip_id: @cip.id).pluck(:ioi_id) + CipCompany.where(cip_id: @cip.id).pluck(:ioi_id)), highlight_id: highlight.id).present? %>
                         <span style="font:black; font-size:14px; padding-right:5px; padding-left:2px;"><a data-toggle="modal" href="#Modal_Highlight_<%=highlight.id %>"><i class="fa fa-check-square-o"></i></a></span><span style="font-size: 10px"><%= highlight.name %></span>
                         <div class="modal inmodal fade" id="Modal_Highlight_<%=highlight.id %>" tabindex="-1" role="dialog" aria-hidden="true">
                             <div class="modal-dialog modal-sm">

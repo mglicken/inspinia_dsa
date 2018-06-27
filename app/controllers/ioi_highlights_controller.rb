@@ -92,11 +92,12 @@ before_action :ensure_banker_access,  only: [:new, :create, :edit, :update, :des
         redirect_to "/cips/#{ @cip.id }/sponsors", :notice => "#{@highlight.name} added successfully."
       end
     else
-      if params[:type_id] == 1
-        redirect_to "/cips/#{ @cip.id }/companies", :notice => "#{@highlight.name} cannot be removed. #{@status}"
-      else
-        redirect_to "/cips/#{ @cip.id }/sponsors", :notice => "#{@highlight.name} cannot be removed. #{@status}"
-      end
+      @ioi_highlights = IoiHighlight.where(ioi_id: (CipCompany.where(cip_id: @cip.id).pluck(:ioi_id)+CipSponsor.where(cip_id: @cip.id).pluck(:ioi_id)),highlight_id: @highlight.id)
+      @ioi_highlights.each do |ioi_highlight|
+        ioi_highlight.destroy
+      end  
+      redirect_to "/cips/#{ @cip.id }/companies", :notice => "#{@highlight.name} removed."
+
     end 
 
 
