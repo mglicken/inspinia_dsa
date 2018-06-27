@@ -92,10 +92,14 @@ before_action :ensure_banker_access,  only: [:new, :create, :edit, :update, :des
         redirect_to "/mps/#{ @mp.id }/sponsors", :notice => "#{@highlight.name} added successfully."
       end
     else
+      @loi_highlights = LoiHighlight.where(loi_id: (MpCompany.where(mp_id: @mp.id).pluck(:loi_id)+MpSponsor.where(mp_id: @mp.id).pluck(:loi_id)),highlight_id: @highlight.id)
+      @loi_highlights.each do |loi_highlight|
+        loi_highlight.destroy
+      end  
       if params[:type_id] == 1
-        redirect_to "/mps/#{ @mp.id }/companies", :notice => "#{@highlight.name} cannot be removed. #{@status}"
+        redirect_to "/mps/#{ @mp.id }/companies", :notice => "#{@highlight.name} removed."
       else
-        redirect_to "/mps/#{ @mp.id }/sponsors", :notice => "#{@highlight.name} cannot be removed. #{@status}"
+        redirect_to "/mps/#{ @mp.id }/sponsors", :notice => "#{@highlight.name} removed."
       end
     end 
 

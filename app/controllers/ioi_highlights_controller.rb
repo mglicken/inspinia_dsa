@@ -101,7 +101,6 @@ before_action :ensure_banker_access,  only: [:new, :create, :edit, :update, :des
       else
         redirect_to "/cips/#{ @cip.id }/sponsors", :notice => "#{@highlight.name} removed."
       end
-
     end 
 
 
