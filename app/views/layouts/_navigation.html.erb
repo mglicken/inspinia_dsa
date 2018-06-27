@@ -45,7 +45,7 @@
             <li class="<%= is_active_controller('deals') %>">
                 <a href="#"><i class="fa fa-trophy"></i> <span class="nav-label" data-i18n="nav.deals">Deals</span><span class="fa arrow"></span></a>
                 <ul class="nav nav-second-level collapse <%= is_active_controller('deals', 'in') %>">
-                    <% current_user.person.deals.order("name ASC").each do |deal| %>
+                    <% current_user.person.deals.where(deal_stage_id: [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16]).order("name ASC").each do |deal| %>
                         <li class="<%= is_active_action('show')%>"><%= link_to deal.name, "/deals/#{deal.id}"%></li>
                     <% end %>
                 </ul>
@@ -75,7 +75,7 @@
                     <% end %>
                 </ul>
             </li>
-            <% if current_user.access_id ==1 && 1 == 1 %>
+            <% if current_user.access_id ==1 && 1 == 2 %>
             <li class="<%= is_active_controller('graphs') %>">
                 <a href="#"><i class="fa fa-bar-chart-o"></i> <span class="nav-label" data-i18n="nav.graphs">Graphs</span><span class="fa arrow"></span></a>
                 <ul class="nav nav-second-level collapse <%= is_active_controller('graphs', 'in') %>">

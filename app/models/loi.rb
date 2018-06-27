@@ -5,10 +5,10 @@ class Loi < ActiveRecord::Base
 	belongs_to :deal
 	has_many :loi_slides, :dependent => :destroy
 	has_many :slides, :through => :loi_slides, :dependent => :destroy
-	has_one :cip_sponsor
-	has_one :sponsor, :through => :cip_sponsor
-	has_one :cip_company
-	has_one :company, :through => :cip_company
+	has_one :mp_sponsor
+	has_one :sponsor, :through => :mp_sponsor
+	has_one :mp_company
+	has_one :company, :through => :mp_company
 	has_many :loi_highlights, :dependent => :destroy
 	has_many :highlights, :through => :loi_highlights
 	
