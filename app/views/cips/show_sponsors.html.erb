@@ -16,22 +16,39 @@
                <dd> <a href="/companies/<%= @cip.deal.company.id %>"><%= @cip.deal.company.name %></a></dd>
                <dt>Date:</dt>
                <dd><%= @cip.cip_date %></dd>
-
-
-                  <dt>IOI Summary Bullets:</dt>
-            </dl>
-              <form style="font-size:10px; padding-left:30px; padding-right: 30px; text-align:justify-all;">
+               <dt>IOI Summary Bullets:</dt>
+               <dd>
                   <% Highlight.where(ioi_include: true).order("id ASC").each do |highlight| %>
                       <% if highlight.id % 3 == 0 %>
                         <br>
                       <%end%>
-                      <% if IoiHighlight.where(ioi_id: (CipSponsor.where(cip_id: @cip.id).pluck(:ioi_id) + CipCompany.where(cip_id: @cip.id).pluck(:ioi_id)), highlight_id: highlight.id).present? %>
-                        <input type="checkbox" name="<%= highlight.id%>" id="inlineCheckbox1" checked><label style="margin-left:5px; margin-right: 10px;"><%= highlight.name %></label>
+                      <% if IoiHighlight.where(ioi_id: (CipSponsor.where(cip_id: @cip.id).pluck(:ioi_id) + CipCocipany.where(cip_id: @cip.id).pluck(:ioi_id)), highlight_id: highlight.id).present? %>
+                        <span style="font:black; font-size:14px; padding-right:5px; padding-left:2px;"><a data-toggle="modal" href="#Modal_Highlight_<%=highlight.id %>"><i class="fa fa-check-square-o"></i></a></span><span style="font-size: 10px"><%= highlight.name %></span>
+                        <div class="modal inmodal fade" id="Modal_Highlight_<%=highlight.id %>" tabindex="-1" role="dialog" aria-hidden="true">
+                            <div class="modal-dialog modal-sm">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                                        <h4 class="modal-title">Remove Bullet</h4>
+                                        <small class="font-bold">Remove summarizing bullet point from all IOIs</small>
+                                    </div>
+                                    <div class="modal-body">
+                                            <strong>Are you sure you want to remove "<%= highlight.name%>"" from all IOIs?</strong> Doing so will permanently destroy all details associated with this highlight for every ioi on this deal (<%= @cip.deal.name %>). 
+                                    </div>
+
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-white" data-dismiss="modal">Close</button>
+                                        <a type="button" href="/ioi_highlight_checkbox/<%= highlight.id %>/<%=@cip.id%>/2/2" class="btn btn-lincoln">Remove</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                       <% else %>
-                        <input type="checkbox" name="<%= highlight.id%>" id="inlineCheckbox1"><label style="margin-left:5px; margin-right: 10px;"><%= highlight.name %></label>
+                        <span style="font:black;font-size: 14px; padding-right:5px; padding-left:2px;"><a href="/ioi_highlight_checkbox/<%= highlight.id %>/<%=@cip.id%>/2/1"><i class="fa fa-square-o"></i></a></span><span style="font-size: 10px"><%= highlight.name %></span>
                       <% end %>
                   <% end %>
-              </form>
+                </dd>
+            </dl>
           </div>
         </div>
       </div>

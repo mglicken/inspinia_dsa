@@ -30,6 +30,11 @@
             </dl>
             <div class="btn-group btn-group-justified">
               <%= render('shared/edit_ioi_and_highlights_modal', :ioi => @ioi)%>
+              <%if @ioi.cip_company.present? %>
+                <a href="/cips/<% @ioi.cip_company.cip_id %>/companies" class="btn btn-lincoln"><i class="fa fa-chevron-left"></i></a>
+              <%elsif @ioi.cip_sponsor.present? %>
+                <a href="/cips/<% @ioi.cip_sponsor.cip_id %>/sponsors" class="btn btn-lincoln"><i class="fa fa-chevron-left"></i></a>
+              <% end %>
             </div>
           </div>
         </div>

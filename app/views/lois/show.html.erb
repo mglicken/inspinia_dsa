@@ -36,6 +36,11 @@
             </dl>
             <div class="btn-group btn-group-justified">
               <%= render('shared/edit_loi_and_highlights_modal', :loi => @loi)%>
+              <%if @loi.mp_company.present? %>
+                <a href="/mps/<% @loi.mp_company.mp_id %>/companies" class="btn btn-lincoln"><i class="fa fa-chevron-left"></i></a>
+              <%elsif @loi.mp_sponsor.present? %>
+                <a href="/mps/<% @loi.mp_sponsor.mp_id %>/sponsors" class="btn btn-lincoln"><i class="fa fa-chevron-left"></i></a>
+              <% end %>
             </div>
           </div>
         </div>
