@@ -96,7 +96,11 @@ before_action :ensure_banker_access,  only: [:new, :create, :edit, :update, :des
       @ioi_highlights.each do |ioi_highlight|
         ioi_highlight.destroy
       end  
-      redirect_to "/cips/#{ @cip.id }/companies", :notice => "#{@highlight.name} removed."
+      if params[:type_id] == 1
+        redirect_to "/cips/#{ @cip.id }/companies", :notice => "#{@highlight.name} removed."
+      else
+        redirect_to "/cips/#{ @cip.id }/sponsors", :notice => "#{@highlight.name} removed."
+      end
 
     end 
 
