@@ -60,8 +60,7 @@ before_action :ensure_view_access,  only: [:show]
     @loi.deal_id = params[:deal_id]
     @loi.loi_date = params[:loi_date]
     @loi.image_id = params[:image_id]
-    @loi.low_purchase_price = params[:low_purchase_price]
-    @loi.high_purchase_price = params[:high_purchase_price]
+    @loi.enterprise_value = params[:enterprise_value]
 
     if @loi.save
       redirect_to "/lois/#{@loi.id}", :notice => "LOI created successfully."
@@ -91,8 +90,7 @@ before_action :ensure_view_access,  only: [:show]
     @loi.deal_id = params[:deal_id]
     @loi.loi_date = params[:loi_date]
     @loi.image_id = params[:image_id]
-    @loi.low_purchase_price = params[:low_purchase_price]
-    @loi.high_purchase_price = params[:high_purchase_price]
+    @loi.enterprise_value = params[:enterprise_value]
 
     if @loi.save
       redirect_to "/lois/#{@loi.id}", :notice => "LOI updated successfully."

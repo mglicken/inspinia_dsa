@@ -19,6 +19,12 @@
              <dd> <a href="/deals/<%= @loi.deal_id %>"><%= @loi.deal.name %></a></dd>
              <dt>Company</dt>
              <dd> <a href="/companies/<%= @loi.deal.company.id %>"><%= @loi.deal.company.name %></a></dd>
+             <dt>Acquirer</dt>
+             <% if @loi.mp_company.present?%>
+              <dd> <a href="/companies/<%= @loi.mp_company.company.id %>"><%= @loi.mp_company.company.name %></a></dd>
+             <%elsif @loi.mp_sponsor.present? %>
+              <dd> <a href="/sponsors/<%= @loi.mp_sponsor.sponsor.id %>"><%= @loi.mp_sponsor.sponsor.name %></a></dd>
+             <% end %>
              <dt>Date</dt>
              <dd><%= @loi.loi_date %></dd>
              <br>

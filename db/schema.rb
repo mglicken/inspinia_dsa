@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180626200502) do
+ActiveRecord::Schema.define(version: 20180627151053) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -200,8 +200,7 @@ ActiveRecord::Schema.define(version: 20180626200502) do
     t.integer "deal_id"
     t.date    "loi_date"
     t.string  "image_id"
-    t.float   "low_purchase_price"
-    t.float   "high_purchase_price"
+    t.float   "enterprise_value"
   end
 
   create_table "mp_companies", force: :cascade do |t|
