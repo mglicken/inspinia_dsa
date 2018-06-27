@@ -105,8 +105,10 @@ before_action :ensure_view_access,  only: [:show]
     @ioi.name = details[1]
     @ioi.deal_id = details[2].to_i
     @ioi.ioi_date = details[3]
-    counter = 6
-    ids[5..(ids.count-1)].each do |id|
+    @ioi.low_purchase_price = details[4]
+    @ioi.high_purchase_price = details[5]
+    counter = 8
+    ids[7..(ids.count-1)].each do |id|
 
       ioi_highlight = IoiHighlight.find(id.to_i)
       ioi_highlight.detail = details[(counter-1)]

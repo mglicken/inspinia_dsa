@@ -108,8 +108,10 @@ before_action :ensure_view_access,  only: [:show]
     @loi.name = details[1]
     @loi.deal_id = details[2].to_i
     @loi.loi_date = details[3]
-    counter = 6
-    ids[5..(ids.count-1)].each do |id|
+    @loi.enterprise_value = details[3]
+
+    counter = 7
+    ids[6..(ids.count-1)].each do |id|
 
       loi_highlight = LoiHighlight.find(id.to_i)
       loi_highlight.detail = details[(counter-1)]
