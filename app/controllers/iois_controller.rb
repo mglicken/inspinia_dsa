@@ -105,8 +105,8 @@ before_action :ensure_view_access,  only: [:show]
     @ioi.name = details[1]
     @ioi.deal_id = details[2].to_i
     @ioi.ioi_date = details[3]
-    @ioi.low_purchase_price = details[4]
-    @ioi.high_purchase_price = details[5]
+    @ioi.low_purchase_price = details[5]
+    @ioi.high_purchase_price = details[6]
     counter = 8
     ids[7..(ids.count-1)].each do |id|
 
