@@ -15,21 +15,21 @@
           <div class="col-lg-12">
             <dl class="dl-horizontal" style="font-size:10px">
 
-             <dt>Deal</dt>
+             <dt>Deal:</dt>
              <dd> <a href="/deals/<%= @loi.deal_id %>"><%= @loi.deal.name %></a></dd>
-             <dt>Company</dt>
+             <dt>Company:</dt>
              <dd> <a href="/companies/<%= @loi.deal.company.id %>"><%= @loi.deal.company.name %></a></dd>
-             <dt>Acquirer</dt>
+             <dt>Acquirer:</dt>
              <% if @loi.mp_company.present?%>
               <dd> <a href="/companies/<%= @loi.mp_company.company.id %>"><%= @loi.mp_company.company.name %></a></dd>
              <%elsif @loi.mp_sponsor.present? %>
               <dd> <a href="/sponsors/<%= @loi.mp_sponsor.sponsor.id %>"><%= @loi.mp_sponsor.sponsor.name %></a></dd>
              <% end %>
-             <dt>Enterprise Value Range</dt>
+             <dt>Enterprise Value:</dt>
              <% if @loi.enterprise_value.present? %>
-              <dd>$<%= @ioi.enterprise_value %> million</dd>
+              <dd>$<%= @loi.enterprise_value %> million</dd>
              <% end %>
-             <dt>Date</dt>
+             <dt>Date:</dt>
              <dd><%= @loi.loi_date %></dd>
              <br>
              <%@loi.loi_highlights.order("highlight_id asc").each do |loi_highlight|%>
@@ -39,12 +39,12 @@
 
             </dl>
             <div class="btn-group btn-group-justified">
-              <%= render('shared/edit_loi_and_highlights_modal', :loi => @loi)%>
               <%if @loi.mp_company.present? %>
                 <a href="/mps/<%= @loi.mp_company.mp_id %>/companies" class="btn btn-lincoln"><i class="fa fa-chevron-left"></i></a>
               <%elsif @loi.mp_sponsor.present? %>
                 <a href="/mps/<%= @loi.mp_sponsor.mp_id %>/sponsors" class="btn btn-lincoln"><i class="fa fa-chevron-left"></i></a>
               <% end %>
+              <%= render('shared/edit_loi_and_highlights_modal', :loi => @loi)%>
             </div>
           </div>
         </div>
@@ -55,7 +55,6 @@
 </div>
 
 <%= render('view_slides') %>
-
 <%= render('shared/quick_search_js') %>
 
 <% if LoiSlide.where(loi_id: @loi.id).empty? %>

@@ -15,22 +15,22 @@
           <div class="col-lg-12">
             <dl class="dl-horizontal" style="font-size:10px">
 
-             <dt>Deal</dt>
+             <dt>Deal:</dt>
              <dd> <a href="/deals/<%= @ioi.deal_id %>"><%= @ioi.deal.name %></a></dd>
-             <dt>Company</dt>
+             <dt>Company:</dt>
              <dd> <a href="/companies/<%= @ioi.deal.company.id %>"><%= @ioi.deal.company.name %></a></dd>
-             <dt>Acquirer</dt>
+             <dt>Acquirer:</dt>
              <% if @ioi.cip_company.present?%>
               <dd> <a href="/companies/<%= @ioi.cip_company.company.id %>"><%= @ioi.cip_company.company.name %></a></dd>
              <%elsif @ioi.cip_sponsor.present? %>
               <dd> <a href="/sponsors/<%= @ioi.cip_sponsor.sponsor.id %>"><%= @ioi.cip_sponsor.sponsor.name %></a></dd>
              <% end %>
-             <dt>Enterprise Value Range</dt>
+             <dt>Enterprise Value Range:</dt>
              <% if @ioi.low_purchase_price.present? %>
               <dd>$<%= @ioi.low_purchase_price %> million - $<%= @ioi.high_purchase_price %> million</dd>
              <% end %>
              <dd> <a href="/companies/<%= @ioi.deal.company.id %>"><%= @ioi.deal.company.name %></a></dd>
-             <dt>Date</dt>
+             <dt>Date:</dt>
              <dd><%= @ioi.ioi_date %></dd>
              <br>
              <%@ioi.ioi_highlights.order("highlight_id asc").each do |ioi_highlight|%>
@@ -40,12 +40,12 @@
 
             </dl>
             <div class="btn-group btn-group-justified">
-              <%= render('shared/edit_ioi_and_highlights_modal', :ioi => @ioi)%>
               <%if @ioi.cip_company.present? %>
                 <a href="/cips/<%= @ioi.cip_company.cip_id %>/companies" class="btn btn-lincoln"><i class="fa fa-chevron-left"></i></a>
               <%elsif @ioi.cip_sponsor.present? %>
                 <a href="/cips/<%= @ioi.cip_sponsor.cip_id %>/sponsors" class="btn btn-lincoln"><i class="fa fa-chevron-left"></i></a>
               <% end %>
+              <%= render('shared/edit_ioi_and_highlights_modal', :ioi => @ioi)%>
             </div>
           </div>
         </div>

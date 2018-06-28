@@ -108,7 +108,7 @@ before_action :ensure_view_access,  only: [:show]
     @loi.name = details[1]
     @loi.deal_id = details[2].to_i
     @loi.loi_date = details[3]
-    @loi.enterprise_value = details[3]
+    @loi.enterprise_value = details[4]
 
     counter = 7
     ids[6..(ids.count-1)].each do |id|
