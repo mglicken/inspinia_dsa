@@ -991,9 +991,12 @@ Myapp::Application.routes.draw do
   get "/slides/new", :controller => "slides", :action => "new"
   post "/create_slide", :controller => "slides", :action => "create"
   get "/create_nbp_slide/:nbp_id", :controller => "slides", :action => "create_nbp_slides"
-  get "/create_cip_slide/:cip_id", :controller => "slides", :action => "create_cip_slides"
-  get "/create_mp_slide/:mp_id", :controller => "slides", :action => "create_mp_slides"
   get "/create_teaser_slide/:teaser_id", :controller => "slides", :action => "create_teaser_slides"
+  get "/create_nda_slide/:nda_id", :controller => "slides", :action => "create_nda_slides"
+  get "/create_cip_slide/:cip_id", :controller => "slides", :action => "create_cip_slides"
+  get "/create_ioi_slide/:ioi_id", :controller => "slides", :action => "create_ioi_slides"
+  get "/create_mp_slide/:mp_id", :controller => "slides", :action => "create_mp_slides"
+  get "/create_loi_slide/:loi_id", :controller => "slides", :action => "create_loi_slides"
 
   # READ
   get "/slides", :controller => "slides", :action => "index"

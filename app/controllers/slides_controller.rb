@@ -298,6 +298,38 @@ before_action :ensure_view_access,  only: [:show, :search]
       render 'new'
     end
   end
+  def create_loi_slides
+    public_id = Cloudinary::Api.resources(type:"upload")["resources"].first["public_id"]
+    pdf_len = Cloudinary::Api.resource( public_id , pages: true)["pages"].to_i
+
+
+    for i in 0..(pdf_len-1)
+      slide = Slide.new
+      slide.number = i+1
+      slide.image_url = "http://res.cloudinary.com/mglicken/image/upload/f_jpg,pg_#{ i+1 }/#{ public_id }.pdf"
+      slide.save
+      
+      loi_slide = LoiSlide.new
+      loi_slide.loi_id = params[:loi_id]
+      loi_slide.slide_id = slide.id
+      loi_slide.save
+      slide.ppt_address = loi_slide.loi.ppt_address
+
+
+      slide_tag = SlideTag.new
+      slide_tag.slide_id = slide.id
+      slide_tag.tag_id = Tag.find_by(name: "loi")
+      slide_tag.save
+
+    end
+    loi_slide.loi.image_id = public_id
+    if slide.save
+      loi_slide.loi.save
+      redirect_to "/lois/#{loi_slide.loi_id}", :notice => "LOI slides uploaded successfully. Please start tagging slides to aid searches."
+    else
+      render 'new'
+    end
+  end
   def create_teaser_slides
     public_id = Cloudinary::Api.resources(type:"upload")["resources"].first["public_id"]
     pdf_len = Cloudinary::Api.resource( public_id , pages: true)["pages"].to_i
