@@ -61,7 +61,7 @@
     </td>
     <td>
         <% if MpSponsor.find_by(mp_id: @mp.id, sponsor_id: sponsor.id).loi.present? %>
-            <% MpSponsor.find_by(mp_id: @mp.id, sponsor_id: sponsor.id).loi.loi_highlights.each do |loi_highlight| %>
+            <% MpSponsor.find_by(mp_id: @mp.id, sponsor_id: sponsor.id).loi.loi_highlights.joins(:highlight).order("name ASC").each do |loi_highlight| %>
                 <strong><%= loi_highlight.highlight.name %>:</strong> <%= loi_highlight.detail %><br>
             <% end %>
         <% else %>

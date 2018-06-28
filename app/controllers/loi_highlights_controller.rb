@@ -71,24 +71,18 @@ before_action :ensure_banker_access,  only: [:new, :create, :edit, :update, :des
     @status = params[:status].to_i
     @highlight = Highlight.find(params[:highlight_id])
     @mp = Mp.find(params[:mp_id])
+    @type = params[:type_id].to_i
     if @status == 1
-      if params[:type_id] == 1
-        @lois = Loi.where(id: MpCompany.where(mp_id: @mp.id).pluck(:loi_id))
-        @lois.order('name ASC').each do |loi|
-          loi_highlight = LoiHighlight.new
-          loi_highlight.highlight_id = @highlight.id
-          loi_highlight.loi_id = loi.id
-          loi_highlight.save
-        end  
+      @lois = Loi.where(id: (MpCompany.where(mp_id: @mp.id).pluck(:loi_id) + MpSponsor.where(mp_id: @mp.id).pluck(:loi_id)))
+      @lois.order("name ASC").each do |loi|
+        loi_highlight = LoiHighlight.new
+        loi_highlight.highlight_id = @highlight.id
+        loi_highlight.loi_id = loi.id
+        loi_highlight.save
+      end  
+      if @type == 1
         redirect_to "/mps/#{ @mp.id }/companies", :notice => "#{@highlight.name} added successfully."
       else
-        @lois = Loi.where(id: MpSponsor.where(mp_id: @mp.id).pluck(:loi_id))
-        @lois.order('name ASC').each do |loi|
-          loi_highlight = LoiHighlight.new
-          loi_highlight.highlight_id = @highlight.id
-          loi_highlight.loi_id = loi.id
-          loi_highlight.save
-        end  
         redirect_to "/mps/#{ @mp.id }/sponsors", :notice => "#{@highlight.name} added successfully."
       end
     else
@@ -96,14 +90,12 @@ before_action :ensure_banker_access,  only: [:new, :create, :edit, :update, :des
       @loi_highlights.each do |loi_highlight|
         loi_highlight.destroy
       end  
-      if params[:type_id] == 1
+      if @type == 1
         redirect_to "/mps/#{ @mp.id }/companies", :notice => "#{@highlight.name} removed."
       else
         redirect_to "/mps/#{ @mp.id }/sponsors", :notice => "#{@highlight.name} removed."
       end
     end 
-
-
   end
 
   def edit

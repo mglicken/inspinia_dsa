@@ -61,7 +61,7 @@
     </td>
     <td>
         <% if CipSponsor.find_by(cip_id: @cip.id, sponsor_id: sponsor.id).ioi.present? %>
-            <% CipSponsor.find_by(cip_id: @cip.id, sponsor_id: sponsor.id).ioi.ioi_highlights.each do |ioi_highlight| %>
+            <% CipSponsor.find_by(cip_id: @cip.id, sponsor_id: sponsor.id).ioi.ioi_highlights.joins(:highlight).order("name ASC").each do |ioi_highlight| %>
                 <strong><%= ioi_highlight.highlight.name %>:</strong> <%= ioi_highlight.detail %><br>
             <% end %>
         <% else %>

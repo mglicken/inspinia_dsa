@@ -71,39 +71,31 @@ before_action :ensure_banker_access,  only: [:new, :create, :edit, :update, :des
     @status = params[:status].to_i
     @highlight = Highlight.find(params[:highlight_id])
     @cip = Cip.find(params[:cip_id])
+    @type = params[:type_id].to_i
     if @status == 1
-      if params[:type_id] == 1
-        @iois = Ioi.where(id: CipCompany.where(cip_id: @cip.id).pluck(:ioi_id))
-        @iois.order('name ASC').each do |ioi|
-          ioi_highlight = IoiHighlight.new
-          ioi_highlight.highlight_id = @highlight.id
-          ioi_highlight.ioi_id = ioi.id
-          ioi_highlight.save
-        end  
+      @iois = Ioi.where(id: (CipCompany.where(cip_id: @mp.id).pluck(:ioi_id) + CipSponsor.where(cip_id: @mp.id).pluck(:ioi_id)))
+      @iois.order("name ASC").each do |ioi|
+        ioi_highlight = IoiHighlight.new
+        ioi_highlight.highlight_id = @highlight.id
+        ioi_highlight.ioi_id = ioi.id
+        ioi_highlight.save
+      end  
+      if @type == 1
         redirect_to "/cips/#{ @cip.id }/companies", :notice => "#{@highlight.name} added successfully."
       else
-        @iois = Ioi.where(id: CipSponsor.where(cip_id: @cip.id).pluck(:ioi_id))
-        @iois.order('name ASC').each do |ioi|
-          ioi_highlight = IoiHighlight.new
-          ioi_highlight.highlight_id = @highlight.id
-          ioi_highlight.ioi_id = ioi.id
-          ioi_highlight.save
-        end  
         redirect_to "/cips/#{ @cip.id }/sponsors", :notice => "#{@highlight.name} added successfully."
       end
     else
-      @ioi_highlights = IoiHighlight.where(ioi_id: (CipCompany.where(cip_id: @cip.id).pluck(:ioi_id)+CipSponsor.where(cip_id: @cip.id).pluck(:ioi_id)),highlight_id: @highlight.id)
+      @ioi_highlights = IoiHighlight.where(ioi_id: (CipCompany.where(cip_id: @mp.id).pluck(:ioi_id)+CipSponsor.where(cip_id: @mp.id).pluck(:ioi_id)),highlight_id: @highlight.id)
       @ioi_highlights.each do |ioi_highlight|
         ioi_highlight.destroy
       end  
-      if params[:type_id] == 1
+      if @type == 1
         redirect_to "/cips/#{ @cip.id }/companies", :notice => "#{@highlight.name} removed."
       else
         redirect_to "/cips/#{ @cip.id }/sponsors", :notice => "#{@highlight.name} removed."
       end
     end 
-
-
   end
 
   def edit

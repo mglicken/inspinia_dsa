@@ -130,7 +130,6 @@ before_action :ensure_view_access,  only: [:show]
 
   def destroy
     @loi = Loi.find(params[:id])
-
     @cip =@loi.deal.cip
     @loi.destroy
 
