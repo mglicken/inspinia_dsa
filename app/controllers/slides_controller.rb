@@ -69,7 +69,13 @@ before_action :ensure_view_access,  only: [:show, :search]
       @image_id = @mp.image_id
     else
       @mp = nil
-    end    
+    end
+    if @slide.loi.present?
+      @loi = @slide.loi
+      @image_id = @loi.image_id
+    else
+      @loi = nil
+    end
     if @slide.teaser.present?
       @teaser = @slide.teaser
       @image_id = @teaser.image_id
