@@ -31,12 +31,6 @@
              <% end %>
              <dt>Date:</dt>
              <dd><%= @loi.loi_date %></dd>
-             <br>
-             <%@loi.loi_highlights.order("highlight_id asc").each do |loi_highlight|%>
-              <dt><%= loi_highlight.highlight.name%>:</dt>
-              <dd><%= simple_format(loi_highlight.detail)%></dd>
-             <%end%>
-
             </dl>
             <div class="btn-group btn-group-justified">
               <%if @loi.mp_company.present? %>
@@ -53,7 +47,40 @@
     </div>
   </div>
 </div>
-
+<div class="row">
+  <div class="col-lg-offset-2 col-lg-7">
+      <div class="ibox collapsed">
+          <div class="ibox-title">
+              <h5>Example of <small>initial</small> collapsed panel</h5>
+              <div class="ibox-tools">
+                  <a class="collapse-link">
+                      <i class="fa fa-chevron-up"></i>
+                  </a>
+                  <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                      <i class="fa fa-wrench"></i>
+                  </a>
+                  <ul class="dropdown-menu dropdown-user">
+                      <li><a href="#">Config option 1</a>
+                      </li>
+                      <li><a href="#">Config option 2</a>
+                      </li>
+                  </ul>
+                  <a class="close-link">
+                      <i class="fa fa-times"></i>
+                  </a>
+              </div>
+          </div>
+          <div class="ibox-content">
+            <dl>
+             <%@loi.loi_highlights.order("highlight_id asc").each do |loi_highlight|%>
+              <dt><%= loi_highlight.highlight.name%>:</dt>
+              <dd><%= simple_format(loi_highlight.detail)%></dd>
+             <%end%>
+           </dl>
+          </div>
+      </div>
+  </div>
+</div>
 <%= render('view_slides') %>
 <%= render('shared/quick_search_js') %>
 
@@ -61,3 +88,6 @@
   <%= render('shared/upload_widget',url: "/create_loi_slide/#{@loi.id}", p_id: @p_id) %>
 <% end %>
 
+<script>
+  
+</script>
