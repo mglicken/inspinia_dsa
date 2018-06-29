@@ -35,7 +35,7 @@
              <br>
              <%@ioi.ioi_highlights.order("highlight_id asc").each do |ioi_highlight|%>
               <dt><%= ioi_highlight.highlight.name%>:</dt>
-              <dd>simple_format(<%= ioi_highlight.detail%>)</dd>
+              <dd><%= simple_format(ioi_highlight.detail)%></dd>
              <%end%>
 
             </dl>
