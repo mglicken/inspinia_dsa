@@ -73,7 +73,7 @@ before_action :ensure_banker_access,  only: [:new, :create, :edit, :update, :des
     @cip = Cip.find(params[:cip_id])
     @type = params[:type_id].to_i
     if @status == 1
-      @iois = Ioi.where(id: (CipCompany.where(cip_id: @mp.id).pluck(:ioi_id) + CipSponsor.where(cip_id: @mp.id).pluck(:ioi_id)))
+      @iois = Ioi.where(id: (CipCompany.where(cip_id: @cip.id).pluck(:ioi_id) + CipSponsor.where(cip_id: @cip.id).pluck(:ioi_id)))
       @iois.order("name ASC").each do |ioi|
         ioi_highlight = IoiHighlight.new
         ioi_highlight.highlight_id = @highlight.id
@@ -86,7 +86,7 @@ before_action :ensure_banker_access,  only: [:new, :create, :edit, :update, :des
         redirect_to "/cips/#{ @cip.id }/sponsors", :notice => "#{@highlight.name} added successfully."
       end
     else
-      @ioi_highlights = IoiHighlight.where(ioi_id: (CipCompany.where(cip_id: @mp.id).pluck(:ioi_id)+CipSponsor.where(cip_id: @mp.id).pluck(:ioi_id)),highlight_id: @highlight.id)
+      @ioi_highlights = IoiHighlight.where(ioi_id: (CipCompany.where(cip_id: @cip.id).pluck(:ioi_id) + CipSponsor.where(cip_id: @cip.id).pluck(:ioi_id)),highlight_id: @highlight.id)
       @ioi_highlights.each do |ioi_highlight|
         ioi_highlight.destroy
       end  
