@@ -5,7 +5,7 @@
     right:30px;
     color: #ffbf00;
   }
-  .pdf-image-1 {width: 100%;}
+  .pdf-image-2 {width: 95%;}
 </style>
 
 <div class="row">
@@ -39,7 +39,7 @@
           <div class="col-md-12">
             <class="dl-horizontal">
            
-            <%= link_to image_tag(slide.image_url, class: "pdf-image-1"), "/slides/#{slide.id}" %>
+            <%= link_to image_tag(slide.image_url, class: "pdf-image-2"), "/slides/#{slide.id}" %>
             <% slide.tags.each do |tag| %>
               <dd><div class="hidden"><%= tag.name %></div></dd>
             <% end %>

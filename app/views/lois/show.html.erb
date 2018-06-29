@@ -34,7 +34,7 @@
              <br>
              <%@loi.loi_highlights.order("highlight_id asc").each do |loi_highlight|%>
               <dt><%= loi_highlight.highlight.name%>:</dt>
-              <dd><%= loi_highlight.detail%></dd>
+              <dd>simple_format(<%= loi_highlight.detail%>)</dd>
              <%end%>
 
             </dl>

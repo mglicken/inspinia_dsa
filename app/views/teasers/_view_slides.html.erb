@@ -1,10 +1,11 @@
 <style>
-.btn-layout{
-  position:absolute;
-  top:0px;
-  right:30px;
-  color: #ffbf00;
-}
+  .btn-layout{
+    position:absolute;
+    top:0px;
+    right:30px;
+    color: #ffbf00;
+  }
+  .pdf-image-2 {width: 95%;}
 </style>
 <div class="row">
   <div class="col-xs-12">
@@ -35,7 +36,7 @@
           <div class="col-md-12" width=100%>
             <class="dl-horizontal">
            
-            <%= link_to image_tag(slide.image_url, width: 1100), "/slides/#{slide.id}" %>
+            <%= link_to image_tag(slide.image_url, class: "pdf-image-2"), "/slides/#{slide.id}" %>
             <% slide.tags.each do |tag| %>
               <dd><div class="hidden"><%= tag.name %></div></dd>
             <% end %>

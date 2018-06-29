@@ -59,7 +59,11 @@
               LOI Date
             </label>
             <div class="col-lg-10">
-              <input type="date" id="loi_date" name="loi_date" placeholder="e.g., 09/09/2017" class="form-control" value="<%= Date.current %>">
+              <%if loi.loi_date.nil?%>
+                <input type="date" id="loi_date" name="loi_date" placeholder="e.g., 09/09/2017" class="form-control" value="<%= Date.current %>">
+              <% else %>
+                <input type="date" id="loi_date" name="loi_date" placeholder="e.g., 09/09/2017" class="form-control" value="<%= loi.loi_date %>">
+              <% end %>
             </div>
           </div>
 
