@@ -173,6 +173,71 @@ before_action :ensure_view_access,  only: [:show, :search]
     end
   end
 
+  def create_nda_slides
+    public_id = Cloudinary::Api.resources(type:"upload")["resources"].first["public_id"]
+    pdf_len = Cloudinary::Api.resource( public_id , pages: true)["pages"].to_i
+
+
+    for i in 0..(pdf_len-1)
+      slide = Slide.new
+      slide.number = i+1
+      slide.image_url = "http://res.cloudinary.com/mglicken/image/upload/f_jpg,pg_#{ i+1 }/#{ public_id }.pdf"
+      slide.save
+      
+      nda_slide = NdaSlide.new
+      nda_slide.nda_id = params[:nda_id]
+      nda_slide.slide_id = slide.id
+      nda_slide.save
+
+
+      slide_tag = SlideTag.new
+      slide_tag.slide_id = slide.id
+      slide_tag.tag_id = Tag.find_by(name: "NDA")
+      slide_tag.save
+
+    end
+    nda_slide.nda.image_id = public_id
+    if slide.save
+      nda_slide.nda.save
+      redirect_to "/ndas/#{nda_slide.nda_id}", :notice => "NDA slides uploaded successfully. Please start tagging slides to aid searches."
+    else
+      render 'new'
+    end
+  end
+
+  def create_teaser_slides
+    public_id = Cloudinary::Api.resources(type:"upload")["resources"].first["public_id"]
+    pdf_len = Cloudinary::Api.resource( public_id , pages: true)["pages"].to_i
+
+
+    for i in 0..(pdf_len-1)
+      slide = Slide.new
+      slide.number = i+1
+      slide.image_url = "http://res.cloudinary.com/mglicken/image/upload/f_jpg,pg_#{ i+1 }/#{ public_id }.pdf"
+      slide.save
+      
+      teaser_slide = TeaserSlide.new
+      teaser_slide.teaser_id = params[:teaser_id]
+      teaser_slide.slide_id = slide.id
+      teaser_slide.save
+      slide.ppt_address = teaser_slide.teaser.ppt_address
+
+
+      slide_tag = SlideTag.new
+      slide_tag.slide_id = slide.id
+      slide_tag.tag_id = Tag.find_by(name: "Teaser")
+      slide_tag.save
+
+    end
+    teaser_slide.teaser.image_id = public_id
+    if slide.save
+      teaser_slide.teaser.save
+      redirect_to "/teasers/#{teaser_slide.teaser_id}", :notice => "Teaser slides uploaded successfully. Please start tagging slides to aid searches."
+    else
+      render 'new'
+    end
+  end
+
   def create_cip_slides
     public_id = Cloudinary::Api.resources(type:"upload")["resources"].first["public_id"]
     pdf_len = Cloudinary::Api.resource( public_id , pages: true)["pages"].to_i
@@ -201,6 +266,37 @@ before_action :ensure_view_access,  only: [:show, :search]
     if slide.save
       cip_slide.cip.save
       redirect_to "/cips/#{cip_slide.cip_id}", :notice => "CIP slides uploaded successfully. Please start tagging slides to aid searches."
+    else
+      render 'new'
+    end
+  end
+
+  def create_ioi_slides
+    public_id = Cloudinary::Api.resources(type:"upload")["resources"].first["public_id"]
+    pdf_len = Cloudinary::Api.resource( public_id , pages: true)["pages"].to_i
+
+
+    for i in 0..(pdf_len-1)
+      slide = Slide.new
+      slide.number = i+1
+      slide.image_url = "http://res.cloudinary.com/mglicken/image/upload/f_jpg,pg_#{ i+1 }/#{ public_id }.pdf"
+      slide.save
+      
+      ioi_slide = IoiSlide.new
+      ioi_slide.ioi_id = params[:ioi_id]
+      ioi_slide.slide_id = slide.id
+      ioi_slide.save
+
+      slide_tag = SlideTag.new
+      slide_tag.slide_id = slide.id
+      slide_tag.tag_id = Tag.find_by(name: "IOI")
+      slide_tag.save
+
+    end
+    ioi_slide.ioi.image_id = public_id
+    if slide.save
+      ioi_slide.ioi.save
+      redirect_to "/iois/#{ioi_slide.ioi_id}", :notice => "IOI slides uploaded successfully. Please start tagging slides to aid searches."
     else
       render 'new'
     end
@@ -239,71 +335,6 @@ before_action :ensure_view_access,  only: [:show, :search]
     end
   end
 
-  def create_nda_slides
-    public_id = Cloudinary::Api.resources(type:"upload")["resources"].first["public_id"]
-    pdf_len = Cloudinary::Api.resource( public_id , pages: true)["pages"].to_i
-
-
-    for i in 0..(pdf_len-1)
-      slide = Slide.new
-      slide.number = i+1
-      slide.image_url = "http://res.cloudinary.com/mglicken/image/upload/f_jpg,pg_#{ i+1 }/#{ public_id }.pdf"
-      slide.save
-      
-      nda_slide = NdaSlide.new
-      nda_slide.nda_id = params[:nda_id]
-      nda_slide.slide_id = slide.id
-      nda_slide.save
-      slide.ppt_address = nda_slide.nda.ppt_address
-
-
-      slide_tag = SlideTag.new
-      slide_tag.slide_id = slide.id
-      slide_tag.tag_id = Tag.find_by(name: "NDA")
-      slide_tag.save
-
-    end
-    nda_slide.nda.image_id = public_id
-    if slide.save
-      nda_slide.nda.save
-      redirect_to "/ndas/#{nda_slide.nda_id}", :notice => "NDA slides uploaded successfully. Please start tagging slides to aid searches."
-    else
-      render 'new'
-    end
-  end
-
-  def create_ioi_slides
-    public_id = Cloudinary::Api.resources(type:"upload")["resources"].first["public_id"]
-    pdf_len = Cloudinary::Api.resource( public_id , pages: true)["pages"].to_i
-
-
-    for i in 0..(pdf_len-1)
-      slide = Slide.new
-      slide.number = i+1
-      slide.image_url = "http://res.cloudinary.com/mglicken/image/upload/f_jpg,pg_#{ i+1 }/#{ public_id }.pdf"
-      slide.save
-      
-      ioi_slide = IoiSlide.new
-      ioi_slide.ioi_id = params[:ioi_id]
-      ioi_slide.slide_id = slide.id
-      ioi_slide.save
-      slide.ppt_address = ioi_slide.ioi.ppt_address
-
-
-      slide_tag = SlideTag.new
-      slide_tag.slide_id = slide.id
-      slide_tag.tag_id = Tag.find_by(name: "IOI")
-      slide_tag.save
-
-    end
-    ioi_slide.ioi.image_id = public_id
-    if slide.save
-      ioi_slide.ioi.save
-      redirect_to "/iois/#{ioi_slide.ioi_id}", :notice => "IOI slides uploaded successfully. Please start tagging slides to aid searches."
-    else
-      render 'new'
-    end
-  end
   def create_loi_slides
     public_id = Cloudinary::Api.resources(type:"upload")["resources"].first["public_id"]
     pdf_len = Cloudinary::Api.resource( public_id , pages: true)["pages"].to_i
@@ -319,7 +350,6 @@ before_action :ensure_view_access,  only: [:show, :search]
       loi_slide.loi_id = params[:loi_id]
       loi_slide.slide_id = slide.id
       loi_slide.save
-      slide.ppt_address = loi_slide.loi.ppt_address
 
 
       slide_tag = SlideTag.new
@@ -332,38 +362,6 @@ before_action :ensure_view_access,  only: [:show, :search]
     if slide.save
       loi_slide.loi.save
       redirect_to "/lois/#{loi_slide.loi_id}", :notice => "LOI slides uploaded successfully. Please start tagging slides to aid searches."
-    else
-      render 'new'
-    end
-  end
-  def create_teaser_slides
-    public_id = Cloudinary::Api.resources(type:"upload")["resources"].first["public_id"]
-    pdf_len = Cloudinary::Api.resource( public_id , pages: true)["pages"].to_i
-
-
-    for i in 0..(pdf_len-1)
-      slide = Slide.new
-      slide.number = i+1
-      slide.image_url = "http://res.cloudinary.com/mglicken/image/upload/f_jpg,pg_#{ i+1 }/#{ public_id }.pdf"
-      slide.save
-      
-      teaser_slide = TeaserSlide.new
-      teaser_slide.teaser_id = params[:teaser_id]
-      teaser_slide.slide_id = slide.id
-      teaser_slide.save
-      slide.ppt_address = teaser_slide.teaser.ppt_address
-
-
-      slide_tag = SlideTag.new
-      slide_tag.slide_id = slide.id
-      slide_tag.tag_id = Tag.find_by(name: "Teaser")
-      slide_tag.save
-
-    end
-    teaser_slide.teaser.image_id = public_id
-    if slide.save
-      teaser_slide.teaser.save
-      redirect_to "/teasers/#{teaser_slide.teaser_id}", :notice => "Teaser slides uploaded successfully. Please start tagging slides to aid searches."
     else
       render 'new'
     end
