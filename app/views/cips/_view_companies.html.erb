@@ -21,8 +21,9 @@
 <thead>
 <tr>
     <th width = "25%" style="text-align: center">Strategic</th>
-    <th width="8%" style="text-align: center">Declined</th>
-    <th width="8%" style="text-align: center">IOI</th>
+    <th width="7%" style="text-align: center">Declined</th>
+    <th width="7%" style="text-align: center">IOI</th>
+    <th width="5%" style="text-align: center">EV<br>($ m)</th>
     <th>Notes</th>
     <th width="8%" style="text-align: center"></th>
 </tr>
@@ -58,6 +59,9 @@
       <% else %>
         <%= link_to content_tag(:i,nil, class: 'fa fa-times'), "/update_cip_company/#{@cip.cip_companies.find_by(company_id: company.id).id}/2", :id => "company_#{company.id}_2", :class => "strip-tags-notselected", :remote => true  %>
       <% end %>
+    </td>
+    <td>
+       $<%= loi_highlight.loi.enterprise_value %>
     </td>
     <td>
         <% if CipCompany.find_by(cip_id: @cip.id, company_id: company.id).ioi.present? %>

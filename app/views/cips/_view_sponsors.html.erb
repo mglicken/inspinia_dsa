@@ -21,8 +21,10 @@
 <thead>
 <tr>
     <th width = "25%" style="text-align: center">Sponsor</th>
-    <th width="8%" style="text-align: center">Declined</th>
-    <th width="8%" style="text-align: center">IOI</th>
+    <th width="7%" style="text-align: center">Declined</th>
+    <th width="7%" style="text-align: center">IOI</th>
+    <th width="5%" style="text-align: center">Low<br>($ m)</th>
+    <th width="5%" style="text-align: center">High<br>($ m)</th>
     <th>Notes</th>
     <th width="8%" style="text-align: center"></th>
 </tr>
@@ -58,6 +60,12 @@
       <% else %>
         <%= link_to content_tag(:i,nil, class: 'fa fa-times'), "/update_cip_sponsor/#{@cip.cip_sponsors.find_by(sponsor_id: sponsor.id).id}/2", :id => "sponsor_#{sponsor.id}_2", :class => "strip-tags-notselected", :remote => true  %>
       <% end %>
+    </td>
+    <td>
+       $<%= ioi_highlight.ioi.low_purchase_price %>
+    </td>
+    <td>
+       $<%= ioi_highlight.ioi.high_purchase_price %>
     </td>
     <td>
         <% if CipSponsor.find_by(cip_id: @cip.id, sponsor_id: sponsor.id).ioi.present? %>
