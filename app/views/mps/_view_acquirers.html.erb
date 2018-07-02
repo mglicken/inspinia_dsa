@@ -1,0 +1,176 @@
+  <style>
+    .strip-tags-selected { color: black;
+                            font-size: 11px;
+                            text-align: center;  }
+    .strip-tags-selected:hover { font-size: 11px;
+                                color:  #999999;
+                                text-align: center; }
+
+    .strip-tags-notselected { color: red;
+                            font-size: 8px;
+                            text-align: center;  }
+    .strip-tags-notselected:hover { font-size: 8px;
+                                color:  #efbab8;
+                                text-align: center; }
+
+</style>
+<br>
+<br>
+<div class="ibox-content">
+<table class="table table-hover dataTables-LOI">
+<thead>
+<tr>
+    <th width = "25%" style="text-align: center">Acquirer</th>
+    <th width="7%" style="text-align: center">Declined</th>
+    <th width="7%" style="text-align: center">LOI</th>
+    <th width="5%" style="text-align: center">EV<br>($ m)</th>
+    <th>Notes</th>
+    <th width="9%" style="text-align: center"></th>
+</tr>
+<tr>
+    <th style="text-align: center">(<%=@acquirers.count %>)</th>
+    <th style="text-align: center">(<%=@declined.count%>)</th>
+    <th style="text-align: center">(<%=@lois.count%>)</th>
+    <th></th>
+    <th></th>
+</tr>
+</thead>
+<tbody>
+<% @acquirers.each do |acquirer| %>
+    <% if acquirer.class.name == "Sponsor" %>
+        <% if acquirer.mp_sponsors.find_by(mp_id: @mp.id).loi.present? %>
+            <tr id="row_sponsor_<%=acquirer.id%>" class="success">
+        <% elsif acquirer.mp_sponsors.find_by(mp_id: @mp.id).declined? %> 
+            <tr id="row_sponsor_<%=acquirer.id%>" class="danger">
+        <% else %>
+            <tr id="row_sponsor_<%=acquirer.id%>">
+        <% end %>
+
+        <td><a href="/sponsors/<%=acquirer.id%>"><%=acquirer.name%></a></td>
+        <td style="text-align: center">
+          <% if @mp.mp_sponsors.find_by(sponsor_id: acquirer.id).declined %>
+            <%= link_to content_tag(:i,nil, class: 'fa fa-times'), "/update_mp_sponsor/#{@mp.mp_sponsors.find_by(sponsor_id: acquirer.id).id}/1", :id => "sponsor_#{acquirer.id}_1", :class => "strip-tags-selected", :remote => true  %>
+          <% else %>
+            <%= link_to content_tag(:i,nil, class: 'fa fa-times'), "/update_mp_sponsor/#{@mp.mp_sponsors.find_by(sponsor_id: acquirer.id).id}/1", :id => "sponsor_#{acquirer.id}_1", :class => "strip-tags-notselected", :remote => true  %>
+          <% end %>
+        </td>
+        <td style="text-align: center">
+          <% if @mp.mp_sponsors.find_by(sponsor_id: acquirer.id).loi.present? %>
+            <%= render('shared/delete_loi_modal', :loi => @mp.mp_sponsors.find_by(sponsor_id: acquirer.id).loi) %>
+          <% else %>
+            <%= link_to content_tag(:i,nil, class: 'fa fa-times'), "/update_mp_sponsor/#{@mp.mp_sponsors.find_by(sponsor_id: acquirer.id).id}/2", :id => "sponsor_#{acquirer.id}_2", :class => "strip-tags-notselected", :remote => true  %>
+          <% end %>
+        </td>
+        <td>
+            <% if @mp.mp_sponsors.find_by(sponsor_id: acquirer.id).loi.present? %> 
+                $<%= @mp.mp_sponsors.find_by(sponsor_id: acquirer.id).loi.enterprise_value %>
+            <% end %>
+        </td>
+        <td>
+            <% if MpSponsor.find_by(mp_id: @mp.id, sponsor_id: acquirer.id).loi.present? %>
+                <% MpSponsor.find_by(mp_id: @mp.id, sponsor_id: acquirer.id).loi.loi_highlights.joins(:highlight).order("id ASC").each do |loi_highlight| %>
+                    <strong><%= loi_highlight.highlight.name %>:</strong> <%= loi_highlight.detail %><br>
+                <% end %>
+            <% else %>
+                ....
+            <% end %>
+        
+        </td>
+        <td>
+            <% if @mp.mp_sponsors.find_by(sponsor_id: acquirer.id).loi.present? %>
+                <a class="btn btn-edit btn-xs" href="/lois/<%= @mp.mp_sponsors.find_by(sponsor_id: acquirer.id).loi_id %>"><i class="fa fa-edit"></i></a>
+            <% end %>
+            <%= render('shared/delete_mp_sponsor_modal', :mp_sponsor => @mp.mp_sponsors.find_by(sponsor_id: acquirer.id))%>
+        </td>
+    <% else %>
+
+        <% if acquirer.mp_companies.find_by(mp_id: @mp.id).loi.present? %>
+            <tr id="row_company_<%=acquirer.id%>" class="success">
+        <% elsif acquirer.mp_companies.find_by(mp_id: @mp.id).declined? %> 
+            <tr id="row_company_<%=acquirer.id%>" class="danger">
+        <% else %>
+            <tr id="row_company_<%=acquirer.id%>">
+        <% end %>
+
+        <td><a href="/companies/<%=acquirer.id%>"><%=acquirer.name%></a></td>
+        <td style="text-align: center">
+          <% if @mp.mp_companies.find_by(company_id: acquirer.id).declined %>
+            <%= link_to content_tag(:i,nil, class: 'fa fa-times'), "/update_mp_company/#{@mp.mp_companies.find_by(company_id: acquirer.id).id}/1", :id => "company_#{acquirer.id}_1", :class => "strip-tags-selected", :remote => true  %>
+          <% else %>
+            <%= link_to content_tag(:i,nil, class: 'fa fa-times'), "/update_mp_company/#{@mp.mp_companies.find_by(company_id: acquirer.id).id}/1", :id => "company_#{acquirer.id}_1", :class => "strip-tags-notselected", :remote => true  %>
+          <% end %>
+        </td>
+        <td style="text-align: center">
+          <% if @mp.mp_companies.find_by(company_id: acquirer.id).loi.present? %>
+            <%= render('shared/delete_loi_modal', :loi => @mp.mp_companies.find_by(company_id: acquirer.id).loi) %>
+          <% else %>
+            <%= link_to content_tag(:i,nil, class: 'fa fa-times'), "/update_mp_company/#{@mp.mp_companies.find_by(company_id: acquirer.id).id}/2", :id => "company_#{acquirer.id}_2", :class => "strip-tags-notselected", :remote => true  %>
+          <% end %>
+        </td>
+        <td>
+            <% if @mp.mp_companies.find_by(company_id: acquirer.id).loi.present? %> 
+                $<%= @mp.mp_companies.find_by(company_id: acquirer.id).loi.low_purchase_price %>
+            <% end %>
+        </td>
+        <td>
+            <% if @mp.mp_companies.find_by(company_id: acquirer.id).loi.present? %> 
+                $<%= @mp.mp_companies.find_by(company_id: acquirer.id).loi.high_purchase_price %>
+            <% end %>
+        </td>
+        <td>
+            <% if MpCompany.find_by(mp_id: @mp.id, company_id: acquirer.id).loi.present? %>
+                <% MpCompany.find_by(mp_id: @mp.id, company_id: acquirer.id).loi.loi_highlights.joins(:highlight).order("id ASC").each do |loi_highlight| %>
+                    <strong><%= loi_highlight.highlight.name %>:</strong> <%= loi_highlight.detail %><br>
+                <% end %>
+            <% else %>
+                ....
+            <% end %>
+        
+        </td>
+        <td>
+            <% if @mp.mp_companies.find_by(company_id: acquirer.id).loi.present? %>
+                <a class="btn btn-edit btn-xs" href="/lois/<%= @mp.mp_companies.find_by(company_id: acquirer.id).loi_id %>"><i class="fa fa-edit"></i></a>
+            <% end %>
+            <%= render('shared/delete_mp_company_modal', :mp_company => @mp.mp_companies.find_by(company_id: acquirer.id))%>
+        </td>
+    <% end %>
+</tr>
+<%end%>
+</tbody>
+</table>
+</div>
+
+<script type="text/javascript">
+
+$(function() {
+
+    $('.dataTables-LOI').DataTable({
+        pageLength: 100,
+        responsive: true,
+        dom: '<"html5buttons"B>lTfgitp',
+        buttons: [
+            { extend: 'copy'},
+            {extend: 'csv'},
+            {extend: 'excel', title: 'ExampleFile'},
+            {extend: 'pdf', title: 'ExampleFile'},
+
+            {extend: 'print',
+                customize: function (win){
+                    $(win.document.body).addClass('white-bg');
+                    $(win.document.body).css('font-size', '10px');
+
+                    $(win.document.body).find('table')
+                            .addClass('compact')
+                            .css('font-size', 'inherit');
+                }
+            }
+        ]
+
+    });
+
+
+});
+
+</script>
+
+

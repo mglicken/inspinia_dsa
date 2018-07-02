@@ -59,6 +59,24 @@ before_action :ensure_view_access,  only: [:search, :show]
     @url = "/create_mp_slide/#{params[:id]}"
   end
 
+  def show_acquirers
+    @mp = Mp.find(params[:id])
+    @mp_sponsors = @mp.mp_sponsors
+    @mp_companies = @mp.mp_companies
+    @lois = Loi.where(id: (@mp_sponsors.pluck(:loi_id) + @mp_companies.pluck(:loi_id)))
+    @declined = (@mp_sponsors.where(declined: true) + @mp_companies.where(declined: true)) 
+    @sponsors = @mp.sponsors.order("name ASC")
+    @companies = @mp.companies.order("name ASC")
+    @acquirers = (@companies + @sponsors).sort! { |a, b| a.name <=> b.name } 
+
+    respond_to do |format|
+      format.html
+      format.xlsx {
+        response.headers['Content-Disposition'] = 'attachment; filename="All_Acquirers_List.xlsx"'
+        }
+    end
+  end
+
   def show_sponsors
     @mp = Mp.find(params[:id])
     @mp_sponsors = @mp.mp_sponsors

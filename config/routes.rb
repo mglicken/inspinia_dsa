@@ -754,6 +754,7 @@ Myapp::Application.routes.draw do
   get "/mps", :controller => "mps", :action => "index"
   get "/mps/:id", :controller => "mps", :action => "show"
   get "/mp_search/:search", :controller => "mps", :action => "search"
+  get "/mps/:id/acquirers", :controller => "mps", :action => "show_acquirers"
   get "/mps/:id/sponsors", :controller => "mps", :action => "show_sponsors"
   get "/mps/:id/companies", :controller => "mps", :action => "show_companies"
 
