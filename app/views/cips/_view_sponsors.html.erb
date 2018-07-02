@@ -62,10 +62,14 @@
       <% end %>
     </td>
     <td>
-       $<%= ioi_highlight.ioi.low_purchase_price %>
+        <% if @cip.cip_sponsors.find_by(sponsor_id: sponsor.id).ioi.present? %> 
+            $<%= @cip.cip_sponsors.find_by(sponsor_id: sponsor.id).ioi.low_purchase_price %>
+        <% end %>
     </td>
     <td>
-       $<%= ioi_highlight.ioi.high_purchase_price %>
+        <% if @cip.cip_sponsors.find_by(sponsor_id: sponsor.id).ioi.present? %> 
+            $<%= @cip.cip_sponsors.find_by(sponsor_id: sponsor.id).ioi.high_purchase_price %>
+        <% end %>
     </td>
     <td>
         <% if CipSponsor.find_by(cip_id: @cip.id, sponsor_id: sponsor.id).ioi.present? %>

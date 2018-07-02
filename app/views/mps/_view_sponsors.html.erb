@@ -21,8 +21,9 @@
 <thead>
 <tr>
     <th width = "25%" style="text-align: center">Sponsor</th>
-    <th width="8%" style="text-align: center">Declined</th>
-    <th width="8%" style="text-align: center">LOI</th>
+    <th width="7%" style="text-align: center">Declined</th>
+    <th width="7%" style="text-align: center">LOI</th>
+    <th width="5%" style="text-align: center">EV<br>($ m)</th>
     <th>Notes</th>
     <th width="8%" style="text-align: center"></th>
 </tr>
@@ -58,6 +59,11 @@
       <% else %>
         <%= link_to content_tag(:i,nil, class: 'fa fa-times'), "/update_mp_sponsor/#{@mp.mp_sponsors.find_by(sponsor_id: sponsor.id).id}/2", :id => "sponsor_#{sponsor.id}_2", :class => "strip-tags-notselected", :remote => true  %>
       <% end %>
+    </td>
+    <td>
+        <% if @cip.cip_sponsors.find_by(sponsor_id: sponsor.id).loi.present? %> 
+            $<%= @cip.cip_sponsors.find_by(sponsor_id: sponsor.id).loi.enterprise_value %>
+        <% end %>
     </td>
     <td>
         <% if MpSponsor.find_by(mp_id: @mp.id, sponsor_id: sponsor.id).loi.present? %>
