@@ -26,7 +26,7 @@
     <th width="5%" style="text-align: center">Low<br>($ m)</th>
     <th width="5%" style="text-align: center">High<br>($ m)</th>
     <th>Notes</th>
-    <th width="8%" style="text-align: center"></th>
+    <th width="9%" style="text-align: center"></th>
 </tr>
 <tr>
     <th style="text-align: center">(<%=@sponsors.count%>)</th>
@@ -39,11 +39,11 @@
 <tbody>
 <% @sponsors.each do |sponsor| %>
     <% if @cip.cip_sponsors.find_by(sponsor_id: sponsor.id).ioi.present? %> 
-        <tr id="row_<%=sponsor.id%>" class="success">
+        <tr id="row_sponsor_<%=sponsor.id%>" class="success">
     <% elsif @cip.cip_sponsors.find_by(sponsor_id: sponsor.id).declined? %> 
-        <tr id="row_<%=sponsor.id%>" class="danger">
+        <tr id="row_sponsor_<%=sponsor.id%>" class="danger">
     <% else %>
-        <tr id="row_<%=sponsor.id%>">
+        <tr id="row_sponsor_<%=sponsor.id%>">
     <% end %>
 
     <td><a href="/sponsors/<%=sponsor.id%>"><%=sponsor.name%></a></td>

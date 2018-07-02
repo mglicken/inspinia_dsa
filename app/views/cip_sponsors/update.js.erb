@@ -1,16 +1,16 @@
 $('#sponsor_<%= @sponsor.id %>_1').removeClass()
 $('#sponsor_<%= @sponsor.id %>_2').removeClass()
-$('#row_<%= @sponsor.id %>').removeClass()
+$('#row_sponsor_<%= @sponsor.id %>').removeClass()
 <% if @status == 1 %>
 	$('#sponsor_<%= @sponsor.id %>_2').addClass("strip-tags-notselected")
 	<% if @cip_sponsor.declined %>
-	    $('#row_<%= @sponsor.id %>').addClass('danger')
+	    $('#row_sponsor_<%= @sponsor.id %>').addClass('danger')
 		$('#sponsor_<%= @sponsor.id %>_1').addClass("strip-tags-selected")		
 	<% else %>
 		$('#sponsor_<%= @sponsor.id %>_1').addClass("strip-tags-notselected")
 	<% end %>
 <% else %>
-	$('#row_<%= @sponsor.id %>').addClass('success')
+	$('#row_sponsor_<%= @sponsor.id %>').addClass('success')
 	$('#sponsor_<%= @sponsor.id %>_1').addClass("strip-tags-notselected")
 	$('#sponsor_<%= @sponsor.id %>_2').addClass("strip-tags-selected")
 <% end %>

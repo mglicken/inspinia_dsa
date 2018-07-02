@@ -1,8 +1,8 @@
 $('#company_<%= @company.id %>_1').removeClass()
 $('#company_<%= @company.id %>_2').removeClass()
-$('#row_<%= @company.id %>').removeClass()
+$('#row_company_<%= @company.id %>').removeClass()
 <% if @status == 1 %>
-    $('#row_<%= @company.id %>').addClass('danger')
+    $('#row_company_<%= @company.id %>').addClass('danger')
 	$('#company_<%= @company.id %>_2').addClass("strip-tags-notselected")
 	<% if @cip_company.declined %>
 		$('#company_<%= @company.id %>_1').addClass("strip-tags-selected")		
@@ -10,7 +10,7 @@ $('#row_<%= @company.id %>').removeClass()
 		$('#company_<%= @company.id %>_1').addClass("strip-tags-notselected")
 	<% end %>
 <% else %>
-	$('#row_<%= @company.id %>').addClass('success')
+	$('#row_company_<%= @company.id %>').addClass('success')
 	$('#company_<%= @company.id %>_1').addClass("strip-tags-notselected")
 	$('#company_<%= @company.id %>_2').addClass("strip-tags-selected")
 <% end %>

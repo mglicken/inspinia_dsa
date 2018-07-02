@@ -9,7 +9,13 @@ class Company < ActiveRecord::Base
 	has_many :company_notes, :dependent => :destroy
 	has_many :notes, :through => :company_notes
 	has_many :nbp_companies, :dependent => :destroy
+	has_many :nbps, :through => :nbp_companies
 	has_many :teaser_companies, :dependent => :destroy
+	has_many :teasers, :through => :teaser_companies
+	has_many :cip_companies, :dependent => :destroy
+	has_many :cips, :through => :cip_companies
+	has_many :mp_companies, :dependent => :destroy
+	has_many :mps, :through => :mp_companies
 	has_many :company_follows, :dependent => :destroy
 
 	has_many :subsidiary_parents, class_name: "Subsidiary", foreign_key: "child_id", dependent: :destroy
@@ -17,6 +23,7 @@ class Company < ActiveRecord::Base
 
 	has_many :children, through: :subsidiary_children, foreign_key: "child_id"
 	has_many :parents, through: :subsidiary_parents, foreign_key: "parent_id"
+
 
 
 	def self.to_csv

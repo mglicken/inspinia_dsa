@@ -160,7 +160,7 @@ before_action :ensure_view_access,  only: [:show, :search]
   
       slide_tag = SlideTag.new
       slide_tag.slide_id = slide.id
-      slide_tag.tag_id = Tag.find_by(name: "NBP")
+      slide_tag.tag_id = Tag.find_by(name: "NBP").id
       slide_tag.save
 
     end
@@ -192,7 +192,7 @@ before_action :ensure_view_access,  only: [:show, :search]
 
       slide_tag = SlideTag.new
       slide_tag.slide_id = slide.id
-      slide_tag.tag_id = Tag.find_by(name: "NDA")
+      slide_tag.tag_id = Tag.find_by(name: "NDA").id
       slide_tag.save
 
     end
@@ -225,7 +225,7 @@ before_action :ensure_view_access,  only: [:show, :search]
 
       slide_tag = SlideTag.new
       slide_tag.slide_id = slide.id
-      slide_tag.tag_id = Tag.find_by(name: "Teaser")
+      slide_tag.tag_id = Tag.find_by(name: "Teaser").id
       slide_tag.save
 
     end
@@ -258,7 +258,7 @@ before_action :ensure_view_access,  only: [:show, :search]
 
       slide_tag = SlideTag.new
       slide_tag.slide_id = slide.id
-      slide_tag.tag_id = Tag.find_by(name: "CIP")
+      slide_tag.tag_id = Tag.find_by(name: "CIP").id
       slide_tag.save        
 
     end
@@ -289,7 +289,7 @@ before_action :ensure_view_access,  only: [:show, :search]
 
       slide_tag = SlideTag.new
       slide_tag.slide_id = slide.id
-      slide_tag.tag_id = Tag.find_by(name: "IOI")
+      slide_tag.tag_id = Tag.find_by(name: "IOI").id
       slide_tag.save
 
     end
@@ -322,7 +322,7 @@ before_action :ensure_view_access,  only: [:show, :search]
 
       slide_tag = SlideTag.new
       slide_tag.slide_id = slide.id
-      slide_tag.tag_id = Tag.find_by(name: "MP")
+      slide_tag.tag_id = Tag.find_by(name: "MP").id
       slide_tag.save
 
     end
@@ -354,7 +354,7 @@ before_action :ensure_view_access,  only: [:show, :search]
 
       slide_tag = SlideTag.new
       slide_tag.slide_id = slide.id
-      slide_tag.tag_id = Tag.find_by(name: "loi")
+      slide_tag.tag_id = Tag.find_by(name: "LOI").id
       slide_tag.save
 
     end
@@ -387,7 +387,7 @@ before_action :ensure_view_access,  only: [:show, :search]
 
       slide_tag = SlideTag.new
       slide_tag.slide_id = slide.id
-      slide_tag.tag_id = Tag.find_by(name: "Case Study")
+      slide_tag.tag_id = Tag.find_by(name: "Case Study").id
       slide_tag.save
 
     end

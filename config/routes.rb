@@ -88,6 +88,7 @@ Myapp::Application.routes.draw do
   get "/cip_search/:search", :controller => "cips", :action => "search"
   get "/cips/:id/sponsors", :controller => "cips", :action => "show_sponsors"
   get "/cips/:id/companies", :controller => "cips", :action => "show_companies"
+  get "/cips/:id/acquirers", :controller => "cips", :action => "show_acquirers"
   get "/cips/:id/advisors", :controller => "cips", :action => "show_advisors"
 
   # UPDATE

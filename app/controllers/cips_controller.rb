@@ -59,6 +59,21 @@ before_action :ensure_view_access,  only: [:search, :show]
     @url = "/create_cip_slide/#{params[:id]}"
   end
 
+  def show_companies
+    @cip = Cip.find(params[:id])
+    @cip_companies = @cip.cip_companies
+    @iois = Ioi.where(id: @cip_companies.pluck(:ioi_id))
+    @declined = @cip_companies.where(declined: true)
+
+    @companies = @cip.companies.order("name ASC")
+    respond_to do |format|
+      format.html
+      format.xlsx {
+        response.headers['Content-Disposition'] = 'attachment; filename="Strategic_Acquirers_List.xlsx"'
+        }
+    end
+  end
+
   def show_sponsors
     @cip = Cip.find(params[:id])
     @cip_sponsors = @cip.cip_sponsors
@@ -74,17 +89,20 @@ before_action :ensure_view_access,  only: [:search, :show]
     end
   end
   
-  def show_companies
+  def show_acquirers
     @cip = Cip.find(params[:id])
+    @cip_sponsors = @cip.cip_sponsors
     @cip_companies = @cip.cip_companies
-    @iois = Ioi.where(id: @cip_companies.pluck(:ioi_id))
-    @declined = @cip_companies.where(declined: true)
-
+    @iois = Ioi.where(id: (@cip_sponsors.pluck(:ioi_id) + @cip_companies.pluck(:ioi_id)))
+    @declined = (@cip_sponsors.where(declined: true) + @cip_companies.where(declined: true)) 
+    @sponsors = @cip.sponsors.order("name ASC")
     @companies = @cip.companies.order("name ASC")
+    @acquirers = (@companies + @sponsors).sort! { |a, b| a.name <=> b.name } 
+
     respond_to do |format|
       format.html
       format.xlsx {
-        response.headers['Content-Disposition'] = 'attachment; filename="Strategic_Acquirers_List.xlsx"'
+        response.headers['Content-Disposition'] = 'attachment; filename="All_Acquirers_List.xlsx"'
         }
     end
   end

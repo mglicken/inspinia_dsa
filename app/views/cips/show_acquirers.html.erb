@@ -59,17 +59,17 @@
     <div class="btn-group-vertical">
 
       <%= render('add_sponsor_autocomplete', cip: @cip) %>
-      
+      <%= render('add_company_autocomplete', cip: @cip) %>      
     </div>
   </div> 
 </div>
 <a class="btn btn-lincoln" href="/cips/<%= @cip.id %>">View Slides</a>
-<a class="btn btn-lincoln" href="/cips/<%= @cip.id %>/acquirers">View All Acquirers</a>
+<a class="btn btn-lincoln" href="/cips/<%= @cip.id %>/sponsors">View Financial Acquirers</a>
 <a class="btn btn-lincoln" href="/cips/<%= @cip.id %>/companies">View Strategic Acquirers</a>
 <a class="btn btn-lincoln" href="/cips/<%= @cip.id %>/advisors">View Advisors</a>
 
 
-<%= render('view_sponsors') %>
+<%= render('view_acquirers') %>
 <%= render('shared/quick_search_js') %>
 
 <script>
