@@ -150,24 +150,23 @@
 
 
 
-          <!-- Label and input for RCO ID -->
+          <!-- Label and input for Reverse Coverage Officer -->
           <div class="form-group">
             <label for="rco_id" class="col-lg-2 control-label">
-              RCO ID
+              Reverse Coverage Officer
             </label>
             <div class="col-lg-10">
-              <input type="int" id="rco_id" name="rco_id" placeholder="e.g. 12" class="form-control" value="<%= sponsor.rco_id %>">
+              <%= select_tag :rco_id, options_from_collection_for_select(Person.where(employee: false).order("name ASC"), :id, :name, sponsor.rco_id), :class => "form-control" %>
             </div>
           </div>
 
-
-          <!-- Label and input for CO ID -->
+          <!-- Label and input for Coverage Officer -->
           <div class="form-group">
             <label for="co_id" class="col-lg-2 control-label">
-              CO ID
+              Coverage Officer
             </label>
             <div class="col-lg-10">
-              <input type="int" id="co_id" name="co_id" placeholder="e.g. 12" class="form-control" value="<%= sponsor.co_id %>">
+              <%= select_tag :co_id, options_from_collection_for_select(Person.where(employee: true).order("name ASC"), :id, :name, sponsor.co_id), :class => "form-control" %>
             </div>
           </div>
 

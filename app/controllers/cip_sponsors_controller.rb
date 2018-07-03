@@ -171,7 +171,7 @@ before_action :ensure_banker_access,  only: [:new, :create, :edit, :update, :des
 
     @cip_sponsor.destroy
 
-    redirect_to "/cip_sponsors/#{@cip_sponsor.id}/", :notice => "CIP Sponsor deleted."
+    redirect_to "/cips/#{@cip_sponsor.cip_id}/sponsors", :notice => "CIP Sponsor deleted."
   end
   
   def import

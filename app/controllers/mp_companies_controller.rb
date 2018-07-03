@@ -172,7 +172,7 @@ before_action :ensure_banker_access,  only: [:new, :create, :edit, :update, :des
 
     @mp_company.destroy
 
-    redirect_to "/mp_companies/#{@mp_company.id}/", :notice => "MP Company deleted."
+    redirect_to "/mps/#{@mp_company.mp_id}/companies", :notice => "MP Company deleted."
   end
   
   def import

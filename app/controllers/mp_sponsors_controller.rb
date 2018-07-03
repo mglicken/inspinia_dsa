@@ -171,7 +171,7 @@ before_action :ensure_banker_access,  only: [:new, :create, :edit, :update, :des
 
     @mp_sponsor.destroy
 
-    redirect_to "/mp_sponsors/#{@mp_sponsor.id}/", :notice => "MP Sponsor deleted."
+    redirect_to "/mps/#{@mp_sponsor.mp_id}/sponsors", :notice => "MP Sponsor deleted."
   end
   
   def import

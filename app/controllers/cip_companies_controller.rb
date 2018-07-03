@@ -172,7 +172,7 @@ before_action :ensure_banker_access,  only: [:new, :create, :edit, :update, :des
 
     @cip_company.destroy
 
-    redirect_to "/cip_companies/#{@cip_company.id}/", :notice => "CIP Company deleted."
+    redirect_to "/cips/#{@cip_company.cip_id}/companies", :notice => "CIP Company deleted."
   end
   
   def import
