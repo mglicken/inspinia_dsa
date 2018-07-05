@@ -1,5 +1,8 @@
 class CipCompany < ActiveRecord::Base
 validates_uniqueness_of :cip_id, :scope => :company_id
+validates :cip_id, :presence => true
+validates :company_id, :presence => true
+
 belongs_to :cip
 belongs_to :company
 belongs_to :ioi

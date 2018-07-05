@@ -1,5 +1,7 @@
 class CipSponsor < ActiveRecord::Base
 validates_uniqueness_of :cip_id, :scope => :sponsor_id
+validates :cip_id, :presence => true
+validates :sponsor_id, :presence => true
 belongs_to :cip
 belongs_to :sponsor
 belongs_to :ioi
