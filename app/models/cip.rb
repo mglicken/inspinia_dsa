@@ -30,42 +30,7 @@ class Cip < ActiveRecord::Base
 		@data = CSV.read(file.path, headers: true)
 		@rows = []
 		cip = Cip.find(@data["cip_id"][0])
-		@data.each do |data|
-			@rows.push(data["Acquirer"])
 
-			if data["Acquirer"].present?
-				cip.cip_sponsors.each do |cip_sponsor|
-					if	cip_sponsor.sponsor.name.downcase.include? data["Acquirer"].downcase
-						if cip_sponsor.ioi.present?
-							ioi = cip_sponsor.ioi
-							ioi.ioi_date = data["ioi_date"]
-							ioi.low_purchase_price = data["low_purchase_price"]
-							ioi.high_purchase_price = data["high_purchase_price"]
-							ioi.save
-							cip_sponsor.ioi.ioi_highlights.each do |ioi_highlight|
-								ioi_highlight.detail = data[ioi_highlight.highlight.name]
-								ioi_highlight.save
-							end
-						end
-					end
-				end
-				cip.cip_companies.each do |cip_company|
-					if	cip_company.company.name.downcase.include? data["Acquirer"].downcase
-						if cip_company.ioi.present?
-							ioi = cip_company.ioi
-							ioi.ioi_date = data["ioi_date"]
-							ioi.low_purchase_price = data["low_purchase_price"]
-							ioi.high_purchase_price = data["high_purchase_price"]
-							ioi.save
-							cip_company.ioi.ioi_highlights.each do |ioi_highlight|
-								ioi_highlight.detail = data[ioi_highlight.highlight.name]
-								ioi_highlight.save
-							end
-						end
-					end
-				end
-			end
-		end
-		return @rows
+		return Sponsor.where(id: cip_sponsors cip.cip_sponsors.pluck(:sponsor_id)).pluck(:name)
 	end	
 end
