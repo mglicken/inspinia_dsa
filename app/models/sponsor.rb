@@ -1,5 +1,4 @@
 class Sponsor < ActiveRecord::Base
-	has_many :funds, :dependent => :destroy
 	has_many :nbp_sponsors, :dependent => :destroy
 	has_many :nbps, :through => :nbp_sponsors
 	has_many :teaser_sponsors, :dependent => :destroy
@@ -8,6 +7,8 @@ class Sponsor < ActiveRecord::Base
 	has_many :cips, :through => :cip_sponsors
 	has_many :mp_sponsors, :dependent => :destroy
 	has_many :mps, :through => :mp_sponsors
+	
+	has_many :funds, :dependent => :destroy
 	has_many :fund_companies, :through => :funds
 	has_many :companies, :through => :fund_companies
 	has_many :sponsor_histories, :dependent => :destroy
