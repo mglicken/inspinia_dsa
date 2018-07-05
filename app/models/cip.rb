@@ -32,6 +32,6 @@ class Cip < ActiveRecord::Base
 
 		cip = Cip.find(@data["cip_id"][0])
 
-		return Company.where(id:cip.cip_companies.pluck(:company_id)).pluck(:name)
+		return Sponsor.where(id:cip.cip_sponsors.pluck(:sponsor_id)).pluck(:name)
 	end	
 end
