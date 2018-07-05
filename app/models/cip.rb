@@ -9,16 +9,6 @@ class Cip < ActiveRecord::Base
 	has_many :cip_companies, :dependent => :destroy
 	has_many :companies, :through => :cip_companies
 
-
-	def random_gen(number)
-		a = ["0","1","2","3","4","5","6","7","8","9","a","b","c","d","e","f","g","h","i","j","k","l","m","n","o","p","q","r","s","t","u","v","w","x","y","z"]
-		b=""
-		for i in 0..(number-1)
-		  b=b+a[rand(35)]
-		end
-		puts b
-	end
-
 	def self.to_csv
 		CSV.generate do |csv|
 			csv << column_names
@@ -35,5 +25,46 @@ class Cip < ActiveRecord::Base
 			cips.attributes = row.to_hash.select { |k,v| allowed_attributes.include? k }
 			cips.save
 		end
+	end	
+	def self.import_acquirers(file)
+		@data = CSV.read(file.path, headers: true)
+		@rows = []
+		cip = Cip.find(@data["cip_id"][0])
+		@data.each do |data|
+			@rows.push(data["Acquirer"])
+			if data["Acquirer"].present?
+				cip.cip_sponsors.each do |cip_sponsor|
+					if	cip_sponsor.sponsor.name.downcase.include? data["Acquirer"].downcase
+						if cip_sponsor.ioi.present?
+							ioi = cip_sponsor.ioi
+							ioi.ioi_date = data["ioi_date"]
+							ioi.low_purchase_price = data["low_purchase_price"]
+							ioi.high_purchase_price = data["high_purchase_price"]
+							ioi.save
+							cip_sponsor.ioi.ioi_highlights.each do |ioi_highlight|
+								ioi_highlight.detail = data[ioi_highlight.highlight.name]
+								ioi_highlight.save
+							end
+						end
+					end
+				end
+				cip.cip_companies.each do |cip_company|
+					if	cip_company.company.name.downcase.include? data["Acquirer"].downcase
+						if cip_company.ioi.present?
+							ioi = cip_company.ioi
+							ioi.ioi_date = data["ioi_date"]
+							ioi.low_purchase_price = data["low_purchase_price"]
+							ioi.high_purchase_price = data["high_purchase_price"]
+							ioi.save
+							cip_company.ioi.ioi_highlights.each do |ioi_highlight|
+								ioi_highlight.detail = data[ioi_highlight.highlight.name]
+								ioi_highlight.save
+							end
+						end
+					end
+				end
+			end
+		end
+		return @rows
 	end	
 end

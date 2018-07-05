@@ -198,4 +198,10 @@ before_action :ensure_view_access,  only: [:search, :show]
     Cip.import(params[:file])
     redirect_to "/models/", notice: "CIPs imported"
   end
+
+  def import_acquirers
+
+    @data = Cip.import_acquirers(params[:file])
+    redirect_to "/cips/5/acquirers" , notice: "CIPs imported... #{@data}"
+  end
 end

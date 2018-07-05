@@ -75,7 +75,10 @@ Myapp::Application.routes.draw do
 
   # Routes for the CIP resource:
   resources :cips do
-    collection {post :import}
+    collection {
+      post :import
+      post :import_acquirers
+    }
   end
   # CREATE
   get "/cips/new", :controller => "cips", :action => "new"
