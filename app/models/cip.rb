@@ -58,7 +58,7 @@ class Cip < ActiveRecord::Base
 							ioi.high_purchase_price = data["high_purchase_price"]
 							ioi.save
 							cip_company.ioi.ioi_highlights.each do |ioi_highlight|
-								ioi_highlight.detail = data[ioi_highlight.highlight.name][0].capitalize + data[ioi_highlight.highlight.name][1..-1]
+								ioi_highlight.detail = data[ioi_highlight.highlight.name]
 								ioi_highlight.save
 							end
 						end
