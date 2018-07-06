@@ -200,8 +200,8 @@ before_action :ensure_view_access,  only: [:search, :show]
   end
 
   def import_acquirers
-
-    @data = Cip.import_acquirers(params[:file])
-    redirect_to "/cips/5/acquirers" , notice: "CIPs imported... #{@data}"
+    @cip = Cip.find(params[:id])
+    Cip.import_acquirers(params[:file], params[:id])
+    redirect_to "/cips/#{@cip.id}/acquirers" , notice: "CIP Acquirers imported..."
   end
 end

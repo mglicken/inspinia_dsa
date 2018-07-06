@@ -23,6 +23,7 @@
               <h5>
                 <%= form_tag import_acquirers_cips_path, multipart: true do %>
                   <%= file_field_tag :file %><br>
+                  <%= hidden_field_tag 'id', @cip.id %><br>                  
                   <%= submit_tag "Import", class: "btn btn-warning btn-group-justified"%> 
                 <% end %>
               </h5> 

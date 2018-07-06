@@ -26,13 +26,10 @@ class Cip < ActiveRecord::Base
 			cips.save
 		end
 	end	
-	def self.import_acquirers(file)
+	def self.import_acquirers(file, cip_id = 1)
 		@data = CSV.read(file.path, headers: true)
-		@rows = []
-		cip = Cip.find(@data["cip_id"][0])
+		cip = Cip.find(cip_id) 
 		@data.each do |data|
-			@rows.push(data["Acquirer"])
-
 			if data["Acquirer"].present?
 				cip.cip_sponsors.each do |cip_sponsor|
 					if	cip_sponsor.sponsor.name.downcase.include? data["Acquirer"].downcase
@@ -44,6 +41,9 @@ class Cip < ActiveRecord::Base
 							ioi.save
 							cip_sponsor.ioi.ioi_highlights.each do |ioi_highlight|
 								ioi_highlight.detail = data[ioi_highlight.highlight.name]
+								if ioi_highlight.detail.present? && ioi_highlight.detail.length > 1 
+									ioi_highlight.detail = ioi_highlight.detail[0].capitalize + ioi_highlight.detail[1..-1]
+								end
 								ioi_highlight.save
 							end
 						end
@@ -59,6 +59,9 @@ class Cip < ActiveRecord::Base
 							ioi.save
 							cip_company.ioi.ioi_highlights.each do |ioi_highlight|
 								ioi_highlight.detail = data[ioi_highlight.highlight.name]
+								if ioi_highlight.detail.present? && ioi_highlight.detail.length > 1 
+									ioi_highlight.detail = ioi_highlight.detail[0].capitalize + ioi_highlight.detail[1..-1]
+								end
 								ioi_highlight.save
 							end
 						end
@@ -66,6 +69,5 @@ class Cip < ActiveRecord::Base
 				end
 			end
 		end
-		return @rows
 	end	
 end
