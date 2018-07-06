@@ -62,8 +62,8 @@
       <% end %>
     </td>
     <td>
-        <% if @cip.cip_companies.find_by(company_id: company.id).loi.present? %> 
-            $<%= @cip.cip_companies.find_by(company_id: company.id).loi.enterprise_value %>
+        <% if @mp.mp_companies.find_by(company_id: company.id).loi.present? %> 
+            $<%= @mp.mp_companies.find_by(company_id: company.id).loi.enterprise_value %>
         <% end %>
     </td>
     <td>
