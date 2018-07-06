@@ -59,7 +59,7 @@
     <div class="btn-group-vertical">
 
       <%= render('add_company_autocomplete', cip: @cip) %>
-      <%= render('shared/cip_buyer_upload') %>      
+      <%= render('shared/buyer_upload', resource_id: @cip.id, path: "cip") %>   
     </div>
   </div> 
 </div>

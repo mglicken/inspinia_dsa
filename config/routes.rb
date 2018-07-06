@@ -563,8 +563,7 @@ Myapp::Application.routes.draw do
   resources :nbps do
     collection {
       post :import
-      post :show_companies
-      post :show_sponsors
+      post :import_acquirers
     }
   end
   # CREATE
@@ -744,9 +743,12 @@ Myapp::Application.routes.draw do
   # DELETE
   get "/delete_teaser_company/:id", :controller => "teaser_companies", :action => "destroy"
 
-  # Routes for the MP resource:
+  # Routes for the MP Resource:
   resources :mps do
-    collection {post :import}
+    collection {
+      post :import
+      post :import_acquirers
+    }
   end
   # CREATE
   get "/mps/new", :controller => "mps", :action => "new"

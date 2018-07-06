@@ -16,13 +16,13 @@
                <dd> <a href="/companies/<%= @mp.deal.company.id %>"><%= @mp.deal.company.name %></a></dd>
                <dt>Date:</dt>
                <dd><%= @mp.mp_date %></dd>
-               <dt>IOI Summary Bullets:</dt>
+               <dt>LOI Summary Bullets:</dt>
                <dd>
-                  <% Highlight.where(ioi_include: true).order("id ASC").each do |highlight| %>
+                  <% Highlight.where(loi_include: true).order("id ASC").each do |highlight| %>
                       <% if highlight.id % 3 == 0 %>
                         <br>
                       <%end%>
-                      <% if LoiHighlight.where(ioi_id: (MpSponsor.where(mp_id: @mp.id).pluck(:ioi_id) + mpCompany.where(mp_id: @mp.id).pluck(:ioi_id)), highlight_id: highlight.id).present? %>
+                      <% if LoiHighlight.where(loi_id: (MpSponsor.where(mp_id: @mp.id).pluck(:loi_id) + MpCompany.where(mp_id: @mp.id).pluck(:loi_id)), highlight_id: highlight.id).present? %>
                         <span style="font:black; font-size:14px; padding-right:5px; padding-left:2px;"><a data-toggle="modal" href="#Modal_Highlight_<%=highlight.id %>"><i class="fa fa-check-square-o"></i></a></span><span style="font-size: 10px"><%= highlight.name %></span>
                         <div class="modal inmodal fade" id="Modal_Highlight_<%=highlight.id %>" tabindex="-1" role="dialog" aria-hidden="true">
                             <div class="modal-dialog modal-sm">
@@ -30,21 +30,21 @@
                                     <div class="modal-header">
                                         <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
                                         <h4 class="modal-title">Remove Bullet</h4>
-                                        <small class="font-bold">Remove summarizing bullet point from all IOIs</small>
+                                        <small class="font-bold">Remove summarizing bullet point from all LOIs</small>
                                     </div>
                                     <div class="modal-body">
-                                            <strong>Are you sure you want to remove "<%= highlight.name%>"" from all IOIs?</strong> Doing so will permanently destroy all details associated with this highlight for every ioi on this deal (<%= @mp.deal.name %>). 
+                                            <strong>Are you sure you want to remove "<%= highlight.name%>"" from all LOIs?</strong> Doing so will permanently destroy all details associated with this highlight for every loi on this deal (<%= @mp.deal.name %>). 
                                     </div>
 
                                     <div class="modal-footer">
                                         <button type="button" class="btn btn-white" data-dismiss="modal">Close</button>
-                                        <a type="button" href="/ioi_highlight_checkbox/<%= highlight.id %>/<%=@mp.id%>/2/2" class="btn btn-lincoln">Remove</a>
+                                        <a type="button" href="/loi_highlight_checkbox/<%= highlight.id %>/<%=@mp.id%>/2/2" class="btn btn-lincoln">Remove</a>
                                     </div>
                                 </div>
                             </div>
                         </div>
                       <% else %>
-                        <span style="font:black;font-size: 14px; padding-right:5px; padding-left:2px;"><a href="/ioi_highlight_checkbox/<%= highlight.id %>/<%=@mp.id%>/2/1"><i class="fa fa-square-o"></i></a></span><span style="font-size: 10px"><%= highlight.name %></span>
+                        <span style="font:black;font-size: 14px; padding-right:5px; padding-left:2px;"><a href="/loi_highlight_checkbox/<%= highlight.id %>/<%=@mp.id%>/2/1"><i class="fa fa-square-o"></i></a></span><span style="font-size: 10px"><%= highlight.name %></span>
                       <% end %>
                   <% end %>
                 </dd>
@@ -59,7 +59,8 @@
     <div class="btn-group-vertical">
 
       <%= render('add_sponsor_autocomplete', mp: @mp) %>
-      <%= render('add_company_autocomplete', mp: @mp) %>      
+      <%= render('add_company_autocomplete', mp: @mp) %>
+      <%= render('shared/buyer_upload', resource_id: @mp.id, path: "mp") %>  
     </div>
   </div> 
 </div>
@@ -76,10 +77,10 @@
 $("[type=checkbox]").change(function () {
     if ($(this).is(':checked')) {
         var highlight_id = $(this).attr('name');
-        window.location.replace("/ioi_highlight_checkbox/" + highlight_id + "/<%=@mp.id%>" + "/2/1");
+        window.location.replace("/loi_highlight_checkbox/" + highlight_id + "/<%=@mp.id%>" + "/2/1");
     } else {
         var highlight_id = $(this).name();
-        window.location.replace("/ioi_highlight_checkbox/" + highlight_id + "/<%=@mp.id%>" + "/2/2");
+        window.location.replace("/loi_highlight_checkbox/" + highlight_id + "/<%=@mp.id%>" + "/2/2");
     }
 });
 </script>

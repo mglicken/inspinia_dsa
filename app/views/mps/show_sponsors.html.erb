@@ -60,6 +60,7 @@
     <div class="btn-group-vertical">
 
       <%= render('add_sponsor_autocomplete', mp: @mp) %>
+      <%= render('shared/buyer_upload', resource_id: @mp.id, path: "mp") %>  
       
     </div>
   </div> 

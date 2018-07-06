@@ -1,0 +1,53 @@
+
+  <div style="text-align: center">
+  <div class="btn btn-group btn-group-horizontal">
+    <h1>
+      <a id="cip-button" href="/cips.csv" class="btn btn-warning btn-outline btn-default" >
+          Export <i class="fa fa-cloud-download"></i>
+      </a>
+  
+      <!-- Button trigger modal -->
+      <button type="button" class="btn btn-warning btn-default" data-toggle="modal" data-target="#myModalUpLoad_<%= path.upcase %>">
+        Import <i class="fa fa-upload"></i>
+      </button>
+
+      <!-- Modal -->
+      <div class="modal fade" id="myModalUpLoad_<%= path.upcase %>" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+              <h4 class="modal-title" id="myModalLabel">Upload <%= path.upcase %> Buyers</h4>
+            </div>
+            <div class="modal-body">
+              <h5>
+                <% if path == "cip" %>
+                  <%= form_tag import_acquirers_cips_path, multipart: true do %>
+                    <%= file_field_tag :file %><br>
+                    <%= hidden_field_tag 'id', resource_id %><br>                  
+                    <%= submit_tag "Import", class: "btn btn-warning btn-group-justified"%> 
+                  <% end %>
+                <% elsif path == "mp" %>
+                  <%= form_tag import_acquirers_mps_path, multipart: true do %>
+                    <%= file_field_tag :file %><br>
+                    <%= hidden_field_tag 'id', resource_id %><br>                  
+                    <%= submit_tag "Import", class: "btn btn-warning btn-group-justified"%> 
+                  <% end %>
+                <% elsif path == "nbp" %>
+                  <%= form_tag import_acquirers_nbps_path, multipart: true do %>
+                    <%= file_field_tag :file %><br>
+                    <%= hidden_field_tag 'id', resource_id %><br>                  
+                    <%= submit_tag "Import", class: "btn btn-warning btn-group-justified"%> 
+                  <% end %>
+                <% end %>
+              </h5> 
+            </div>
+          </div>
+        </div>
+      </div>
+           
+    </h1>
+  </div>    
+</div>
+
+<!-- File Download Button -->
