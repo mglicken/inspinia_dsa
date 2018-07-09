@@ -15,7 +15,13 @@ wb = xlsx_package.workbook
     row_x = s.add_style :fg_color => "00", :sz => 10, :font_name => 'Tahoma', :alignment => { :horizontal=> :center, :vertical=> :top }, :format_code => '#,##0.0x',:border => { :style => :thin, :color => "00", :edges => [ :bottom ] }
 	row_center_content = s.add_style :fg_color => "00", :sz => 10, :font_name => 'Tahoma', :alignment => { :horizontal=> :center, :vertical=> :top, :wrap_text => true },:border => { :style => :thin, :color => "00", :edges => [ :bottom ] }
 	row_left_content = s.add_style :fg_color => "00", :sz => 10, :font_name => 'Tahoma', :alignment => { :horizontal=> :left, :vertical=> :top, :wrap_text => true },:border => { :style => :thin, :color => "00", :edges => [ :bottom ] }
-	wb.add_worksheet(name: "IOI Acquirer Summary") do |sheet|
+	row_first = s.add_style :fg_color => "00", :sz => 10, :font_name => 'Tahoma', :alignment => { :horizontal=> :left, :vertical=> :top, :wrap_text => true },:border => { :style => :thin, :color => "00", :edges => [ :bottom, :left ] }
+	row_last = s.add_style :fg_color => "00", :sz => 10, :font_name => 'Tahoma', :alignment => { :horizontal=> :left, :vertical=> :top, :wrap_text => true },:border => { :style => :thin, :color => "00", :edges => [ :bottom, :right ] }
+	
+	margins = {:left => 0.3, :right => 0.3, :top => 0.5, :bottom => 1.0}
+  	setup = { :orientation => :landscape}
+	
+	wb.add_worksheet(name: "IOI Acquirer Summary", :page_margins => margins, :page_setup => setup) do |sheet|
 	  
 	    # Header
 	    sheet.add_row [@cip.deal.project_alias], :style => [title_1]
@@ -32,7 +38,7 @@ wb = xlsx_package.workbook
 	    sub_title_style = [header_2, header_2,header_2, header_2,header_2, header_2,header_2, header_2,header_2, header_2]
     	sheet.add_row title_row, style: title_style
     	sheet.add_row sub_title_row, style: sub_title_style	   
-	    sheet.add_row ["","","","","","","","","",""], :style => [row_center_content,row_center_content,row_center_content,row_center_content,row_center_content,row_center_content,row_center_content,row_center_content,row_center_content,row_center_content]
+	    sheet.add_row ["","","","","","","","","",""], :style => [row_first,row_center_content,row_center_content,row_center_content,row_center_content,row_center_content,row_center_content,row_center_content,row_center_content,row_last]
 
 	    
 	    # each acquirer is a row on the spreadsheet
@@ -42,7 +48,7 @@ wb = xlsx_package.workbook
 	    			ioi_comments = ""
 	    			ioi = acquirer.cip_companies.find_by(cip_id: @cip.id).ioi
     				acquirer.cip_companies.find_by(cip_id: @cip.id).ioi.ioi_highlights.joins(:highlight).order("id asc").each do |ioi_highlight|
-			    		ioi_comments = ioi_comments  + ioi_highlight.highlight.name + ": " + ioi_highlight.detail.to_s
+			    		ioi_comments = ioi_comments + "\n" + ioi_highlight.highlight.name + ": " + ioi_highlight.detail.to_s
 			    	end
     				new_row = [
 				    	acquirer.name,
@@ -67,14 +73,14 @@ wb = xlsx_package.workbook
 					    end
 				    	new_row.push(ioi_comments)
 				    	new_row.push("")
-			    	sheet.add_row new_row, :style => [row_left_content, row_center_content, row_dollar, row_dollar, row_dollar,row_dollar, row_x, row_x, row_left_content, row_left_content]
+			    	sheet.add_row new_row, :style => [row_first, row_center_content, row_dollar, row_dollar, row_dollar,row_dollar, row_x, row_x, row_left_content, row_last]
 			    end
 	    	else
 	    		if acquirer.cip_sponsors.find_by(cip_id: @cip.id).ioi.present?
 	    			ioi = acquirer.cip_sponsors.find_by(cip_id: @cip.id).ioi
 	    			ioi_comments = ""
-    				ioi.ioi_highlights.joins(:highlight).order("id asc").each do |ioi_highlight|
-			    		ioi_comments = ioi_comments + ioi_highlight.highlight.name + ": " + ioi_highlight.detail.to_s
+    				ioi.ioi_highlights.joins(:highlight).joins(:highlight).order("id asc").each do |ioi_highlight|
+			    		ioi_comments = ioi_comments + "\n" + ioi_highlight.highlight.name + ": " + ioi_highlight.detail.to_s
 			    	end
     				new_row = [
 				    	acquirer.name,
@@ -99,7 +105,7 @@ wb = xlsx_package.workbook
 					    end
 				    	new_row.push(ioi_comments)
 				    	new_row.push("")
-				    	sheet.add_row new_row, :style => [row_left_content, row_center_content, row_dollar, row_dollar, row_dollar,row_dollar, row_x, row_x, row_left_content, row_left_content]
+				    	sheet.add_row new_row, :style => [row_first, row_center_content, row_dollar, row_dollar, row_dollar,row_dollar, row_x, row_x, row_left_content, row_last]
 		    	end
 	    	end
 
@@ -111,10 +117,13 @@ wb = xlsx_package.workbook
 		sheet.merge_cells "A4:J4"
 		sheet.merge_cells "D7:F7"
 		sheet.merge_cells "G7:H7"
+		sheet.page_setup.fit_to :width => 1
+ 		sheet.sheet_view.show_grid_lines = false
 		sheet.sheet_view.pane do |pane|
-          pane.top_left_cell = "B9"
+
+          pane.top_left_cell = "A1"
           pane.state = :frozen_split
-          pane.y_split = 8
+          pane.y_split = 9
           pane.x_split = 1
           pane.active_pane = :bottom_right
         end
