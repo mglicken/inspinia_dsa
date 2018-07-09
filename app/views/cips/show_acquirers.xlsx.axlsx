@@ -40,63 +40,66 @@ wb = xlsx_package.workbook
 	    	if acquirer.class.to_s == "Company"
 	    		if acquirer.cip_companies.find_by(cip_id: @cip.id).ioi.present?
 	    			ioi_comments = ""
+	    			ioi = acquirer.cip_companies.find_by(cip_id: @cip.id).ioi
     				acquirer.cip_companies.find_by(cip_id: @cip.id).ioi.ioi_highlights.joins(:highlight).order("id asc").each do |ioi_highlight|
 			    		ioi_comments = ioi_comments  + ioi_highlight.highlight.name + ": " + ioi_highlight.detail.to_s
 			    	end
-    				sheet.add_row [
+    				new_row = [
 				    	acquirer.name,
 				    	"Strategic",
 				    	"",
-				    	acquirer.cip_companies.find_by(cip_id: @cip.id).ioi.low_purchase_price,
-				    	acquirer.cip_companies.find_by(cip_id: @cip.id).ioi.high_purchase_price,
-				    	if (acquirer.cip_companies.find_by(cip_id: @cip.id).ioi.low_purchase_price.present? && acquirer.cip_companies.find_by(cip_id: @cip.id).ioi.high_purchase_price.present?)
-				    		(acquirer.cip_companies.find_by(cip_id: @cip.id).ioi.high_purchase_price / 2 + acquirer.cip_companies.find_by(cip_id: @cip.id).ioi.high_purchase_price / 2),
+				    	ioi.low_purchase_price,
+				    	ioi.high_purchase_price]
+				    	if ioi.low_purchase_price.present?
+				    		new_row.push(ioi.low_purchase_price/2 + ioi.low_purchase_price/2)
 					    else
-					    	"",
+					    	new_row.push("")
 					    end
-				    	if acquirer.cip_companies.find_by(cip_id: @cip.id).ioi.low_purchase_price.present?
-					    	(acquirer.cip_companies.find_by(cip_id: @cip.id).ioi.low_purchase_price / 6.1),
+				    	if ioi.low_purchase_price.present?
+					    	new_row.push(ioi.low_purchase_price/6.1)
 					    else
-					    	"",
+					    	new_row.push("")
 					    end
-				    	if acquirer.cip_companies.find_by(cip_id: @cip.id).ioi.high_purchase_price.present?
-					    	(acquirer.cip_companies.find_by(cip_id: @cip.id).ioi.high_purchase_price / 6.1),
+				    	if ioi.high_purchase_price.present?
+					    	new_row.push(ioi.high_purchase_price/6.1)
 					    else
-					    	"",
+					    	new_row.push("")
 					    end
-				    	""
-			    	], :style => [row_left_content, row_center_content, row_dollar, row_dollar, row_dollar,row_dollar, row_x, row_x, row_left_content, row_left_content]
+				    	new_row.push(ioi_comments)
+				    	new_row.push("")
+			    	sheet.add_row new_row, :style => [row_left_content, row_center_content, row_dollar, row_dollar, row_dollar,row_dollar, row_x, row_x, row_left_content, row_left_content]
 			    end
 	    	else
 	    		if acquirer.cip_sponsors.find_by(cip_id: @cip.id).ioi.present?
-
+	    			ioi = acquirer.cip_sponsors.find_by(cip_id: @cip.id).ioi
 	    			ioi_comments = ""
-    				acquirer.cip_sponsors.find_by(cip_id: @cip.id).ioi.ioi_highlights.joins(:highlight).order("id asc").each do |ioi_highlight|
+    				ioi.ioi_highlights.joins(:highlight).order("id asc").each do |ioi_highlight|
 			    		ioi_comments = ioi_comments + ioi_highlight.highlight.name + ": " + ioi_highlight.detail.to_s
 			    	end
-    				sheet.add_row [
+    				new_row = [
 				    	acquirer.name,
 				    	"Financial",
 				    	"",
-				    	acquirer.cip_sponsors.find_by(cip_id: @cip.id).ioi.low_purchase_price,
-				    	acquirer.cip_sponsors.find_by(cip_id: @cip.id).ioi.high_purchase_price,
-				    	if (acquirer.cip_sponsors.find_by(cip_id: @cip.id).ioi.low_purchase_price.present? && acquirer.cip_sponsors.find_by(cip_id: @cip.id).ioi.high_purchase_price.present?)
-				    		(acquirer.cip_sponsors.find_by(cip_id: @cip.id).ioi.high_purchase_price / 2 + acquirer.cip_sponsors.find_by(cip_id: @cip.id).ioi.high_purchase_price / 2),
+				    	ioi.low_purchase_price,
+				    	ioi.high_purchase_price]
+				    	if (ioi.low_purchase_price.present?)
+				    		new_row.push(ioi.low_purchase_price/2 + ioi.low_purchase_price/2)
 					    else
-					    	"",
+					    	new_row.push("")
 					    end
-				    	if acquirer.cip_sponsors.find_by(cip_id: @cip.id).ioi.low_purchase_price.present?
-					    	(acquirer.cip_sponsors.find_by(cip_id: @cip.id).ioi.low_purchase_price / 6.1),
+				    	if ioi.low_purchase_price.present?
+					    	new_row.push(ioi.low_purchase_price / 6.1)
 					    else
-					    	"",
+					    	new_row.push("")
 					    end
-				    	if acquirer.cip_sponsors.find_by(cip_id: @cip.id).ioi.high_purchase_price.present?
-					    	(acquirer.cip_sponsors.find_by(cip_id: @cip.id).ioi.high_purchase_price / 6.1),
+				    	if ioi.high_purchase_price.present?
+					    	new_row.push(ioi.high_purchase_price / 6.1)
 					    else
-					    	"",
+					    	new_row.push("")
 					    end
-				    	""
-			    	], :style => [row_left_content, row_center_content, row_dollar, row_dollar, row_dollar,row_dollar, row_x, row_x, row_left_content, row_left_content]
+				    	new_row.push(ioi_comments)
+				    	new_row.push("")
+				    	sheet.add_row new_row, :style => [row_left_content, row_center_content, row_dollar, row_dollar, row_dollar,row_dollar, row_x, row_x, row_left_content, row_left_content]
 		    	end
 	    	end
 
