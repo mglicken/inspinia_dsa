@@ -78,6 +78,7 @@ Myapp::Application.routes.draw do
     collection {
       post :import
       post :import_acquirers
+      post :show_acquirers      
     }
   end
   # CREATE
@@ -564,6 +565,8 @@ Myapp::Application.routes.draw do
     collection {
       post :import
       post :import_acquirers
+      post :show_sponsors
+      post :show_companies        
     }
   end
   # CREATE
@@ -748,6 +751,7 @@ Myapp::Application.routes.draw do
     collection {
       post :import
       post :import_acquirers
+      post :show_acquirers 
     }
   end
   # CREATE

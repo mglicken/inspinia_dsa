@@ -1,0 +1,97 @@
+require 'axlsx'
+
+# app/views/cips/show_acquirers.xlsx.axlsx
+
+wb = xlsx_package.workbook
+  wb.styles do |s|
+    title_1 = s.add_style :fg_color => "00", :sz => 14, :font_name => 'Tahoma', b: true, :alignment => { :horizontal=> :center }
+    sub_title_1 = s.add_style :fg_color => "00", :sz => 10, :font_name => 'Tahoma', b: true, :alignment => { :horizontal=> :center }
+    sub_title_2 = s.add_style :fg_color => "00", :sz => 10, :font_name => 'Tahoma', i: true, :alignment => { :horizontal=> :center }
+
+    date_1 =  s.add_style :fg_color => "00", :sz => 12, :font_name => 'Tahoma', :format_code => '[$-x-sysdate]dddd, mmmm dd, yyyy', :alignment => { :horizontal=> :center }
+    header_1 = s.add_style :bg_color => "07325F", :fg_color => "FF", :sz => 10, :font_name => 'Tahoma', b: true, :alignment => { :horizontal=> :center, :wrap_text => :true }, :border => { :style => :thin, :color => "FFFFFFFF", :edges => [ :bottom ] }
+    header_2 = s.add_style :bg_color => "07325F", :fg_color => "FF", :sz => 10, :font_name => 'Tahoma', b: true, :alignment => { :horizontal=> :center, :wrap_text => :true }
+    row_dollar = s.add_style :fg_color => "00", :sz => 10, :font_name => 'Tahoma', :alignment => { :horizontal=> :center, :vertical=> :top },:format_code => '$#,##0.0',:border => { :style => :thin, :color => "00", :edges => [ :bottom ] }
+    row_x = s.add_style :fg_color => "00", :sz => 10, :font_name => 'Tahoma', :alignment => { :horizontal=> :center, :vertical=> :top }, :format_code => '#,##0.0x',:border => { :style => :thin, :color => "00", :edges => [ :bottom ] }
+	row_center_content = s.add_style :fg_color => "00", :sz => 10, :font_name => 'Tahoma', :alignment => { :horizontal=> :center, :vertical=> :top, :wrap_text => true },:border => { :style => :thin, :color => "00", :edges => [ :bottom ] }
+	row_left_content = s.add_style :fg_color => "00", :sz => 10, :font_name => 'Tahoma', :alignment => { :horizontal=> :left, :vertical=> :top, :wrap_text => true },:border => { :style => :thin, :color => "00", :edges => [ :bottom ] }
+	wb.add_worksheet(name: "IOI Acquirer Summary") do |sheet|
+	  
+	    # Header
+	    sheet.add_row [@cip.deal.project_alias], :style => [title_1]
+	    sheet.add_row ["Indication of Interest Summary"], :style => [sub_title_1]
+	    sheet.add_row [Date.current()], :style => [date_1]
+	    sheet.add_row ["($ in millions)]; sorted by average Purchase Price"], :style => [sub_title_2]
+	    sheet.add_row []
+	    sheet.add_row ["","","","","","","","","",""], :style => [header_2,header_2,header_2,header_2,header_2,header_2,header_2,header_2,header_2,header_2]
+
+		# Title Row
+		title_row = ["Potential Acquirer","Investor Type","Fund Size ($m)","Purchase Price","","","FY2017E Adj. EBITDA ($6.2M)","","Comments","Proposed MP Dates (ordered by preference)"]
+	    title_style = [header_1, header_1,header_1, header_1,header_1, header_1,header_1, header_1,header_1, header_1, header_1]
+		sub_title_row = ["","","","Low","High","Avg.","Low","High","",""]
+	    sub_title_style = [header_2, header_2,header_2, header_2,header_2, header_2,header_2, header_2,header_2, header_2]
+    	sheet.add_row title_row, style: title_style
+    	sheet.add_row sub_title_row, style: sub_title_style	   
+	    sheet.add_row ["","","","","","","","","",""], :style => [row_center_content,row_center_content,row_center_content,row_center_content,row_center_content,row_center_content,row_center_content,row_center_content,row_center_content,row_center_content]
+
+	    
+	    # each acquirer is a row on the spreadsheet
+	    @acquirers.each do |acquirer|
+	    	if acquirer.class.to_s == "Company"
+	    		if acquirer.cip_companies.find_by(cip_id: @cip.id).ioi.present?
+	    			ioi_comments = ""
+    				acquirer.cip_companies.find_by(cip_id: @cip.id).ioi.ioi_highlights.joins(:highlight).order("id asc").each do |ioi_highlight|
+			    		ioi_comments = ioi_comments  + ioi_highlight.highlight.name + ": " + ioi_highlight.detail.to_s
+			    	end
+    				sheet.add_row [
+				    	acquirer.name,
+				    	"Strategic",
+				    	"",
+				    	acquirer.cip_companies.find_by(cip_id: @cip.id).ioi.low_purchase_price,
+				    	acquirer.cip_companies.find_by(cip_id: @cip.id).ioi.high_purchase_price,
+				    	(acquirer.cip_companies.find_by(cip_id: @cip.id).ioi.high_purchase_price/2 + acquirer.cip_companies.find_by(cip_id: @cip.id).ioi.high_purchase_price/2),
+				    	(acquirer.cip_companies.find_by(cip_id: @cip.id).ioi.low_purchase_price/6.1),
+				    	(acquirer.cip_companies.find_by(cip_id: @cip.id).ioi.high_purchase_price/6.1),
+				    	ioi_comments,
+				    	""
+			    	], :style => [row_left_content, row_center_content, row_dollar, row_dollar, row_dollar,row_dollar, row_x, row_x, row_left_content, row_left_content]
+			    end
+	    	else
+	    		if acquirer.cip_sponsors.find_by(cip_id: @cip.id).ioi.present?
+
+	    			ioi_comments = ""
+    				acquirer.cip_sponsors.find_by(cip_id: @cip.id).ioi.ioi_highlights.joins(:highlight).order("id asc").each do |ioi_highlight|
+			    		ioi_comments = ioi_comments + ioi_highlight.highlight.name + ": " + ioi_highlight.detail.to_s
+			    	end
+    				sheet.add_row [
+				    	acquirer.name,
+				    	"Financial",
+				    	"",
+				    	acquirer.cip_sponsors.find_by(cip_id: @cip.id).ioi.low_purchase_price,
+				    	acquirer.cip_sponsors.find_by(cip_id: @cip.id).ioi.high_purchase_price,
+				    	(acquirer.cip_sponsors.find_by(cip_id: @cip.id).ioi.high_purchase_price/2 + acquirer.cip_sponsors.find_by(cip_id: @cip.id).ioi.high_purchase_price/2),
+				    	(acquirer.cip_sponsors.find_by(cip_id: @cip.id).ioi.low_purchase_price/6.1),
+				    	(acquirer.cip_sponsors.find_by(cip_id: @cip.id).ioi.high_purchase_price/6.1),
+				    	ioi_comments,
+				    	""
+			    	], :style => [row_left_content, row_center_content, row_dollar, row_dollar, row_dollar,row_dollar, row_x, row_x, row_left_content, row_left_content]
+		    	end
+	    	end
+
+	    end
+		sheet.column_widths 40,8,8,8,8,8,8,8,80,15
+		sheet.merge_cells "A1:J1"
+		sheet.merge_cells "A2:J2"
+		sheet.merge_cells "A3:J3"
+		sheet.merge_cells "A4:J4"
+		sheet.merge_cells "D7:F7"
+		sheet.merge_cells "G7:H7"
+		sheet.sheet_view.pane do |pane|
+          pane.top_left_cell = "B9"
+          pane.state = :frozen_split
+          pane.y_split = 8
+          pane.x_split = 1
+          pane.active_pane = :bottom_right
+        end
+	end
+end	

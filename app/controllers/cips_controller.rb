@@ -69,7 +69,7 @@ before_action :ensure_view_access,  only: [:search, :show]
     respond_to do |format|
       format.html
       format.xlsx {
-        response.headers['Content-Disposition'] = 'attachment; filename="Strategic_Acquirers_List.xlsx"'
+        response.headers['Content-Disposition'] = 'attachment; filename="All_Acquirers_List.xlsx"'
         }
     end
   end
@@ -84,7 +84,7 @@ before_action :ensure_view_access,  only: [:search, :show]
     respond_to do |format|
       format.html
       format.xlsx {
-        response.headers['Content-Disposition'] = 'attachment; filename="Financial_Acquirers_List.xlsx"'
+        response.headers['Content-Disposition'] = 'attachment; filename="All_Acquirers_List.xlsx"'
         }
     end
   end
