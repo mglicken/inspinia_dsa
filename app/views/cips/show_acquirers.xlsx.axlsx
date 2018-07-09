@@ -49,10 +49,21 @@ wb = xlsx_package.workbook
 				    	"",
 				    	acquirer.cip_companies.find_by(cip_id: @cip.id).ioi.low_purchase_price,
 				    	acquirer.cip_companies.find_by(cip_id: @cip.id).ioi.high_purchase_price,
-				    	(acquirer.cip_companies.find_by(cip_id: @cip.id).ioi.high_purchase_price / 2 + acquirer.cip_companies.find_by(cip_id: @cip.id).ioi.high_purchase_price / 2),
-				    	(acquirer.cip_companies.find_by(cip_id: @cip.id).ioi.low_purchase_price / 6.1),
-				    	(acquirer.cip_companies.find_by(cip_id: @cip.id).ioi.high_purchase_price / 6.1),
-				    	ioi_comments,
+						acquirer.cip_companies.find_by(cip_id: @cip.id).ioi.high_purchase_price.present?
+				    		(acquirer.cip_companies.find_by(cip_id: @cip.id).ioi.high_purchase_price / 2 + acquirer.cip_companies.find_by(cip_id: @cip.id).ioi.high_purchase_price / 2),
+					    else
+					    	"",
+					    end
+				    	if acquirer.cip_companies.find_by(cip_id: @cip.id).ioi.low_purchase_price.present?
+					    	(acquirer.cip_companies.find_by(cip_id: @cip.id).ioi.low_purchase_price / 6.1),
+					    else
+					    	"",
+					    end
+				    	if acquirer.cip_companies.find_by(cip_id: @cip.id).ioi.high_purchase_price.present?
+					    	(acquirer.cip_companies.find_by(cip_id: @cip.id).ioi.high_purchase_price / 6.1),
+					    else
+					    	"",
+					    end
 				    	""
 			    	], :style => [row_left_content, row_center_content, row_dollar, row_dollar, row_dollar,row_dollar, row_x, row_x, row_left_content, row_left_content]
 			    end
@@ -69,10 +80,21 @@ wb = xlsx_package.workbook
 				    	"",
 				    	acquirer.cip_sponsors.find_by(cip_id: @cip.id).ioi.low_purchase_price,
 				    	acquirer.cip_sponsors.find_by(cip_id: @cip.id).ioi.high_purchase_price,
-				    	(acquirer.cip_sponsors.find_by(cip_id: @cip.id).ioi.high_purchase_price / 2 + acquirer.cip_sponsors.find_by(cip_id: @cip.id).ioi.high_purchase_price / 2),
-				    	(acquirer.cip_sponsors.find_by(cip_id: @cip.id).ioi.low_purchase_price / 6.1),
-				    	(acquirer.cip_sponsors.find_by(cip_id: @cip.id).ioi.high_purchase_price / 6.1),
-				    	ioi_comments,
+				    	if acquirer.cip_sponsors.find_by(cip_id: @cip.id).ioi.low_purchase_price.present? && acquirer.cip_sponsors.find_by(cip_id: @cip.id).ioi.high_purchase_price.present?
+				    		(acquirer.cip_sponsors.find_by(cip_id: @cip.id).ioi.high_purchase_price / 2 + acquirer.cip_sponsors.find_by(cip_id: @cip.id).ioi.high_purchase_price / 2),
+					    else
+					    	"",
+					    end
+				    	if acquirer.cip_sponsors.find_by(cip_id: @cip.id).ioi.low_purchase_price.present?
+					    	(acquirer.cip_sponsors.find_by(cip_id: @cip.id).ioi.low_purchase_price / 6.1),
+					    else
+					    	"",
+					    end
+				    	if acquirer.cip_sponsors.find_by(cip_id: @cip.id).ioi.high_purchase_price.present?
+					    	(acquirer.cip_sponsors.find_by(cip_id: @cip.id).ioi.high_purchase_price / 6.1),
+					    else
+					    	"",
+					    end
 				    	""
 			    	], :style => [row_left_content, row_center_content, row_dollar, row_dollar, row_dollar,row_dollar, row_x, row_x, row_left_content, row_left_content]
 		    	end
