@@ -49,7 +49,7 @@ wb = xlsx_package.workbook
 				    	"",
 				    	acquirer.cip_companies.find_by(cip_id: @cip.id).ioi.low_purchase_price,
 				    	acquirer.cip_companies.find_by(cip_id: @cip.id).ioi.high_purchase_price,
-				    	if acquirer.cip_companies.find_by(cip_id: @cip.id).ioi.low_purchase_price.present? && acquirer.cip_companies.find_by(cip_id: @cip.id).ioi.high_purchase_price.present?
+				    	if (acquirer.cip_companies.find_by(cip_id: @cip.id).ioi.low_purchase_price.present? && acquirer.cip_companies.find_by(cip_id: @cip.id).ioi.high_purchase_price.present?)
 				    		(acquirer.cip_companies.find_by(cip_id: @cip.id).ioi.high_purchase_price / 2 + acquirer.cip_companies.find_by(cip_id: @cip.id).ioi.high_purchase_price / 2),
 					    else
 					    	"",
@@ -80,7 +80,7 @@ wb = xlsx_package.workbook
 				    	"",
 				    	acquirer.cip_sponsors.find_by(cip_id: @cip.id).ioi.low_purchase_price,
 				    	acquirer.cip_sponsors.find_by(cip_id: @cip.id).ioi.high_purchase_price,
-				    	if acquirer.cip_sponsors.find_by(cip_id: @cip.id).ioi.low_purchase_price.present? && acquirer.cip_sponsors.find_by(cip_id: @cip.id).ioi.high_purchase_price.present?
+				    	if (acquirer.cip_sponsors.find_by(cip_id: @cip.id).ioi.low_purchase_price.present? && acquirer.cip_sponsors.find_by(cip_id: @cip.id).ioi.high_purchase_price.present?)
 				    		(acquirer.cip_sponsors.find_by(cip_id: @cip.id).ioi.high_purchase_price / 2 + acquirer.cip_sponsors.find_by(cip_id: @cip.id).ioi.high_purchase_price / 2),
 					    else
 					    	"",
