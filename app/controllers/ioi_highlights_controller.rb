@@ -49,7 +49,11 @@ before_action :ensure_banker_access,  only: [:new, :create, :edit, :update, :des
     @ioi_highlight = IoiHighlight.new
     @ioi_highlight.ioi_id = params[:ioi_id]
     @ioi_highlight.highlight_id = params[:highlight_id]
-    @ioi_highlight.detail = params[:detail]
+    if params[:detail].nil?
+      @ioi_highlight.detail = "N/A"
+    else
+      @ioi_highlight.detail = params[:detail]
+    end 
      
     respond_to do |format|
       format.html do
@@ -78,6 +82,7 @@ before_action :ensure_banker_access,  only: [:new, :create, :edit, :update, :des
         ioi_highlight = IoiHighlight.new
         ioi_highlight.highlight_id = @highlight.id
         ioi_highlight.ioi_id = ioi.id
+        ioi_highlight.detail = "N/A"
         ioi_highlight.save
       end  
       if @type == 1
@@ -107,7 +112,11 @@ before_action :ensure_banker_access,  only: [:new, :create, :edit, :update, :des
 
     @ioi_highlight.ioi_id = params[:ioi_id]
     @ioi_highlight.highlight_id = params[:highlight_id]
-    @ioi_highlight.detail = params[:detail]
+    if params[:detail].nil?
+      @ioi_highlight.detail = "N/A"
+    else
+      @ioi_highlight.detail = params[:detail]
+    end 
    
 
     if @ioi_highlight.save

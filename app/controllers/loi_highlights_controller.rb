@@ -49,8 +49,11 @@ before_action :ensure_banker_access,  only: [:new, :create, :edit, :update, :des
     @loi_highlight = LoiHighlight.new
     @loi_highlight.loi_id = params[:loi_id]
     @loi_highlight.highlight_id = params[:highlight_id]
-    @loi_highlight.detail = params[:detail]
-     
+    if params[:detail].nil?
+      @loi_highlight.detail = "N/A"
+    else
+      @loi_highlight.detail = params[:detail]
+    end   
     respond_to do |format|
       format.html do
         if @loi_highlight.save
@@ -78,6 +81,7 @@ before_action :ensure_banker_access,  only: [:new, :create, :edit, :update, :des
         loi_highlight = LoiHighlight.new
         loi_highlight.highlight_id = @highlight.id
         loi_highlight.loi_id = loi.id
+        loi_highlight.detail = "N/A"
         loi_highlight.save
       end  
       if @type == 1
@@ -107,7 +111,11 @@ before_action :ensure_banker_access,  only: [:new, :create, :edit, :update, :des
 
     @loi_highlight.loi_id = params[:loi_id]
     @loi_highlight.highlight_id = params[:highlight_id]
-    @loi_highlight.detail = params[:detail]
+    if params[:detail].nil?
+      @loi_highlight.detail = "N/A"
+    else
+      @loi_highlight.detail = params[:detail]
+    end 
    
 
     if @loi_highlight.save

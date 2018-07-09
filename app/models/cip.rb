@@ -43,6 +43,8 @@ class Cip < ActiveRecord::Base
 								ioi_highlight.detail = data[ioi_highlight.highlight.name]
 								if ioi_highlight.detail.present? && ioi_highlight.detail.length > 1 
 									ioi_highlight.detail = ioi_highlight.detail[0].capitalize + ioi_highlight.detail[1..-1]
+								else
+									ioi_highlight.detail = "N/A"
 								end
 								ioi_highlight.save
 							end
@@ -61,6 +63,8 @@ class Cip < ActiveRecord::Base
 								ioi_highlight.detail = data[ioi_highlight.highlight.name]
 								if ioi_highlight.detail.present? && ioi_highlight.detail.length > 1 
 									ioi_highlight.detail = ioi_highlight.detail[0].capitalize + ioi_highlight.detail[1..-1]
+								else
+									ioi_highlight.detail = "N/A"
 								end
 								ioi_highlight.save
 							end
