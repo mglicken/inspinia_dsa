@@ -15,13 +15,14 @@ wb.styles do |s|
 
 	margins = {:left => 0.3, :right => 0.3, :top => 0.5, :bottom => 1.0}
   	setup = { :orientation => :landscape}
-	
-	wb.add_worksheet(name: "LOI Acquirer Summary", :page_margins => margins, :page_setup => setup) do |sheet|
+  	options = {:grid_lines => false, :headings => false, :horizontal_centered => true}
+		
+	wb.add_worksheet(name: "LOI Acquirer Summary", :page_margins => margins, :page_setup => setup, :print_options => options) do |sheet|
 	  
 	    # Header
 	    sheet.add_row [@mp.deal.project_alias], :style => [title_1]
 	    sheet.add_row ["Summary of Final Offers"], :style => [sub_title_1]
-	    sheet.add_row [Date.current()], :style => [date_1]
+	    sheet.add_row [Date.current(),"","","",""], :style => [date_1,date_1,date_1,date_1,date_1]
 	    sheet.add_row []
 
 
@@ -46,17 +47,19 @@ wb.styles do |s|
 			new_highlight_style =[loi_highlight_title]
 
 			@lois.order(enterprise_value: :desc).each do |loi|
-				new_highlight.push(loi.loi_highlights.joins(:highlight).find_by(name: loi_highlight.highlight.name).detail)
+				new_highlight.push(loi.loi_highlights.joins(:highlight).find_by(highlights: { name: loi_highlight.highlight.name }).detail)
 				new_highlight_style.push(loi_highlight_content)
 			end
 			sheet.add_row new_highlight, style: new_highlight_style
 			column_widths.push(40)
 	    end
-
+		sheet.page_setup.fit_to :width => 1
+ 		sheet.sheet_view.show_grid_lines = false
 		sheet.column_widths *(column_widths)
 		sheet.merge_cells "A1:E1"
 		sheet.merge_cells "A2:E2"
 		sheet.merge_cells "A3:E3"
+
 		sheet.sheet_view.pane do |pane|
 
           pane.top_left_cell = "A1"

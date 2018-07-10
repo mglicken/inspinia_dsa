@@ -20,7 +20,7 @@ wb = xlsx_package.workbook
 	
 	margins = {:left => 0.3, :right => 0.3, :top => 0.5, :bottom => 1.0}
   	setup = { :orientation => :landscape}
-	
+
 	wb.add_worksheet(name: "IOI Acquirer Summary", :page_margins => margins, :page_setup => setup) do |sheet|
 	  
 	    # Header
