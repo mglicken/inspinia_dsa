@@ -3,7 +3,7 @@ require 'axlsx'
 # app/views/cips/show_acquirers.xlsx.axlsx
 
 wb = xlsx_package.workbook
-  wb.styles do |s|
+ wb.styles do |s|
     title_1 = s.add_style :fg_color => "00", :sz => 14, :font_name => 'Tahoma', b: true, :alignment => { :horizontal=> :center }
     sub_title_1 = s.add_style :fg_color => "00", :sz => 10, :font_name => 'Tahoma', b: true, :alignment => { :horizontal=> :center }
     sub_title_2 = s.add_style :fg_color => "00", :sz => 10, :font_name => 'Tahoma', i: true, :alignment => { :horizontal=> :center }

@@ -102,7 +102,7 @@ before_action :ensure_view_access,  only: [:search, :show]
     respond_to do |format|
       format.html
       format.xlsx {
-        response.headers['Content-Disposition'] = 'attachment; filename="All_Acquirers_List.xlsx"'
+        response.headers['Content-Disposition'] = 'attachment; filename="' + @cip.deal.company.name + ' IOI Summary.xlsx"'
         }
     end
   end
