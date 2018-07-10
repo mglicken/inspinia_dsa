@@ -46,7 +46,7 @@ wb.styles do |s|
 			new_highlight_style =[loi_highlight_title]
 
 			@lois.order(enterprise_value: :desc).each do |loi|
-				new_highlight.push(loi_highlight.detail)
+				new_highlight.push(loi.loi_highlights.joins(:highlight).find_by(name: loi_highlight.highlight.name).detail)
 				new_highlight_style.push(loi_highlight_content)
 			end
 			sheet.add_row new_highlight, style: new_highlight_style
