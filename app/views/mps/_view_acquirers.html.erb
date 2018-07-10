@@ -109,12 +109,7 @@
         </td>
         <td>
             <% if @mp.mp_companies.find_by(company_id: acquirer.id).loi.present? %> 
-                $<%= @mp.mp_companies.find_by(company_id: acquirer.id).loi.low_purchase_price %>
-            <% end %>
-        </td>
-        <td>
-            <% if @mp.mp_companies.find_by(company_id: acquirer.id).loi.present? %> 
-                $<%= @mp.mp_companies.find_by(company_id: acquirer.id).loi.high_purchase_price %>
+                $<%= @mp.mp_companies.find_by(company_id: acquirer.id).loi.enterprise_value %>
             <% end %>
         </td>
         <td>

@@ -186,4 +186,10 @@ before_action :ensure_view_access,  only: [:search, :show]
     Mp.import(params[:file])
     redirect_to "/models/", notice: "MPs imported"
   end
+
+  def import_acquirers
+    @mp = Mp.find(params[:id])
+    Mp.import_acquirers(params[:file], params[:id])
+    redirect_to "/mps/#{@mp.id}/acquirers" , notice: "MP Acquirers imported..."
+  end
 end

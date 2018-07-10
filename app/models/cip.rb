@@ -25,7 +25,7 @@ class Cip < ActiveRecord::Base
 			cips.attributes = row.to_hash.select { |k,v| allowed_attributes.include? k }
 			cips.save
 		end
-	end	
+	end
 	def self.import_acquirers(file, cip_id = 1)
 		@data = CSV.read(file.path, headers: true)
 		cip = Cip.find(cip_id) 

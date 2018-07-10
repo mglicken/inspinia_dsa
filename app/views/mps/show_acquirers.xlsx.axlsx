@@ -1,0 +1,104 @@
+require 'axlsx'
+
+# app/views/mps/show_acquirers.xlsx.axlsx
+
+wb = xlsx_package.workbook
+  wb.styles do |s|
+    title_1 = s.add_style :fg_color => "00", :sz => 14, :font_name => 'Tahoma', b: true, :alignment => { :horizontal=> :center }
+    sub_title_1 = s.add_style :fg_color => "00", :sz => 10, :font_name => 'Tahoma', b: true, :alignment => { :horizontal=> :center }
+    sub_title_2 = s.add_style :fg_color => "00", :sz => 10, :font_name => 'Tahoma', i: true, :alignment => { :horizontal=> :center }
+
+    date_1 =  s.add_style :fg_color => "00", :sz => 12, :font_name => 'Tahoma', :format_code => '[$-x-sysdate]dddd, mmmm dd, yyyy', :alignment => { :horizontal=> :center }
+    header_1 = s.add_style :bg_color => "07325F", :fg_color => "FF", :sz => 10, :font_name => 'Tahoma', b: true, :alignment => { :horizontal=> :center, :wrap_text => :true }, :border => { :style => :thin, :color => "FFFFFFFF", :edges => [ :bottom ] }
+    header_2 = s.add_style :bg_color => "07325F", :fg_color => "FF", :sz => 10, :font_name => 'Tahoma', b: true, :alignment => { :horizontal=> :center, :wrap_text => :true }
+    row_dollar = s.add_style :fg_color => "00", :sz => 10, :font_name => 'Tahoma', :alignment => { :horizontal=> :center, :vertical=> :top },:format_code => '$#,##0.0',:border => { :style => :thin, :color => "00", :edges => [ :bottom ] }
+    row_x = s.add_style :fg_color => "00", :sz => 10, :font_name => 'Tahoma', :alignment => { :horizontal=> :center, :vertical=> :top }, :format_code => '#,##0.0x',:border => { :style => :thin, :color => "00", :edges => [ :bottom ] }
+	row_center_content = s.add_style :fg_color => "00", :sz => 10, :font_name => 'Tahoma', :alignment => { :horizontal=> :center, :vertical=> :top, :wrap_text => true },:border => { :style => :thin, :color => "00", :edges => [ :bottom ] }
+	row_left_content = s.add_style :fg_color => "00", :sz => 10, :font_name => 'Tahoma', :alignment => { :horizontal=> :left, :vertical=> :top, :wrap_text => true },:border => { :style => :thin, :color => "00", :edges => [ :bottom ] }
+	row_first = s.add_style :fg_color => "00", :sz => 10, :font_name => 'Tahoma', :alignment => { :horizontal=> :left, :vertical=> :top, :wrap_text => true },:border => { :style => :thin, :color => "00", :edges => [ :bottom, :left ] }
+	row_last = s.add_style :fg_color => "00", :sz => 10, :font_name => 'Tahoma', :alignment => { :horizontal=> :left, :vertical=> :top, :wrap_text => true },:border => { :style => :thin, :color => "00", :edges => [ :bottom, :right ] }
+	
+	margins = {:left => 0.3, :right => 0.3, :top => 0.5, :bottom => 1.0}
+  	setup = { :orientation => :portrait}
+	
+	wb.add_worksheet(name: "LOI Acquirer Summary", :page_margins => margins, :page_setup => setup) do |sheet|
+	  
+	    # Header
+	    sheet.add_row [@mp.deal.project_alias], :style => [title_1]
+	    sheet.add_row ["Indication of Interest Summary"], :style => [sub_title_1]
+	    sheet.add_row [Date.current()], :style => [date_1]
+	    sheet.add_row ["($ in millions)]; sorted by average Purchase Price"], :style => [sub_title_2]
+	    sheet.add_row []
+	    sheet.add_row ["","","","","",""], :style => [header_2,header_2,header_2,header_2,header_2,header_2]
+
+		# Title Row
+		title_row = ["Potential Acquirer","Investor Type","Fund Size","Enterprise Value","FY2017E Adj. EBITDA","Comments"]
+	    title_style = [header_1, header_1,header_1, header_1,header_1, header_1]
+		sub_title_row = ["","","($M)","($M)","($6.2M)","",""]
+	    sub_title_style = [header_2, header_2,header_2, header_2,header_2, header_2]
+    	sheet.add_row title_row, style: title_style
+    	sheet.add_row sub_title_row, style: sub_title_style	   
+	    sheet.add_row ["","","","","",""], :style => [row_first,row_center_content,row_center_content,row_center_content,row_center_content,row_last]
+
+	    
+	    # each acquirer is a row on the spreadsheet
+	    @acquirers.each do |acquirer|
+	    	if acquirer.class.to_s == "Company"
+	    		if acquirer.mp_companies.find_by(mp_id: @mp.id).loi.present?
+	    			loi_comments = ""
+	    			loi = acquirer.mp_companies.find_by(mp_id: @mp.id).loi
+    				acquirer.mp_companies.find_by(mp_id: @mp.id).loi.loi_highlights.joins(:highlight).order("id asc").each do |loi_highlight|
+			    		loi_comments = loi_comments + "\n" + loi_highlight.highlight.name + ": " + loi_highlight.detail.to_s
+			    	end
+    				new_row = [
+				    	acquirer.name,
+				    	"Strategic",
+				    	"",
+				    	loi.enterprise_value]
+				    	if loi.enterprise_value.present?
+					    	new_row.push(loi.enterprise_value/6.1)
+					    else
+					    	new_row.push("")
+					    end
+				    	new_row.push(loi_comments)
+			    	sheet.add_row new_row, :style => [row_first, row_center_content, row_dollar, row_dollar, row_x, row_last]
+			    end
+	    	else
+	    		if acquirer.mp_sponsors.find_by(mp_id: @mp.id).loi.present?
+	    			loi = acquirer.mp_sponsors.find_by(mp_id: @mp.id).loi
+	    			loi_comments = ""
+    				loi.loi_highlights.joins(:highlight).joins(:highlight).order("id asc").each do |loi_highlight|
+			    		loi_comments = loi_comments + "\n" + loi_highlight.highlight.name + ": " + loi_highlight.detail.to_s
+			    	end
+    				new_row = [
+				    	acquirer.name,
+				    	"Financial",
+				    	"",
+				    	loi.enterprise_value]
+				    	if loi.enterprise_value.present?
+					    	new_row.push(loi.enterprise_value / 6.1)
+					    else
+					    	new_row.push("")
+					    end
+				    	new_row.push(loi_comments)
+				    	sheet.add_row new_row, :style => [row_first, row_center_content, row_dollar, row_dollar, row_x, row_last]
+		    	end
+	    	end
+
+	    end
+		sheet.column_widths 40,8,8,8,8,80
+		sheet.merge_cells "A1:F1"
+		sheet.merge_cells "A2:F2"
+		sheet.merge_cells "A3:F3"
+		sheet.merge_cells "A4:F4"
+		sheet.page_setup.fit_to :width => 1
+		sheet.sheet_view.pane do |pane|
+
+          pane.top_left_cell = "A1"
+          pane.state = :frozen_split
+          pane.y_split = 9
+          pane.x_split = 1
+          pane.active_pane = :bottom_right
+        end
+	end
+end	

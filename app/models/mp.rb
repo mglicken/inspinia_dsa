@@ -25,5 +25,51 @@ class Mp < ActiveRecord::Base
 			mps.attributes = row.to_hash.select { |k,v| allowed_attributes.include? k }
 			mps.save
 		end
+	end
+	def self.import_acquirers(file, mp_id = 1)
+		@data = CSV.read(file.path, headers: true)
+		mp = Mp.find(mp_id) 
+		@data.each do |data|
+			if data["Acquirer"].present?
+				mp.mp_sponsors.each do |mp_sponsor|
+					if	mp_sponsor.sponsor.name.downcase.include? data["Acquirer"].downcase
+						if mp_sponsor.loi.present?
+							loi = mp_sponsor.loi
+							loi.loi_date = data["loi_date"]
+							loi.enterprise_value = data["enterprise_value"]
+							loi.save
+							mp_sponsor.loi.loi_highlights.each do |loi_highlight|
+								loi_highlight.detail = data[loi_highlight.highlight.name]
+								if loi_highlight.detail.present? && loi_highlight.detail.length > 1 
+									loi_highlight.detail = loi_highlight.detail[0].capitalize + loi_highlight.detail[1..-1]
+								else
+									loi_highlight.detail = "N/A"
+								end
+								loi_highlight.save
+							end
+						end
+					end
+				end
+				mp.mp_companies.each do |mp_company|
+					if	mp_company.company.name.downcase.include? data["Acquirer"].downcase
+						if mp_company.loi.present?
+							loi = mp_company.loi
+							loi.loi_date = data["loi_date"]
+							loi.enterprise_value = data["enterprise_value"]
+							loi.save
+							mp_company.loi.loi_highlights.each do |loi_highlight|
+								loi_highlight.detail = data[loi_highlight.highlight.name]
+								if loi_highlight.detail.present? && loi_highlight.detail.length > 1 
+									loi_highlight.detail = loi_highlight.detail[0].capitalize + loi_highlight.detail[1..-1]
+								else
+									loi_highlight.detail = "N/A"
+								end
+								loi_highlight.save
+							end
+						end
+					end
+				end
+			end
+		end
 	end	
 end
