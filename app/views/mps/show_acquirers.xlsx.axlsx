@@ -5,12 +5,12 @@ require 'axlsx'
 wb = xlsx_package.workbook
 wb.styles do |s|
     title_1 = s.add_style :fg_color => "00", :sz => 14, :font_name => 'Times New Roman', b: true, :alignment => { :horizontal=> :center }
-    sub_title_1 = s.add_style :fg_color => "00", :sz => 10, :font_name => 'Times New Roman', :alignment => { :horizontal=> :center }
+    sub_title_1 = s.add_style :fg_color => "00", :sz => 12, :font_name => 'Times New Roman', :alignment => { :horizontal=> :center }
 
     date_1 =  s.add_style :fg_color => "00", :sz => 12, :font_name => 'Times New Roman', :format_code => '[$-x-sysdate]dddd, mmmm dd, yyyy', :alignment => { :horizontal=> :center },:border => { :style => :thin, :color => "00", :edges => [ :bottom ] }
     header_1 = s.add_style :bg_color => "99CCFF", :fg_color => "00", :sz => 10, :font_name => 'Times New Roman', b: true, :alignment => { :horizontal=> :center, :wrap_text => :true }, :border => { :style => :thin, :color => "00" }
-    loi_highlight_title = s.add_style :bg_color => "F3F3F3", :fg_color => "00", :sz => 10, :font_name => 'Times New Roman', b: true, :alignment => { :horizontal=> :center, :wrap_text => :true }, :border => { :style => :thin, :color => "00" }
-    loi_highlight_content = s.add_style :fg_color => "00", :sz => 10, :font_name => 'Times New Roman', :alignment => { :horizontal=> :center, :wrap_text => :true }, :border => { :style => :thin, :color => "00" }
+    loi_highlight_title = s.add_style :bg_color => "F3F3F3", :fg_color => "00", :sz => 10, :font_name => 'Times New Roman', b: true, :alignment => { :horizontal=> :left, :vertical=> :top, :wrap_text => :true }, :border => { :style => :thin, :color => "00" }
+    loi_highlight_content = s.add_style :fg_color => "00", :sz => 10, :font_name => 'Times New Roman', :alignment => { :horizontal=> :left, :vertical=> :top, :wrap_text => :true }, :border => { :style => :thin, :color => "00" }
 
 
 	margins = {:left => 0.3, :right => 0.3, :top => 0.5, :bottom => 1.0}
@@ -18,48 +18,96 @@ wb.styles do |s|
   	options = {:grid_lines => false, :headings => false, :horizontal_centered => true}
 		
 	wb.add_worksheet(name: "LOI Acquirer Summary", :page_margins => margins, :page_setup => setup, :print_options => options) do |sheet|
-	  
-	    # Header
-	    sheet.add_row [@mp.deal.project_alias], :style => [title_1]
-	    sheet.add_row ["Summary of Final Offers"], :style => [sub_title_1]
-	    sheet.add_row [Date.current(),"","","",""], :style => [date_1,date_1,date_1,date_1,date_1]
-	    sheet.add_row []
+	    loop_counter = 1
+	  	while (@lois.count > ((loop_counter-1)*4))
+		    # Header
+		    if loop_counter > 1
+		    sheet.add_row []
+		    end
+		    sheet.add_row [@mp.deal.project_alias], :style => [title_1]
+		    sheet.add_row ["Summary of Final Offers"], :style => [sub_title_1]
+		    sheet.add_row [Date.current(),"","","",""], :style => [date_1,date_1,date_1,date_1,date_1]
+		    sheet.add_row []
 
 
-		# Title Row
-		title_row = [nil]
-	    title_style = [sub_title_1]
-		@lois.order(enterprise_value: :desc).each do |loi|
-			if loi.mp_company.present?
-				title_row.push( loi.mp_company.company.name.to_s)
-			else
-				title_row.push( loi.mp_sponsor.sponsor.name.to_s)
+			# Title Row
+			title_row = [nil]
+		    title_style = [sub_title_1]
+		    i = 1
+			@lois.order(enterprise_value: :desc)[[((loop_counter - 1)*4+1), @lois.count].min..[((loop_counter - 1)*4+4), @lois.count].min].each do |loi|
+
+				if loi.mp_company.present?
+					title_row.push( loi.mp_company.company.name.to_s)
+				else
+					title_row.push( loi.mp_sponsor.sponsor.name.to_s)
+				end
+				title_style.push(header_1)
+
 			end
-			title_style.push(header_1)
-		end
-    	sheet.add_row title_row, style: title_style
-	    sheet.add_row []
+	    	sheet.add_row title_row, style: title_style
+		    sheet.add_row []
 
-	    # each acquirer is a column on the spreadsheet
-	    column_widths = [15]
-	    @lois[0].loi_highlights.joins(:highlight).order(id: :asc).each do |loi_highlight|
-			new_highlight = [loi_highlight.highlight.name]
-			new_highlight_style =[loi_highlight_title]
+		    # each loi_highlight is a row on the spreadsheet
+		    highlight_counter = 0
+		    @lois[0].loi_highlights.joins(:highlight).order(id: :asc).each do |loi_highlight|
+				highlight_counter = highlight_counter + 1
+				if highlight_counter == 1
+					new_highlight = ["LOI Enterprise Value:"]
+					new_highlight_style =[loi_highlight_title]
 
-			@lois.order(enterprise_value: :desc).each do |loi|
-				new_highlight.push(loi.loi_highlights.joins(:highlight).find_by(highlights: { name: loi_highlight.highlight.name }).detail)
-				new_highlight_style.push(loi_highlight_content)
-			end
-			sheet.add_row new_highlight, style: new_highlight_style
-			column_widths.push(40)
+					@lois.order(enterprise_value: :desc)[[((loop_counter - 1)*4+1), @lois.count].min..[((loop_counter - 1)*4+4), @lois.count].min].each do |loi|
+						new_highlight.push("$" + loi.enterprise_value.to_s + " million\n" + loi.loi_highlights.joins(:highlight).find_by(highlights: { name: loi_highlight.highlight.name }).detail)
+						new_highlight_style.push(loi_highlight_content)
+					end
+					sheet.add_row new_highlight, style: new_highlight_style
+				elsif highlight_counter == 2
+					new_highlight = ["IOI Enterprise Value:"]
+					new_highlight_style =[loi_highlight_title]
+
+					@lois.order(enterprise_value: :desc)[[((loop_counter - 1)*4+1), @lois.count].min..[((loop_counter - 1)*4+4), @lois.count].min].each do |loi|
+						if loi.mp_company.present?
+							cip_company = CipCompany.where(cip_id: loi.mp_company.mp.deal.cips.ids, company_id: loi.mp_company.company_id).last
+							if cip_company.nil?
+								ev = loi.loi_highlights.joins(:highlight).find_by(highlights: { name: loi_highlight.highlight.name }).detail
+							else
+								ioi = cip_company.ioi
+								ev = "$" + ioi.low_purchase_price.to_s + " million - $" + ioi.high_purchase_price.to_s + " million\n" + loi.loi_highlights.joins(:highlight).find_by(highlights: { name: loi_highlight.highlight.name }).detail
+							end
+						else
+							cip_sponsor = CipSponsor.where(cip_id: loi.mp_sponsor.mp.deal.cips.ids, sponsor_id: loi.mp_sponsor.sponsor_id).last
+							if cip_sponsor.nil?
+								ev = loi.loi_highlights.joins(:highlight).find_by(highlights: { name: loi_highlight.highlight.name }).detail
+							else
+								ioi = cip_sponsor.ioi
+								ev = "$" + ioi.low_purchase_price.to_s + " million - $" + ioi.high_purchase_price.to_s + " million\n" + loi.loi_highlights.joins(:highlight).find_by(highlights: { name: loi_highlight.highlight.name }).detail
+							end
+						end
+							new_highlight.push(ev)
+							new_highlight_style.push(loi_highlight_content)
+					end
+					sheet.add_row new_highlight, style: new_highlight_style
+				else
+					new_highlight = [loi_highlight.highlight.name + ":"]
+					new_highlight_style =[loi_highlight_title]
+
+					@lois.order(enterprise_value: :desc)[[((loop_counter - 1)*4+1), @lois.count].min..[((loop_counter - 1)*4+4), @lois.count].min].each do |loi|
+						new_highlight.push(loi.loi_highlights.joins(:highlight).find_by(highlights: { name: loi_highlight.highlight.name }).detail)
+						new_highlight_style.push(loi_highlight_content)
+					end
+					sheet.add_row new_highlight, style: new_highlight_style
+				end
+		    end
+		    loop_start = (loop_counter-1)*(@lois[0].loi_highlights.count + 7)
+			sheet.merge_cells "A" + (loop_start + 1).to_s + ":E" + (loop_start + 1).to_s
+			sheet.merge_cells "A" + (loop_start + 2).to_s + ":E" + (loop_start + 2).to_s
+			sheet.merge_cells "A" + (loop_start + 3).to_s + ":E" + (loop_start + 3).to_s
+		    loop_counter = loop_counter + 1
 	    end
 		sheet.page_setup.fit_to :width => 1
  		sheet.sheet_view.show_grid_lines = false
-		sheet.column_widths *(column_widths)
-		sheet.merge_cells "A1:E1"
-		sheet.merge_cells "A2:E2"
-		sheet.merge_cells "A3:E3"
+		sheet.column_widths 10,40,40,40,40
 
+		sheet.sheet_view.view = :page_layout
 		sheet.sheet_view.pane do |pane|
 
           pane.top_left_cell = "A1"
