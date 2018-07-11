@@ -64,6 +64,7 @@ before_action :ensure_banker_access,  only: [:new, :create, :edit, :update, :des
         loi_highlight = LoiHighlight.new
         loi_highlight.loi_id = @loi.id
         loi_highlight.highlight_id = highlight.id
+        loi_highlight.detail = "N/A"
         loi_highlight.save
       end
     end

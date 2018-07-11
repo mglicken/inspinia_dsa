@@ -114,7 +114,11 @@ before_action :ensure_view_access,  only: [:show]
     ids[6..(ids.count-1)].each do |id|
 
       loi_highlight = LoiHighlight.find(id.to_i)
+      if details[(counter-1)].present?
       loi_highlight.detail = details[(counter-1)]
+      else
+      loi_highlight.detail = "N/A"
+      end
       loi_highlight.save
 
       counter = counter + 1

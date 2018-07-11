@@ -65,6 +65,7 @@ before_action :ensure_banker_access,  only: [:new, :create, :edit, :update, :des
         ioi_highlight = IoiHighlight.new
         ioi_highlight.ioi_id = @ioi.id
         ioi_highlight.highlight_id = highlight.id
+        ioi_highlight.detail = "N/A"
         ioi_highlight.save
       end
     end

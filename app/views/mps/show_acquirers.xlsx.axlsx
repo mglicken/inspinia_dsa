@@ -34,7 +34,7 @@ wb.styles do |s|
 			title_row = [nil]
 		    title_style = [sub_title_1]
 		    i = 1
-			@lois.order(enterprise_value: :desc)[[((loop_counter - 1)*4+1), @lois.count].min..[((loop_counter - 1)*4+4), @lois.count].min].each do |loi|
+			@lois.order(enterprise_value: :desc)[[((loop_counter - 1)*4), @lois.count].min..[((loop_counter - 1)*4+3), @lois.count].min].each do |loi|
 
 				if loi.mp_company.present?
 					title_row.push( loi.mp_company.company.name.to_s)
@@ -55,7 +55,7 @@ wb.styles do |s|
 					new_highlight = ["LOI Enterprise Value:"]
 					new_highlight_style =[loi_highlight_title]
 
-					@lois.order(enterprise_value: :desc)[[((loop_counter - 1)*4+1), @lois.count].min..[((loop_counter - 1)*4+4), @lois.count].min].each do |loi|
+					@lois.order(enterprise_value: :desc)[[((loop_counter - 1)*4), @lois.count].min..[((loop_counter - 1)*4+3), @lois.count].min].each do |loi|
 						new_highlight.push("$" + loi.enterprise_value.to_s + " million\n" + loi.loi_highlights.joins(:highlight).find_by(highlights: { name: loi_highlight.highlight.name }).detail)
 						new_highlight_style.push(loi_highlight_content)
 					end
@@ -64,7 +64,7 @@ wb.styles do |s|
 					new_highlight = ["IOI Enterprise Value:"]
 					new_highlight_style =[loi_highlight_title]
 
-					@lois.order(enterprise_value: :desc)[[((loop_counter - 1)*4+1), @lois.count].min..[((loop_counter - 1)*4+4), @lois.count].min].each do |loi|
+					@lois.order(enterprise_value: :desc)[[((loop_counter - 1)*4), @lois.count].min..[((loop_counter - 1)*4+3), @lois.count].min].each do |loi|
 						if loi.mp_company.present?
 							cip_company = CipCompany.where(cip_id: loi.mp_company.mp.deal.cips.ids, company_id: loi.mp_company.company_id).last
 							if cip_company.nil?
@@ -86,21 +86,33 @@ wb.styles do |s|
 							new_highlight_style.push(loi_highlight_content)
 					end
 					sheet.add_row new_highlight, style: new_highlight_style
+
+					new_highlight = [loi_highlight.highlight.name + ":"]
+					new_highlight_style =[loi_highlight_title]
+
+					@lois.order(enterprise_value: :desc)[[((loop_counter - 1)*4), @lois.count].min..[((loop_counter - 1)*4+3), @lois.count].min].each do |loi|
+						new_highlight.push(loi.loi_highlights.joins(:highlight).find_by(highlights: { name: loi_highlight.highlight.name }).detail)
+						new_highlight_style.push(loi_highlight_content)
+					end
+					sheet.add_row new_highlight, style: new_highlight_style
 				else
 					new_highlight = [loi_highlight.highlight.name + ":"]
 					new_highlight_style =[loi_highlight_title]
 
-					@lois.order(enterprise_value: :desc)[[((loop_counter - 1)*4+1), @lois.count].min..[((loop_counter - 1)*4+4), @lois.count].min].each do |loi|
+					@lois.order(enterprise_value: :desc)[[((loop_counter - 1)*4), @lois.count].min..[((loop_counter - 1)*4+3), @lois.count].min].each do |loi|
 						new_highlight.push(loi.loi_highlights.joins(:highlight).find_by(highlights: { name: loi_highlight.highlight.name }).detail)
 						new_highlight_style.push(loi_highlight_content)
 					end
 					sheet.add_row new_highlight, style: new_highlight_style
 				end
 		    end
-		    loop_start = (loop_counter-1)*(@lois[0].loi_highlights.count + 7)
+		    loop_start = (loop_counter-1)*(@lois[0].loi_highlights.count + 8)
 			sheet.merge_cells "A" + (loop_start + 1).to_s + ":E" + (loop_start + 1).to_s
 			sheet.merge_cells "A" + (loop_start + 2).to_s + ":E" + (loop_start + 2).to_s
 			sheet.merge_cells "A" + (loop_start + 3).to_s + ":E" + (loop_start + 3).to_s
+		    if loop_counter > 1
+			    sheet.add_page_break("A" + (loop_start - 8).to_s)
+		    end
 		    loop_counter = loop_counter + 1
 	    end
 		sheet.page_setup.fit_to :width => 1
@@ -116,6 +128,40 @@ wb.styles do |s|
           pane.x_split = 1
           pane.active_pane = :bottom_right
         end
+	end
+
+	wb.add_worksheet(name: "mp_acquirers") do |sheet|
+	  
+		title_row = ["Acquirer","enterprise_value"]
+		columns = ["B","C","D","E"]
+		@lois[0].loi_highlights.joins(:highlight).order(id: :asc).each do |loi_highlight|
+			title_row.push(loi_highlight.highlight.name)
+		end
+		sheet.add_row title_row
+		  
+		# each loi is a row on your spreadsheet (organized by descending enterprise_value)
+		loi_counter = 1
+		@lois.order(enterprise_value: :desc).each do |loi|
+
+			column = columns[(loi_counter - 1) % 4]
+			row_start = (((loi_counter - 1) / 4)*(@lois[0].loi_highlights.count + 8) + 5)
+
+			new_acquirer = ["='LOI Acquirer Summary'!" + column + (row_start).to_s]
+			new_acquirer.push("=MID('LOI Acquirer Summary'!" + column + (row_start + 2).to_s + ",2,FIND(\"illion\",'LOI Acquirer Summary'!" + column + (row_start + 2).to_s + ")-3)*1" )
+
+			highlight_counter = 1
+			@lois[0].loi_highlights.joins(:highlight).order(id: :asc).each do |loi_highlight|
+
+				if highlight_counter == 1
+					new_acquirer.push("=TRIM(RIGHT('LOI Acquirer Summary'!" + column + (row_start + 2).to_s + ",LEN('LOI Acquirer Summary'!" + column + (row_start + 2).to_s + ")-FIND(\"\n\",'LOI Acquirer Summary'!" + column + (row_start + 2).to_s + ")))" )
+				else
+					new_acquirer.push("=" + column + (row_start + 2 + highlight_counter ).to_s )
+				end
+				highlight_counter = highlight_counter + 1
+			end		
+			sheet.add_row new_acquirer
+		    loi_counter = loi_counter + 1
+		end
 	end
 
 end	
