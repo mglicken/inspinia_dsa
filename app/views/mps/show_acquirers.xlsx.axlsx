@@ -155,7 +155,7 @@ wb.styles do |s|
 				if highlight_counter == 1
 					new_acquirer.push("=TRIM(RIGHT('LOI Acquirer Summary'!" + column + (row_start + 2).to_s + ",LEN('LOI Acquirer Summary'!" + column + (row_start + 2).to_s + ")-FIND(\"\n\",'LOI Acquirer Summary'!" + column + (row_start + 2).to_s + ")))" )
 				else
-					new_acquirer.push("=" + column + (row_start + 2 + highlight_counter ).to_s )
+					new_acquirer.push("='LOI Acquirer Summary'!" + column + (row_start + 2 + highlight_counter ).to_s )
 				end
 				highlight_counter = highlight_counter + 1
 			end		
