@@ -125,7 +125,7 @@ wb.styles do |s|
 
 	wb.add_worksheet(name: "mp_acquirers") do |sheet|
 	  
-		title_row = ["Acquirer","enterprise_value"]
+		title_row = ["Acquirer","loi_date","enterprise_value"]
 		columns = ["B","C","D","E"]
 		@lois[0].loi_highlights.joins(:highlight).order(id: :asc).each do |loi_highlight|
 			title_row.push(loi_highlight.highlight.name)
@@ -140,7 +140,8 @@ wb.styles do |s|
 			row_start = (((loi_counter - 1) / 4)*(@lois[0].loi_highlights.count + 8) + 5)
 
 			new_acquirer = ["='LOI Acquirer Summary'!" + column + (row_start).to_s]
-			new_acquirer.push("=MID('LOI Acquirer Summary'!" + column + (row_start + 2).to_s + ",2,FIND(\"illion\",'LOI Acquirer Summary'!" + column + (row_start + 2).to_s + ")-3)*1" )
+			new_acquirer.push(loi.loi_date)
+			new_acquirer.push("=IF(ISERROR(MID('LOI Acquirer Summary'!" + column + (row_start + 2).to_s + ",2,FIND(\"illion\",'LOI Acquirer Summary'!" + column + (row_start + 2).to_s + ")-3)*1),\"\",MID('LOI Acquirer Summary'!" + column + (row_start + 2).to_s + ",2,FIND(\"illion\",'LOI Acquirer Summary'!" + column + (row_start + 2).to_s + ")-3)*1)" )
 
 			highlight_counter = 1
 			@lois[0].loi_highlights.joins(:highlight).order(id: :asc).each do |loi_highlight|
