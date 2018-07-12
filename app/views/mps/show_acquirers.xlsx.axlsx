@@ -11,8 +11,7 @@ wb.styles do |s|
     header_1 = s.add_style :bg_color => "99CCFF", :fg_color => "00", :sz => 10, :font_name => 'Times New Roman', b: true, :alignment => { :horizontal=> :center, :wrap_text => :true }, :border => { :style => :thin, :color => "00" }
     loi_highlight_title = s.add_style :bg_color => "F3F3F3", :fg_color => "00", :sz => 10, :font_name => 'Times New Roman', b: true, :alignment => { :horizontal=> :left, :vertical=> :top, :wrap_text => :true }, :border => { :style => :thin, :color => "00" }
     loi_highlight_content = s.add_style :fg_color => "00", :sz => 10, :font_name => 'Times New Roman', :alignment => { :horizontal=> :left, :vertical=> :top, :wrap_text => :true }, :border => { :style => :thin, :color => "00" }
-	text = s.add_style :fg_color => "00", :sz => 11, :font_name => 'Arial'
-	date_2 = s.add_style :fg_color => "00", :sz => 11, :font_name => 'Arial', :format_code => 'yyyy-mm-dd;@'
+
 
 	margins = {:left => 0.3, :right => 0.3, :top => 0.5, :bottom => 1.0}
   	setup = { :orientation => :landscape}
@@ -124,6 +123,9 @@ wb.styles do |s|
 
 	end
 
+	text = s.add_style :fg_color => "00", :sz => 11, :font_name => 'Arial'
+	date_2 = s.add_style :fg_color => "00", :sz => 11, :font_name => 'Arial', :format_code => 'yyyy-mm-dd;@'
+
 	wb.add_worksheet(name: "mp_acquirers") do |sheet|
 	  
 		title_row = ["hold","Acquirer","loi_date","enterprise_value"]
@@ -158,7 +160,7 @@ wb.styles do |s|
 				end
 				highlight_counter = highlight_counter + 1
 			end		
-			sheet.add_row new_acquirer, new_acquirer_style
+			sheet.add_row new_acquirer, style: new_acquirer_style
 		    loi_counter = loi_counter + 1
 		end
 	end
