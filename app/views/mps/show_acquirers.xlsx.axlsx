@@ -111,7 +111,7 @@ wb.styles do |s|
 			sheet.merge_cells "A" + (loop_start + 2).to_s + ":E" + (loop_start + 2).to_s
 			sheet.merge_cells "A" + (loop_start + 3).to_s + ":E" + (loop_start + 3).to_s
 		    if loop_counter > 1
-			    sheet.add_page_break("A" + (loop_start - 8).to_s)
+			    sheet.add_page_break("F" + (loop_start - 8).to_s)
 		    end
 		    loop_counter = loop_counter + 1
 	    end
@@ -119,15 +119,8 @@ wb.styles do |s|
  		sheet.sheet_view.show_grid_lines = false
 		sheet.column_widths 10,40,40,40,40
 
-		sheet.sheet_view.view = :page_layout
-		sheet.sheet_view.pane do |pane|
+		sheet.sheet_view.view = :page_break_preview
 
-          pane.top_left_cell = "A1"
-          pane.state = :frozen_split
-          pane.y_split = 9
-          pane.x_split = 1
-          pane.active_pane = :bottom_right
-        end
 	end
 
 	wb.add_worksheet(name: "mp_acquirers") do |sheet|

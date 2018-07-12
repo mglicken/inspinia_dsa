@@ -80,7 +80,7 @@ wb = xlsx_package.workbook
 	    			ioi = acquirer.cip_sponsors.find_by(cip_id: @cip.id).ioi
 	    			ioi_comments = ""
     				ioi.ioi_highlights.joins(:highlight).joins(:highlight).order("id asc").each do |ioi_highlight|
-			    		ioi_comments = ioi_comments + "\n" + ioi_highlight.highlight.name + ": " + ioi_highlight.detail.to_s
+			    		ioi_comments = ioi_comments + ioi_highlight.highlight.name + ": " + ioi_highlight.detail.to_s
 			    	end
     				new_row = [
 				    	acquirer.name,
@@ -128,4 +128,60 @@ wb = xlsx_package.workbook
           pane.active_pane = :bottom_right
         end
 	end
+	wb.add_worksheet(name: "cip_acquirers") do |sheet|
+	  
+		title_row = ["ioi_date","low_purchase_price","high_purchase_price","Acquirer"]
+		@iois[0].ioi_highlights.joins(:highlight).order(id: :asc).each do |ioi_highlight|
+			title_row.push(ioi_highlight.highlight.name)
+		end
+		sheet.add_row title_row
+		  
+		# each ioi is a row on your spreadsheet
+		ioi_counter = 1
+		columns=["A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P","Q","R","S","T","U","V","W","X","Y","Z","AA","AB","AC","AD","AE","AF","AG","AH","AI","AJ","AK","AL","AM","AN","AO","AP","AQ","AR","AS","AT","AU","AV","AW","AX","AY","AZ"]
+		@iois.each do |ioi|
+
+			row = ioi_counter + 1 
+
+			new_acquirer = [ioi.ioi_date,"='IOI Acquirer Summary'!D" + (ioi_counter + 9).to_s,"='IOI Acquirer Summary'!E" + (ioi_counter + 9).to_s,"='IOI Acquirer Summary'!A" + (ioi_counter + 9).to_s]
+
+			highlights = @iois[0].ioi_highlights.count
+			highlight_counter = 1
+			ioi.ioi_highlights.joins(:highlight).order(id: :asc).each do |ioi_highlight|
+				
+				rank = highlights*2 + highlight_counter + 3
+				character = highlights*1 + highlight_counter + 3
+				value = highlight_counter + 3
+
+				new_acquirer.push("=IF(" + columns[character] + row.to_s + "=0,\n\n,IF(" + columns[rank] + row.to_s + "=MAX($" + columns[(highlights*2 + 4)] + row.to_s + ":$" + columns[(highlights*3 + 3)] + row.to_s + "),TRIM(MID('IOI Acquirer Summary'!$I" + (row + 8).to_s + "," + columns[character] + row.to_s + "+LEN(" + columns[value] + "$1)+2,LEN('IOI Acquirer Summary'!$I" + (row + 8).to_s + ")-(" + columns[character] + row.to_s + "+LEN(" + columns[value] + "$1)))),TRIM(MID('IOI Acquirer Summary'!$I" + (row + 8).to_s + "," + columns[character] + row.to_s + "+LEN(" + columns[value] + "$1)+2,SUMPRODUCT(--($" + columns[(highlights*2 + 4)] + row.to_s + ":$" + columns[(highlights*3 + 3)] + row.to_s + "=(" + columns[rank] + row.to_s + "+1)),$" + columns[(highlights + 4)] + row.to_s + ":$" + columns[(highlights*2 + 3)] + row.to_s + ")-(" + columns[character] + row.to_s + "+LEN(" + columns[value] + "$1)+4)))))
+")
+				highlight_counter = highlight_counter + 1
+			end
+
+			highlight_counter = 1
+			ioi.ioi_highlights.joins(:highlight).order(id: :asc).each do |ioi_highlight|
+				
+				rank = highlights*2 + highlight_counter + 3
+				character = highlights*1 + highlight_counter + 3
+				value = highlight_counter + 3
+
+				new_acquirer.push("=IF(ISERROR(FIND(" + columns[value] + "$1,'IOI Acquirer Summary'!$I" + (row + 8).to_s + ")),0,FIND(" + columns[value] + "$1,'IOI Acquirer Summary'!$I" + (row + 8).to_s + "))")
+				highlight_counter = highlight_counter + 1
+			end
+			highlight_counter = 1
+			ioi.ioi_highlights.joins(:highlight).order(id: :asc).each do |ioi_highlight|
+				
+				rank = highlights*2 + highlight_counter + 3
+				character = highlights*1 + highlight_counter + 3
+				value = highlight_counter + 3
+
+				new_acquirer.push("=SUMPRODUCT(--($" + columns[(highlights + 4)] + row.to_s + ":$" + columns[(highlights*2 + 3)] + row.to_s + "<=" + columns[character] + row.to_s + "))-COUNTIF($" + columns[(highlights + 4)] + row.to_s + ":$" + columns[(highlights*2 + 3)] + row.to_s + ",0)")
+				highlight_counter = highlight_counter + 1
+			end
+			sheet.add_row new_acquirer
+		    ioi_counter = ioi_counter + 1
+		end
+	end
+
+	
 end	
