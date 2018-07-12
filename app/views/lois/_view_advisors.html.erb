@@ -23,10 +23,10 @@
               <div class="wrapper wrapper-content">
                   <div class="row">
                     <% if @loi.mp_sponsor.present? %>  
-                      <% @loi.mp_sponsor.diligence_advisors.where(advisor_type_id: advisor_type.id).each do |diligence_advisor| %>
+                      <% @loi.mp_sponsor.diligence_advisors.where(advisor_type_id: advisor_type.id).joins(:person).order(name: :asc).each do |diligence_advisor| %>
                         <div class="col-lg-2">
                           <div class="ibox">
-                              <div class="ibox-content product-box">
+                              <div class="product-box">
 
                                     <a href="/people/<%= diligence_advisor.person.id %>">
                                       <!-- Make Height 225px if want to look right, need to make it clip -->
@@ -34,12 +34,7 @@
                                     
                                     </a>
                                   <div class="product-desc">
-                                      <% if diligence_advisor.person.employee == true%>
-                                      <span class="product-price">
-                                                  LI
-                                      </span>
-                                      <%end %>
-                                      <small class="text-muted"><%=diligence_advisor.person.role.name %></small><br>
+                                      <small class="text-muted"><%=diligence_advisor.company.name %></small><br>
                                       <strong><%=diligence_advisor.person.name %></strong>
                                   </div>
                               </div>
@@ -47,10 +42,10 @@
                         </div>
                       <% end %>
                     <% else %>
-                     <% @loi.mp_company.diligence_advisors.where(advisor_type_id: advisor_type.id).each do |diligence_advisor| %>
+                     <% @loi.mp_company.diligence_advisors.where(advisor_type_id: advisor_type.id).joins(:person).order(name: :asc).each do |diligence_advisor| %>
                         <div class="col-lg-2">
                           <div class="ibox">
-                              <div class="ibox-content product-box">
+                              <div class="product-box">
 
                                     <a href="/people/<%= diligence_advisor.person.id %>">
                                       <!-- Make Height 225px if want to look right, need to make it clip -->
@@ -58,12 +53,7 @@
                                     
                                     </a>
                                   <div class="product-desc">
-                                      <% if diligence_advisor.person.employee == true%>
-                                      <span class="product-price">
-                                                  LI
-                                      </span>
-                                      <%end %>
-                                      <small class="text-muted"><%=diligence_advisor.person.role.name %></small><br>
+                                      <small class="text-muted"><%=diligence_advisor.company.name %></small><br>
                                       <strong><%=diligence_advisor.person.name %></strong>
                                   </div>
                               </div>
