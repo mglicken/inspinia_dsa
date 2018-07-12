@@ -11,7 +11,8 @@ wb.styles do |s|
     header_1 = s.add_style :bg_color => "99CCFF", :fg_color => "00", :sz => 10, :font_name => 'Times New Roman', b: true, :alignment => { :horizontal=> :center, :wrap_text => :true }, :border => { :style => :thin, :color => "00" }
     loi_highlight_title = s.add_style :bg_color => "F3F3F3", :fg_color => "00", :sz => 10, :font_name => 'Times New Roman', b: true, :alignment => { :horizontal=> :left, :vertical=> :top, :wrap_text => :true }, :border => { :style => :thin, :color => "00" }
     loi_highlight_content = s.add_style :fg_color => "00", :sz => 10, :font_name => 'Times New Roman', :alignment => { :horizontal=> :left, :vertical=> :top, :wrap_text => :true }, :border => { :style => :thin, :color => "00" }
-
+	text = s.add_style :fg_color => "00", :sz => 11, :font_name => 'Arial'
+	date_2 = s.add_style :fg_color => "00", :sz => 11, :font_name => 'Arial', :format_code => 'yyyy-mm-dd;@'
 
 	margins = {:left => 0.3, :right => 0.3, :top => 0.5, :bottom => 1.0}
   	setup = { :orientation => :landscape}
@@ -125,7 +126,7 @@ wb.styles do |s|
 
 	wb.add_worksheet(name: "mp_acquirers") do |sheet|
 	  
-		title_row = ["Acquirer","loi_date","enterprise_value"]
+		title_row = ["hold","Acquirer","loi_date","enterprise_value"]
 		columns = ["B","C","D","E"]
 		@lois[0].loi_highlights.joins(:highlight).order(id: :asc).each do |loi_highlight|
 			title_row.push(loi_highlight.highlight.name)
@@ -139,21 +140,25 @@ wb.styles do |s|
 			column = columns[(loi_counter - 1) % 4]
 			row_start = (((loi_counter - 1) / 4)*(@lois[0].loi_highlights.count + 8) + 5)
 
-			new_acquirer = ["='LOI Acquirer Summary'!" + column + (row_start).to_s]
+			new_acquirer = [""]
+			new_acquirer.push("='LOI Acquirer Summary'!" + column + (row_start).to_s)
 			new_acquirer.push(loi.loi_date)
 			new_acquirer.push("=IF(ISERROR(MID('LOI Acquirer Summary'!" + column + (row_start + 2).to_s + ",2,FIND(\"illion\",'LOI Acquirer Summary'!" + column + (row_start + 2).to_s + ")-3)*1),\"\",MID('LOI Acquirer Summary'!" + column + (row_start + 2).to_s + ",2,FIND(\"illion\",'LOI Acquirer Summary'!" + column + (row_start + 2).to_s + ")-3)*1)" )
+			new_acquirer_style = [text,text,date_2,text]
 
 			highlight_counter = 1
 			@lois[0].loi_highlights.joins(:highlight).order(id: :asc).each do |loi_highlight|
 
 				if highlight_counter == 1
 					new_acquirer.push("=TRIM(RIGHT('LOI Acquirer Summary'!" + column + (row_start + 2).to_s + ",LEN('LOI Acquirer Summary'!" + column + (row_start + 2).to_s + ")-FIND(\"\n\",'LOI Acquirer Summary'!" + column + (row_start + 2).to_s + ")))" )
+					new_acquirer_style.push(text)
 				else
 					new_acquirer.push("='LOI Acquirer Summary'!" + column + (row_start + 2 + highlight_counter ).to_s )
+					new_acquirer_style.push(text)
 				end
 				highlight_counter = highlight_counter + 1
 			end		
-			sheet.add_row new_acquirer
+			sheet.add_row new_acquirer, new_acquirer_style
 		    loi_counter = loi_counter + 1
 		end
 	end

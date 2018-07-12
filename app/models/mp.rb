@@ -71,5 +71,6 @@ class Mp < ActiveRecord::Base
 				end
 			end
 		end
+		return @data["loi_date"]
 	end	
 end
