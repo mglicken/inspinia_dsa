@@ -72,7 +72,35 @@
       </div>
   </div>
 </div>
-<%= render('view_slides') %>
+<div class="row">
+    <div class="col-lg-12">
+        <div class="tabs-container">
+            <ul class="nav nav-tabs">
+                <li class="active"><a data-toggle="tab" href="#tab-1"> LOI Document (<%= @loi.slides.count %> Pages)</a></li>
+                <% if @loi.mp_sponsor.present? %>
+                  <li class=""><a data-toggle="tab" href="#tab-2">Advisors (<%= @loi.mp_sponsor.diligence_advisors.count %>)</a></li>
+                <% else %>
+                  <li class=""><a data-toggle="tab" href="#tab-2">Advisors (<%= @loi.mp_company.diligence_advisors.count %>)</a></li>
+                <% end %>
+            </ul>
+            <div class="tab-content">
+                <div id="tab-1" class="tab-pane active">
+                    <div class="panel-body">
+                      <%= render('view_slides') %>
+                    </div>
+                </div>
+                <div id="tab-2" class="tab-pane">
+                    <div class="panel-body">
+                      <%= render('view_advisors') %>
+                    </div>
+                </div>
+            </div>
+
+
+        </div>
+    </div>
+</div>
+
 <%= render('shared/quick_search_js') %>
 
 <% if LoiSlide.where(loi_id: @loi.id).empty? %>

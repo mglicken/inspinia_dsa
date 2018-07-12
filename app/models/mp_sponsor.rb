@@ -1,10 +1,12 @@
 class MpSponsor < ActiveRecord::Base
-validates_uniqueness_of :mp_id, :scope => :sponsor_id
-validates :mp_id, :presence => true
-validates :sponsor_id, :presence => true
-belongs_to :mp
-belongs_to :sponsor
-belongs_to :loi
+	validates_uniqueness_of :mp_id, :scope => :sponsor_id
+	validates :mp_id, :presence => true
+	validates :sponsor_id, :presence => true
+	belongs_to :mp
+	belongs_to :sponsor
+	belongs_to :loi
+
+	has_many :diligence_advisors, :dependent => :destroy
 
 	def self.to_csv
 		CSV.generate do |csv|

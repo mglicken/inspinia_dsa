@@ -365,6 +365,25 @@ Myapp::Application.routes.draw do
   # DELETE
   get "/delete_deal_type/:id", :controller => "deal_types", :action => "destroy"
 
+  # Routes for the Diligence Advisor resource:
+  resources :diligence_advisors do
+    collection {post :import}
+  end  
+  # CREATE
+  get "/diligence_advisors/new", :controller => "diligence_advisors", :action => "new"
+  post "/create_diligence_advisor", :controller => "diligence_advisors", :action => "create"
+
+  # READ
+  get "/diligence_advisors", :controller => "diligence_advisors", :action => "index"
+  get "/diligence_advisors/:id", :controller => "diligence_advisors", :action => "show"
+
+  # UPDATE
+  get "/diligence_advisors/:id/edit", :controller => "diligence_advisors", :action => "edit"
+  post "/update_diligence_advisor/:id", :controller => "diligence_advisors", :action => "update"
+
+  # DELETE
+  get "/delete_diligence_advisor/:id", :controller => "diligence_advisors", :action => "destroy"
+
   # Routes for the Favorite_Slide resource:
   resources :favorite_slides do
     collection {post :import}

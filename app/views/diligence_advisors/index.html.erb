@@ -29,17 +29,14 @@
             <class="dl-horizontal">
 
               <dt> Type:</dt>
-              <dd><%= diligence_advisor.diligence_advisor.name%></dd>
+              <dd><%= diligence_advisor.advisor_type.name%></dd>
               <dt> Person:</dt>
               <dd><%= diligence_advisor.person.name %></dd>          
               <dt> Company:</dt>
               <dd><%= diligence_advisor.company.name %></dd>
-              <% if diligence_advisor.cip_company.present? %>
+              <% if diligence_advisor.cip.present? %>
                 <dt> CIP:</dt>
-                <dd><a href="/cips/<%= diligence_advisor.cip_company.cip.id %>/advisors"><%= diligence_advisor.cip_company.cip.name %></a></dd>
-              <% elsif diligence_advisor.cip_sponsor.present? %>
-                <dt> CIP:</dt>
-                <dd><a href="/cips/<%= diligence_advisor.cip_sponsor.cip.id %>/advisors"><%= diligence_advisor.cip_sponsor.cip.name %></a></dd>
+                <dd><a href="/cips/<%= diligence_advisor.cip.id %>/advisors"><%= diligence_advisor.cip.name %></a></dd>
               <% elsif diligence_advisor.mp_company.present? %>
                 <dt> MP:</dt>
                 <dd><a href="/mps/<%= diligence_advisor.mp_company.mp.id %>/advisors"><%= diligence_advisor.mp_company.mp.name %></a></dd>

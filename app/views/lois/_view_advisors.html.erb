@@ -1,0 +1,81 @@
+<div class="row">
+  <% @advisor_types.each do |advisor_type| %>
+    <div class="col-lg-12">
+        <div class="ibox collapsed">
+            <div class="ibox-title">
+
+                <% if @loi.mp_sponsor.present? %>
+                  <h5><%= advisor_type.name %> (<%= @loi.mp_sponsor.diligence_advisors.where(advisor_type_id: advisor_type.id).count %>) <%= render('shared/add_advisor_to_loi_modal', company: @loi.deal.company, mp_sponsor: @loi.mp_sponsor, mp_company: @loi.mp_company, cip: Cip.none, advisor_type: advisor_type ) %></h5>
+                <% else %>
+                  <h5><%= advisor_type.name %> (<%= @loi.mp_company.diligence_advisors.where(advisor_type_id: advisor_type.id).count %>) <%= render('shared/add_advisor_to_loi_modal', company: @loi.deal.company, mp_sponsor: @loi.mp_sponsor, mp_company: @loi.mp_company, cip: Cip.none, advisor_type: advisor_type ) %></h5>
+                <% end %>
+                <div class="ibox-tools">
+                    <a class="collapse-link">
+                        <i class="fa fa-chevron-up"></i>
+                    </a>
+                    <a class="close-link">
+                        <i class="fa fa-times"></i>
+                    </a>
+                </div>
+            </div>
+            <div class="ibox-content">
+
+              <div class="wrapper wrapper-content">
+                  <div class="row">
+                    <% if @loi.mp_sponsor.present? %>  
+                      <% @loi.mp_sponsor.diligence_advisors.where(advisor_type_id: advisor_type.id).each do |diligence_advisor| %>
+                        <div class="col-lg-2">
+                          <div class="ibox">
+                              <div class="ibox-content product-box">
+
+                                    <a href="/people/<%= diligence_advisor.person.id %>">
+                                      <!-- Make Height 225px if want to look right, need to make it clip -->
+                                      <img src="<%= diligence_advisor.person.image_url %>" width = 100%>
+                                    
+                                    </a>
+                                  <div class="product-desc">
+                                      <% if diligence_advisor.person.employee == true%>
+                                      <span class="product-price">
+                                                  LI
+                                      </span>
+                                      <%end %>
+                                      <small class="text-muted"><%=diligence_advisor.person.role.name %></small><br>
+                                      <strong><%=diligence_advisor.person.name %></strong>
+                                  </div>
+                              </div>
+                          </div>
+                        </div>
+                      <% end %>
+                    <% else %>
+                     <% @loi.mp_company.diligence_advisors.where(advisor_type_id: advisor_type.id).each do |diligence_advisor| %>
+                        <div class="col-lg-2">
+                          <div class="ibox">
+                              <div class="ibox-content product-box">
+
+                                    <a href="/people/<%= diligence_advisor.person.id %>">
+                                      <!-- Make Height 225px if want to look right, need to make it clip -->
+                                      <img src="<%= diligence_advisor.person.image_url %>" width = 100%>
+                                    
+                                    </a>
+                                  <div class="product-desc">
+                                      <% if diligence_advisor.person.employee == true%>
+                                      <span class="product-price">
+                                                  LI
+                                      </span>
+                                      <%end %>
+                                      <small class="text-muted"><%=diligence_advisor.person.role.name %></small><br>
+                                      <strong><%=diligence_advisor.person.name %></strong>
+                                  </div>
+                              </div>
+                          </div>
+                        </div>
+                      <% end %>
+                    <% end %>
+                  </div>
+              </div>
+
+            </div>
+        </div>
+    </div>
+  <% end %>
+</div>

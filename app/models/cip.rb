@@ -8,6 +8,7 @@ class Cip < ActiveRecord::Base
 	has_many :sponsors, :through => :cip_sponsors
 	has_many :cip_companies, :dependent => :destroy
 	has_many :companies, :through => :cip_companies
+	has_many :diligence_advisors, :dependent => :destroy
 
 	def self.to_csv
 		CSV.generate do |csv|

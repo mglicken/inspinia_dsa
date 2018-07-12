@@ -60,9 +60,9 @@ before_action :ensure_banker_access,  only: [:new, :create, :edit, :update, :des
           if @diligence_advisor.cip.present?
             redirect_to "/cips/#{ @diligence_advisor.cip_id}/companies", :notice => "#{@diligence_advisor.advisor_type.name} Advisor Type added successfully."
           elsif @diligence_advisor.mp_company.present?
-            redirect_to "/mp_companies/#{ @diligence_advisor.mp_company.id}", :notice => "#{@diligence_advisor.advisor_type.name} Advisor Type added successfully."
+            redirect_to "/lois/#{ @diligence_advisor.mp_company.loi_id}", :notice => "#{@diligence_advisor.advisor_type.name} Advisor Type added successfully."
           elsif @diligence_advisor.mp_sponsor.present?
-            redirect_to "/mp_sponsors/#{ @diligence_advisor.mp_sponsor.id}", :notice => "#{@diligence_advisor.advisor_type.name} Advisor Type added successfully."
+            redirect_to "/lois/#{ @diligence_advisor.mp_sponsor.loi_id}", :notice => "#{@diligence_advisor.advisor_type.name} Advisor Type added successfully."
           end             
         else
           render 'new'
