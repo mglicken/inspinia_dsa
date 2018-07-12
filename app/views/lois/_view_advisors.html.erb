@@ -23,7 +23,7 @@
               <div class="wrapper wrapper-content">
                   <div class="row">
                     <% if @loi.mp_sponsor.present? %>  
-                      <% @loi.mp_sponsor.diligence_advisors.where(advisor_type_id: advisor_type.id).joins(:person).order(name: :asc).each do |diligence_advisor| %>
+                      <% @loi.mp_sponsor.diligence_advisors.where(advisor_type_id: advisor_type.id).each do |diligence_advisor| %>
                         <div class="col-lg-2">
                           <div class="ibox">
                               <div class="product-box">
@@ -42,7 +42,7 @@
                         </div>
                       <% end %>
                     <% else %>
-                     <% @loi.mp_company.diligence_advisors.where(advisor_type_id: advisor_type.id).joins(:person).order(name: :asc).each do |diligence_advisor| %>
+                     <% @loi.mp_company.diligence_advisors.where(advisor_type_id: advisor_type.id).each do |diligence_advisor| %>
                         <div class="col-lg-2">
                           <div class="ibox">
                               <div class="product-box">
