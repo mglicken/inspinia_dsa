@@ -91,6 +91,38 @@ before_action :ensure_view_access,  only: [:show]
     end
   end
 
+  def update_nda_and_highlights
+
+    ids = params[:ids]
+
+    details = params[:details]
+    @nda = nda.find(params[:nda_id])
+    @nda.name = details[1]
+    @nda.deal_id = details[2].to_i
+    @nda.nda_date = details[3]
+
+    counter = 6
+    ids[5..(ids.count-1)].each do |id|
+
+      nda_highlight = NdaHighlight.find(id.to_i)
+      if details[(counter-1)].present?
+      nda_highlight.detail = details[(counter-1)]
+      else
+      nda_highlight.detail = "N/A"
+      end
+      nda_highlight.save
+
+      counter = counter + 1
+    end
+
+    if @nda.save
+      redirect_to "/ndas/#{@nda.id}", :alert => "NDA updated successfully."
+    else
+      redirect_to "/ndas/#{@nda.id}", :alert => "NDA update failed."
+    end
+
+  end
+
   def destroy
     @nda = Nda.find(params[:id])
 

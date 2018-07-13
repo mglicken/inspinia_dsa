@@ -5,6 +5,10 @@ class Nda < ActiveRecord::Base
 	belongs_to :deal
 	has_many :nda_slides, :dependent => :destroy
 	has_many :slides, :through => :nda_slides
+	has_one :teaser_sponsor
+	has_one :sponsor, :through => :teaser_sponsor
+	has_one :teaser_company
+	has_one :company, :through => :teaser_company
 
 	def self.to_csv
 		CSV.generate do |csv|

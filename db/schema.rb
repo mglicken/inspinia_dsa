@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180713185134) do
+ActiveRecord::Schema.define(version: 20180713200746) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -162,6 +162,7 @@ ActiveRecord::Schema.define(version: 20180713185134) do
     t.string  "name"
     t.boolean "ioi_include"
     t.boolean "loi_include"
+    t.boolean "nda_include"
   end
 
   create_table "ioi_highlights", force: :cascade do |t|
@@ -266,6 +267,12 @@ ActiveRecord::Schema.define(version: 20180713185134) do
     t.date    "nbp_date"
     t.string  "image_id"
     t.string  "ppt_address"
+  end
+
+  create_table "nda_highlights", force: :cascade do |t|
+    t.integer "nda_id"
+    t.integer "highlight_id"
+    t.text    "detail"
   end
 
   create_table "nda_slides", force: :cascade do |t|

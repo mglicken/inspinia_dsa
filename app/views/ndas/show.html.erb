@@ -24,6 +24,11 @@
 
             </dl>
             <div class="btn-group btn-group-justified">
+              <%if @nda.teaser_company.present? %>
+                <a href="/teasers/<%= @nda.teaser_company.teaser_id %>/companies" class="btn btn-lincoln"><i class="fa fa-chevron-left"></i></a>
+              <%elsif @nda.teaser_sponsor.present? %>
+                <a href="/teasers/<%= @nda.teaser_sponsor.teaser_id %>/sponsors" class="btn btn-lincoln"><i class="fa fa-chevron-left"></i></a>
+              <% end %>
             </div>
           </div>
         </div>

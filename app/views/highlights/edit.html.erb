@@ -61,6 +61,20 @@
             </div>
           </div>
 
+          <!-- Label and input for NDA -->
+          <div class="form-group">
+            <label for="nda_include" class="col-sm-2 control-label">
+              Include for NDAs
+            </label>
+            <div class="col-sm-10">
+              <% if @highlight.nda_include %>
+                <input type="checkbox" id="nda_include" name="nda_include" class="form-control" checked>
+              <% else %>
+                <input type="checkbox" id="nda_include" name="nda_include" class="form-control">
+              <% end %>
+            </div>
+          </div>
+
           <div class="form-group">
             <div class="col-sm-offset-2 col-sm-10">
               <button class="btn btn-warning">

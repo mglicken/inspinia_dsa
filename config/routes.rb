@@ -706,6 +706,26 @@ Myapp::Application.routes.draw do
   # DELETE
   get "/delete_nda/:id", :controller => "ndas", :action => "destroy"
 
+  # Routes for the NDA Highlights resource:
+  resources :nda_highlights do
+    collection {post :import}
+  end
+  # CREATE
+  get "/nda_highlights/new", :controller => "nda_highlights", :action => "new"
+  post "/create_nda_highlight", :controller => "nda_highlights", :action => "create"
+  get "/nda_highlight_checkbox/:highlight_id/:teaser_id/:type_id/:status", :controller => "nda_highlights", :action => "checkbox"
+  
+  # READ
+  get "/nda_highlights", :controller => "nda_highlights", :action => "index"
+  get "/nda_highlights/:id", :controller => "nda_highlights", :action => "show"
+
+  # UPDATE
+  get "/nda_highlights/:id/edit", :controller => "nda_highlights", :action => "edit"
+  post "/update_nda_highlight/:id", :controller => "nda_highlights", :action => "update"
+
+  # DELETE
+  get "/delete_nda_highlight/:id", :controller => "nda_highlights", :action => "destroy"
+
   # Routes for the NDA Slides resource:
   resources :nda_slides do
     collection {post :import}
