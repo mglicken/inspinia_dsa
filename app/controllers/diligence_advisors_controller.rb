@@ -88,8 +88,8 @@ before_action :ensure_banker_access,  only: [:new, :create, :edit, :update, :des
     @diligence_advisor.company_id = params[:company_id]
     @diligence_advisor.advisor_type_id = params[:advisor_type_id]
     @diligence_advisor.cip_id = params[:cip_id]
-    @diligence_advisor.mp_company = params[:mp_company_id]
-    @diligence_advisor.mp_sponsor = params[:mp_sponsor_id]
+    @diligence_advisor.mp_company_id = params[:mp_company_id]
+    @diligence_advisor.mp_sponsor_id = params[:mp_sponsor_id]
 
     respond_to do |format|
       format.html do
