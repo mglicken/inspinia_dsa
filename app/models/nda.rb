@@ -3,6 +3,8 @@ class Nda < ActiveRecord::Base
 	validates :deal, :presence => true
 
 	belongs_to :deal
+	has_many :nda_slides, :dependent => :destroy
+	has_many :slides, :through => :nda_slides
 
 	def self.to_csv
 		CSV.generate do |csv|

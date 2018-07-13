@@ -25,6 +25,7 @@
     <th width="10%" style="text-align: center">Negotiating</th>
     <th width="10%" style="text-align: center">Complete</th>
     <th>Notes</th>
+    <th width="8%" style="text-align: center"></th>
 </tr>
 </thead>
 <tbody>
@@ -60,6 +61,10 @@
     <% end %>
     </td>
     <td>...</td>
+    <td>
+        <a class="btn btn-edit btn-xs" href="/ndas/<%= @teaser.teaser_companies.find_by(company_id: company.id).nda_id %>"><i class="fa fa-edit"></i></a>
+        <%= render('shared/delete_cip_company_modal', :cip_company => @teaser.teaser_companies.find_by(company_id: company.id))%>
+    </td>
 </tr>
 <%end%>
 </tbody>

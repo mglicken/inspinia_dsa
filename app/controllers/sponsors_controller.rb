@@ -38,7 +38,7 @@ before_action :ensure_view_access,  only: [:show, :search]
   end
 
   def index_query
-    @query_sponsors = Sponsor.where("lower(name) LIKE ?", "%#{params[:term].downcase}%")
+    @query_sponsors = Sponsor.where("lower(name) LIKE ?", "%#{params[:term].downcase}%").order("name asc")
     respond_to do |format|
       format.json {send_data @query_sponsors.map(&:name)}
     end
