@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180713182117) do
+ActiveRecord::Schema.define(version: 20180713185134) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -23,6 +23,7 @@ ActiveRecord::Schema.define(version: 20180713182117) do
     t.string  "name"
     t.boolean "mp_include"
     t.boolean "deal_include"
+    t.boolean "nda_include"
   end
 
   create_table "buckets", force: :cascade do |t|
@@ -131,6 +132,7 @@ ActiveRecord::Schema.define(version: 20180713182117) do
     t.integer "person_id"
     t.integer "company_id"
     t.integer "advisor_type_id"
+    t.integer "nda_id"
   end
 
   create_table "favorite_slides", force: :cascade do |t|

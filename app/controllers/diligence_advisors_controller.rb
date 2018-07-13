@@ -51,6 +51,7 @@ before_action :ensure_banker_access,  only: [:new, :create, :edit, :update, :des
     @diligence_advisor.company_id = params[:company_id]
     @diligence_advisor.advisor_type_id = params[:advisor_type_id]
     @diligence_advisor.deal_id = params[:deal_id]
+    @diligence_advisor.nda_id = params[:nda_id]
     @diligence_advisor.mp_company_id = params[:mp_company_id]
     @diligence_advisor.mp_sponsor_id = params[:mp_sponsor_id]
      
@@ -59,7 +60,9 @@ before_action :ensure_banker_access,  only: [:new, :create, :edit, :update, :des
         if @diligence_advisor.save
           if @diligence_advisor.deal.present?
             redirect_to "/deals/#{ @diligence_advisor.deal_id}", :notice => "#{@diligence_advisor.advisor_type.name} Advisor Type added successfully."
-          elsif @diligence_advisor.mp_company.present?
+          elsif @diligence_advisor.nda.present?
+            redirect_to "/ndas/#{ @diligence_advisor.nda_id}", :notice => "#{@diligence_advisor.advisor_type.name} Advisor Type added successfully."
+          elsif @diligence_advisor.nda.present?
             redirect_to "/lois/#{ @diligence_advisor.mp_company.loi_id}", :notice => "#{@diligence_advisor.advisor_type.name} Advisor Type added successfully."
           elsif @diligence_advisor.mp_sponsor.present?
             redirect_to "/lois/#{ @diligence_advisor.mp_sponsor.loi_id}", :notice => "#{@diligence_advisor.advisor_type.name} Advisor Type added successfully."
@@ -88,6 +91,7 @@ before_action :ensure_banker_access,  only: [:new, :create, :edit, :update, :des
     @diligence_advisor.company_id = params[:company_id]
     @diligence_advisor.advisor_type_id = params[:advisor_type_id]
     @diligence_advisor.deal_id = params[:deal_id]
+    @diligence_advisor.nda_id = params[:nda_id]
     @diligence_advisor.mp_company_id = params[:mp_company_id]
     @diligence_advisor.mp_sponsor_id = params[:mp_sponsor_id]
 
@@ -95,12 +99,14 @@ before_action :ensure_banker_access,  only: [:new, :create, :edit, :update, :des
       format.html do
         if @diligence_advisor.save
           if @diligence_advisor.deal.present?
-            redirect_to "/deals/#{ @diligence_advisor.deal_id}/companies", :notice => "#{@diligence_advisor.advisor_type.name} Advisor Type added successfully."
-          elsif @diligence_advisor.mp_company.present?
-            redirect_to "/mp_companies/#{ @diligence_advisor.mp_company.id}", :notice => "#{@diligence_advisor.advisor_type.name} Advisor Type added successfully."
+            redirect_to "/deals/#{ @diligence_advisor.deal_id}", :notice => "#{@diligence_advisor.advisor_type.name} Advisor Type added successfully."
+          elsif @diligence_advisor.nda.present?
+            redirect_to "/ndas/#{ @diligence_advisor.nda_id}", :notice => "#{@diligence_advisor.advisor_type.name} Advisor Type added successfully."
+          elsif @diligence_advisor.nda.present?
+            redirect_to "/lois/#{ @diligence_advisor.mp_company.loi_id}", :notice => "#{@diligence_advisor.advisor_type.name} Advisor Type added successfully."
           elsif @diligence_advisor.mp_sponsor.present?
-            redirect_to "/mp_sponsors/#{ @diligence_advisor.mp_sponsor.id}", :notice => "#{@diligence_advisor.advisor_type.name} Advisor Type added successfully."
-          end
+            redirect_to "/lois/#{ @diligence_advisor.mp_sponsor.loi_id}", :notice => "#{@diligence_advisor.advisor_type.name} Advisor Type added successfully."
+          end 
         else
           render 'new'
         end

@@ -7,6 +7,7 @@ belongs_to :advisor_type
 belongs_to :company
 belongs_to :person
 belongs_to :deal
+belongs_to :nda
 belongs_to :mp_company
 belongs_to :mp_sponsor
 
@@ -19,7 +20,7 @@ belongs_to :mp_sponsor
 		end
 	end
 	def self.import(file)
-		allowed_attributes = [ "advisor_type_id", "person_id","company_id","deal_id","mp_company_id","mp_sponsor_id"]
+		allowed_attributes = [ "advisor_type_id", "person_id","company_id","deal_id","nda_id","mp_company_id","mp_sponsor_id"]
 		CSV.foreach(file.path,headers: true) do |row|
 			diligence_advisors = find_by_id(row["id"]) || new
 			
