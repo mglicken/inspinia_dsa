@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180627151053) do
+ActiveRecord::Schema.define(version: 20180713173833) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -127,7 +127,7 @@ ActiveRecord::Schema.define(version: 20180627151053) do
   create_table "diligence_advisors", force: :cascade do |t|
     t.integer "mp_sponsor_id"
     t.integer "mp_company_id"
-    t.integer "cip_id"
+    t.integer "deal_id"
     t.integer "person_id"
     t.integer "company_id"
     t.integer "advisor_type_id"

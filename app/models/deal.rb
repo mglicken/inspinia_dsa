@@ -24,6 +24,8 @@ has_many 	:mp_slides, :through => :mps
 has_many 	:slides, :through => :mp_slides
 has_many 	:deal_people, :dependent => :destroy
 has_many 	:people, :through => :deal_people
+has_many 	:diligence_advisors, :dependent => :destroy
+has_many 	:people, :through => :diligence_advisors
 
 	def self.to_csv
 		CSV.generate do |csv|

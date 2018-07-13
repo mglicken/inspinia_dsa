@@ -34,15 +34,15 @@
               <dd><%= diligence_advisor.person.name %></dd>          
               <dt> Company:</dt>
               <dd><%= diligence_advisor.company.name %></dd>
-              <% if diligence_advisor.cip.present? %>
-                <dt> CIP:</dt>
-                <dd><a href="/cips/<%= diligence_advisor.cip.id %>/advisors"><%= diligence_advisor.cip.name %></a></dd>
+              <% if diligence_advisor.deal.present? %>
+                <dt> Deal:</dt>
+                <dd><a href="/deals/<%= diligence_advisor.deal_id %>"><%= diligence_advisor.cip.name %></a></dd>
               <% elsif diligence_advisor.mp_company.present? %>
                 <dt> MP:</dt>
-                <dd><a href="/mps/<%= diligence_advisor.mp_company.mp.id %>/advisors"><%= diligence_advisor.mp_company.mp.name %></a></dd>
+                <dd><a href="/lois/<%= diligence_advisor.mp_company.loi_id %>"><%= diligence_advisor.mp_company.mp.name %></a></dd>
               <%elsif diligence_advisor.mp_sponsor.present? %>
                 <dt> MP:</dt>
-                <dd><a href="/mps/<%= diligence_advisor.mp_sponsor.mp.id %>/advisors"><%= diligence_advisor.mp_sponsor.mp.name %></a></dd>
+                <dd><a href="/lois/<%= diligence_advisor.mp_sponsor.loi_id %>"><%= diligence_advisor.mp_sponsor.mp.name %></a></dd>
               <% end %>
             </dl>
             <div class="btn-group btn-group-justified">

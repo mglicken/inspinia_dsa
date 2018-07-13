@@ -26,8 +26,8 @@
             <input name="mp_sponsor_id" type="hidden" value="<%= mp_sponsor.id %>">
           <% elsif mp_company.present? %>
             <input name="mp_company_id" type="hidden" value="<%= mp_company.id %>">
-          <% elsif cip.present? %>
-            <input name="cip_id" type="hidden" value="<%= cip.id %>">
+          <% elsif deal.present? %>
+            <input name="deal_id" type="hidden" value="<%= deal.id %>">
           <% end %>
 
             <!-- Label and input for Person -->
