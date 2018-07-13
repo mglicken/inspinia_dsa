@@ -9,6 +9,7 @@ class Nda < ActiveRecord::Base
 	has_one :sponsor, :through => :teaser_sponsor
 	has_one :teaser_company
 	has_one :company, :through => :teaser_company
+	has_many :diligence_advisors
 
 	def self.to_csv
 		CSV.generate do |csv|
