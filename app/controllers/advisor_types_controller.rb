@@ -45,7 +45,7 @@ before_action :ensure_banker_access,  only: [:new, :create, :edit, :update, :des
 
   def create
     @advisor_type = AdvisorType.new
-    @advisor_type.cip_include = params[:cip_include]
+    @advisor_type.deal_include = params[:deal_include]
     @advisor_type.mp_include = params[:mp_include]
 
     @advisor_type.name = params[:name]
@@ -65,7 +65,7 @@ before_action :ensure_banker_access,  only: [:new, :create, :edit, :update, :des
     @advisor_type = AdvisorType.find(params[:id])
 
     @advisor_type.name = params[:name]
-    @advisor_type.cip_include = params[:cip_include]
+    @advisor_type.deal_include = params[:deal_include]
     @advisor_type.mp_include = params[:mp_include]
 
     if @advisor_type.save

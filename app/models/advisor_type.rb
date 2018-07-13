@@ -12,7 +12,7 @@ class AdvisorType < ActiveRecord::Base
 		end
 	end
 	def self.import(file)
-		allowed_attributes = ["name", "cip_include", "mp_include"]
+		allowed_attributes = ["name", "deal_include", "mp_include"]
 		CSV.foreach(file.path,headers: true) do |row|
 			highlights = find_by_id(row["id"]) || new
 			

@@ -33,16 +33,16 @@
             </div>
           </div>
 
-          <!-- Label and input for CIP -->
+          <!-- Label and input for Deal -->
           <div class="form-group">
-            <label for="cip_include" class="col-sm-2 control-label">
-              Include for CIPs
+            <label for="deal_include" class="col-sm-2 control-label">
+              Include for Deals
             </label>
             <div class="col-sm-10">
-              <% if @advisor_type.cip_include %>
-                <input type="checkbox" id="cip_include" name="cip_include" class="form-control" checked>
+              <% if @advisor_type.deal_include %>
+                <input type="checkbox" id="deal_include" name="deal_include" class="form-control" checked>
               <% else %>
-                <input type="checkbox" id="cip_include" name="cip_include" class="form-control">
+                <input type="checkbox" id="deal_include" name="deal_include" class="form-control">
               <% end %>
             </div>
           </div>

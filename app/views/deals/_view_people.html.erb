@@ -1,24 +1,24 @@
 
 <div class="wrapper wrapper-content animated fadeInRight">
     <div class="row">
-    <% @deal.people.order("role_id ASC").each do |person| %>
+    <% @deal.deal_people.order("role_id ASC").each do |deal_person| %>
         <div class="col-lg-2">
             <div class="ibox">
                 <div class="ibox-content product-box">
 
-                      <a href="/people/<%= person.id %>">
+                      <a href="/people/<%= deal_person.person_id %>">
                         <!-- Make Height 225px if want to look right, need to make it clip -->
-                        <img src="<%= person.image_url %>" width = 100%>
+                        <img src="<%= deal_person.person.image_url %>" width = 100%>
                       
                       </a>
                     <div class="product-desc">
-                        <% if person.employee == true%>
+                        <% if deal_person.person.employee == true%>
                         <span class="product-price">
                                     LI
                         </span>
                         <%end %>
-                        <small class="text-muted"><%=person.role.name %></small><br>
-                        <strong><%=person.name %></strong>
+                        <small class="text-muted"><%=deal_person.person.role.name %></small><br>
+                        <strong><%=deal_person.person.name %></strong>
                     </div>
                 </div>
             </div>
