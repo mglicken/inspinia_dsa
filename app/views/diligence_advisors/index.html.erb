@@ -36,7 +36,7 @@
               <dd><%= diligence_advisor.company.name %></dd>
               <% if diligence_advisor.deal.present? %>
                 <dt> Deal:</dt>
-                <dd><a href="/deals/<%= diligence_advisor.deal_id %>"><%= diligence_advisor.cip.name %></a></dd>
+                <dd><a href="/deals/<%= diligence_advisor.deal_id %>"><%= diligence_advisor.deal.name %></a></dd>
               <% elsif diligence_advisor.mp_company.present? %>
                 <dt> MP:</dt>
                 <dd><a href="/lois/<%= diligence_advisor.mp_company.loi_id %>"><%= diligence_advisor.mp_company.mp.name %></a></dd>
