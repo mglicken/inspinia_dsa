@@ -579,6 +579,132 @@ Myapp::Application.routes.draw do
   # DELETE
   get "/delete_loi_slide/:id", :controller => "loi_slides", :action => "destroy"
 
+# Routes for the Market Studies resource:
+  resources :market_studies do
+    collection {post :import}
+  end
+  # CREATE
+  get "/market_studies/new", :controller => "market_studies", :action => "new"
+  post "/create_market_study", :controller => "market_studies", :action => "create"
+
+  # READ
+  get "/market_studies", :controller => "market_studies", :action => "index"
+  get "/market_studies/:id", :controller => "market_studies", :action => "show"
+
+  # UPDATE
+  get "/market_studies/:id/edit", :controller => "market_studies", :action => "edit"
+  post "/update_market_study/:id", :controller => "market_studies", :action => "update"
+
+  # DELETE
+  get "/delete_market_study/:id", :controller => "market_studies", :action => "destroy"
+
+  # Routes for the Market Study Slides resource:
+  resources :market_study_slides do
+    collection {post :import}
+  end
+  # CREATE
+  get "/market_study_slides/new", :controller => "market_study_slides", :action => "new"
+  post "/create_market_study_slide", :controller => "market_study_slides", :action => "create"
+  # READ
+  get "/market_study_slides", :controller => "market_study_slides", :action => "index"
+  get "/market_study_slides/:id", :controller => "market_study_slides", :action => "show"
+
+  # UPDATE
+  get "/market_study_slides/:id/edit", :controller => "market_study_slides", :action => "edit"
+  post "/update_market_study_slide/:id", :controller => "market_study_slides", :action => "update"
+
+  # DELETE
+  get "/delete_market_study_slide/:id", :controller => "market_study_slides", :action => "destroy"
+
+
+  # Routes for the MP Resource:
+  resources :mps do
+    collection {
+      post :import
+      post :import_acquirers
+      post :show_acquirers 
+    }
+  end
+  # CREATE
+  get "/mps/new", :controller => "mps", :action => "new"
+  post "/create_mp", :controller => "mps", :action => "create"
+  get "/copy_mp_layout/:mp_id/", :controller => "mps", :action => "copy_layout"
+
+  # READ
+  get "/mps", :controller => "mps", :action => "index"
+  get "/mps/:id", :controller => "mps", :action => "show"
+  get "/mp_search/:search", :controller => "mps", :action => "search"
+  get "/mps/:id/acquirers", :controller => "mps", :action => "show_acquirers"
+  get "/mps/:id/sponsors", :controller => "mps", :action => "show_sponsors"
+  get "/mps/:id/companies", :controller => "mps", :action => "show_companies"
+
+  # UPDATE
+  get "/mps/:id/edit", :controller => "mps", :action => "edit"
+  post "/update_mp/:id", :controller => "mps", :action => "update"
+
+  # DELETE
+  get "/delete_mp/:id", :controller => "mps", :action => "destroy"
+
+# Routes for the mp_Slides resource:
+  resources :mp_slides do
+    collection {post :import}
+  end
+  # CREATE
+  get "/mp_slides/new", :controller => "mp_slides", :action => "new"
+  post "/create_mp_slide", :controller => "mp_slides", :action => "create"
+  
+  # READ
+  get "/mp_slides", :controller => "mp_slides", :action => "index"
+  get "/mp_slides/:id", :controller => "mp_slides", :action => "show"
+
+  # UPDATE
+  get "/mp_slides/:id/edit", :controller => "mp_slides", :action => "edit"
+  post "/update_mp_slide/:id", :controller => "mp_slides", :action => "update"
+
+  # DELETE
+  get "/delete_mp_slide/:id", :controller => "mp_slides", :action => "destroy"
+
+# Routes for the MP Sponsors resource:
+  resources :mp_sponsors do
+    collection {post :import}
+  end  
+  # CREATE
+  get "/mp_sponsors/new", :controller => "mp_sponsors", :action => "new"
+  post "/create_mp_sponsor", :controller => "mp_sponsors", :action => "create"
+  post "/create_mp_sponsor/:mp_id/", :controller => "mp_sponsors", :action => "create_by_name"
+  
+  # READ
+  get "/mp_sponsors", :controller => "mp_sponsors", :action => "index"
+  get "/mp_sponsors/:id", :controller => "mp_sponsors", :action => "show"
+
+  # UPDATE
+  get "/mp_sponsors/:id/edit", :controller => "mp_sponsors", :action => "edit"
+  post "/update_mp_sponsor/:id", :controller => "mp_sponsors", :action => "update"
+  get "/update_mp_sponsor/:id/:status", :controller => "mp_sponsors", :action => "update_status"
+
+  # DELETE
+  get "/delete_mp_sponsor/:id", :controller => "mp_sponsors", :action => "destroy"
+
+  # Routes for the MP Companies resource:
+  resources :mp_companies do
+    collection {post :import}
+  end  
+  # CREATE
+  get "/mp_companies/new", :controller => "mp_companies", :action => "new"
+  post "/create_mp_company", :controller => "mp_companies", :action => "create"
+  post "/create_mp_company/:mp_id/", :controller => "mp_companies", :action => "create_by_name"  
+  # READ
+  get "/mp_companies", :controller => "mp_companies", :action => "index"
+  get "/mp_companies/:id", :controller => "mp_companies", :action => "show"
+
+  # UPDATE
+  get "/mp_companies/:id/edit", :controller => "mp_companies", :action => "edit"
+  post "/update_mp_company/:id", :controller => "mp_companies", :action => "update"
+  get "/update_mp_company/:id/:status", :controller => "mp_companies", :action => "update_status"
+ 
+  # DELETE
+  get "/delete_mp_company/:id", :controller => "mp_companies", :action => "destroy"
+
   # Routes for the NBP resource:
   resources :nbps do
     collection {
@@ -744,134 +870,6 @@ Myapp::Application.routes.draw do
   # DELETE
   get "/delete_nda_slide/:id", :controller => "nda_slides", :action => "destroy"
 
-  # Routes for the Teaser Sponsors resource:
-  resources :teaser_sponsors do
-    collection {post :import}
-  end  
-  # CREATE
-  get "/teaser_sponsors/new", :controller => "teaser_sponsors", :action => "new"
-  post "/create_teaser_sponsor", :controller => "teaser_sponsors", :action => "create"
-  post "/create_teaser_sponsor/:teaser_id/", :controller => "teaser_sponsors", :action => "create_by_name"
-  
-  # READ
-  get "/teaser_sponsors", :controller => "teaser_sponsors", :action => "index"
-  get "/teaser_sponsors/:id", :controller => "teaser_sponsors", :action => "show"
-
-  # UPDATE
-  get "/teaser_sponsors/:id/edit", :controller => "teaser_sponsors", :action => "edit"
-  post "/update_teaser_sponsor/:id", :controller => "teaser_sponsors", :action => "update"
-  get "/update_teaser_sponsor/:id/:status", :controller => "teaser_sponsors", :action => "update_status"
-
-  # DELETE
-  get "/delete_teaser_sponsor/:id", :controller => "teaser_sponsors", :action => "destroy"
-
-  # Routes for the Teaser Companies resource:
-  resources :teaser_companies do
-    collection {post :import}
-  end  
-  # CREATE
-  get "/teaser_companies/new", :controller => "teaser_companies", :action => "new"
-  post "/create_teaser_company", :controller => "teaser_companies", :action => "create"
-  post "/create_teaser_company/:teaser_id/", :controller => "teaser_companies", :action => "create_by_name"  
-  # READ
-  get "/teaser_companies", :controller => "teaser_companies", :action => "index"
-  get "/teaser_companies/:id", :controller => "teaser_companies", :action => "show"
-
-  # UPDATE
-  get "/teaser_companies/:id/edit", :controller => "teaser_companies", :action => "edit"
-  post "/update_teaser_company/:id", :controller => "teaser_companies", :action => "update"
-  get "/update_teaser_company/:id/:status", :controller => "teaser_companies", :action => "update_status"
- 
-  # DELETE
-  get "/delete_teaser_company/:id", :controller => "teaser_companies", :action => "destroy"
-
-  # Routes for the MP Resource:
-  resources :mps do
-    collection {
-      post :import
-      post :import_acquirers
-      post :show_acquirers 
-    }
-  end
-  # CREATE
-  get "/mps/new", :controller => "mps", :action => "new"
-  post "/create_mp", :controller => "mps", :action => "create"
-  get "/copy_mp_layout/:mp_id/", :controller => "mps", :action => "copy_layout"
-
-  # READ
-  get "/mps", :controller => "mps", :action => "index"
-  get "/mps/:id", :controller => "mps", :action => "show"
-  get "/mp_search/:search", :controller => "mps", :action => "search"
-  get "/mps/:id/acquirers", :controller => "mps", :action => "show_acquirers"
-  get "/mps/:id/sponsors", :controller => "mps", :action => "show_sponsors"
-  get "/mps/:id/companies", :controller => "mps", :action => "show_companies"
-
-  # UPDATE
-  get "/mps/:id/edit", :controller => "mps", :action => "edit"
-  post "/update_mp/:id", :controller => "mps", :action => "update"
-
-  # DELETE
-  get "/delete_mp/:id", :controller => "mps", :action => "destroy"
-
-# Routes for the mp_Slides resource:
-  resources :mp_slides do
-    collection {post :import}
-  end
-  # CREATE
-  get "/mp_slides/new", :controller => "mp_slides", :action => "new"
-  post "/create_mp_slide", :controller => "mp_slides", :action => "create"
-  
-  # READ
-  get "/mp_slides", :controller => "mp_slides", :action => "index"
-  get "/mp_slides/:id", :controller => "mp_slides", :action => "show"
-
-  # UPDATE
-  get "/mp_slides/:id/edit", :controller => "mp_slides", :action => "edit"
-  post "/update_mp_slide/:id", :controller => "mp_slides", :action => "update"
-
-  # DELETE
-  get "/delete_mp_slide/:id", :controller => "mp_slides", :action => "destroy"
-
-# Routes for the MP Sponsors resource:
-  resources :mp_sponsors do
-    collection {post :import}
-  end  
-  # CREATE
-  get "/mp_sponsors/new", :controller => "mp_sponsors", :action => "new"
-  post "/create_mp_sponsor", :controller => "mp_sponsors", :action => "create"
-  post "/create_mp_sponsor/:mp_id/", :controller => "mp_sponsors", :action => "create_by_name"
-  
-  # READ
-  get "/mp_sponsors", :controller => "mp_sponsors", :action => "index"
-  get "/mp_sponsors/:id", :controller => "mp_sponsors", :action => "show"
-
-  # UPDATE
-  get "/mp_sponsors/:id/edit", :controller => "mp_sponsors", :action => "edit"
-  post "/update_mp_sponsor/:id", :controller => "mp_sponsors", :action => "update"
-  get "/update_mp_sponsor/:id/:status", :controller => "mp_sponsors", :action => "update_status"
-
-  # DELETE
-  get "/delete_mp_sponsor/:id", :controller => "mp_sponsors", :action => "destroy"
-
-  # Routes for the MP Companies resource:
-  resources :mp_companies do
-    collection {post :import}
-  end  
-  # CREATE
-  get "/mp_companies/new", :controller => "mp_companies", :action => "new"
-  post "/create_mp_company", :controller => "mp_companies", :action => "create"
-  post "/create_mp_company/:mp_id/", :controller => "mp_companies", :action => "create_by_name"  
-  # READ
-  get "/mp_companies", :controller => "mp_companies", :action => "index"
-  get "/mp_companies/:id", :controller => "mp_companies", :action => "show"
-
-  # UPDATE
-  get "/mp_companies/:id/edit", :controller => "mp_companies", :action => "edit"
-  post "/update_mp_company/:id", :controller => "mp_companies", :action => "update"
-  get "/update_mp_company/:id/:status", :controller => "mp_companies", :action => "update_status"
- 
-  # DELETE
-  get "/delete_mp_company/:id", :controller => "mp_companies", :action => "destroy"
 
   # Routes for the Note resource:
   resources :notes do
@@ -936,6 +934,44 @@ Myapp::Application.routes.draw do
 
   # DELETE
   get "/delete_person_note/:id", :controller => "person_notes", :action => "destroy"
+
+  # Routes for the QofEs resource:
+  resources :qoves do
+    collection {post :import}
+  end
+  # CREATE
+  get "/qoves/new", :controller => "qoves", :action => "new"
+  post "/create_qofe", :controller => "qoves", :action => "create"
+
+  # READ
+  get "/qoves", :controller => "qoves", :action => "index"
+  get "/qoves/:id", :controller => "qoves", :action => "show"
+
+  # UPDATE
+  get "/qoves/:id/edit", :controller => "qoves", :action => "edit"
+  post "/update_qofe/:id", :controller => "qoves", :action => "update"
+
+  # DELETE
+  get "/delete_qofe/:id", :controller => "qoves", :action => "destroy"
+
+  # Routes for the QofE Slides resource:
+  resources :qofe_slides do
+    collection {post :import}
+  end
+  # CREATE
+  get "/qofe_slides/new", :controller => "qofe_slides", :action => "new"
+  post "/create_qofe_slide", :controller => "qofe_slides", :action => "create"
+  # READ
+  get "/qofe_slides", :controller => "qofe_slides", :action => "index"
+  get "/qofe_slides/:id", :controller => "qofe_slides", :action => "show"
+
+  # UPDATE
+  get "/qofe_slides/:id/edit", :controller => "qofe_slides", :action => "edit"
+  post "/update_qofe_slide/:id", :controller => "qofe_slides", :action => "update"
+
+  # DELETE
+  get "/delete_qofe_slide/:id", :controller => "qofe_slides", :action => "destroy"
+
 
   # Routes for the Roles resource:
   resources :roles do
@@ -1228,6 +1264,47 @@ Myapp::Application.routes.draw do
 
   # DELETE
   get "/delete_teaser_slide/:id", :controller => "teaser_slides", :action => "destroy"
+
+  # Routes for the Teaser Sponsors resource:
+  resources :teaser_sponsors do
+    collection {post :import}
+  end  
+  # CREATE
+  get "/teaser_sponsors/new", :controller => "teaser_sponsors", :action => "new"
+  post "/create_teaser_sponsor", :controller => "teaser_sponsors", :action => "create"
+  post "/create_teaser_sponsor/:teaser_id/", :controller => "teaser_sponsors", :action => "create_by_name"
+  
+  # READ
+  get "/teaser_sponsors", :controller => "teaser_sponsors", :action => "index"
+  get "/teaser_sponsors/:id", :controller => "teaser_sponsors", :action => "show"
+
+  # UPDATE
+  get "/teaser_sponsors/:id/edit", :controller => "teaser_sponsors", :action => "edit"
+  post "/update_teaser_sponsor/:id", :controller => "teaser_sponsors", :action => "update"
+  get "/update_teaser_sponsor/:id/:status", :controller => "teaser_sponsors", :action => "update_status"
+
+  # DELETE
+  get "/delete_teaser_sponsor/:id", :controller => "teaser_sponsors", :action => "destroy"
+
+  # Routes for the Teaser Companies resource:
+  resources :teaser_companies do
+    collection {post :import}
+  end  
+  # CREATE
+  get "/teaser_companies/new", :controller => "teaser_companies", :action => "new"
+  post "/create_teaser_company", :controller => "teaser_companies", :action => "create"
+  post "/create_teaser_company/:teaser_id/", :controller => "teaser_companies", :action => "create_by_name"  
+  # READ
+  get "/teaser_companies", :controller => "teaser_companies", :action => "index"
+  get "/teaser_companies/:id", :controller => "teaser_companies", :action => "show"
+
+  # UPDATE
+  get "/teaser_companies/:id/edit", :controller => "teaser_companies", :action => "edit"
+  post "/update_teaser_company/:id", :controller => "teaser_companies", :action => "update"
+  get "/update_teaser_company/:id/:status", :controller => "teaser_companies", :action => "update_status"
+ 
+  # DELETE
+  get "/delete_teaser_company/:id", :controller => "teaser_companies", :action => "destroy"
 
   # Routes for the Work Histories resource:
   resources :work_histories do

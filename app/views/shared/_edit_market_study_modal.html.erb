@@ -1,0 +1,90 @@
+
+<!-- Button trigger modal -->
+<div class="btn btn-edit" data-toggle="modal" data-target="#myModalEditMarketStudy_<%=market_study.id %>">
+  <i class="fa fa-edit"></i>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="myModalEditMarketStudy_<%=market_study.id %>" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="myModalLabel">Edit Market Study Details</h4>
+      </div>
+      <div class="modal-body">
+
+
+
+<% if market_study.errors.any? %>
+  <% market_study.errors.full_messages.each do |message| %>
+    <div class="alert alert-dismissable alert-danger">
+      <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+      <%= message %>
+    </div>
+  <% end %>
+<% end %>
+
+<!-- Responsive panel example -->
+
+<div class="row">
+  <div class="col-sm-offset-0 col-sm-12 col-md-offset-0 col-md-12">
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <h3 class="panel-title"><%= market_study.deal.name %></h3>
+      </div>
+      <div class="panel-body">
+
+        <form enctype="multipart/form-data" action="/update_market_study/<%= market_study.id %>" method="post" class="form-horizontal">
+          <!-- Hidden input for authenticity token to protect from forgery -->
+          <input name="authenticity_token" type="hidden" value="<%= form_authenticity_token %>">
+
+
+          <!-- Label and input for Market Study Name -->
+          <div class="form-group">
+            <label for="name" class="col-sm-2 control-label">
+              Market Study Name
+            </label>
+            <div class="col-sm-10">
+              <input type="string" id="name" name="name" placeholder="e.g., e.g., Sponsor Name / Company Name (Year) CS" class="form-control" value="<%= market_study.name %>">
+            </div>
+          </div>
+
+          <input type="hidden" name="deal_id"  value="<%= market_study.deal_id %>">
+
+          <input type="hidden" name="image_id"  value="<%= market_study.image_id %>">
+
+          <!-- Label and input for Date -->
+          <div class="form-group">
+            <h5><label for="market_study_date" class="col-sm-2 control-label">
+              Date
+            </label></h5>
+            <div class="col-lg-10">
+              <input type="date" id="market_study_date" name="market_study_date" placeholder="12/17/2017" class="form-control" value="<%= market_study.market_study_date %>"
+            </div>
+          </div>
+
+           <div class="form-group">
+            <div class="col-sm-offset-2 col-sm-10">
+              <button class="btn btn-warning">
+                Update Market Study
+              </button>
+
+            </div>
+          </div>
+
+        </form>
+
+      </div>
+    </div>
+  </div>
+</div>
+
+
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>

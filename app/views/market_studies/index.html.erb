@@ -1,0 +1,40 @@
+<%= render('shared/file_download_upload', path: "market_studies") %>
+<div class="page-header">
+  <h1>
+    Market Studies
+  </h1>
+</div>
+
+<!-- Responsive, Isotope-based layout example -->
+
+<div class="row">
+  <div class="col-xs-12">
+    <input type="text" id="quicksearch" placeholder="Search Market Studies (start typing)" class="form-control">
+  </div>
+</div>
+
+<hr>
+
+<div class="row isotope-container">
+<% @market_studies.each do |market_study| %>
+  <div class="col-lg-3 isotope-item">
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <h3 class="panel-title"><a href="/market_studies/<%= market_study.id %>">
+            <%= market_study.deal.name %> Market Study</a></h3>
+      </div>
+      <% if market_study.slides.nil? %>      
+      <div class="panel-body">
+        <dl>
+          <dt></dt>
+          <dd>No Market Study</dd>
+        </dl>
+      </div>
+      <% end %>
+    </div>
+  </div>
+<% end %>
+</div>
+
+
+<%= render('shared/quick_search_js') %>

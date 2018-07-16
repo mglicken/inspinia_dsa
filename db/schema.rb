@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180713200746) do
+ActiveRecord::Schema.define(version: 20180716151444) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -206,6 +206,18 @@ ActiveRecord::Schema.define(version: 20180713200746) do
     t.float   "enterprise_value"
   end
 
+  create_table "market_studies", force: :cascade do |t|
+    t.string  "name"
+    t.integer "deal_id"
+    t.date    "market_study_date"
+    t.string  "image_id"
+  end
+
+  create_table "market_study_slides", force: :cascade do |t|
+    t.integer "market_study_id"
+    t.integer "slide_id"
+  end
+
   create_table "mp_companies", force: :cascade do |t|
     t.integer "mp_id"
     t.integer "company_id"
@@ -318,6 +330,18 @@ ActiveRecord::Schema.define(version: 20180713200746) do
   create_table "person_notes", force: :cascade do |t|
     t.integer "person_id"
     t.integer "note_id"
+  end
+
+  create_table "qofe_slides", force: :cascade do |t|
+    t.integer "qofe_id"
+    t.integer "slide_id"
+  end
+
+  create_table "qoves", force: :cascade do |t|
+    t.string  "name"
+    t.integer "deal_id"
+    t.date    "qofe_date"
+    t.string  "image_id"
   end
 
   create_table "roles", force: :cascade do |t|

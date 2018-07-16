@@ -10,11 +10,11 @@ belongs_to 	:deal_type
 has_many	:teaser, :dependent => :destroy
 has_many 	:teaser_slides, :through => :teaser
 has_many 	:slides, :through => :teaser_slides
-has_many	:case_study, :dependent => :destroy
-has_many 	:case_study_slides, :through => :case_study
+has_many	:case_studies, :dependent => :destroy
+has_many 	:case_study_slides, :through => :case_studies
 has_many 	:slides, :through => :case_study_slides
 has_many	:nbps, :dependent => :destroy
-has_many 	:nbp_slides, :through => :nbp
+has_many 	:nbp_slides, :through => :nbps
 has_many 	:slides, :through => :nbp_slides
 has_many 	:cips, :dependent => :destroy
 has_many 	:cip_slides, :through => :cips
@@ -26,6 +26,10 @@ has_many 	:deal_people, :dependent => :destroy
 has_many 	:people, :through => :deal_people
 has_many 	:diligence_advisors, :dependent => :destroy
 has_many 	:people, :through => :diligence_advisors
+has_many	:market_study, :dependent => :destroy
+has_many 	:market_study_slides, :through => :market_study
+has_many	:qoves, :dependent => :destroy
+has_many 	:qofe_slides, :through => :qoves
 
 	def self.to_csv
 		CSV.generate do |csv|
