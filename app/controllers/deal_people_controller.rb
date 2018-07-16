@@ -80,7 +80,7 @@ before_action :ensure_banker_access,  only: [:new, :create, :edit, :update, :des
     @deal_person.role_id = params[:role_id]
 
     if @deal_person.save
-      redirect_to "/deal_people/#{@deal_person.id}/", :notice => "Deal Person updated successfully!"
+      redirect_to "/deals/#{@deal_person.deal_id}/", :notice => "Deal Person updated successfully!"
     else
       render 'edit'
     end
@@ -88,11 +88,13 @@ before_action :ensure_banker_access,  only: [:new, :create, :edit, :update, :des
 
   def destroy
     @deal_person = DealPerson.find(params[:id])
+    @deal = @deal_person.deal
+    @person = @deal_person.person
     @deal_person.destroy
 
     respond_to do |format|
       format.html do
-        redirect_to "/deal_people/", :notice => "Deal Person deleted."
+        redirect_to "/deals/#{@deal.id}", :notice => "#{@person.name} removed from #{@deal.name} deal team."
       end
       format.js do
         render('destroy.js.erb')

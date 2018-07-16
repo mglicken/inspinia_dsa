@@ -1,0 +1,63 @@
+<span style="font:black; margin-right: 8px;"><a data-toggle="modal" href="#Modal_Edit_Deal_Person_<%=deal_person.id %>"><i class="fa fa-edit"></i></a></span>
+<div class="modal inmodal fade" id="Modal_Edit_Deal_Person_<%=deal_person.id %>" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+          <% if deal_person.errors.any? %>
+            <% deal_person.errors.full_messages.each do |message| %>
+              <div class="alert alert-dismissable alert-danger">
+                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                <%= message %>
+              </div>
+            <% end %>
+          <% end %>
+          <form enctype="multipart/form-data" action="/update_deal_person/<%= deal_person.id %>" method="post" class="form-horizontal">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                <h4 class="modal-title">Update Deal Person</h4>
+                <small class="font-bold">Update content deal, person or role for deal person.</small>
+            </div>
+            <div class="modal-body">
+              <!-- Hidden input for authenticity token to protect from forgery -->
+              <input name="authenticity_token" type="hidden" value="<%= form_authenticity_token %>">
+
+              <!-- Label and input for Deal -->
+              <div class="form-group">
+                <h5><label for="deal_id" class="col-sm-2 control-label">
+                  Deal
+                </label></h5>
+                <div class="col-sm-10">
+                  <%= select_tag :deal_id, options_from_collection_for_select(Deal.all.order("name ASC"), :id, :name, deal_person.deal_id), :class => "form-control" %>
+                </div>
+              </div>
+
+              <!-- Label and input for Person -->
+              <div class="form-group">
+                <h5><label for="person_id" class="col-sm-2 control-label">
+                  Person
+                </label></h5>
+                <div class="col-sm-10">
+                  <%= select_tag :person_id, options_from_collection_for_select(Person.all.order("name ASC"), :id, :name, deal_person.person_id), :class => "form-control" %>
+                </div>
+              </div>
+
+              <!-- Label and input for Role -->
+              <div class="form-group">
+                <h5><label for="person_id" class="col-sm-2 control-label">
+                  Role
+                </label></h5>
+                <div class="col-sm-10">
+                  <%= select_tag :role_id, options_from_collection_for_select(Role.where('id < 7').order(name: :asc), :id, :name, deal_person.role_id), :class => "form-control" %>
+                </div>
+              </div>
+            </div>
+
+            <div class="modal-footer">
+              <div class="form-group">
+                <button type="button" class="btn btn-white" data-dismiss="modal">Close</button>
+                <button class="btn btn-lincoln" style="margin-right: 10px;">Update</button>
+              </div>
+            </div>
+          </form>
+        </div>
+    </div>
+</div>
