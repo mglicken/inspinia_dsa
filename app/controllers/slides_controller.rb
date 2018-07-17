@@ -44,50 +44,62 @@ before_action :ensure_view_access,  only: [:show, :search]
       @nbp = @slide.nbp
       @image_id = @nbp.image_id
     else
-      @nbp = nil
+      @nbp = Nbp.none
     end
     if @slide.nda.present?
       @nda = @slide.nda
       @image_id = @nda.image_id
     else
-      @nda = nil
+      @nda = Nda.none
     end
     if @slide.cip.present?
       @cip = @slide.cip
       @image_id = @cip.image_id
     else
-      @cip = nil
+      @cip = Cip.none
     end
     if @slide.ioi.present?
       @ioi = @slide.ioi
       @image_id = @ioi.image_id
     else
-      @ioi = nil
+      @ioi = Ioi.none
     end
     if @slide.mp.present?
       @mp = @slide.mp
       @image_id = @mp.image_id
     else
-      @mp = nil
+      @mp = Mp.none
     end
     if @slide.loi.present?
       @loi = @slide.loi
       @image_id = @loi.image_id
     else
-      @loi = nil
+      @loi = Loi.none
     end
     if @slide.teaser.present?
       @teaser = @slide.teaser
       @image_id = @teaser.image_id
     else
-      @teaser = nil
+      @teaser = Teaser.none
     end  
     if @slide.case_study.present?
       @case_study = @slide.case_study
       @image_id = @case_study.image_id
     else
-      @case_study = nil
+      @case_study = CaseStudy.none
     end  
+    if @slide.market_study.present?
+      @market_study = @slide.market_study
+      @image_id = @market_study.image_id
+    else
+      @market_study = MarketStudy.none
+    end 
+      if @slide.qofe.present?
+      @qofe = @slide.qofe
+      @image_id = @qofe.image_id
+    else
+      @qofe = Qofe.none
+    end
   end
 
   def search
@@ -395,6 +407,72 @@ before_action :ensure_view_access,  only: [:show, :search]
     if slide.save
       case_study_slide.case_study.save
       redirect_to "/case_studies/#{case_study_slide.case_study_id}", :notice => "Case Study Slides uploaded successfully. Please start tagging slides to aid searches."
+    else
+      render 'new'
+    end
+  end
+
+  def create_market_study_slides
+    public_id = Cloudinary::Api.resources(type:"upload")["resources"].first["public_id"]
+    pdf_len = Cloudinary::Api.resource( public_id , pages: true)["pages"].to_i
+
+
+    for i in 0..(pdf_len-1)
+      slide = Slide.new
+      slide.number = i+1
+      slide.image_url = "http://res.cloudinary.com/mglicken/image/upload/f_jpg,pg_#{ i+1 }/#{ public_id }.pdf"
+      slide.save
+      
+      market_study_slide = MarketStudySlide.new
+      market_study_slide.market_study_id = params[:market_study_id]
+      market_study_slide.slide_id = slide.id
+      market_study_slide.save
+      slide.ppt_address = market_study_slide.market_study.ppt_address
+
+
+      slide_tag = SlideTag.new
+      slide_tag.slide_id = slide.id
+      slide_tag.tag_id = Tag.find_by(name: "Market Study").id
+      slide_tag.save
+
+    end
+    market_study_slide.market_study.image_id = public_id
+    if slide.save
+      market_study_slide.market_study.save
+      redirect_to "/market_studies/#{market_study_slide.market_study_id}", :notice => "Market Study Slides uploaded successfully. Please start tagging slides to aid searches."
+    else
+      render 'new'
+    end
+  end
+
+  def create_qofe_slides
+    public_id = Cloudinary::Api.resources(type:"upload")["resources"].first["public_id"]
+    pdf_len = Cloudinary::Api.resource( public_id , pages: true)["pages"].to_i
+
+
+    for i in 0..(pdf_len-1)
+      slide = Slide.new
+      slide.number = i+1
+      slide.image_url = "http://res.cloudinary.com/mglicken/image/upload/f_jpg,pg_#{ i+1 }/#{ public_id }.pdf"
+      slide.save
+      
+      qofe_slide = MarketStudySlide.new
+      qofe_slide.qofe_id = params[:qofe_id]
+      qofe_slide.slide_id = slide.id
+      qofe_slide.save
+      slide.ppt_address = qofe_slide.qofe.ppt_address
+
+
+      slide_tag = SlideTag.new
+      slide_tag.slide_id = slide.id
+      slide_tag.tag_id = Tag.find_by(name: "QofE").id
+      slide_tag.save
+
+    end
+    qofe_slide.qofe.image_id = public_id
+    if slide.save
+      qofe_slide.qofe.save
+      redirect_to "/qoves/#{qofe_slide.qofe_id}", :notice => "QofE Slides uploaded successfully. Please start tagging slides to aid searches."
     else
       render 'new'
     end

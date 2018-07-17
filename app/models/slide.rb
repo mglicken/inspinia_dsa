@@ -11,6 +11,8 @@ class Slide < ActiveRecord::Base
 	has_one  :mp_slide, :dependent => :destroy
 	has_one  :loi_slide, :dependent => :destroy
 	has_one  :case_study_slide, :dependent => :destroy
+	has_one  :market_study_slide, :dependent => :destroy
+	has_one  :qofe_slide, :dependent => :destroy
 	has_one :nbp, :through => :nbp_slide
 	has_one :nda, :through => :nda_slide
 	has_one :teaser, :through => :teaser_slide
@@ -19,11 +21,18 @@ class Slide < ActiveRecord::Base
 	has_one :mp, :through => :mp_slide
 	has_one :loi, :through => :loi_slide
 	has_one :case_study, :through => :case_study_slide
+	has_one :market_study, :through => :market_study_slide
+	has_one :qofe, :through => :qofe_slide
 	has_one :deal, :through => :nbp
 	has_one :deal, :through => :cip
 	has_one :deal, :through => :mp
 	has_one :deal, :through => :teaser
 	has_one :deal, :through => :case_study
+	has_one :deal, :through => :market_study
+	has_one :deal, :through => :qofe_study
+	has_one :deal, :through => :ioi
+	has_one :deal, :through => :loi
+	has_one :deal, :through => :nda
 
 	def self.to_csv
 		CSV.generate do |csv|
