@@ -19,13 +19,13 @@
           <div class="col-md-12">
             <dl class="dl-horizontal" style="font-size:10px" >
 
-              <dt>Company</dt>
+              <dt>Company:</dt>
               <dd><a href="/companies/<%= @deal.company.id %>"><%= @deal.company.name %></a></dd>
-              <dt>Project Alias</dt>
+              <dt>Project Alias:</dt>
               <dd><%= @deal.project_alias %></dd>
-              <dt>Project Code</dt>
+              <dt>Project Code:</dt>
               <dd><%= @deal.project_code %></dd>
-              <dt>NBPs</dt>
+              <dt>NBPs:</dt>
                 <% Nbp.where(deal_id: @deal).order("nbp_date DESC").each do |nbp| %>
                   <% if NbpSlide.where(nbp_id: nbp.id).present? %>
                     <dd> <a href="/nbps/<%= nbp.id %>"><%= nbp.name%> (<%= nbp.nbp_date%>)</a></dd>
@@ -33,7 +33,7 @@
                     <dd> <a href="/nbps/<%= nbp.id %>">No Documents Uploaded</a></dd>
                   <% end %>
                 <% end %>
-              <dt>Teasers</dt>
+              <dt>Teasers:</dt>
                 <% Teaser.where(deal_id: @deal).order("teaser_date DESC").each do |teaser| %>
                   <% if TeaserSlide.where(teaser_id: teaser.id).present? %>
                     <dd> <a href="/teasers/<%=teaser.id %>"><%= teaser.name%> (<%= teaser.teaser_date%>)</a></dd>
@@ -41,7 +41,7 @@
                     <dd> <a href="/teasers/<%=teaser.id %>">No Documents Uploaded</a></dd>
                   <% end %>
                 <% end %>
-                <dt>CIPs</dt>
+                <dt>CIPs:</dt>
                 <% Cip.where(deal_id: @deal).order("cip_date DESC").each do |cip| %>
                   <% if CipSlide.where(cip_id: cip.id).present? %>
                     <dd> <a href="/cips/<%=cip.id %>"><%= cip.name %> (<%= cip.cip_date %>)</a></dd>
@@ -49,7 +49,7 @@
                     <dd> <a href="/cips/<%=cip.id %>"> No Documents Uploaded</a></dd>
                   <% end %>
                 <% end %>
-                <dt>MPs</dt>
+                <dt>MPs:</dt>
                 <% Mp.where(deal_id: @deal).order("mp_date DESC").each do |mp| %>
                   <% if MpSlide.where(mp_id: mp.id).present? %>
                     <dd> <a href="/mps/<%=mp.id %>"><%= mp.name%> (<%= mp.mp_date%>)</a></dd>
@@ -57,7 +57,7 @@
                     <dd> <a href="/mps/<%=mp.id %>">No Documents Uploaded</a></dd>
                   <% end %>
                 <% end %>
-                <dt>Case Studies</dt>
+                <dt>Case Studies:</dt>
                 <% CaseStudy.where(deal_id: @deal).order("name ASC").each do |case_study| %>
                   <% if CaseStudySlide.where(case_study_id: case_study.id).present? %>
                     <dd> <a href="/case_studies/<%=case_study.id %>"><%= case_study.name%> (<%= case_study.case_study_date%>)</a></dd>
