@@ -14,17 +14,17 @@
                                 <dl class="dl-horizontal" style="font-size:10px" >
 
                                  <dt style="width:75px;white-space: normal;">Date:</dt>
-                                 <dd style="margin-left:0px;"><%= qofe.qofe_date %></dd>
+                                 <dd style="margin-left:5px;"><%= qofe.qofe_date %></dd>
                                  <dt style="width:75px;white-space: normal;">Tags:</dt>
-                                 <dd style="margin-left:0px;">
+                                 <dd style="margin-left:5px;">
                                  <% Tag.where(id: SlideTag.where(slide_id: qofe.slides.ids).pluck(:tag_id)).order(name: :asc).each do |tag| %>
                                   <%= tag.name %>,
                                 <% end %>
                                  </dd>
                                 </dl>
                                 <div class="btn-group btn-group-justified">
-                                  <a href="/qoves/<%= qofe.id%>" class="btn btn-edit">
-                                    <i class="fa fa-edit"></i>
+                                  <a href="/qoves/<%= qofe.id%>" class="btn btn-lincoln">
+                                    <i class="fa fa-location-arrow"></i>
                                   </a>
                                 </div>
                               </div>
