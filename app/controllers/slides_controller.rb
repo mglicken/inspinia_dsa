@@ -427,8 +427,6 @@ before_action :ensure_view_access,  only: [:show, :search]
       market_study_slide.market_study_id = params[:market_study_id]
       market_study_slide.slide_id = slide.id
       market_study_slide.save
-      slide.ppt_address = market_study_slide.market_study.ppt_address
-
 
       slide_tag = SlideTag.new
       slide_tag.slide_id = slide.id
@@ -456,12 +454,10 @@ before_action :ensure_view_access,  only: [:show, :search]
       slide.image_url = "http://res.cloudinary.com/mglicken/image/upload/f_jpg,pg_#{ i+1 }/#{ public_id }.pdf"
       slide.save
       
-      qofe_slide = MarketStudySlide.new
+      qofe_slide = QofeSlide.new
       qofe_slide.qofe_id = params[:qofe_id]
       qofe_slide.slide_id = slide.id
       qofe_slide.save
-      slide.ppt_address = qofe_slide.qofe.ppt_address
-
 
       slide_tag = SlideTag.new
       slide_tag.slide_id = slide.id
