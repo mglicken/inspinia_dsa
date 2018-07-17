@@ -4,7 +4,7 @@
         <div class="ibox collapsed">
             <div class="ibox-title">
 
-                <h5><%= advisor_type.name %> (<%= @nda.diligence_advisors.where(advisor_type_id: advisor_type.id).count %>) <%= render('shared/add_advisor_to_nda_modal', company: @nda.deal.company, mp_sponsor: MpSponsor.none, mp_company: MpCompany.none, deal: Deal.none, nda: @nda, advisor_type: advisor_type ) %></h5>
+                <h5><%= advisor_type.name %> (<%= @nda.diligence_advisors.where(advisor_type_id: advisor_type.id).count %>) <%= render('shared/add_advisor_modal', company: @nda.deal.company, mp_sponsor: MpSponsor.none, mp_company: MpCompany.none, deal: Deal.none, nda: @nda, advisor_type: advisor_type ) %></h5>
                 <div class="ibox-tools">
                     <a class="collapse-link">
                         <i class="fa fa-chevron-up"></i>

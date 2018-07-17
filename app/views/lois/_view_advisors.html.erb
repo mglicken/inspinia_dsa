@@ -5,9 +5,9 @@
             <div class="ibox-title">
 
                 <% if @loi.mp_sponsor.present? %>
-                  <h5><%= advisor_type.name %> (<%= @loi.mp_sponsor.diligence_advisors.where(advisor_type_id: advisor_type.id).count %>) <%= render('shared/add_advisor_to_loi_modal', company: @loi.deal.company, mp_sponsor: @loi.mp_sponsor, mp_company: @loi.mp_company, deal: Deal.none, nda: Nda.none, advisor_type: advisor_type ) %></h5>
+                  <h5><%= advisor_type.name %> (<%= @loi.mp_sponsor.diligence_advisors.where(advisor_type_id: advisor_type.id).count %>) <%= render('shared/add_advisor_modal', company: @loi.deal.company, mp_sponsor: @loi.mp_sponsor, mp_company: @loi.mp_company, deal: Deal.none, nda: Nda.none, advisor_type: advisor_type ) %></h5>
                 <% else %>
-                  <h5><%= advisor_type.name %> (<%= @loi.mp_company.diligence_advisors.where(advisor_type_id: advisor_type.id).count %>) <%= render('shared/add_advisor_to_loi_modal', company: @loi.deal.company, mp_sponsor: @loi.mp_sponsor, mp_company: @loi.mp_company, deal: Deal.none, nda: Nda.none, advisor_type: advisor_type ) %></h5>
+                  <h5><%= advisor_type.name %> (<%= @loi.mp_company.diligence_advisors.where(advisor_type_id: advisor_type.id).count %>) <%= render('shared/add_advisor_modal', company: @loi.deal.company, mp_sponsor: @loi.mp_sponsor, mp_company: @loi.mp_company, deal: Deal.none, nda: Nda.none, advisor_type: advisor_type ) %></h5>
                 <% end %>
                 <div class="ibox-tools">
                     <a class="collapse-link">
