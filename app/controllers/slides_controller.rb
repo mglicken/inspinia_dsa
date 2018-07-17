@@ -461,7 +461,7 @@ before_action :ensure_view_access,  only: [:show, :search]
 
       slide_tag = SlideTag.new
       slide_tag.slide_id = slide.id
-      slide_tag.tag_id = Tag.find_by(name: "QofE").id
+      slide_tag.tag_id = Tag.find_by(name: "Quality of Earnings / QofE / QoE").id
       slide_tag.save
 
     end
