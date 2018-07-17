@@ -1,5 +1,5 @@
 class Qofe < ActiveRecord::Base
-validates :name, :presence => true, :uniqueness => true
+validates :deal, :presence => true
 
 belongs_to :deal
 has_many :qofe_slides, :dependent => :destroy

@@ -50,8 +50,8 @@ before_action :ensure_view_access,  only: [:index, :search, :show]
     @market_study = MarketStudy.new
 
     @market_study.name = params[:name]
-v
     @market_study.deal_id = params[:deal_id]
+    @market_study.market_study_date = params[:market_study_date]
     @market_study.image_id = params[:image_id]
 
 

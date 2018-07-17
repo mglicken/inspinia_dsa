@@ -1,5 +1,5 @@
 class MarketStudy < ActiveRecord::Base
-validates :name, :presence => true, :uniqueness => true
+validates :deal, :presence => true
 
 belongs_to :deal
 has_many :market_study_slides, :dependent => :destroy

@@ -86,8 +86,8 @@
   <%= render('shared/create_cip_modal', deal: @deal)%>
   <%= render('shared/create_mp_modal', deal: @deal)%>
   <%= render('shared/add_person_to_deal_modal', deal: @deal, person: nil)%>
-  <a class="btn btn-lincoln" href="/qofes/<%= 1 %>">Quality of Earnings</a>
-  <a class="btn btn-lincoln" href="/market_studies/<%= 1 %>">Market Study</a>
+  <a class="btn btn-lincoln" href="/qoves/<%= Qofe.where(deal_id: @deal.id).first.id %>">Quality of Earnings</a>
+  <a class="btn btn-lincoln" href="/market_studies/<%= MarketStudy.where(deal_id: @deal.id).first.id %>">Market Study</a>
 
 <br>
 <br>
