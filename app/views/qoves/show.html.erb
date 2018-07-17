@@ -21,6 +21,8 @@
              <dd> <a href="/companies/<%= @qofe.deal.company.id %>"><%= @qofe.deal.company.name %></a></dd>
              <dt>Date</dt>
              <dd><%= @qofe.qofe_date %></dd>
+             <dt>Slides</dt>
+             <dd><%= @qofe.slides.count %> slides</dd>
              <dt>Tags</dt>
              <dd>
              <% @tags.each do |tag| %>
