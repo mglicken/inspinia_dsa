@@ -1,4 +1,26 @@
-
+<style>
+.dl-horizontal {
+  *zoom: 1;
+}
+.dl-horizontal:before,
+.dl-horizontal:after {
+  display: table;
+  content: "";
+  line-height: 0;
+}
+.dl-horizontal:after {
+  clear: both;
+}
+.dl-horizontal dt {
+  float: left;
+  width: 100px;
+  clear: left;
+  text-align: right;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: normal;
+}
+</style>
 <div class="wrapper wrapper-content animated fadeInRight">
     <div class="row">
         <% @market_studies.each do |market_study| %>
@@ -11,7 +33,7 @@
                         <div class="panel-body">
                             <div class="row">
                               <div class="col-lg-12">
-                                <dl class="dl-horizontal" style="font-size:10px" >
+                                <dl class="dl-horizontal" style="font-size:10px;" >
 
                                  <dt>Date:</dt>
                                  <dd><%= market_study.market_study_date %></dd>
