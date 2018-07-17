@@ -14,9 +14,9 @@
                                 <dl class="dl-horizontal" style="font-size:10px" >
 
                                  <dt style="width:75px;white-space: normal;">Date:</dt>
-                                 <dd><%= qofe.qofe_date %></dd>
+                                 <dd style="margin-left:0px;"><%= qofe.qofe_date %></dd>
                                  <dt style="width:75px;white-space: normal;">Tags:</dt>
-                                 <dd>
+                                 <dd style="margin-left:0px;">
                                  <% Tag.where(id: SlideTag.where(slide_id: qofe.slides.ids).pluck(:tag_id)).order(name: :asc).each do |tag| %>
                                   <%= tag.name %>,
                                 <% end %>
