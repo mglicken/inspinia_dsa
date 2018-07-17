@@ -19,6 +19,14 @@
              <dd> <a href="/deals/<%= @qofe.deal_id %>"><%= @qofe.deal.name %></a></dd>
              <dt>Company</dt>
              <dd> <a href="/companies/<%= @qofe.deal.company.id %>"><%= @qofe.deal.company.name %></a></dd>
+             <dt>Date</dt>
+             <dd><%= @qofe.qofe_date %></dd>
+             <dt>Tags</dt>
+             <dd>
+             <% @tags.each do |tag| %>
+              <%= tag.name %>,
+            <% end %>
+             </dd>
 
             </dl>
             <div class="btn-group btn-group-justified">
