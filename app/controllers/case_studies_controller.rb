@@ -38,7 +38,12 @@ before_action :ensure_view_access,  only: [:index, :search, :show]
 
   def show
     @case_study = CaseStudy.find(params[:id])
-    @p_id = "case_study_#{@case_study.id}"
+    a = ["0","1","2","3","4","5","6","7","8","9","a","b","c","d","e","f","g","h","i","j","k","l","m","n","o","p","q","r","s","t","u","v","w","x","y","z"]
+    b=""
+    for i in 0..63
+      b=b+a[rand(35)]
+    end
+    @p_id = b
     @url = "/create_case_study_slide/#{params[:id]}"
   end
 
