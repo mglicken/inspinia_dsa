@@ -1,0 +1,38 @@
+
+<div class="wrapper wrapper-content animated fadeInRight">
+    <div class="row">
+        <% @market_studies.each do |market_study| %>
+            <div class="col-lg-4">
+                <div class="ibox">
+                    <div class="ibox-content">
+                        <div class="panel-heading">
+                            <h3 class="panel-title" style="font-size:12px"><%= market_study.name %></h3>
+                        </div>
+                        <div class="panel-body">
+                            <div class="row">
+                              <div class="col-lg-12">
+                                <dl style="font-size:10px" >
+
+                                 <dt>Date:</dt>
+                                 <dd><%= market_study.market_study_date %></dd>
+                                 <dt>Tags:</dt>
+                                 <dd>
+                                 <% Tag.where(id: SlideTag.where(slide_id: market_study.slides.ids).pluck(:tag_id)).order(name: :asc).each do |tag| %>
+                                  <%= tag.name %>,
+                                <% end %>
+                                 </dd>
+                                </dl>
+                                <div class="btn-group btn-group-justified">
+                                  <a href="/market_studies/<%= market_study.id%>" class="btn btn-edit">
+                                    <i class="fa fa-edit"></i>
+                                  </a>
+                                </div>
+                              </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        <%end%>
+    </div>
+</div>

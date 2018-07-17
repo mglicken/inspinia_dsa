@@ -274,6 +274,8 @@ Myapp::Application.routes.draw do
   get "/", :controller => "deals", :action => "index"
   get "/deals", :controller => "deals", :action => "index"
   get "/deals/:id", :controller => "deals", :action => "show"
+  get "/deals/:id/qoves", :controller => "deals", :action => "show_qoves"
+  get "/deals/:id/market_studies", :controller => "deals", :action => "show_market_studies"
   get "/deal_search/:search", :controller => "deals", :action => "search"
 
   # UPDATE

@@ -147,7 +147,18 @@ before_action :ensure_view_access,  only: [:index, :search, :search_all, :show]
   end
 
   def show
+    @deal = Deal.find(params[:id].to_i)
+  end
+
+  def show_qoves
     @deal = Deal.find(params[:id])
+    @qoves = @deal.qoves.order("name ASC")
+    
+  end
+
+  def show_market_studies
+    @deal = Deal.find(params[:id])
+    @market_studies = @deal.market_studies.order("name ASC")
   end
 
   def new

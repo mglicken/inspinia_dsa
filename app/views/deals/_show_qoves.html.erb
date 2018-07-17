@@ -1,0 +1,41 @@
+
+<div class="page-header">
+  <h1>
+    Quality of Earnings (QofEs)
+    <a href="/qoves/new" class="btn btn-lg btn-success"><i class="fa fa-plus"></i></a>
+  </h1>
+</div>
+
+<!-- Responsive, Isotope-based layout example -->
+
+<div class="row">
+  <div class="col-xs-12">
+    <input type="text" id="quicksearch" placeholder="Search QofEs (start typing)" class="form-control">
+  </div>
+</div>
+
+<hr>
+
+<div class="row isotope-container">
+<% @qoves.each do |qofe| %>
+  <div class="col-lg-3 isotope-item">
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <h3 class="panel-title"><a href="/qoves/<%= qofe.id %>">
+            <%= qofe.deal.name %> QofE</a></h3>
+      </div>
+      <% if qofe.slides.nil? %>      
+      <div class="panel-body">
+        <dl>
+          <dt></dt>
+          <dd>No QofE</dd>
+        </dl>
+      </div>
+      <% end %>
+    </div>
+  </div>
+<% end %>
+</div>
+
+
+<%= render('shared/quick_search_js') %>

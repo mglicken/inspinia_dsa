@@ -26,8 +26,8 @@ has_many 	:deal_people, :dependent => :destroy
 has_many 	:people, :through => :deal_people
 has_many 	:diligence_advisors, :dependent => :destroy
 has_many 	:people, :through => :diligence_advisors
-has_many	:market_study, :dependent => :destroy
-has_many 	:market_study_slides, :through => :market_study
+has_many	:market_studies, :dependent => :destroy
+has_many 	:market_study_slides, :through => :market_studies
 has_many	:qoves, :dependent => :destroy
 has_many 	:qofe_slides, :through => :qoves
 
