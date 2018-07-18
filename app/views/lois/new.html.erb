@@ -41,6 +41,7 @@
               <%= select_tag :deal_id, options_from_collection_for_select(Deal.all, :id, :name, @loi.deal_id), :class => "form-control" %>
             </div>
           </div>
+
           <!-- Label and input for LOI Date -->
           <div class="form-group">
             <label for="loi_date" class="col-sm-2 control-label">
@@ -50,6 +51,7 @@
               <input type="date" id="loi_date" name="loi_date" placeholder="e.g., 09/09/2017" class="form-control" value="<%= @loi.loi_date %>">
             </div>
           </div>
+
           <!-- Label and input for Image ID -->
           <div class="form-group">
             <label for="image_id" class="col-sm-2 control-label">
@@ -59,13 +61,34 @@
               <input type="string" id="image_id" name="image_id" placeholder="alkdjsagflj231564651658134e8" class="form-control" value="<%= @loi.image_id %>">
             </div>
           </div>
+
           <!-- Label and input for Enterprise Value ($ millions) -->
           <div class="form-group">
             <label for="enterprise_value" class="col-sm-2 control-label">
               Enterprise Value ($ millions)
             </label>
             <div class="col-sm-10">
-              <input type="string" id="enterprise_value" name="enterprise_value" placeholder="10.1" class="form-control" value="<%= @loi.enterprise_value %>">
+              <input type="float" id="enterprise_value" name="enterprise_value" placeholder="10.1" class="form-control" value="<%= @loi.enterprise_value %>">
+            </div>
+          </div>
+
+          <!-- Label and input for Working Capital Target ($ millions) -->
+          <div class="form-group">
+            <label for="working_capital_target" class="col-sm-2 control-label">
+              Working Capital Target ($ millions)
+            </label>
+            <div class="col-sm-10">
+              <input type="float" id="working_capital_target" name="working_capital_target" placeholder="10.1" class="form-control" value="<%= @loi.working_capital_target %>">
+            </div>
+          </div>
+
+          <!-- Label and input for Expiration Date -->
+          <div class="form-group">
+            <label for="expiration_date" class="col-sm-2 control-label">
+              Expiration Date
+            </label>
+            <div class="col-sm-10">
+              <input type="date" id="expiration_date" name="expiration_date" placeholder="10.1" class="form-control" value="<%= @loi.expiration_date %>">
             </div>
           </div>
 

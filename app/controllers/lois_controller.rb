@@ -62,6 +62,8 @@ before_action :ensure_view_access,  only: [:show]
     @loi.loi_date = params[:loi_date]
     @loi.image_id = params[:image_id]
     @loi.enterprise_value = params[:enterprise_value]
+    @loi.working_capital_target = params[:working_capital_target]
+    @loi.expiration_date = params[:expiration_date]
 
     if @loi.save
       redirect_to "/lois/#{@loi.id}", :notice => "LOI created successfully."
@@ -92,6 +94,8 @@ before_action :ensure_view_access,  only: [:show]
     @loi.loi_date = params[:loi_date]
     @loi.image_id = params[:image_id]
     @loi.enterprise_value = params[:enterprise_value]
+    @loi.working_capital_target = params[:working_capital_target]
+    @loi.expiration_date = params[:expiration_date]
 
     if @loi.save
       redirect_to "/lois/#{@loi.id}", :notice => "LOI updated successfully."
@@ -110,9 +114,11 @@ before_action :ensure_view_access,  only: [:show]
     @loi.deal_id = details[2].to_i
     @loi.loi_date = details[3]
     @loi.enterprise_value = details[5]
+    @loi.working_capital_target = details[6]
+    @loi.expiration_date = details[7]
 
-    counter = 7
-    ids[6..(ids.count-1)].each do |id|
+    counter = 9
+    ids[8..(ids.count-1)].each do |id|
 
       loi_highlight = LoiHighlight.find(id.to_i)
       if details[(counter-1)].present?

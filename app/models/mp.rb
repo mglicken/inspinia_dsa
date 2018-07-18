@@ -18,7 +18,7 @@ class Mp < ActiveRecord::Base
 		end
 	end
 	def self.import(file)
-		allowed_attributes = [ "deal_id", "mp_date","image_id","name", "ppt_address"]
+		allowed_attributes = [ "name","deal_id", "mp_date","net_sales_target","adj_ebitda_target","working_capital_target","image_id", "ppt_address"]
 		CSV.foreach(file.path,headers: true) do |row|
 			mps = find_by_id(row["id"]) || new
 			

@@ -29,12 +29,18 @@
              <%elsif @loi.mp_sponsor.present? %>
               <dd> <a href="/sponsors/<%= @loi.mp_sponsor.sponsor.id %>"><%= @loi.mp_sponsor.sponsor.name %></a></dd>
              <% end %>
+             <dt>Date:</dt>
+             <dd><%= @loi.loi_date %></dd>
              <dt>Enterprise Value:</dt>
              <% if @loi.enterprise_value.present? %>
               <dd>$<%= @loi.enterprise_value %> million</dd>
              <% end %>
-             <dt>Date:</dt>
-             <dd><%= @loi.loi_date %></dd>
+             <dt>Working Capital Target:</dt>
+             <% if @loi.working_capital_target.present? %>
+              <dd>$<%= @loi.working_capital_target %> million</dd>
+             <% end %>
+             <dt>Expiration Date:</dt>
+             <dd><%= @loi.expiration_date %></dd>
             </dl>
             <div class="btn-group btn-group-justified">
               <%if @loi.mp_company.present? %>

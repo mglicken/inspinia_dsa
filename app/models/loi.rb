@@ -21,7 +21,7 @@ class Loi < ActiveRecord::Base
 		end
 	end
 	def self.import(file)
-		allowed_attributes = [ "name", "deal_id", "loi_date","image_id","low_purchase_price","high_purchase_price"]
+		allowed_attributes = [ "name", "deal_id", "loi_date","image_id","enterprise_value","expiration_date","working_capital_target"]
 		CSV.foreach(file.path,headers: true) do |row|
 			lois = find_by_id(row["id"]) || new
 			

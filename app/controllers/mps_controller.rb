@@ -114,10 +114,15 @@ before_action :ensure_view_access,  only: [:search, :show]
   def create
     @mp = Mp.new
 
+    @mp.name = params[:name]
     @mp.deal_id = params[:deal_id]
     @mp.mp_date = params[:mp_date]
+    @mp.net_sales_target = params[:net_sales_target]
+    @mp.adj_ebitda_target = params[:adj_ebitda_target]
+    @mp.working_capital_target = params[:working_capital_target]
     @mp.image_id = params[:image_id]
-    @mp.name = params[:name]
+    @mp.ppt_address = params[:ppt_address]
+
 
 
     if @mp.save
@@ -156,10 +161,13 @@ before_action :ensure_view_access,  only: [:search, :show]
   def update
     @mp = Mp.find(params[:id])
 
+    @mp.name = params[:name]
     @mp.deal_id = params[:deal_id]
     @mp.mp_date = params[:mp_date]
+    @mp.net_sales_target = params[:net_sales_target]
+    @mp.adj_ebitda_target = params[:adj_ebitda_target]
+    @mp.working_capital_target = params[:working_capital_target]
     @mp.image_id = params[:image_id]
-    @mp.name = params[:name]
     @mp.ppt_address = params[:ppt_address]
 
     @mp.slides.each do |slide|

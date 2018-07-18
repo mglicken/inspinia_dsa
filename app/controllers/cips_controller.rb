@@ -125,15 +125,16 @@ before_action :ensure_view_access,  only: [:search, :show]
   def create
     @cip = Cip.new
 
-
+    @cip.name = params[:name]
     @cip.deal_id = params[:deal_id]
     @cip.cip_date = params[:cip_date]
+    @cip.net_sales_target = params[:net_sales_target]
+    @cip.adj_ebitda_target = params[:adj_ebitda_target]
     @cip.image_id = params[:image_id]
-    @cip.name = params[:name]
-
+    @cip.ppt_address = params[:ppt_address]
 
     if @cip.save
-      redirect_to "/cips", :notice => "CIP created successfully."
+      redirect_to "/cips/#{@cip.id}", :notice => "CIP created successfully."
     else
       render 'new'
     end
@@ -168,10 +169,12 @@ before_action :ensure_view_access,  only: [:search, :show]
   def update
     @cip = Cip.find(params[:id])
 
+    @cip.name = params[:name]
     @cip.deal_id = params[:deal_id]
     @cip.cip_date = params[:cip_date]
+    @cip.net_sales_target = params[:net_sales_target]
+    @cip.adj_ebitda_target = params[:adj_ebitda_target]
     @cip.image_id = params[:image_id]
-    @cip.name = params[:name]
     @cip.ppt_address = params[:ppt_address]
 
     @cip.slides.each do |slide|

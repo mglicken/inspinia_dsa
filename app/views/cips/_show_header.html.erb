@@ -1,0 +1,34 @@
+<br>
+<br>
+  <div class="col-lg-offset-2 col-lg-7">
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <% if CipSlide.where(cip_id: @cip.id).empty? %>
+          <a href="#" class="btn btn-lincoln pull-right" text-align="center" id="upload_widget_opener">Upload CIP PDF</a>
+        <% end %> 
+        <h3 class="panel-title" style="font-size:28px"><%= @cip.name %></h3>
+      </div>
+      <div class="panel-body">
+        <div class="row">
+          <div class="col-lg-12">
+            <dl class="dl-horizontal" style="font-size:10px">
+
+             <dt>Deal</dt>
+             <dd> <a href="/deals/<%= @cip.deal_id %>"><%= @cip.deal.name %></a></dd>
+             <dt>Company</dt>
+             <dd> <a href="/companies/<%= @cip.deal.company.id %>"><%= @cip.deal.company.name %></a></dd>
+             <dt>Date</dt>
+             <dd><%= @cip.cip_date %></dd>
+             <dt>Adjusted EBITDA Target</dt>
+             <dd><%= @cip.adj_ebitda_target %></dd>
+
+            </dl>
+            <div class="btn-group btn-group-justified">
+              <%= render('shared/edit_cip_modal', :cip => @cip)%>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>

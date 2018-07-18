@@ -1,11 +1,10 @@
 <br>
 <br>
-
 <div class="row">
   <div class="pull-right">
     <div class="btn-group-vertical">
-      <a class="btn btn-primary" href="/copy_cip_layout/<%= @cip.id %>">Copy CIP Layout</a>
-       <a class="btn btn-success" href="http://res.cloudinary.com/mglicken/image/upload/<%= @cip.image_id %>.pdf">View PDF <i class="fa fa-copy (alias)"></i></a>
+      <p><a class="btn btn-primary" href="/copy_cip_layout/<%= @cip.id %>">Copy CIP Layout</a></p>
+      <a class="btn btn-success" href="http://res.cloudinary.com/mglicken/image/upload/<%= @cip.image_id %>.pdf">View PDF <i class="fa fa-copy (alias)"></i></a>
     </div>
   </div> 
   <div class="col-lg-offset-2 col-lg-7">
@@ -21,13 +20,21 @@
           <div class="col-lg-12">
             <dl class="dl-horizontal" style="font-size:10px">
 
-             <dt>Deal</dt>
+             <dt>Deal:</dt>
              <dd> <a href="/deals/<%= @cip.deal_id %>"><%= @cip.deal.name %></a></dd>
-             <dt>Company</dt>
+             <dt>Company:</dt>
              <dd> <a href="/companies/<%= @cip.deal.company.id %>"><%= @cip.deal.company.name %></a></dd>
-             <dt>Date</dt>
+             <dt>Date:</dt>
              <dd><%= @cip.cip_date %></dd>
-
+             <dt>Net Sales Target:</dt>
+             <% if @cip.net_sales_target.present? %>
+              <dd>$<%= @cip.net_sales_target %> million</dd>
+             <% end %>
+             <dt>Adjusted EBITDA Target:</dt>
+             <% if @cip.adj_ebitda_target.present? %>
+              <dd>$<%= @cip.adj_ebitda_target %> million</dd>
+             <% end %>
+             <br>
             </dl>
             <div class="btn-group btn-group-justified">
               <%= render('shared/edit_cip_modal', :cip => @cip)%>

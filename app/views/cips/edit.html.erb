@@ -32,6 +32,7 @@
               <%= select_tag :deal_id, options_from_collection_for_select(Deal.all, :id, :name, @cip.deal_id), :class => "form-control" %>
             </div>
           </div>
+
           <!-- Label and input for CIP Date -->
           <div class="form-group">
             <label for="cip_date" class="col-sm-2 control-label">
@@ -39,6 +40,26 @@
             </label>
             <div class="col-sm-10">
               <input type="date" id="cip_date" name="cip_date" placeholder="e.g., 09/09/2017" class="form-control" value="<%= @cip.cip_date %>">
+            </div>
+          </div>
+
+          <!-- Label and input for Net Sales Target ($ in millions) -->
+          <div class="form-group">
+            <h5><label for="net_sales_target" class="col-sm-2 control-label">
+              Net Sales Target ($ in millions)
+            </label></h5>
+            <div class="col-sm-10">
+              <input type="float" id="net_sales_target" name="net_sales_target" placeholder="4.8" class="form-control" value="<%= @cip.net_sales_target %>">
+            </div>
+          </div>
+
+          <!-- Label and input for Adjusted EBITDA Target ($ in millions) -->
+          <div class="form-group">
+            <h5><label for="adj_ebitda_target" class="col-sm-2 control-label">
+              Adjusted EBITDA Target ($ in millions)
+            </label></h5>
+            <div class="col-sm-10">
+              <input type="float" id="adj_ebitda_target" name="adj_ebitda_target" placeholder="4.8" class="form-control" value="<%= @cip.adj_ebitda_target %>">
             </div>
           </div>
 

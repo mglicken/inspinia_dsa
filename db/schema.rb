@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180716151444) do
+ActiveRecord::Schema.define(version: 20180718161425) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -69,6 +69,8 @@ ActiveRecord::Schema.define(version: 20180716151444) do
     t.date    "cip_date"
     t.string  "image_id"
     t.string  "ppt_address"
+    t.float   "adj_ebitda_target"
+    t.float   "net_sales_target"
   end
 
   create_table "companies", force: :cascade do |t|
@@ -204,6 +206,8 @@ ActiveRecord::Schema.define(version: 20180716151444) do
     t.date    "loi_date"
     t.string  "image_id"
     t.float   "enterprise_value"
+    t.float   "working_capital_target"
+    t.date    "expiration_date"
   end
 
   create_table "market_studies", force: :cascade do |t|
@@ -243,6 +247,9 @@ ActiveRecord::Schema.define(version: 20180716151444) do
     t.date    "mp_date"
     t.string  "image_id"
     t.string  "ppt_address"
+    t.float   "adj_ebitda_target"
+    t.float   "working_capital_target"
+    t.float   "net_sales_target"
   end
 
   create_table "nbp_companies", force: :cascade do |t|

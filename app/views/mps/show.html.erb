@@ -27,7 +27,19 @@
              <dd> <a href="/companies/<%= @mp.deal.company.id %>"><%= @mp.deal.company.name %></a></dd>
              <dt>Date:</dt>
              <dd><%= @mp.mp_date %></dd>
-
+             <dt>Net Sales Target:</dt>
+             <% if @mp.net_sales_target.present? %>
+              <dd>$<%= @mp.net_sales_target %> million</dd>
+             <% end %>
+             <dt>Adjusted EBITDA Target:</dt>
+             <% if @mp.adj_ebitda_target.present? %>
+              <dd>$<%= @mp.adj_ebitda_target %> million</dd>
+             <% end %>
+             <dt>Working Capital Target:</dt>
+             <% if @mp.working_capital_target.present? %>
+              <dd>$<%= @mp.working_capital_target %> million</dd>
+             <% end %>
+             <br>
             </dl>
             <div class="btn-group btn-group-justified">
               <%= render('shared/edit_mp_modal', :mp => @mp)%>
