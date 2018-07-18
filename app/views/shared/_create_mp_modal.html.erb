@@ -22,23 +22,23 @@
       <div class="modal-body">
 
 
-<!-- Validation failure messages -->
+      <!-- Validation failure messages -->
 
-<% if @mp.blank?%>
-  <% @mp = Mp.new %>
-<% end %>
-<% if @mp.errors.any? %>
-  <% @mp.errors.full_messages.each do |message| %>
-    <div class="alert alert-dismissable alert-danger">
-      <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-      <%= message %>
-    </div>
-  <% end %>
-<% end %>
+      <% if @mp.blank?%>
+        <% @mp = Mp.new %>
+      <% end %>
+      <% if @mp.errors.any? %>
+        <% @mp.errors.full_messages.each do |message| %>
+          <div class="alert alert-dismissable alert-danger">
+            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+            <%= message %>
+          </div>
+        <% end %>
+      <% end %>
 
-<!-- Responsive panel example -->
+      <!-- Responsive panel example -->
 
-<div class="row">
+      <div class="row">
 
         <form enctype="multipart/form-data" action="/create_mp" method="post" class="form-horizontal">
           <!-- Hidden input for authenticity token to protect from forgery -->
@@ -115,7 +115,7 @@
             <div class="col-sm-10">
               <input type="string" id="ppt_address" name="ppt_address" placeholder="H://Marketing/Sponsor/Deal/NBP/Powerpoint/XML" class="form-control">
             </div>
-          </div>
+          </div>    
 
 
           <div class="form-group">
@@ -127,9 +127,9 @@
           </div>
 
         </form>
-</div>
+      </div>
 
-<!-- End responsive panel example -->
+      <!-- End responsive panel example -->
 
 
       </div>
