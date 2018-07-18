@@ -173,8 +173,6 @@ before_action :ensure_view_access,  only: [:index, :search, :search_all, :show]
     cip = Cip.new
     mp = Mp.new
     teaser = Teaser.new
-    qofe = Qofe.new
-    market_study = MarketStudy.new
     @deal.name = params[:name]
     @deal.company_id = params[:company_id]
     @deal.project_alias = params[:project_alias]
@@ -188,8 +186,6 @@ before_action :ensure_view_access,  only: [:index, :search, :search_all, :show]
         cip.deal_id = @deal.id
         mp.deal_id = @deal.id
         teaser.deal_id = @deal.id
-        qofe.deal_id = @deal.id
-        market_study.deal_id = @deal.id
         case_study.name = @deal.name + ' CS'
         nbp.name = @deal.name + ' NBP'
         cip.name = @deal.name + ' CIP'
@@ -201,8 +197,7 @@ before_action :ensure_view_access,  only: [:index, :search, :search_all, :show]
           mp.save
           case_study.save
           teaser.save
-          qofe.save
-          market_study.save            
+        
           redirect_to "/deals/#{@deal.id}", :notice => "Deal created successfully."
         else
           render 'new'
