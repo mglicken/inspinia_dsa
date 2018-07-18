@@ -56,18 +56,18 @@ wb = xlsx_package.workbook
 				    	"",
 				    	ioi.low_purchase_price,
 				    	ioi.high_purchase_price]
-				    	if ioi.low_purchase_price.present?
-				    		new_row.push(ioi.low_purchase_price/2 + ioi.low_purchase_price/2)
+				    	if (ioi.low_purchase_price.present? && ioi.high_purchase_price.present?)
+				    		new_row.push(ioi.low_purchase_price/2 + ioi.high_purchase_price/2)
 					    else
 					    	new_row.push("")
 					    end
 				    	if ioi.low_purchase_price.present?
-					    	new_row.push(ioi.low_purchase_price/6.1)
+					    	new_row.push(ioi.low_purchase_price/ioi.cip_company.cip.adj_ebitda_target)
 					    else
 					    	new_row.push("")
 					    end
 				    	if ioi.high_purchase_price.present?
-					    	new_row.push(ioi.high_purchase_price/6.1)
+					    	new_row.push(ioi.high_purchase_price/ioi.cip_company.cip.adj_ebitda_target)
 					    else
 					    	new_row.push("")
 					    end
@@ -88,18 +88,18 @@ wb = xlsx_package.workbook
 				    	"",
 				    	ioi.low_purchase_price,
 				    	ioi.high_purchase_price]
-				    	if (ioi.low_purchase_price.present?)
-				    		new_row.push(ioi.low_purchase_price/2 + ioi.low_purchase_price/2)
+				    	if (ioi.low_purchase_price.present? && ioi.high_purchase_price.present?)
+				    		new_row.push(ioi.low_purchase_price/2 + ioi.high_purchase_price/2)
 					    else
 					    	new_row.push("")
 					    end
 				    	if ioi.low_purchase_price.present?
-					    	new_row.push(ioi.low_purchase_price / 6.1)
+					    	new_row.push(ioi.low_purchase_price / ioi.cip_sponsor.cip.adj_ebitda_target)
 					    else
 					    	new_row.push("")
 					    end
 				    	if ioi.high_purchase_price.present?
-					    	new_row.push(ioi.high_purchase_price / 6.1)
+					    	new_row.push(ioi.high_purchase_price / ioi.cip_sponsor.cip.adj_ebitda_target)
 					    else
 					    	new_row.push("")
 					    end
