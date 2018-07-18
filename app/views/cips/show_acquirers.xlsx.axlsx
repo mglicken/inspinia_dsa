@@ -32,7 +32,8 @@ wb = xlsx_package.workbook
 	    sheet.add_row ["","","","","","","","","",""], :style => [header_2,header_2,header_2,header_2,header_2,header_2,header_2,header_2,header_2,header_2]
 
 		# Title Row
-		title_row = ["Potential Acquirer","Investor Type","Fund Size ($m)","Purchase Price","","","FY2017E Adj. EBITDA ($6.2M)","","Comments","Proposed MP Dates (ordered by preference)"]
+		title_ebitda = 
+		title_row = ["Potential Acquirer","Investor Type","Fund Size ($m)","Purchase Price","","","FY2017E Adj. EBITDA ($" + @cip.adj_ebitda_target.round(1).to_s + "M)","","Comments","Proposed MP Dates (ordered by preference)"]
 	    title_style = [header_1, header_1,header_1, header_1,header_1, header_1,header_1, header_1,header_1, header_1, header_1]
 		sub_title_row = ["","","","Low","High","Avg.","Low","High","",""]
 	    sub_title_style = [header_2, header_2,header_2, header_2,header_2, header_2,header_2, header_2,header_2, header_2]
@@ -62,12 +63,12 @@ wb = xlsx_package.workbook
 					    	new_row.push("")
 					    end
 				    	if ioi.low_purchase_price.present?
-					    	new_row.push(ioi.low_purchase_price/ioi.cip_company.cip.adj_ebitda_target)
+					    	new_row.push(ioi.low_purchase_price/@cip.adj_ebitda_target)
 					    else
 					    	new_row.push("")
 					    end
 				    	if ioi.high_purchase_price.present?
-					    	new_row.push(ioi.high_purchase_price/ioi.cip_company.cip.adj_ebitda_target)
+					    	new_row.push(ioi.high_purchase_price/@cip.adj_ebitda_target)
 					    else
 					    	new_row.push("")
 					    end
@@ -94,12 +95,12 @@ wb = xlsx_package.workbook
 					    	new_row.push("")
 					    end
 				    	if ioi.low_purchase_price.present?
-					    	new_row.push(ioi.low_purchase_price / ioi.cip_sponsor.cip.adj_ebitda_target)
+					    	new_row.push(ioi.low_purchase_price / @cip.adj_ebitda_target)
 					    else
 					    	new_row.push("")
 					    end
 				    	if ioi.high_purchase_price.present?
-					    	new_row.push(ioi.high_purchase_price / ioi.cip_sponsor.cip.adj_ebitda_target)
+					    	new_row.push(ioi.high_purchase_price / @cip.adj_ebitda_target)
 					    else
 					    	new_row.push("")
 					    end
