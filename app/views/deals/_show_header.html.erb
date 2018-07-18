@@ -1,0 +1,79 @@
+<br>
+<div class="row">
+  <div class="col-sm-offset-1 col-sm-10 col-md-offset-2 col-md-8">
+    <div class="ibox">
+    <div class="ibox-content">
+      <div class="panel-heading">
+        <% if @deal.deal_stage_id == 15 %>
+          <div class="pull-right label label-primary m-r-sm"><%= @deal.deal_stage.name%></div>
+        <% elsif @deal.deal_stage_id == 16 || @deal.deal_stage_id == 17 || @deal.deal_stage_id == 18 %>
+          <div class="pull-right label label-danger m-r-sm"><%= @deal.deal_stage.name%></div>
+        <% else %>
+          <div class="pull-right label label-warning m-r-sm"><%= @deal.deal_stage.name%></div>
+        <% end %>
+        <h3 class="panel-title" style="font-size:14px"><%= @deal.name %> - <%= @deal.deal_type.name %></h3>
+      </div>
+      <div class="panel-body">
+        <div class="row">
+          <div class="col-md-12">
+            <dl class="dl-horizontal" style="font-size:10px" >
+
+              <dt>Company:</dt>
+              <dd><a href="/companies/<%= @deal.company.id %>"><%= @deal.company.name %></a></dd>
+              <dt>Project Alias:</dt>
+              <dd><%= @deal.project_alias %></dd>
+              <dt>Project Code:</dt>
+              <dd><%= @deal.project_code %></dd>
+              <dt>NBPs:</dt>
+                <% Nbp.where(deal_id: @deal).order("nbp_date DESC").each do |nbp| %>
+                  <% if NbpSlide.where(nbp_id: nbp.id).present? %>
+                    <dd> <a href="/nbps/<%= nbp.id %>"><%= nbp.name%> (<%= nbp.nbp_date%>)</a></dd>
+                  <% else %>
+                    <dd> <a href="/nbps/<%= nbp.id %>">No Documents Uploaded</a></dd>
+                  <% end %>
+                <% end %>
+              <dt>Teasers:</dt>
+                <% Teaser.where(deal_id: @deal).order("teaser_date DESC").each do |teaser| %>
+                  <% if TeaserSlide.where(teaser_id: teaser.id).present? %>
+                    <dd> <a href="/teasers/<%=teaser.id %>"><%= teaser.name%> (<%= teaser.teaser_date%>)</a></dd>
+                  <% else %>
+                    <dd> <a href="/teasers/<%=teaser.id %>">No Documents Uploaded</a></dd>
+                  <% end %>
+                <% end %>
+                <dt>CIPs:</dt>
+                <% Cip.where(deal_id: @deal).order("cip_date DESC").each do |cip| %>
+                  <% if CipSlide.where(cip_id: cip.id).present? %>
+                    <dd> <a href="/cips/<%=cip.id %>"><%= cip.name %> (<%= cip.cip_date %>)</a></dd>
+                  <% else %>
+                    <dd> <a href="/cips/<%=cip.id %>"> No Documents Uploaded</a></dd>
+                  <% end %>
+                <% end %>
+                <dt>MPs:</dt>
+                <% Mp.where(deal_id: @deal).order("mp_date DESC").each do |mp| %>
+                  <% if MpSlide.where(mp_id: mp.id).present? %>
+                    <dd> <a href="/mps/<%=mp.id %>"><%= mp.name%> (<%= mp.mp_date%>)</a></dd>
+                  <% else %>
+                    <dd> <a href="/mps/<%=mp.id %>">No Documents Uploaded</a></dd>
+                  <% end %>
+                <% end %>
+                <dt>Case Studies:</dt>
+                <% CaseStudy.where(deal_id: @deal).order("name ASC").each do |case_study| %>
+                  <% if CaseStudySlide.where(case_study_id: case_study.id).present? %>
+                    <dd> <a href="/case_studies/<%=case_study.id %>"><%= case_study.name%> (<%= case_study.case_study_date%>)</a></dd>
+                  <% else %>
+                    <dd> <a href="/case_studies/<%=case_study.id %>">No Documents Uploaded</a></dd>
+                  <% end %>
+                <% end %>
+            </dl>
+            <div class="btn-group btn-group-justified">
+              <%= render('shared/edit_deal_modal', deal: @deal)%>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+</div>
+  
