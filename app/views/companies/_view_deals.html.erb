@@ -1,61 +1,43 @@
-
-<div class="row container">
-<% @company.deals.order("id DESC").each do |deal| %>
-  <div class="col-xs-12 col-sm-6 col-md-4 col-lg-4 isotope-item">
-    <div class="panel panel-default">
-      <div class="panel-heading" >
-        <h3 class="panel-title" style="font-size:12px"><%= deal.name %></h3>
-      </div>
-      <div class="panel-body" >
-        <div class="row">
-          <div class="col-md-12">
-           <dl class="dl-horizontal" style="font-size:10px" >
-
-              <dt>Deal Team</dt>
-              <% deal.people.order("name ASC").each do |person|%>
-              <dd><a href="/companies/<%=person.id %>"><%= person.name %></a></dd>
-              <% end %>
-              <dt>Company</dt>
-              <dd><a href="/companies/<%=deal.company.id %>"><%= deal.company.name %></a></dd>
-              <dt>NBPs</dt>
-                <% Nbp.where(deal_id: deal).order("id DESC").each do |nbp| %>
-                  <% if NbpSlide.where(nbp_id: nbp.id).present? %>
-                    <dd> <a href="/nbps/<%=nbp.id %>"><%= nbp.nbp_date%></a></dd>
-                  <% else %>
-                    <dd> <a href="/nbps/<%=nbp.id %>">No Documents Uploaded</a></dd>
-                  <% end %>
-                <% end %>
-                <dt>CIPs</dt>
-                <% Cip.where(deal_id: deal).order("id DESC").each do |cip| %>
-                  <% if CipSlide.where(cip_id: cip.id).present? %>
-                    <dd> <a href="/cips/<%=cip.id %>"><%= cip.cip_date%></a></dd>
-                  <% else %>
-                    <dd> <a href="/cips/<%=cip.id %>"> No Documents Uploaded</a></dd>
-                  <% end %>
-                <% end %>
-                <dt>MPs</dt>
-                <% Mp.where(deal_id: deal).order("id DESC").each do |mp| %>
-                  <% if MpSlide.where(mp_id: mp.id).present? %>
-                    <dd> <a href="/mps/<%=mp.id %>"><%= mp.mp_date%></a></dd>
-                  <% else %>
-                    <dd> <a href="/mps/<%=mp.id %>">No Documents Uploaded</a></dd>
-                  <% end %>
-                <% end %>
-
-            </dl>
-            <div class="btn-group btn-group-justified">
-              <a href="/deals/<%= deal.id %>" class="btn btn-lincoln">
-                <i class="fa fa-search-plus"></i>
-              </a>
-
-              <a href="/deals/<%= deal.id %>/edit" class="btn btn-edit">
-              <i class="fa fa-edit"></i>
-              </a>
-            </div>
-          </div>
+<div class="ibox collapsed float-e-margins">
+    <div class="ibox-title">
+        <h5>Projects (<%= @company.deals.count %>)</h5>
+        <div class="ibox-tools">
+            <a class="collapse-link">
+                <i class="fa fa-chevron-up"></i>
+            </a>
+            <a class="close-link">
+                <i class="fa fa-times"></i>
+            </a>
         </div>
-      </div>
     </div>
-  </div>
-<% end %>
+    <div class="ibox-content">
+
+        <div class="row">
+            <div class="col-lg-12">
+                <table class="table table-hover margin bottom">
+                    <thead>
+                    <tr>
+                        <th style="width: 1%" class="text-center">No.</th>
+                        <th>Project</th>
+                        <th class="text-center">Date</th>
+                        <th class="text-center">Stage</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                            <%i=0%>
+                            <% @company.deals.each do |deal| 
+                                i=i+1%>
+                    <tr>
+                        <td class="text-center"><%=i%></td>
+                        <td><a href="/deals/<%= deal.id %>"><%= deal.name %></a></td>
+                        <td class="text-center small"><%= Nbp.where(deal_id: deal.id).first.nbp_date %></td>
+                        <td class="text-center"><span class="label label-primary"><%= Tag.find(rand(3)+1).name%></span></td>
+
+                    </tr>
+                    <%end%>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
 </div>

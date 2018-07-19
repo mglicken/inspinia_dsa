@@ -148,6 +148,14 @@ before_action :ensure_view_access,  only: [:index, :search, :search_all, :show]
 
   def show
     @deal = Deal.find(params[:id].to_i)
+    @cip = @deal.cips[0]
+    @cip_sponsors = @cip.cip_sponsors
+    @cip_companies = @cip.cip_companies
+    @iois = Ioi.where(id: (@cip_sponsors.pluck(:ioi_id) + @cip_companies.pluck(:ioi_id)))
+    @declined = (@cip_sponsors.where(declined: true) + @cip_companies.where(declined: true)) 
+    @sponsors = @cip.sponsors.order("name ASC")
+    @companies = @cip.companies.order("name ASC")
+    @acquirers = (@companies + @sponsors).sort! { |a, b| a.name <=> b.name } 
   end
 
   def show_qoves

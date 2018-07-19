@@ -11,11 +11,9 @@
 <br>
 <div class="row">
   <div class="col-sm-offset-0 col-sm-12 col-md-offset-0 col-md-12">
-    <div class="panel panel-default">
-      <div class="panel-heading">
-        <h3 class="panel-title"><strong><%= @person.name %></strong> (<%= @person.role.name %>)</h3>
-      </div>
-      <div class="panel-body">
+    <div class="ibox-content">
+        <h3 class="ibox-title"><strong><%= @person.name %></strong> (<%= @person.role.name %>)</h3>
+      <div class="ibox-body">
         <div class="row">
           <div class="col-md-12">
           
@@ -47,9 +45,8 @@
                       <a href="<%= @person.linkedin_url%>" class="btn"><i class="fa fa-linkedin"></i></a>
                       <a href="mailto:<%= @person.email_address %>" class="btn"><i class="fa fa-envelope"></i></a>
                   </div>
-                  <br>
-                  <br>
-                  <br>
+
+
                   <br>
                   <div class="btn-group-horizontal">
                     <%= render('shared/edit_person_modal', :person => @person)%>
@@ -72,7 +69,7 @@
   </div>
 </div>
 
-<!--  Action Buttons  -->
+<br>
 
   <%= render('shared/create_work_history_modal', :company => 0, :person => @person )%>
   <%= render('shared/create_sponsor_history_modal', :sponsor => 0, :person => @person )%>
@@ -80,9 +77,11 @@
   <%= render('shared/add_person_to_deal_modal', :deal => nil, person: @person)%>
 <br>
 <br>
-<!--  Accordion  -->
-<%= render('collapsible_info') %>
 
+<%= render('view_deals') %>
+<%= render('view_work_history') %>
+<%= render('view_sponsor_history') %>
+<%= render('view_notes') %>
 <%= render('shared/quick_search_js') %>
 
 

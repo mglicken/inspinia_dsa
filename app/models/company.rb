@@ -34,6 +34,12 @@ class Company < ActiveRecord::Base
 			end
 		end
 	end
+	def self.top_parent
+		self.parents.each do |parent|
+			top_parent = self
+		end
+		return top_parent
+	end
 	def self.import(file)
 		allowed_attributes = [ "name", "revenue", "ebitda", "address", "city", "state", "zip", "phone", "web_address","linkedin_url"]
 		CSV.foreach(file.path,headers: true) do |row|

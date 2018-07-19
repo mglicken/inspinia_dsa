@@ -1,4 +1,4 @@
-<!-- Responsive panel-->
+
 <br>
 <div class="row">
   <div class="pull-right">
@@ -7,15 +7,12 @@
     </div>
   </div> 
   <div class="col-lg-offset-2 col-lg-7">
-    <div class="panel panel-default">
-      <div class="panel-heading">
+    <div class="ibox-content">
         <% if @case_study.slides.empty? %>
           <a href="#" class="btn btn-lincoln pull-right" text-align="center" id="upload_widget_opener">Upload Case Study PDF</a>
         <% end %> 
-        <h3 class="panel-title" style="font-size:28px"><%= @case_study.name %></h3>
-
-      </div>
-      <div class="panel-body">
+        <h3 class="ibox-title" style="font-size:28px"><%= @case_study.name %></h3>
+      <div class="ibox-body">
         <div class="row">
           <div class="col-lg-12">
             <dl class="dl-horizontal" style="font-size:10px">
@@ -39,6 +36,8 @@
   </div>
 </div>
 
+<br>
+
 
 <%= render('view_slides') %>
 
@@ -50,4 +49,3 @@
   <%= render('shared/upload_widget',url: "/create_case_study_slide/#{@case_study.id}", p_id: @p_id) %>
 <% end %>
 
-<!-- End responsive panel -->

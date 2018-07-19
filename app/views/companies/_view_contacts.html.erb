@@ -1,0 +1,29 @@
+
+<div class="wrapper wrapper-content animated fadeInRight">
+    <div class="row">
+        <% @company.work_histories.joins(:person).order("name ASC").each do |work_history| %>
+            <div class="col-lg-2">
+                <div class="ibox">
+                    <div class="ibox-content product-box">
+
+                          <a href="/people/<%= work_history.person_id %>">
+                            <!-- Make Height 225px if want to look right, need to make it clip -->
+                            <img src="<%= work_history.person.image_url %>" width = 100%>
+                          
+                          </a>
+                        <div class="product-desc">
+                            <small class="text-muted"><%=work_history.person.role.name %></small><br>
+                            <strong><%=work_history.person.name %></strong>
+                            <div style="padding-top: 5px; padding-bottom: 5px;">
+                                <div class="pull-right">
+                                    <%= render('shared/edit_work_history_modal', work_history: work_history) %>
+                                    <%= render('shared/delete_work_history_modal', work_history: work_history) %>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        <%end%>
+    </div>
+</div>
