@@ -1,0 +1,82 @@
+<style>
+.scrollbar {
+  overflow-x: scroll;
+  white-space: nowrap;
+  padding: 5px;
+  padding-bottom: 0px;
+  margin-right: 10px;
+}
+</style>
+<div class="ibox collapsed float-e-margins">
+    <div class="ibox-title">
+        <h5>CIPs Reviewed (<%= @cip_companies.count %>)</h5>
+        <div class="ibox-tools">
+            <a class="collapse-link">
+                <i class="fa fa-chevron-up"></i>
+            </a>
+            <a class="close-link">
+                <i class="fa fa-times"></i>
+            </a>
+        </div>
+    </div>
+    <div class="ibox-content">
+
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="scrollbar">
+                    <table class="table table-hover margin bottom" style="table-layout: fixed;">
+                        <thead>
+                        <tr>
+                            <th style="width:40px;text-align:center;"></th>
+                            <th style="width:250px;">Company</th>
+                            <th style="width:100px;">IOI</th>
+                            <th style="width:85px; text-align:center; white-space:nromal;">Low<br>($ million)</th>
+                            <th style="width:85px; text-align:center; white-space:normal;">High<br>($ million)</th>
+                            <th style="width:500px; white-space:normal;">Notes</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                                <%i=0%>
+                                <% @cip_companies.each do |cip_company| 
+                                    i=i+1%>
+                        <% if cip_company.declined %>
+                            <tr class="danger">
+                        <% elsif cip_company.ioi.present? %>
+                            <tr class="success">
+                        <% else %>
+                            <tr>
+                        <% end %>
+                            <td class="text-center">
+                                <a type="button" href="/cips/<%=cip_company.cip.id %>/companies"><i class="fa fa-location-arrow"></i></a>
+                            </td>
+                            <td style="white-space:normal;"><a href="/companies/<%=cip_company.cip.deal.company.id %>"><%=cip_company.cip.deal.company.name %></a></td>
+                            <td>
+                                <% if cip_company.declined %>
+                                    Declined
+                                <% elsif cip_company.ioi.present? %>
+                                    IOI Submitted
+                                <% else %>
+                                <% end %>
+                            </td>
+                            <% if cip_company.ioi.present? %>
+                                <td style="text-align: center;">$<%=cip_company.ioi.low_purchase_price %><br><%=(cip_company.ioi.low_purchase_price/cip_company.cip.adj_ebitda_target).round(1) %>x</td>
+                            <% else %>
+                            <% end %>
+                            <% if cip_company.ioi.present? %>
+                                <td style="text-align: center;">$<%=cip_company.ioi.high_purchase_price %><br><%=(cip_company.ioi.high_purchase_price/cip_company.cip.adj_ebitda_target).round(1) %>x</td>
+                            <% else %>
+                            <% end %>
+                            <td  style="white-space:normal;">
+                                <% cip_company.ioi.ioi_highlights.joins(:highlight).order(id: :asc).each do |ioi_highlight| %>
+                                <strong><%= ioi_highlight.highlight.name %>: </strong><%= ioi_highlight.detail %><br>
+                                <% end %>                                 
+                            </td>
+                        </tr>
+                        <%end%>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -102,7 +102,9 @@ before_action :ensure_view_access,  only: [:index, :search, :show]
     @followed = CompanyFollow.where(company_id: params[:id],user_id: current_user.id).present?
     @contacts = Person.where(id: @company.work_histories.joins(:person).order("name ASC").pluck(:person_id))
     @nbp_companies = NbpCompany.where(company_id:  @company.children.ids.push(@company.id) ).joins(:company).order("name ASC")
-
+    @teaser_companies = TeaserCompany.where(company_id:  @company.children.ids.push(@company.id) ).joins(:company).order("name ASC")
+    @cip_companies = CipCompany.where(company_id:  @company.children.ids.push(@company.id) ).joins(:company).order("name ASC")
+    @mp_companies = MpCompany.where(company_id:  @company.children.ids.push(@company.id) ).joins(:company).order("name ASC")
   end
 
   def new
