@@ -67,11 +67,15 @@
                 Person
               </label></h5>
               <div class="col-sm-10">
-                <%= select_tag :person_id, options_from_collection_for_select(Person.all.order("name ASC"), :id, :name, @work_history.person_id), :class => "form-control" %>
+                <select name="person_id" data-placeholder="Choose a Person..." class="chosen-select back-change"  tabindex="2">
+                  <% Person.all.order("name asc").each do |person| %>
+                  <option value="<%=person.id %>"><%=person.name %></option>
+                  <% end %>
+                </select>
               </div>
             </div>
           <%else%>
-            <input name="person_id" type="hidden" value="<%= person.id %>">
+            <input name="person_id" id="person_id" type="hidden" value="<%= person.id %>">
           <% end %>
 
 
@@ -109,6 +113,13 @@
               <input type="integer" id="end_year" name="end_year" placeholder="e.g., 2017" class="form-control" value="<%= @work_history.end_year %>">
             </div>
           </div>
+         <!-- js-switch elements for formatting -->
+          <div>
+            <input type="hidden" class="js-switch" />
+            <input type="hidden" class="js-switch_2" />
+            <input type="hidden" class="js-switch_3"  />
+            <input type="hidden" class="js-switch_4"  />
+          </div>
 
           <div class="form-group">
             <div class="col-sm-offset-2 col-sm-10">
@@ -122,8 +133,6 @@
 
 </div>
 
-<!-- End responsive panel example -->
-
 
       </div>
       <div class="modal-footer">
@@ -132,3 +141,26 @@
     </div>
   </div>
 </div>
+
+<script type="text/javascript">
+
+$(function() {
+
+    var elem = document.querySelector('.js-switch');
+    var switchery = new Switchery(elem, { color: '#1AB394' });
+
+    var elem_2 = document.querySelector('.js-switch_2');
+    var switchery_2 = new Switchery(elem_2, { color: '#ED5565' });
+
+    var elem_3 = document.querySelector('.js-switch_3');
+    var switchery_3 = new Switchery(elem_3, { color: '#1AB394' });
+
+    var elem_4 = document.querySelector('.js-switch_4');
+    var switchery_4 = new Switchery(elem_4, { color: '#f8ac59' });
+   
+
+    $('.chosen-select').chosen({width: "100%"});
+
+});
+
+</script>

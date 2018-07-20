@@ -40,6 +40,13 @@ before_action :ensure_view_access,  only: [:user_dashboard, :search, :show]
       format.csv {send_data @people.to_csv }
     end
   end
+
+  def index_query
+    @query_people = Company.where("lower(name) LIKE ?", "%#{params[:term].downcase}%").order("name asc")
+    respond_to do |format|
+      format.json {send_data @query_people.map(&:name)}
+    end
+  end
   
   def access_dashboard
     @users = User.all.order("id ASC")

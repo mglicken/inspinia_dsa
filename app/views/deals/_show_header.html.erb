@@ -4,13 +4,13 @@
     <div class="ibox">
     <div class="ibox-content">
         <% if @deal.deal_stage_id == 15 %>
-          <div class="pull-right label label-primary m-r-sm"><%= @deal.deal_stage.name%></div>
+          <div class="pull-right label label-primary m-r-sm" style="margin-top: 20px;"><%= @deal.deal_stage.name%></div>
         <% elsif @deal.deal_stage_id == 16 || @deal.deal_stage_id == 17 || @deal.deal_stage_id == 18 %>
-          <div class="pull-right label label-danger m-r-sm"><%= @deal.deal_stage.name%></div>
+          <div class="pull-right label label-danger m-r-sm" style="margin-top: 20px;"><%= @deal.deal_stage.name%></div>
         <% else %>
-          <div class="pull-right label label-warning m-r-sm"><%= @deal.deal_stage.name%></div>
+          <div class="pull-right label label-warning m-r-sm" style="margin-top: 20px;"><%= @deal.deal_stage.name%></div>
         <% end %>
-        <h3 class="ibox-title" style="font-size:14px"><%= @deal.name %> - <%= @deal.deal_type.name %></h3>
+        <h3 class="ibox-title"><%= @deal.name %> - <%= @deal.deal_type.name %></h3>
       <div class="ibox-body">
         <div class="row">
           <div class="col-md-12">
