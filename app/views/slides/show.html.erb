@@ -3,11 +3,9 @@
 </style>
 <br>
 <br>
-
-
 <div class="row">
   <div class= "col-offset-lg-1  col-xs-10 col-sm-10 col-md-10 col-lg-10 isotope-item">
-    <div class="panel panel-default">
+    <div class="ibox-content">
       <div class="pull-right" style="margin-right:25px">
           <% if @slide.favorite_slides.where(user_id: current_user.id).present? %>
             <a href="/destroy_favorite_slide/<%=@slide.favorite_slides.find_by(user_id: current_user.id).id %>" class="btn btn-lg btn-unfavorite" id="slide_<%=@slide.id%>"><i class="fa fa-star"></i></a>
@@ -15,33 +13,31 @@
             <a href="/create_favorite_slide/<%=current_user.id%>/<%=@slide.id%>" class="btn btn-lg btn-favorite" id="slide_<%=@slide.id%>"><i class="fa fa-star-o"></i></a>
           <% end %>
       </div>  
-      <div class="panel-heading">
         <% if @nbp.present? %> 
-          <h3 class="panel-title"><a href="/nbps/<%=@nbp.id%>"><%= @nbp.deal.name %> NBP</a> (Slide# <%= @slide.number %>)</h3>
+          <h3 class="ibox-title"><a href="/nbps/<%=@nbp.id%>"><%= @nbp.deal.name %> NBP</a> (Slide# <%= @slide.number %>)</h3>
         <% end %>
         <% if @teaser.present? %> 
-          <h3 class="panel-title"><a href="/teasers/<%=@teaser.id%>"><%= @teaser.deal.name %> Teaser</a> (Slide# <%= @slide.number %>)</h3>
+          <h3 class="ibox-title"><a href="/teasers/<%=@teaser.id%>"><%= @teaser.deal.name %> Teaser</a> (Slide# <%= @slide.number %>)</h3>
         <% end %>
         <% if @nda.present? %> 
-          <h3 class="panel-title"><a href="/ndas/<%=@nda.id%>"><%= @nda.deal.name %> NDA</a> (Slide# <%= @slide.number %>)</h3>
+          <h3 class="ibox-title"><a href="/ndas/<%=@nda.id%>"><%= @nda.deal.name %> NDA</a> (Slide# <%= @slide.number %>)</h3>
         <% end %>        
         <% if @cip.present? %> 
-          <h3 class="panel-title"><a href="/cips/<%=@cip.id%>"><%= @cip.deal.name %> CIP</a> (Slide# <%= @slide.number %>)</h3>
+          <h3 class="ibox-title"><a href="/cips/<%=@cip.id%>"><%= @cip.deal.name %> CIP</a> (Slide# <%= @slide.number %>)</h3>
         <% end %>
         <% if @ioi.present? %> 
-          <h3 class="panel-title"><a href="/iois/<%=@ioi.id%>"><%= @ioi.deal.name %> IOI</a> (Slide# <%= @slide.number %>)</h3>
+          <h3 class="ibox-title"><a href="/iois/<%=@ioi.id%>"><%= @ioi.deal.name %> IOI</a> (Slide# <%= @slide.number %>)</h3>
         <% end %>
         <% if @mp.present? %> 
-          <h3 class="panel-title"><a href="/mps/<%=@mp.id%>"><%= @mp.deal.name %> MP</a> (Slide# <%= @slide.number %>)</h3>
+          <h3 class="ibox-title"><a href="/mps/<%=@mp.id%>"><%= @mp.deal.name %> MP</a> (Slide# <%= @slide.number %>)</h3>
         <% end %>
         <% if @loi.present? %> 
-          <h3 class="panel-title"><a href="/lois/<%=@loi.id%>"><%= @loi.deal.name %> LOI</a> (Slide# <%= @slide.number %>)</h3>
+          <h3 class="ibox-title"><a href="/lois/<%=@loi.id%>"><%= @loi.deal.name %> LOI</a> (Slide# <%= @slide.number %>)</h3>
         <% end %>
         <% if @case_study.present? %> 
-          <h3 class="panel-title"><a href="/case_studies/<%=@case_study.id%>"><%= @case_study.deal.name %> Case Study</a> (Slide# <%= @slide.number %>)</h3>
+          <h3 class="ibox-title"><a href="/case_studies/<%=@case_study.id%>"><%= @case_study.deal.name %> Case Study</a> (Slide# <%= @slide.number %>)</h3>
         <% end %>
-      </div>
-      <div class="panel-body">
+      <div class="ibox-body">
         <div class="row">
           <div class="col-lg-12">            
 

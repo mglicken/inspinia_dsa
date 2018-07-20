@@ -29,62 +29,50 @@
                         <tr>
                             <th style="width:40px;text-align:center;"></th>
                             <th style="width:250px;">Company</th>
-                            <th style="width:100px;">IOI</th>
-                            <th style="width:90px;text-align:center;">Date</th>                            
-                            <th style="width:85px; text-align:center; white-space:nromal;">Low<br>($ million)</th>
-                            <th style="width:85px; text-align:center; white-space:normal;">High<br>($ million)</th>
+                            <th style="width:100px;">Status</th>
+                            <th style="width:150px;">Legal Advisors</th>
+                            <th style="width:90px;text-align:center;">NDA Date</th>                            
                             <th style="width:500px; white-space:normal;">Notes</th>
                         </tr>
                         </thead>
                         <tbody>
                                 <%i=0%>
-                                <% @cip_companies.each do |cip_company| 
+                                <% @teaser_companies.each do |teaser_company| 
                                     i=i+1%>
-                        <% if cip_company.declined %>
+                        <% if teaser_company.nda.status == 1 %>
                             <tr class="danger">
-                        <% elsif cip_company.ioi.present? %>
+                        <% elsif teaser_company.nda.status == 2 %>
+                            <tr class="warning">
+                        <% elsif teaser_company.nda.status == 3 %>
                             <tr class="success">
                         <% else %>
                             <tr>
                         <% end %>
                             <td class="text-center">
-                                <a type="button" href="/cips/<%=cip_company.cip.id %>/companies"><i class="fa fa-location-arrow"></i></a>
+                                <a type="button" href="/teasers/<%=teaser_company.teaser.id %>/companies"><i class="fa fa-location-arrow"></i></a>
                             </td>
-                            <td style="white-space:normal;"><a href="/companies/<%=cip_company.cip.deal.company.id %>"><%=cip_company.cip.deal.company.name %></a></td>
+                            <td style="white-space:normal;"><a href="/companies/<%=teaser_company.teaser.deal.company.id %>"><%=teaser_company.teaser.deal.company.name %></a></td>
                             <td>
-                                <% if cip_company.declined %>
-                                    Declined
-                                <% elsif cip_company.ioi.present? %>
-                                    <a href="/iois/<%= cip_company.ioi.id %>">IOI Submitted</a>
+                                <% if teaser_company.nda.status == 1 %>
+                                    <a href="/ndas/<%=teaser_company.nda_id %>">Declined</a>
+                                <% elsif teaser_company.nda.status == 2 %>
+                                    <a href="/ndas/<%=teaser_company.nda_id %>">Negotiating</a>
+                                <% elsif teaser_company.nda.status == 3 %>
+                                    <a href="/ndas/<%=teaser_company.nda_id %>">Signed</a>
                                 <% else %>
+                                <% end %>
+                            </td>
+                            </td>
+                            <td style="white-space: normal;">
+                                <% teaser_company.nda.diligence_advisors.each do |diligence_advisor| %>
+                                    <a href="/people/<%= diligence_advisor.person_id%>"><%= diligence_advisor.person.name%></a>
                                 <% end %>
                             </td>
                             <td>
-                                <% if cip_company.ioi.present? %>
-                                    <%= cip_company.ioi.ioi_date %>
-                                <% else %>
-                                <% end %>
+                                <%= teaser_company.nda.nda_date %>
                             </td>
-                            <% if cip_company.ioi.present? %>
-                                <% if cip_company.cip.adj_ebitda_target.present? %>
-                                    <td style="text-align: center;">$<%=cip_company.ioi.low_purchase_price %><br><%=(cip_company.ioi.low_purchase_price/cip_company.cip.adj_ebitda_target).round(1) %>x</td>
-                                <% else %>
-                                    <td style="text-align: center;">$<%=cip_company.ioi.low_purchase_price %></td>
-                                <% end %>
-                            <% else %>
-                            <% end %>
-                            <% if cip_company.ioi.present? %>
-                                <% if cip_company.cip.adj_ebitda_target.present? %>
-                                    <td style="text-align: center;">$<%=cip_company.ioi.high_purchase_price %><br><%=(cip_company.ioi.high_purchase_price/cip_company.cip.adj_ebitda_target).round(1) %>x</td>
-                                <% else %>
-                                    <td style="text-align: center;">$<%=cip_company.ioi.high_purchase_price %></td>
-                                <% end %>
-                            <% else %>
-                            <% end %>
-                            <td  style="white-space:normal;">
-                                <% cip_company.ioi.ioi_highlights.joins(:highlight).order(id: :asc).each do |ioi_highlight| %>
-                                <strong><%= ioi_highlight.highlight.name %>: </strong><%= ioi_highlight.detail %><br>
-                                <% end %>                                 
+                            <td>
+                                ...
                             </td>
                         </tr>
                         <%end%>

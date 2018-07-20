@@ -1,6 +1,6 @@
 <div class="ibox collapsed float-e-margins">
     <div class="ibox-title">
-        <h5>Projects (<%= @company.deals.count %>)</h5>
+        <h5>Deals (<%= @company.deals.count %>)</h5>
         <div class="ibox-tools">
             <a class="collapse-link">
                 <i class="fa fa-chevron-up"></i>
@@ -17,10 +17,11 @@
                 <table class="table table-hover margin bottom">
                     <thead>
                     <tr>
-                        <th style="width: 1%" class="text-center">No.</th>
-                        <th>Project</th>
-                        <th class="text-center">Date</th>
-                        <th class="text-center">Stage</th>
+                        <th style="width: 3%" class="text-center">No.</th>
+                        <th>Deal</th>
+                        <th style="width: 15%;">Deal Team</th>
+                        <th style="width: 15%;" class="text-center">NBP Date</th>
+                        <th style="width: 15%;" class="text-center">Stage</th>
                     </tr>
                     </thead>
                     <tbody>
@@ -30,8 +31,19 @@
                     <tr>
                         <td class="text-center"><%=i%></td>
                         <td><a href="/deals/<%= deal.id %>"><%= deal.name %></a></td>
-                        <td class="text-center small"><%= Nbp.where(deal_id: deal.id).first.nbp_date %></td>
-                        <td class="text-center"><span class="label label-primary"><%= Tag.find(rand(3)+1).name%></span></td>
+                        <td>
+                            <% deal.deal_people.order("role_id asc").each do |deal_person| %>
+                            <a href="/people/<%= deal_person.person_id%>"><%= deal_person.person.name %></a><br>
+                            <% end %>                      
+                        </td>
+                        <td class="text-center small"><%= Nbp.where(deal_id: deal.id).last.nbp_date %></td>
+                        <% if deal.deal_stage_id == 15 %>
+                           <td class="text-center"><span class="label label-primary"><%= deal.deal_stage.name%></span></td>
+                        <% elsif deal.deal_stage_id == 16 || deal.deal_stage_id == 17 || deal.deal_stage_id == 18 %>
+                           <td class="text-center"><span class="label label-danger"><%= deal.deal_stage.name%></span></td>
+                        <% else %>
+                           <td class="text-center"><span class="label label-warning"><%= deal.deal_stage.name%></span></td>
+                        <% end %> 
 
                     </tr>
                     <%end%>
