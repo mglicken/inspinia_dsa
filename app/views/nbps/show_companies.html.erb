@@ -71,9 +71,11 @@
     </div>
   </div>
 </div>
-
-<a class="btn btn-lincoln" href="/nbps/<%= @nbp.id %>">View Slides</a>
-<a class="btn btn-lincoln" href="/nbps/<%= @nbp.id %>/sponsors">View Financial Acquirers</a>
+<br>
+<div class="row">
+  <a class="btn btn-lincoln" href="/nbps/<%= @nbp.id %>">View Slides</a>
+  <a class="btn btn-lincoln" href="/nbps/<%= @nbp.id %>/sponsors">View Financial Acquirers</a>
+</div>
 <br>
 <%= render('view_companies') %>
 <br>

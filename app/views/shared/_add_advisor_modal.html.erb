@@ -14,7 +14,19 @@
       </div>
       <div class="modal-body">
 
+        <!-- Validation failure messages -->
 
+        <% if @diligence_advisor.blank?%>
+          <% @diligence_advisor = CompanyNote.new %>
+        <% end %>
+        <% if @diligence_advisor.errors.any? %>
+          <% @diligence_advisor.errors.full_messages.each do |message| %>
+            <div class="alert alert-dismissable alert-danger">
+              <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+              <%= message %>
+            </div>
+          <% end %>
+        <% end %>
 
         <form enctype="multipart/form-data" action="/create_diligence_advisor/" method="post" class="form-horizontal">
           <!-- Hidden input for authenticity token to protect from forgery -->

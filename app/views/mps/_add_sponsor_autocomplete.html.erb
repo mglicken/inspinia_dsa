@@ -2,7 +2,19 @@
   <form action="/create_mp_sponsor/<%= mp.id%>" method="post" class="form-inline">
 
     <input name="authenticity_token" type="hidden" value="<%= form_authenticity_token %>">
-    <input type="text" id="sponsors" placeholder="Add Sponsors" name="name" style="width: 200px">
+
+    <!-- js-switch elements for formatting -->
+    <div>
+      <input type="hidden" class="js-switch" />
+      <input type="hidden" class="js-switch_2" />
+      <input type="hidden" class="js-switch_3" />
+      <input type="hidden" class="js-switch_4" />
+    </div>
+    <select name="sponsor_id" data-placeholder="Add Companies..." class="chosen-select back-change"  tabindex="2">
+      <% Sponsor.where(id: (Sponsor.ids - MpSponsor.where(mp_id: @mp.id).pluck(:sponsor_id)).uniq).order("name asc").each do |sponsor| %>
+      <option value="<%=sponsor.id %>"><%= sponsor.name %></option>
+      <% end %>
+    </select>
 
     <button class="btn btn-success btn-xs ">
       Enter
@@ -11,8 +23,21 @@
   </form>
 </div>
 
-<script>
-  $('#sponsors').autocomplete({
-      source: '/sponsor_query.json',
-    });
+<script type="text/javascript">
+$(function() {
+
+    var elem = document.querySelector('.js-switch');
+    var switchery = new Switchery(elem, { color: '#1AB394' });
+
+    var elem_2 = document.querySelector('.js-switch_2');
+    var switchery_2 = new Switchery(elem_2, { color: '#ED5565' });
+
+    var elem_3 = document.querySelector('.js-switch_3');
+    var switchery_3 = new Switchery(elem_3, { color: '#1AB394' });
+
+    var elem_4 = document.querySelector('.js-switch_4');
+    var switchery_4 = new Switchery(elem_4, { color: '#f8ac59' });
+   
+    $('.chosen-select').chosen({width: "70%"});
+});
 </script>

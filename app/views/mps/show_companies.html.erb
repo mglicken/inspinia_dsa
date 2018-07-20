@@ -2,7 +2,7 @@
 <div class="row">
   <div class="col-lg-offset-2 col-lg-7">
     <div class="ibox-content">
-        <h3 class="ibox-title" style="font-size:28px"><%= @mp.name %></h3>
+        <h3 class="ibox-title"><%= @mp.name %></h3>
       <div class="ibox-body">
         <div class="row">
           <div class="col-lg-12">
@@ -63,10 +63,12 @@
     </div>
   </div> 
 </div>
-<a class="btn btn-lincoln" href="/mps/<%= @mp.id %>">View Slides</a>
-<a class="btn btn-lincoln" href="/mps/<%= @mp.id %>/acquirers">View All Acquirers</a>
-<a class="btn btn-lincoln" href="/mps/<%= @mp.id %>/sponsors">View Financial Acquirers</a>
-
+<br>
+<div class="row">
+  <a class="btn btn-lincoln" href="/mps/<%= @mp.id %>">View Slides</a>
+  <a class="btn btn-lincoln" href="/mps/<%= @mp.id %>/acquirers">View All Acquirers</a>
+  <a class="btn btn-lincoln" href="/mps/<%= @mp.id %>/sponsors">View Financial Acquirers</a>
+</div>
 
 <%= render('view_companies') %>
 <%= render('shared/quick_search_js') %>

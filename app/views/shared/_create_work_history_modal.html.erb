@@ -44,6 +44,13 @@
           <!-- Hidden input for authenticity token to protect from forgery -->
           <input name="authenticity_token" type="hidden" value="<%= form_authenticity_token %>">
 
+         <!-- js-switch elements for formatting -->
+          <div>
+            <input type="hidden" class="js-switch" />
+            <input type="hidden" class="js-switch_2" />
+            <input type="hidden" class="js-switch_3"  />
+            <input type="hidden" class="js-switch_4"  />
+          </div>
 
           <% if company == 0 %>
             <!-- Label and input for Company -->
@@ -52,13 +59,16 @@
                 Company
               </label></h5>
               <div class="col-sm-10">
-                <%= select_tag :company_id, options_from_collection_for_select(Company.all.order("name ASC"), :id, :name, @work_history.company_id), :class => "form-control" %>
+                <select name="company_id" data-placeholder="Choose a Company..." class="chosen-select back-change"  tabindex="2">
+                  <% Company.all.order("name asc").each do |company| %>
+                  <option value="<%=company.id %>"><%=company.name %></option>
+                  <% end %>
+                </select>
               </div>
             </div>
           <%else%>
             <input name="company_id" type="hidden" value="<%= company.id %>">
           <% end %>
-
 
             <!-- Label and input for Person -->
           <% if person == 0 %>
@@ -78,7 +88,6 @@
             <input name="person_id" id="person_id" type="hidden" value="<%= person.id %>">
           <% end %>
 
-
           <!-- Check boxes Current -->
           <div class="checkbox-inline">
             <h5><label><input type="checkbox" name="current" checked>Current</label></h5>
@@ -90,7 +99,11 @@
               Role
             </label></h5>
             <div class="col-sm-10">
-              <%= select_tag :role_id, options_from_collection_for_select(Role.order("name ASC"), :id, :name, @work_history.role_id), :class => "form-control" %>
+                <select name="role_id" data-placeholder="Choose a Role..." class="chosen-select back-change"  tabindex="2">
+                  <% Role.all.order("name asc").each do |role| %>
+                  <option value="<%=role.id %>"><%=role.name %></option>
+                  <% end %>
+                </select>
             </div>
           </div>
 
@@ -112,13 +125,6 @@
             <div class="col-sm-10">
               <input type="integer" id="end_year" name="end_year" placeholder="e.g., 2017" class="form-control" value="<%= @work_history.end_year %>">
             </div>
-          </div>
-         <!-- js-switch elements for formatting -->
-          <div>
-            <input type="hidden" class="js-switch" />
-            <input type="hidden" class="js-switch_2" />
-            <input type="hidden" class="js-switch_3"  />
-            <input type="hidden" class="js-switch_4"  />
           </div>
 
           <div class="form-group">
