@@ -10,7 +10,7 @@
       <input type="hidden" class="js-switch_3"  />
       <input type="hidden" class="js-switch_4"  />
     </div>
-      <select name="company_id" data-placeholder="Add Companies..." class="chosen-select back-change input-sm col-lg-2"  tabindex="2" >
+      <select name="company_id" data-placeholder="Add Companies..." class="chosen-select back-change"  tabindex="2" >
         <% Company.where(id: (Company.ids - TeaserCompany.where(teaser_id: @teaser.id).pluck(:company_id)).uniq).order("name asc").each do |company| %>
         <option value="<%=company.id %>"><%=company.name %></option>
         <% end %>
@@ -38,6 +38,6 @@ $(function() {
     var elem_4 = document.querySelector('.js-switch_4');
     var switchery_4 = new Switchery(elem_4, { color: '#f8ac59' });
    
-    $('.chosen-select').chosen({width: "70%"});
+    $('.chosen-select').chosen({width: "100%"});
 });
 </script>

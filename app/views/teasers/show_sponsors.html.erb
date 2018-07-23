@@ -30,9 +30,11 @@
     </div>
   </div> 
 </div>
-<a class="btn btn-lincoln" href="/teasers/<%= @teaser.id %>">View Slides</a>
-<a class="btn btn-lincoln" href="/teasers/<%= @teaser.id %>/companies">View Strategic Acquirers</a>
-
+<br>
+<div class="row">
+  <a class="btn btn-lincoln" href="/teasers/<%= @teaser.id %>">View Slides</a>
+  <a class="btn btn-lincoln" href="/teasers/<%= @teaser.id %>/companies">View Strategic Acquirers</a>
+</div>
 
 <%= render('view_sponsors') %>
 <%= render('shared/quick_search_js') %>
