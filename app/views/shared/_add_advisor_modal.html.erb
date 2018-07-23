@@ -1,86 +1,110 @@
+<!-- Validation failure messages -->
 
-<!-- Button trigger modal -->
-<div class="btn btn-xs btn-primary" data-toggle="modal" data-target="#myModalAddAdvisor_<%= advisor_type.id %>">
-  <i class="fa fa-plus"></i>
-</div>
-
-<!-- Modal -->
-<div class="modal fade" id="myModalAddAdvisor_<%= advisor_type.id %>" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-          <h4 class="modal-title" id="myModalLabel"><%= company.name%></h4>
-      </div>
-      <div class="modal-body">
-
-        <!-- Validation failure messages -->
-
-        <% if @diligence_advisor.blank?%>
-          <% @diligence_advisor = CompanyNote.new %>
-        <% end %>
-        <% if @diligence_advisor.errors.any? %>
-          <% @diligence_advisor.errors.full_messages.each do |message| %>
-            <div class="alert alert-dismissable alert-danger">
-              <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-              <%= message %>
-            </div>
-          <% end %>
-        <% end %>
-
-        <form enctype="multipart/form-data" action="/create_diligence_advisor/" method="post" class="form-horizontal">
-          <!-- Hidden input for authenticity token to protect from forgery -->
-          <input name="authenticity_token" type="hidden" value="<%= form_authenticity_token %>">
-
-          <input name="advisor_type_id" type="hidden" value="<%= advisor_type.id %>">
-
-          <% if mp_sponsor.present? %>
-            <input name="mp_sponsor_id" type="hidden" value="<%= mp_sponsor.id %>">
-          <% elsif mp_company.present? %>
-            <input name="mp_company_id" type="hidden" value="<%= mp_company.id %>">
-          <% elsif nda.present? %>
-            <input name="nda_id" type="hidden" value="<%= nda.id %>">
-          <% elsif deal.present? %>
-            <input name="deal_id" type="hidden" value="<%= deal.id %>">
-          <% end %>
-
-            <!-- Label and input for Person -->
-            <div class="form-group">
-              <h5><label for="person_id" class="col-sm-2 control-label">
-                Person
-              </label></h5>
-              <div class="col-sm-10">
-                <%= select_tag :person_id, options_from_collection_for_select(Person.all.order("name ASC"), :id, :name), :class => "form-control" %>
-              </div>
-            </div>
-
-            <!-- Label and input for Firm -->
-            <div class="form-group">
-              <h5><label for="company_id" class="col-sm-2 control-label">
-                Firm
-              </label></h5>
-              <div class="col-sm-10">
-                <%= select_tag :company_id, options_from_collection_for_select(Company.all.order("name ASC"), :id, :name), :class => "form-control" %>
-              </div>
-            </div>
-
-
-          <div class="form-group pull-left">
-            <div class="col-sm-offset-2 col-sm-10">
-              <button class="btn btn-lincoln">
-                Add Advisor
-              </button>
-            </div>
-          </div>
-          <br>
-        </form>
-
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-      </div>
+<% if @diligence_advisor.blank?%>
+  <% @diligence_advisor = DiligenceAdvisor.new %>
+<% end %>
+<% if @diligence_advisor.errors.any? %>
+  <% @diligence_advisor.errors.full_messages.each do |message| %>
+    <div class="alert alert-dismissable alert-danger">
+      <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+      <%= message %>
     </div>
-  </div>
+  <% end %>
+<% end %>
+
+
+<a class=" btn btn-primary btn-xs" data-toggle="modal" href="#Modal_AdvisorType_<%= advisor_type.id %>"><i class="fa fa-plus"></i></a>
+
+<div class="modal inmodal fade" id="Modal_AdvisorType_<%=advisor_type.id %>" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-sm">
+        <div class="modal-content">
+          <form enctype="multipart/form-data" action="/create_diligence_advisor/" method="post" class="form-horizontal">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                <h4 class="modal-title">Add an Advisor</h4>
+                <small class="font-bold">Add a <%= advisor_type.name %></small>
+            </div>
+            <div class="modal-body">
+                <!-- Hidden input for authenticity token to protect from forgery -->
+                <input name="authenticity_token" type="hidden" value="<%= form_authenticity_token %>">
+
+                <input name="advisor_type_id" type="hidden" value="<%= advisor_type.id %>">
+
+                <% if mp_sponsor.present? %>
+                  <input name="mp_sponsor_id" type="hidden" value="<%= mp_sponsor.id %>">
+                <% elsif mp_company.present? %>
+                  <input name="mp_company_id" type="hidden" value="<%= mp_company.id %>">
+                <% elsif nda.present? %>
+                  <input name="nda_id" type="hidden" value="<%= nda.id %>">
+                <% elsif deal.present? %>
+                  <input name="deal_id" type="hidden" value="<%= deal.id %>">
+                <% end %>
+
+                <!-- js-switch elements for formatting -->
+                <div>
+                  <input type="hidden" class="js-switch" />
+                  <input type="hidden" class="js-switch_2" />
+                  <input type="hidden" class="js-switch_3"  />
+                  <input type="hidden" class="js-switch_4"  />
+                </div>
+
+                  <!-- Label and input for Company -->
+                  <div class="form-group">
+                    <h5><label for="company_id" class="col-lg-2 control-label">
+                      Firm
+                    </label></h5>
+                    <select name="company_id" data-placeholder="Select Firm..." class="chosen-select back-change input-sm col-lg-2"  tabindex="2" >
+                      <% Company.order("name asc").each do |company| %>
+                      <option value="<%=company.id %>"><%=company.name %></option>
+                      <% end %>
+                    </select>
+                  </div>
+
+                  <!-- Label and input for Person -->
+                  <div class="form-group">
+                    <h5><label for="person_id" class="col-lg-2 control-label">
+                      Person
+                    </label></h5>
+                    <select name="person_id" data-placeholder="Select Advisor..." class="chosen-select back-change input-sm col-lg-2"  tabindex="2" >
+                      <% Person.order("name asc").each do |person| %>
+                      <option value="<%=person.id %>"><%=person.name %></option>
+                      <% end %>
+                    </select>
+                  </div>
+
+            </div>
+            <div class="modal-footer">
+
+                <div class="form-group">
+                    <button class="btn btn-lincoln">
+                      Add Advisor
+                    </button>
+                    <button type="button" class="btn btn-white" data-dismiss="modal">Close</button>
+                </div>
+
+            </div>
+        </div>
+      </form>
+    </div>
 </div>
 
+
+<script type="text/javascript">
+$(function() {
+
+    var elem = document.querySelector('.js-switch');
+    var switchery = new Switchery(elem, { color: '#1AB394' });
+
+    var elem_2 = document.querySelector('.js-switch_2');
+    var switchery_2 = new Switchery(elem_2, { color: '#ED5565' });
+
+    var elem_3 = document.querySelector('.js-switch_3');
+    var switchery_3 = new Switchery(elem_3, { color: '#1AB394' });
+
+    var elem_4 = document.querySelector('.js-switch_4');
+    var switchery_4 = new Switchery(elem_4, { color: '#f8ac59' });
+   
+    $('.chosen-select').chosen({width: "80%"});
+});
+</script>
 
