@@ -71,7 +71,7 @@ before_action :ensure_banker_access,  only: [:new, :create, :edit, :update, :des
     end
 
     if @mp_company.save
-      redirect_to "/mps/#{@mp_company.mp_id}", :notice => "MP Company created successfully."
+      redirect_to "/mps/#{@mp_company.mp_id}/acquirers", :notice => "MP Company created successfully."
     else
       render 'new'
     end
@@ -93,7 +93,7 @@ before_action :ensure_banker_access,  only: [:new, :create, :edit, :update, :des
     end
 
     if @mp_company.save
-      redirect_to "/mps/#{ params[:mp_id] }/companies", :notice => "\"#{@company_name}\" added to \"#{@mp.name}\" successfully."
+      redirect_to "/mps/#{ params[:mp_id] }/acquirers", :notice => "\"#{@company_name}\" added to \"#{@mp.name}\" successfully."
     else
       render 'new'
     end

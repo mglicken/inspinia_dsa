@@ -52,7 +52,7 @@ before_action :ensure_banker_access,  only: [:new, :create, :edit, :update, :des
     @mp_sponsor.mp_id = params[:mp_id]
     @mp_sponsor.sponsor_id = params[:sponsor_id]
     @loi = Loi.new
-    @loi.name = @mp_sponsor.mp.deal.sponsor.name + " / " + @mp_sponsor.sponsor.name + " LOI"
+    @loi.name = @mp_sponsor.mp.deal.company.name + " / " + @mp_sponsor.sponsor.name + " LOI"
     @loi.deal_id = @mp_sponsor.mp.deal_id
     @loi.loi_date = Date.current
     @loi.save
@@ -69,7 +69,7 @@ before_action :ensure_banker_access,  only: [:new, :create, :edit, :update, :des
       end
     end
     if @mp_sponsor.save
-      redirect_to "/mps/#{@mp_sponsor.mp_id}", :notice => "MP Sponsor created successfully."
+      redirect_to "/mps/#{@mp_sponsor.mp_id}/acquirers", :notice => "MP Sponsor created successfully."
     else
       render 'new'
     end
@@ -91,7 +91,7 @@ before_action :ensure_banker_access,  only: [:new, :create, :edit, :update, :des
     end
 
     if @mp_sponsor.save
-      redirect_to "/mps/#{ params[:mp_id] }/sponsors", :notice => "\"#{@sponsor_name}\" added to \"#{@mp.name}\" successfully."
+      redirect_to "/mps/#{ params[:mp_id] }/acquirers", :notice => "\"#{@sponsor_name}\" added to \"#{@mp.name}\" successfully."
     else
       render 'new'
     end

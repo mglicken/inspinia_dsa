@@ -1,5 +1,5 @@
 <div class="ui-widget">
-  <form action="/create_cip_company/<%= cip.id%>" method="post" class="form-inline">
+  <form action="/create_cip_company/" method="post" class="form-inline">
 
     <input name="authenticity_token" type="hidden" value="<%= form_authenticity_token %>">
 
@@ -16,7 +16,7 @@
       <option value="<%=company.id %>"><%=company.name %></option>
       <% end %>
     </select>
-
+    <input name="cip_id" type="hidden" value="<%= cip.id%>">
     <button class="btn btn-success btn-xs ">
       Enter
     </button>

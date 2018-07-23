@@ -77,7 +77,9 @@
    <div >
     <div style="margin-bottom: 5px"> 
         <%= render('shared/share_slide_layout_modal',slide_layout: @slide_layout) %>
-        <%= render('shared/delete_slide_layout_modal',slide_layout: @slide_layout) %>
+        <a class="btn btn-danger" href="/slide_layout_warning/<%= @slide_layout.id %>">
+            <i class="fa fa-trash-o"></i>
+        </a>
     </div>
 
     <a class="btn btn-success" href="/create_slide_layout_pdf/<%= @slide_layout.id %>">Download PDFs <i class="fa fa-file-pdf-o"></i></a>

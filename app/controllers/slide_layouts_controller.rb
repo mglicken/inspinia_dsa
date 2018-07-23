@@ -459,6 +459,11 @@ before_action :ensure_banker_user_access,  only: []
     end
   end
 
+
+  def warning
+    @slide_layout = SlideLayout.find(params[:id])
+  end
+
   def destroy
     @slide_layout = SlideLayout.find(params[:id])
 

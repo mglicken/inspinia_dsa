@@ -1,5 +1,5 @@
 <div class="ui-widget">
-  <form action="/create_mp_sponsor/<%= mp.id%>" method="post" class="form-inline">
+  <form action="/create_mp_sponsor/" method="post" class="form-inline">
 
     <input name="authenticity_token" type="hidden" value="<%= form_authenticity_token %>">
 
@@ -10,11 +10,13 @@
       <input type="hidden" class="js-switch_3" />
       <input type="hidden" class="js-switch_4" />
     </div>
-    <select name="sponsor_id" data-placeholder="Add Companies..." class="chosen-select back-change"  tabindex="2">
+    <select name="sponsor_id" data-placeholder="Add Companies..." class="chosen-select back-change"  tabindex="2" style="font-size: 10px;">
       <% Sponsor.where(id: (Sponsor.ids - MpSponsor.where(mp_id: @mp.id).pluck(:sponsor_id)).uniq).order("name asc").each do |sponsor| %>
       <option value="<%=sponsor.id %>"><%= sponsor.name %></option>
       <% end %>
     </select>
+
+    <input name="mp_id" type="hidden" value="<%= mp.id%>">
 
     <button class="btn btn-success btn-xs ">
       Enter

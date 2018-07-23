@@ -1121,6 +1121,7 @@ Myapp::Application.routes.draw do
   post "/update_slide_layout/:slide_ids", :controller => "slide_layouts", :action => "update"
 
   # DELETE
+  get "/slide_layout_warning/:id", :controller => "slide_layouts", :action => "warning"
   get "/delete_slide_layout/:id", :controller => "slide_layouts", :action => "destroy"
 
   # Routes for the Slide Layout Slides resource:

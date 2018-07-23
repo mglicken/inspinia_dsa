@@ -1,0 +1,28 @@
+<br>
+<div class="row">
+  <div class="col-lg-offset-1 col-lg-10">
+    <div class="ibox-content">
+      <h3 class="ibox-title"> Warning! Deleting <%= @slide_layout.name %> Layout!</h3>
+
+      <div class="ibox-body">
+        <br>
+        <strong>Are you sure you want to delete "<%= @slide_layout.name%>" Layout from your user profile?</strong> Once it is deleted, the slide layout will need to be recreated.
+        <br>
+        <br>
+        <div>
+          <div class="col-lg-offset-2 col-lg-10">
+            <a href="/delete_slide_layout/<%= @slide_layout.id %>" class="btn btn-danger">
+              Delete Slide Layout
+            </a>
+          </div>
+        </div>
+
+      </div>
+      <br>
+      <br>
+      <br>
+    </div>
+  </div>
+</div>
+
+

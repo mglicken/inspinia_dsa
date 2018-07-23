@@ -1,25 +1,57 @@
-<h2>Change your password</h2>
+<br>
+<div class="col-lg-offset-3 col-lg-6">
+    <div class="ibox-content">
+        <h3 class="ibox-title"> Change password
+        </h3>
+        <%= form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :put }) do |f| %>
+          <%= devise_error_messages! %>
+          <%= f.hidden_field :reset_password_token %>
+            <div class="row" id="pwd-container1">
+                <div class="col-sm-12">
+                    <div class="form-group">
+                        <label for="password1">Password</label>
+                        <% if @minimum_password_length %>
+                          <em>(<%= @minimum_password_length %> characters minimum)</em><br />
+                        <% end %>
+                        <%= f.password_field :password, autofocus: true, autocomplete: "off", class: "form-control example1" %>
+                    </div>
+                    <div class="form-group">
+                        <div class="pwstrength_viewport_progress"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+              <%= f.label :password_confirmation, "Confirm new password" %><br />
+              <%= f.password_field :password_confirmation, autocomplete: "off", class: "form-control" %>
+            </div>
 
-<%= form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :put }) do |f| %>
-  <%= devise_error_messages! %>
-  <%= f.hidden_field :reset_password_token %>
+          <div class="actions">
+            <%= f.submit "Change my password", class: "btn btn-primary full-width m-b" %>
+          </div>
+        <% end %>
+    </div>
+</div>
 
-  <div class="field">
-    <%= f.label :password, "New password" %><br />
-    <% if @minimum_password_length %>
-      <em>(<%= @minimum_password_length %> characters minimum)</em><br />
-    <% end %>
-    <%= f.password_field :password, autofocus: true, autocomplete: "off" %>
-  </div>
+<script type="text/javascript">
 
-  <div class="field">
-    <%= f.label :password_confirmation, "Confirm new password" %><br />
-    <%= f.password_field :password_confirmation, autocomplete: "off" %>
-  </div>
 
-  <div class="actions">
-    <%= f.submit "Change my password" %>
-  </div>
-<% end %>
+$(function() {
 
-<%= render "devise/shared/links" %>
+    // Example 1
+    var options1 = {};
+    options1.ui = {
+        container: "#pwd-container1",
+        showVerdictsInsideProgressBar: true,
+        viewports: {
+            progress: ".pwstrength_viewport_progress"
+        }
+    };
+    options1.common = {
+        debug: false,
+    };
+    $('.example1').pwstrength(options1);
+
+});
+
+</script>
+
