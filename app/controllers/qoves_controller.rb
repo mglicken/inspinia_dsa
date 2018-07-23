@@ -38,7 +38,7 @@ before_action :ensure_view_access,  only: [:index, :search, :show]
 
   def show
     @qofe = Qofe.find(params[:id])
-    @advisor_type =  AdvisorType.find_by(name: "Quality of Earnings")
+    @advisor_type =  AdvisorType.find_by(name: "Quality of Earnings Advisor")
     @tags = Tag.where(id: SlideTag.where(slide_id: @qofe.slides.ids).pluck(:tag_id))
     a = ["0","1","2","3","4","5","6","7","8","9","a","b","c","d","e","f","g","h","i","j","k","l","m","n","o","p","q","r","s","t","u","v","w","x","y","z"]
     b=""

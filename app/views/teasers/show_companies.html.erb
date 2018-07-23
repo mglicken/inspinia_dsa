@@ -1,7 +1,6 @@
 <br>
 <div class="row">
   <div class="col-lg-offset-2 col-lg-7">
-    <div class="ibox">
     <div class="ibox-content">
         <h3 class="ibox-title"><%= @teaser.name %></h3>
       <div class="ibox-body">
@@ -19,20 +18,19 @@
           </div>
         </div>
       </div>
-
     </div>
   </div>
-  <div class="col-lg-3">
+  <div class="pull-right">
     <div class="btn-group-vertical">
       <%= render('add_company_autocomplete', teaser: @teaser) %>
-      
     </div>
   </div> 
 </div>
-
-<a class="btn btn-lincoln" href="/teasers/<%= @teaser.id %>">View Slides</a>
-<a class="btn btn-lincoln" href="/teasers/<%= @teaser.id %>/sponsors">View Financial Acquirers</a>
 <br>
+<div class="row">
+  <a class="btn btn-lincoln" href="/teasers/<%= @teaser.id %>">View Slides</a>
+  <a class="btn btn-lincoln" href="/teasers/<%= @teaser.id %>/sponsors">View Financial Acquirers</a>
+</div>
 <%= render('view_companies') %>
 <br>
 <br>

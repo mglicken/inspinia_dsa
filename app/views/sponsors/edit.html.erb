@@ -24,26 +24,16 @@
           <input name="authenticity_token" type="hidden" value="<%= form_authenticity_token %>">
 
         
-          <input name="name" type="hidden" value="<%= @sponsor.name %>" >
+          <!-- Label and input for Name -->
+          <div class="form-group">
+            <label for="name" class="col-sm-2 control-label">
+              Name
+            </label>
+            <div class="col-sm-10">
+              <input type="string" id="name" name="name" placeholder="e.g., Capital Wind Partners" class="form-control" value="<%= @sponsor.name %>">
+            </div>
+          </div>
           
-          <!-- Label and input for Revenue-->
-          <div class="form-group">
-            <label for="revenue" class="col-sm-2 control-label">
-              LTM Revenue
-            </label>
-            <div class="col-sm-10">
-              <input type="float" id="revenue" name="revenue" placeholder="e.g., 200.0" class="form-control" value="<%= @sponsor.revenue %>">
-            </div>
-          </div>
-          <!-- Label and input for EBITDA -->
-          <div class="form-group">
-            <label for="ebitda" class="col-sm-2 control-label">
-              LTM EBITDA
-            </label>
-            <div class="col-sm-10">
-              <input type="float" id="ebitda" name="ebitda" placeholder="e.g., 20.0" class="form-control" value="<%= @sponsor.ebitda %>">
-            </div>
-          </div>
           <!-- Label and input for Address -->
           <div class="form-group">
             <label for="address" class="col-sm-2 control-label">

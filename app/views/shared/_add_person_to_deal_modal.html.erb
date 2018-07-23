@@ -1,97 +1,117 @@
+<a class=" btn btn-lincoln" data-toggle="modal" href="#myModalCreateDealPerson">Add Person to Deal</i></a>
 
-<!-- Button trigger modal -->
-<div class="btn btn-lincoln" data-toggle="modal" data-target="#myModalCreateDealPerson">
-  Add Person to Deal Team
-</div>
+<div class="modal inmodal fade" id="myModalCreateDealPerson" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-sm">
+        <div class="modal-content">
+          <form enctype="multipart/form-data" action="/create_deal_person/" method="post" class="form-horizontal">
+            <div class="modal-header">
+                <h4 class="modal-title">Add Person to Deal Team</h4>
+                <small class="font-bold">Add a new person to the current deal team</small>
+            </div>
+            <div class="modal-body">
 
-<!-- Modal -->
-<div class="modal fade" id="myModalCreateDealPerson" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        <h4 class="modal-title" id="myModalLabel">Add Person to Deal</h4>
-      </div>
-      <div class="modal-body">
+          <!-- Validation failure messages -->
 
+          <% if @deal_person.blank?%>
+            <% @deal_person = DealPerson.new %>
+          <% end %>
+          <% if @deal_person.errors.any? %>
+            <% @deal_person.errors.full_messages.each do |message| %>
+              <div class="alert alert-dismissable alert-danger">
+                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                <%= message %>
+              </div>
+            <% end %>
+          <% end %>
 
-
-<!-- Validation failure messages -->
-
-<% if @deal_person.blank?%>
-  <% @deal_person = DealPerson.new %>
-<% end %>
-<% if @deal_person.errors.any? %>
-  <% @deal_person.errors.full_messages.each do |message| %>
-    <div class="alert alert-dismissable alert-danger">
-      <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-      <%= message %>
-    </div>
-  <% end %>
-<% end %>
-
-<!-- Responsive panel example -->
-
-<div class="row">
-  <div class="col-sm-offset-0 col-sm-12 col-md-offset-0 col-md-12">
-    <div class="panel panel-default">
-      <div class="panel-body">
-
-        <form enctype="multipart/form-data" action="/create_deal_person" method="post" class="form-horizontal">
           <!-- Hidden input for authenticity token to protect from forgery -->
           <input name="authenticity_token" type="hidden" value="<%= form_authenticity_token %>">
 
 
-            <!-- Label and input for Person -->
-            <%if person.nil? %>
-            <div class="form-group">
-              <h5><label for="person_id" class="col-sm-2 control-label">
-                Person
-              </label></h5>
-              <div class="col-sm-10">
-                <%= select_tag :person_id, options_from_collection_for_select(Person.all.order("name ASC"), :id, :name), :class => "form-control" %>
-              </div>
+            <!-- js-switch elements for formatting -->
+            <div>
+              <input type="hidden" class="js-switch" />
+              <input type="hidden" class="js-switch_2" />
+              <input type="hidden" class="js-switch_3"  />
+              <input type="hidden" class="js-switch_4"  />
             </div>
+            <!-- Label and input for Person -->
+            <div class="form-group">
+              <h5><label for="role_id" class="col-lg-2 control-label">
+                Role
+              </label></h5>
+              <select name="role_id" data-placeholder="Select Role..." class="chosen-select back-change"  tabindex="2" >
+                <% Role.where("id <= ?",7).order("name asc").each do |role| %>
+                <option value="<%= role.id %>"><%= role.name %></option>
+                <% end %>
+              </select>
+            </div>
+
+            <%if person.blank? %>
+              <div class="form-group">
+                <h5><label for="person_id" class="col-lg-2 control-label">
+                  Person
+                </label></h5>
+                <select name="person_id" data-placeholder="Select Person..." class="chosen-select back-change"  tabindex="2" >
+                  <% Person.order("name asc").each do |person| %>
+                  <option value="<%=person.id %>"><%=person.name %></option>
+                  <% end %>
+                </select>
+              </div>
             <%else%>
               <input name="person_id" type="hidden" value="<%= person.id %>">
             <% end %>
  
-            <!-- Label and input for deal -->
-            <%if deal.nil? %>
-            <div class="form-group">
-              <h5><label for="deal_id" class="col-sm-2 control-label">
-                Deal
-              </label></h5>
-              <div class="col-sm-10">
-                <%= select_tag :deal_id, options_from_collection_for_select(Deal.all.order("name ASC"), :id, :name), :class => "form-control" %>
+            <!-- Label and input for Deal -->
+            <%if deal.blank? %>
+              <div class="form-group">
+                <h5><label for="deal_id" class="col-lg-2 control-label">
+                  Deal
+                </label></h5>
+                <select name="deal_id" data-placeholder="Select Deal..." class="chosen-select back-change"  tabindex="2" >
+                  <% Deal.order("name asc").each do |deal| %>
+                  <option value="<%=deal.id %>"><%=deal.name %></option>
+                  <% end %>
+                </select>
               </div>
-            </div>
             <%else%>
               <input name="deal_id" type="hidden" value="<%= deal.id %>">
             <% end %>
 
-          <div class="form-group">
-            <div class="col-sm-offset-2 col-sm-10">
-              <button class="btn btn-lincoln">
-                Add Person to Deal
-              </button>
+
             </div>
-          </div>
+            <div class="modal-footer">
 
-        </form>
+                <div class="form-group">
+                    <button class="btn btn-lincoln">
+                      Add Person to Deal
+                    </button>
+                    <button type="button" class="btn btn-white" data-dismiss="modal">Close</button>
+                </div>
 
-      </div>
+            </div>
+        </div>
+      </form>
     </div>
-  </div>
 </div>
 
-<!-- End responsive panel example -->
 
+<script type="text/javascript">
+$(function() {
 
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-      </div>
-    </div>
-  </div>
-</div>
+    var elem = document.querySelector('.js-switch');
+    var switchery = new Switchery(elem, { color: '#1AB394' });
+
+    var elem_2 = document.querySelector('.js-switch_2');
+    var switchery_2 = new Switchery(elem_2, { color: '#ED5565' });
+
+    var elem_3 = document.querySelector('.js-switch_3');
+    var switchery_3 = new Switchery(elem_3, { color: '#1AB394' });
+
+    var elem_4 = document.querySelector('.js-switch_4');
+    var switchery_4 = new Switchery(elem_4, { color: '#f8ac59' });
+   
+    $('.chosen-select').chosen({width: "80%"});
+    $('.chosen-select').chosen({width: "80%"});
+});
+</script>

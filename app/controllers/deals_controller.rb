@@ -148,6 +148,7 @@ before_action :ensure_view_access,  only: [:index, :search, :search_all, :show]
 
   def show
     @deal = Deal.find(params[:id].to_i)
+    @advisor_type = AdvisorType.find_by(name: "Legal Advisor")
     @cip = @deal.cips[0]
     @cip_sponsors = @cip.cip_sponsors
     @cip_companies = @cip.cip_companies
