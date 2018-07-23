@@ -10,12 +10,12 @@
       <input type="hidden" class="js-switch_3"  />
       <input type="hidden" class="js-switch_4"  />
     </div>
-      <select name="sponsor_id" data-placeholder="Add Companies..." class="chosen-select back-change input-sm col-lg-2"  tabindex="2" >
+      <select name="sponsor_id" data-placeholder="Add Sponsors..." class="chosen-select back-change input-sm col-lg-2"  tabindex="2" >
         <% Sponsor.where(id: (sponsor.ids - TeaserSponsor.where(mp_id: @mp.id).pluck(:sponsor_id)).uniq).order("name asc").each do |sponsor| %>
         <option value="<%=sponsor.id %>"><%=sponsor.name %></option>
         <% end %>
       </select>
-    <input name="teaser_id" type="hidden" value="<%= mp.id%>">
+    <input name="teaser_id" type="hidden" value="<%= teaser.id%>">
     <button class="btn btn-success btn-xs">
       Enter
     </button>
