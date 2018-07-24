@@ -1,0 +1,90 @@
+<style>
+.scrollbar {
+  overflow-x: scroll;
+  white-space: nowrap;
+  padding: 5px;
+  padding-bottom: 0px;
+  margin-right: 10px;
+}
+</style>
+<div class="ibox collapsed float-e-margins">
+    <div class="ibox-title">
+        <h5>MPs Reviewed (<%= @mp_companies.count %>)</h5>
+        <div class="ibox-tools">
+            <a class="collapse-link">
+                <i class="fa fa-chevron-up"></i>
+            </a>
+            <a class="close-link">
+                <i class="fa fa-times"></i>
+            </a>
+        </div>
+    </div>
+    <div class="ibox-content">
+
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="scrollbar">
+                    <table class="table table-hover margin bottom" style="table-layout: fixed;">
+                        <thead>
+                        <tr>
+                            <th style="width:40px;text-align:center;"></th>
+                            <th style="width:250px;">Company</th>
+                            <th style="width:90px;text-align:center;">MP Date</th>
+                            <th style="width:100px;">LOI</th>
+                            <th style="width:90px;text-align:center;">LOI Date</th>                            
+                            <th style="width:85px; text-align:center; white-space:nromal;">EV<br>($ million)</th>
+                            <th style="width:500px; white-space:normal;">Notes</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                                <%i=0%>
+                                <% @mp_companies.each do |mp_company| 
+                                    i=i+1%>
+                        <% if mp_company.declined %>
+                            <tr class="danger">
+                        <% elsif mp_company.loi.present? %>
+                            <tr class="success">
+                        <% else %>
+                            <tr>
+                        <% end %>
+                            <td class="text-center">
+                                <a type="button" href="/mps/<%=mp_company.mp.id %>/companies"><i class="fa fa-location-arrow"></i></a>
+                            </td>
+                            <td style="white-space:normal;"><a href="/companies/<%=mp_company.mp.deal.company.id %>"><%=mp_company.mp.deal.company.name %></a></td>
+                            <td style="white-space:normal;"><a href="/mps/<%=mp_company.mp.id %>/companies"><%=mp_company.mp_date %></a></td>
+                            <td>
+                                <% if mp_company.declined %>
+                                    Declined
+                                <% elsif mp_company.loi.present? %>
+                                    <a href="/lois/<%= mp_company.loi.id %>">LOI Submitted</a>
+                                <% else %>
+                                <% end %>
+                            </td>
+                            <td>
+                                <% if mp_company.loi.present? %>
+                                    <%= mp_company.loi.loi_date %>
+                                <% else %>
+                                <% end %>
+                            </td>
+                            <% if mp_company.loi.present? %>
+                                <% if mp_company.mp.adj_ebitda_target.present? %>
+                                    <td style="text-align: center;">$<%=mp_company.loi.enterprise_value %><br><%=(mp_company.loi.enterprise_value/mp_company.mp.adj_ebitda_target).round(1) %>x</td>
+                                <% else %>
+                                    <td style="text-align: center;">$<%=mp_company.loi.enterprise_value %></td>
+                                <% end %>
+                            <% else %>
+                            <% end %>
+                            <td  style="white-space:normal;">
+                                <% mp_company.loi.loi_highlights.joins(:highlight).order(id: :asc).each do |loi_highlight| %>
+                                <strong><%= loi_highlight.highlight.name %>: </strong><%= simple_format(loi_highlight.detail) %>
+                                <% end %>                                 
+                            </td>
+                        </tr>
+                        <%end%>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

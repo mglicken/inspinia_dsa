@@ -31,7 +31,7 @@
                             <% @person.notes.order("date desc").each do |note| %>
                     <tr>
                         <td class="text-center"><%= note.date %></td>
-                        <td><%= note.title %></td>
+                        <td><a href="/notes/<%= note.id %>"><%= note.title %></a></td>
                         <td>
                             <% note.people.each do |person| %>
                                 <p><a href="/people/<%=person.id%>"><%= person.name %></a></p>

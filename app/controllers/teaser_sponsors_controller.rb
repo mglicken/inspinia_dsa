@@ -62,7 +62,7 @@ before_action :ensure_banker_access,  only: [:new, :create, :edit, :update, :des
     @teaser_sponsor.nda_id = @nda.id
 
     if @teaser_sponsor.save
-      redirect_to "/teasers/#{@teaser_sponsor.teaser_id}", :notice => "Teaser Sponsor created successfully."
+      redirect_to "/teasers/#{@teaser_sponsor.teaser_id}/sponsors", :notice => "Teaser Sponsor created successfully."
     else
       render 'new'
     end

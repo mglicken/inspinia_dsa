@@ -41,6 +41,15 @@
               <input type="integer" id="sponsor_id" name="sponsor_id" placeholder="e.g., 17" class="form-control" value="<%= @mp_sponsor.sponsor_id %>">
             </div>
           </div>
+          <!-- Label and input for MP Date -->
+          <div class="form-group">
+            <label for="mp_date" class="col-sm-2 control-label">
+              MP Date
+            </label>
+            <div class="col-sm-10">
+              <input type="date" id="mp_date" name="mp_date" placeholder="e.g., 07/17/2018" class="form-control" value="<%= @mp_sponsor.mp_date %>">
+            </div>
+          </div>
           <!-- Label and input for LOI ID -->
           <div class="form-group">
             <label for="loi_id" class="col-sm-2 control-label">

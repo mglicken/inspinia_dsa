@@ -10,7 +10,7 @@
       <input type="hidden" class="js-switch_3"  />
       <input type="hidden" class="js-switch_4"  />
     </div>
-      <select name="company_id" data-placeholder="Add Companies..." class="chosen-select back-change"  tabindex="2" >
+      <select name="company_id" data-placeholder="Add Companies..." class="chosen-select"  tabindex="2" >
         <% Company.where(id: (Company.ids - TeaserCompany.where(teaser_id: @teaser.id).pluck(:company_id)).uniq).order("name asc").each do |company| %>
         <option value="<%=company.id %>"><%=company.name %></option>
         <% end %>
@@ -24,20 +24,20 @@
 </div>
 
 <script type="text/javascript">
-$(function() {
+  $(function() {
 
-    var elem = document.querySelector('.js-switch');
-    var switchery = new Switchery(elem, { color: '#1AB394' });
+      var elem = document.querySelector('.js-switch');
+      var switchery = new Switchery(elem, { color: '#1AB394' });
 
-    var elem_2 = document.querySelector('.js-switch_2');
-    var switchery_2 = new Switchery(elem_2, { color: '#ED5565' });
+      var elem_2 = document.querySelector('.js-switch_2');
+      var switchery_2 = new Switchery(elem_2, { color: '#ED5565' });
 
-    var elem_3 = document.querySelector('.js-switch_3');
-    var switchery_3 = new Switchery(elem_3, { color: '#1AB394' });
+      var elem_3 = document.querySelector('.js-switch_3');
+      var switchery_3 = new Switchery(elem_3, { color: '#1AB394' });
 
-    var elem_4 = document.querySelector('.js-switch_4');
-    var switchery_4 = new Switchery(elem_4, { color: '#f8ac59' });
-   
-    $('.chosen-select').chosen({width: "100%"});
-});
+      var elem_4 = document.querySelector('.js-switch_4');
+      var switchery_4 = new Switchery(elem_4, { color: '#f8ac59' });
+     
+      $('.chosen-select').chosen({width: "100%"});
+  });
 </script>

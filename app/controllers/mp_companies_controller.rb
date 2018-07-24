@@ -51,6 +51,7 @@ before_action :ensure_banker_access,  only: [:new, :create, :edit, :update, :des
 
     @mp_company.mp_id = params[:mp_id]
     @mp_company.company_id = params[:company_id]
+    @mp_company.mp_date = params[:mp_date]
     @loi = Loi.new
     @loi.name = @mp_company.mp.deal.company.name + " / " + @mp_company.company.name + " LOI"
     @loi.deal_id = @mp_company.mp.deal_id
@@ -108,6 +109,7 @@ before_action :ensure_banker_access,  only: [:new, :create, :edit, :update, :des
 
     @mp_company.mp_id = params[:mp_id]
     @mp_company.company_id = params[:company_id]
+    @mp_company.mp_date = params[:mp_date]
     @mp_company.loi_id = params[:loi_id]
     @mp_company.declined = params[:declined]
 

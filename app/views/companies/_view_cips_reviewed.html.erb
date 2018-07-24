@@ -83,7 +83,7 @@
                             <% end %>
                             <td  style="white-space:normal;">
                                 <% cip_company.ioi.ioi_highlights.joins(:highlight).order(id: :asc).each do |ioi_highlight| %>
-                                <strong><%= ioi_highlight.highlight.name %>: </strong><%= ioi_highlight.detail %><br>
+                                <strong><%= ioi_highlight.highlight.name %>: </strong><%= simple_format(ioi_highlight.detail) %>
                                 <% end %>                                 
                             </td>
                         </tr>

@@ -17,7 +17,7 @@ class MpSponsor < ActiveRecord::Base
 		end
 	end
 	def self.import(file)
-		allowed_attributes = [ "mp_id", "sponsor_id", "loi_id", "declined"]
+		allowed_attributes = [ "mp_id", "sponsor_id", "mp_date", "loi_id", "declined"]
 		CSV.foreach(file.path,headers: true) do |row|
 			mp_sponsors = find_by_id(row["id"]) || new
 			
