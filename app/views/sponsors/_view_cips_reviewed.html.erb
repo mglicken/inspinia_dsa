@@ -9,7 +9,7 @@
 </style>
 <div class="ibox collapsed float-e-margins">
     <div class="ibox-title">
-        <h5>CIPs Reviewed (<%= @cip_companies.count %>)</h5>
+        <h5>CIPs Reviewed (<%= @cip_sponsors.count %>)</h5>
         <div class="ibox-tools">
             <a class="collapse-link">
                 <i class="fa fa-chevron-up"></i>
@@ -38,59 +38,59 @@
                         </thead>
                         <tbody>
                                 <%i=0%>
-                                <% @cip_companies.each do |cip_company| 
+                                <% @cip_sponsors.each do |cip_sponsor| 
                                     i=i+1%>
-                        <% if cip_company.declined %>
+                        <% if cip_sponsor.declined %>
                             <tr class="danger">
-                        <% elsif cip_company.ioi.present? %>
+                        <% elsif cip_sponsor.ioi.present? %>
                             <tr class="success">
                         <% else %>
                             <tr>
                         <% end %>
                             <td class="text-center">
-                                <a type="button" href="/cips/<%=cip_company.cip.id %>/companies"><i class="fa fa-location-arrow"></i></a>
+                                <a type="button" href="/cips/<%=cip_sponsor.cip.id %>/companies"><i class="fa fa-location-arrow"></i></a>
                             </td>
-                            <td style="white-space:normal;"><a href="/companies/<%=cip_company.cip.deal.company.id %>"><%=cip_company.cip.deal.company.name %></a></td>
+                            <td style="white-space:normal;"><a href="/companies/<%=cip_sponsor.cip.deal.company.id %>"><%=cip_sponsor.cip.deal.company.name %></a></td>
                             <td>
-                                <% if cip_company.declined %>
+                                <% if cip_sponsor.declined %>
                                     Declined
-                                <% elsif cip_company.ioi.present? %>
-                                    <a href="/iois/<%= cip_company.ioi.id %>">IOI Submitted</a>
+                                <% elsif cip_sponsor.ioi.present? %>
+                                    <a href="/iois/<%= cip_sponsor.ioi.id %>">IOI Submitted</a>
                                 <% else %>
                                 <% end %>
                             </td>
                             <td>
-                                <% if cip_company.ioi.present? %>
-                                    <%= cip_company.ioi.ioi_date %>
+                                <% if cip_sponsor.ioi.present? %>
+                                    <%= cip_sponsor.ioi.ioi_date %>
                                 <% else %>
                                 <% end %>
                             </td>
                             <td style="text-align: center;">
-                            <% if cip_company.ioi.present? %>
-                                <% if cip_company.cip.adj_ebitda_target.present? %>
-                                    $<%=cip_company.ioi.low_purchase_price %><br><%=(cip_company.ioi.low_purchase_price/cip_company.cip.adj_ebitda_target).round(1) %>x
+                            <% if cip_sponsor.ioi.present? %>
+                                <% if cip_sponsor.cip.adj_ebitda_target.present? %>
+                                    $<%=cip_sponsor.ioi.low_purchase_price %><br><%=(cip_sponsor.ioi.low_purchase_price/cip_sponsor.cip.adj_ebitda_target).round(1) %>x
                                 <% else %>
-                                    $<%=cip_company.ioi.low_purchase_price %>
+                                    $<%=cip_sponsor.ioi.low_purchase_price %>
                                 <% end %>
                             <% else %>
                             <% end %>
                             </td>
                             <td style="text-align: center;">
-                            <% if cip_company.ioi.present? %>
-                                <% if cip_company.cip.adj_ebitda_target.present? %>
-                                    $<%=cip_company.ioi.high_purchase_price %><br><%=(cip_company.ioi.high_purchase_price/cip_company.cip.adj_ebitda_target).round(1) %>x
+                            <% if cip_sponsor.ioi.present? %>
+                                <% if cip_sponsor.cip.adj_ebitda_target.present? %>
+                                    $<%=cip_sponsor.ioi.high_purchase_price %><br><%=(cip_sponsor.ioi.high_purchase_price/cip_sponsor.cip.adj_ebitda_target).round(1) %>x
                                 <% else %>
-                                    $<%=cip_company.ioi.high_purchase_price %>
+                                    $<%=cip_sponsor.ioi.high_purchase_price %>
                                 <% end %>
+                                </td>
                             <% else %>
                             <% end %>
-                            </td>
                             <td  style="white-space:normal;">
-                                <% if cip_company.ioi.present? %>
-                                    <% cip_company.ioi.ioi_highlights.joins(:highlight).order(id: :asc).each do |ioi_highlight| %>
-                                    <strong><%= ioi_highlight.highlight.name %>: </strong><%= simple_format(ioi_highlight.detail) %>
-                                    <% end %>
-                                <% end %>           
+                                <%if cip_sponsor.ioi.present? %>
+                                    <% cip_sponsor.ioi.ioi_highlights.joins(:highlight).order(id: :asc).each do |ioi_highlight| %>
+                                        <strong><%= ioi_highlight.highlight.name %>: </strong><%= simple_format(ioi_highlight.detail) %>
+                                    <% end %>       
+                                <% end %>                                
                             </td>
                         </tr>
                         <%end%>

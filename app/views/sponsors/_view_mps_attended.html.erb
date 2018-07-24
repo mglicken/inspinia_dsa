@@ -9,7 +9,7 @@
 </style>
 <div class="ibox collapsed float-e-margins">
     <div class="ibox-title">
-        <h5>MPs Reviewed (<%= @mp_companies.count %>)</h5>
+        <h5>MPs Reviewed (<%= @mp_sponsors.count %>)</h5>
         <div class="ibox-tools">
             <a class="collapse-link">
                 <i class="fa fa-chevron-up"></i>
@@ -38,50 +38,50 @@
                         </thead>
                         <tbody>
                                 <%i=0%>
-                                <% @mp_companies.each do |mp_company| 
+                                <% @mp_sponsors.each do |mp_sponsor| 
                                     i=i+1%>
-                        <% if mp_company.declined %>
+                        <% if mp_sponsor.declined %>
                             <tr class="danger">
-                        <% elsif mp_company.loi.present? %>
+                        <% elsif mp_sponsor.loi.present? %>
                             <tr class="success">
                         <% else %>
                             <tr>
                         <% end %>
                             <td class="text-center">
-                                <a type="button" href="/mps/<%=mp_company.mp.id %>/companies"><i class="fa fa-location-arrow"></i></a>
+                                <a type="button" href="/mps/<%=mp_sponsor.mp.id %>/companies"><i class="fa fa-location-arrow"></i></a>
                             </td>
-                            <td style="white-space:normal;"><a href="/companies/<%=mp_company.mp.deal.company.id %>"><%=mp_company.mp.deal.company.name %></a></td>
-                            <td style="white-space:normal;"><a href="/mps/<%=mp_company.mp.id %>/companies"><%=mp_company.mp_date %></a></td>
+                            <td style="white-space:normal;"><a href="/companies/<%=mp_sponsor.mp.deal.company.id %>"><%=mp_sponsor.mp.deal.company.name %></a></td>
+                            <td style="white-space:normal;"><a href="/mps/<%=mp_sponsor.mp.id %>/companies"><%=mp_sponsor.mp_date %></a></td>
                             <td>
-                                <% if mp_company.declined %>
+                                <% if mp_sponsor.declined %>
                                     Declined
-                                <% elsif mp_company.loi.present? %>
-                                    <a href="/lois/<%= mp_company.loi.id %>">LOI Submitted</a>
+                                <% elsif mp_sponsor.loi.present? %>
+                                    <a href="/lois/<%= mp_sponsor.loi.id %>">LOI Submitted</a>
                                 <% else %>
                                 <% end %>
                             </td>
                             <td>
-                                <% if mp_company.loi.present? %>
-                                    <%= mp_company.loi.loi_date %>
+                                <% if mp_sponsor.loi.present? %>
+                                    <%= mp_sponsor.loi.loi_date %>
                                 <% else %>
                                 <% end %>
                             </td>
                             <td style="text-align: center;">
-                            <% if mp_company.loi.present? %>
-                                <% if mp_company.mp.adj_ebitda_target.present? %>
-                                    $<%=mp_company.loi.enterprise_value %><br><%=(mp_company.loi.enterprise_value/mp_company.mp.adj_ebitda_target).round(1) %>x
+                            <% if mp_sponsor.loi.present? %>
+                                <% if mp_sponsor.mp.adj_ebitda_target.present? %>
+                                    $<%=mp_sponsor.loi.enterprise_value %><br><%=(mp_sponsor.loi.enterprise_value/mp_sponsor.mp.adj_ebitda_target).round(1) %>x
                                 <% else %>
-                                    $<%=mp_company.loi.enterprise_value %>
+                                    $<%=mp_sponsor.loi.enterprise_value %>
                                 <% end %>
                             <% else %>
                             <% end %>
                             </td>
                             <td  style="white-space:normal;">
-                                <% if mp_company.loi.present? %>
-                                    <% mp_company.loi.loi_highlights.joins(:highlight).order(id: :asc).each do |loi_highlight| %>
-                                    <strong><%= loi_highlight.highlight.name %>: </strong><%= simple_format(loi_highlight.detail) %>
+                                <% if mp_sponsor.loi.present? %>
+                                    <% mp_sponsor.loi.loi_highlights.joins(:highlight).order(id: :asc).each do |loi_highlight| %>
+                                        <strong><%= loi_highlight.highlight.name %>: </strong><%= simple_format(loi_highlight.detail) %>
                                     <% end %>
-                                <% end %>            
+                                <% end %>                                 
                             </td>
                         </tr>
                         <%end%>
