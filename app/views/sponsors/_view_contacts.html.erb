@@ -1,0 +1,41 @@
+<div class="row">
+    <div class="col-lg-12">
+        <div class="ibox collapsed">
+            <div class="ibox-title">
+                <h5>Contacts (<%= @sponsor.sponsor_histories.count%>)</h5>
+                <div class="ibox-tools">
+                    <a class="collapse-link">
+                        <i class="fa fa-chevron-up"></i>
+                    </a>
+                    <a class="close-link">
+                        <i class="fa fa-times"></i>
+                    </a>
+                </div>
+            </div>
+            <div class="ibox-content">
+              <div class="wrapper wrapper-content">
+                  <div class="row">
+                      <% @sponsor.sponsor_histories.each do |sponsor_history| %>
+                        <div class="col-lg-2">
+                          <div class="ibox">
+                              <div class="product-box">
+
+                                    <a href="/people/<%= sponsor_history.person_id %>">
+                                      <!-- Make Height 225px if want to look right, need to make it clip -->
+                                      <img src="<%= sponsor_history.person.image_url %>" width = 100%>
+                                    
+                                    </a>
+                                  <div class="product-desc">
+                                      <strong><%=sponsor_history.person.name %></strong>
+                                      <small class="text-muted"><%=sponsor_history.role.name %></small><br>
+                                  </div>
+                              </div>
+                          </div>
+                        </div>
+                      <% end %>
+                  </div>
+              </div>
+            </div>
+        </div>
+    </div>
+</div>

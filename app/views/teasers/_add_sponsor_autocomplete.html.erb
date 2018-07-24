@@ -11,7 +11,7 @@
       <input type="hidden" class="js-switch_4"  />
     </div>
       <select name="sponsor_id" data-placeholder="Add Sponsors..." class="chosen-select back-change"  tabindex="2" >
-        <% Sponsor.where(id: (sponsor.ids - TeaserSponsor.where(teaser_id: @teaser.id).pluck(:sponsor_id)).uniq).order("name asc").each do |sponsor| %>
+        <% Sponsor.where(id: (Sponsor.ids - TeaserSponsor.where(teaser_id: @teaser.id).pluck(:sponsor_id)).uniq).order("name asc").each do |sponsor| %>
         <option value="<%=sponsor.id %>"><%=sponsor.name %></option>
         <% end %>
       </select>

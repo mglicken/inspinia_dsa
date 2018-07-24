@@ -99,8 +99,14 @@ before_action :ensure_view_access,  only: [:show, :search]
     @deals = Deal.where(company_id: @companies.ids)
     @notes = @sponsor.notes
     @people = Person.where(id: SponsorHistory.where(sponsor_id: params[:id]).pluck(:person_id)).order("name ASC")
-    @nbps = Nbp.where(id: NbpSponsor.where(sponsor_id:@sponsor.id).pluck(:nbp_id)).order("name ASC")
-  end
+
+    @contacts = Person.where(id: @sponsor.sponsor_histories.joins(:person).order("name ASC").pluck(:person_id))
+    @nbp_sponsors = @sponsor.nbp_sponsors.joins(:sponsor).order("name ASC")
+    @teaser_sponsors = @sponsor.teaser_sponsors.joins(:sponsor).order("name ASC")
+    @cip_sponsors = @sponsor.cip_sponsors.joins(:sponsor).order("name ASC")
+    @mp_sponsors = @sponsor.mp_sponsors.joins(:sponsor).order("name ASC")
+   
+   end
 
   def new
     @sponsor = Sponsor.new

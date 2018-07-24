@@ -17,7 +17,7 @@
                 <table class="table table-hover margin bottom">
                     <thead>
                     <tr>
-                        <th style="width:80%">Company</th>
+                        <th style="width:80%">Sponsor</th>
                         <th></th>
 
                     </tr>
@@ -26,7 +26,7 @@
                             <% @person.sponsor_histories.order("start_year desc").each do |sponsor_history| %>
                     <tr>
                         <td>
-                            <strong><a href="/companies/<%= sponsor_history.company_id%>"><%= sponsor_history.company.name %></a></strong> (<%= sponsor_history.role.name %>)
+                            <strong><a href="/sponsors/<%= sponsor_history.sponsor_id%>"><%= sponsor_history.sponsor.name %></a></strong> (<%= sponsor_history.role.name %>)
                             <%= render('shared/edit_sponsor_history_modal', :sponsor_history => sponsor_history)%>
                         </td>
                         <td>

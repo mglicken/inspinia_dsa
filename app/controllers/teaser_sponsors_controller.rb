@@ -53,7 +53,7 @@ before_action :ensure_banker_access,  only: [:new, :create, :edit, :update, :des
     @teaser_sponsor.sponsor_id = params[:sponsor_id]
 
     @nda = Nda.new
-    @nda.name = @teaser_sponsor.teaser.deal.sponsor.name + " / " + @teaser_sponsor.sponsor.name + " NDA"
+    @nda.name = @teaser_sponsor.teaser.deal.company.name + " / " + @teaser_sponsor.sponsor.name + " NDA"
     @nda.deal_id = @teaser_sponsor.teaser.deal_id
     @nda.nda_date = @teaser_sponsor.teaser.teaser_date
     @nda.status_date = Date.current

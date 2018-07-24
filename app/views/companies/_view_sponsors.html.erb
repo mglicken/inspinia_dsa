@@ -28,7 +28,7 @@
 
                             <% @sponsors.each do |sponsor| %>
                     <tr>
-                        <td><a href="/companies/<%= sponsor.id %>"><%= sponsor.name %></a></td>
+                        <td><a href="/sponsors/<%= sponsor.id %>"><%= sponsor.name %></a></td>
                         <td class="text-center">
                             <% if sponsor.state.present? %>
                                 <%= sponsor.city %>, <%= sponsor.state %>
