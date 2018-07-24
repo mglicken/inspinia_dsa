@@ -1,6 +1,6 @@
 <div class="ibox collapsed float-e-margins">
     <div class="ibox-title">
-        <h5>Subsidiaries (<%= @company.subsidiary_children.count %>)</h5>
+        <h5>Parent Companies (<%= @company.subsidiary_parents.count %>)</h5>
         <div class="ibox-tools">
             <a class="collapse-link">
                 <i class="fa fa-chevron-up"></i>
@@ -27,33 +27,33 @@
                     </thead>
                     <tbody>
 
-                            <% @company.subsidiary_children.each do |subsidiary| %>
+                            <% @company.subsidiary_parents.each do |subsidiary| %>
                     <tr>
-                        <td><a href="/companies/<%= subsidiary.child.id %>"><%= subsidiary.child.name %></a></td>
+                        <td><a href="/companies/<%= subsidiary.parent.id %>"><%= subsidiary.parent.name %></a></td>
                         <td class="text-center"><%= subsidiary.acquisition_date %></td>
                         <td class="text-center">
-                            <% if subsidiary.child.state.present? %>
-                                <%= subsidiary.child.city %>, <%= subsidiary.child.state %>
+                            <% if subsidiary.parent.state.present? %>
+                                <%= subsidiary.parent.city %>, <%= subsidiary.parent.state %>
                             <% end %>      
                         </td>
                         <td class="text-center">
-                        <% if subsidiary.child.phone.present? %>
-                            (<%= subsidiary.child.phone.to_s[0..2] %>) <%= subsidiary.child.phone.to_s[3..5] %>-<%= subsidiary.child.phone.to_s[6..9]%>
+                        <% if subsidiary.parent.phone.present? %>
+                            (<%= subsidiary.parent.phone.to_s[0..2] %>) <%= subsidiary.parent.phone.to_s[3..5] %>-<%= subsidiary.parent.phone.to_s[6..9]%>
                         <% end %>
                         </td>
                         <td>
-                            <% if subsidiary.child.web_address.present? %>
-                                <%if subsidiary.child.web_address[0..4] == "https" %>
-                                 <a href="<%= subsidiary.child.web_address %>" target="_blank"><%= subsidiary.child.web_address[8..(subsidiary.child.web_address.length-1)] %></a>
-                                <% elsif subsidiary.child.web_address[0..3] == "http" %>
-                                  <a href="<%= subsidiary.child.web_address %>" target="_blank"><%= subsidiary.child.web_address[7..(subsidiary.child.web_address.length-1)] %></a>
+                            <% if subsidiary.parent.web_address.present? %>
+                                <%if subsidiary.parent.web_address[0..4] == "https" %>
+                                 <a href="<%= subsidiary.parent.web_address %>" target="_blank"><%= subsidiary.parent.web_address[8..(subsidiary.parent.web_address.length-1)] %></a>
+                                <% elsif subsidiary.parent.web_address[0..3] == "http" %>
+                                  <a href="<%= subsidiary.parent.web_address %>" target="_blank"><%= subsidiary.parent.web_address[7..(subsidiary.parent.web_address.length-1)] %></a>
                                 <%else%>
-                                  <a href="<%= subsidiary.child.web_address %>" target="_blank"><%= subsidiary.child.web_address %></a>
+                                  <a href="<%= subsidiary.parent.web_address %>" target="_blank"><%= subsidiary.parent.web_address %></a>
                                 <%end%>
                             <%end%>
                         </td>
                         <td>
-                            <a href="<%= subsidiary.child.linkedin_url%>" class="btn btn-xs" target="_blank"><i class="fa fa-linkedin"></i></a>
+                            <a href="<%= subsidiary.parent.linkedin_url%>" class="btn btn-xs" target="_blank"><i class="fa fa-linkedin"></i></a>
                         </td>
                     </tr>
                     <%end%>

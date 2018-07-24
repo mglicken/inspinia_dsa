@@ -60,9 +60,11 @@ before_action :ensure_banker_access,  only: [:new, :create, :edit, :update, :des
         if @diligence_advisor.save
           if @diligence_advisor.deal.present?
             if @diligence_advisor.advisor_type.name == "Quality of Earnings Advisor"
-              redirect_to "/qoves/#{ @diligence_advisor.deal.qoves.last.id}/", :notice => "#{@diligence_advisor.advisor_type.name} Advisor Type added successfully."
+              redirect_to "/deals/#{ @diligence_advisor.deal_id}/qoves", :notice => "#{@diligence_advisor.advisor_type.name} Advisor Type added successfully."
             elsif @diligence_advisor.advisor_type.name == "Market Study Advisor"
-              redirect_to "/market_studies/#{ @diligence_advisor.deal.market_studies.last.id}", :notice => "#{@diligence_advisor.advisor_type.name} Advisor Type added successfully."
+              redirect_to "/deals/#{ @diligence_advisor.deal_id}/market_studies", :notice => "#{@diligence_advisor.advisor_type.name} Advisor Type added successfully."
+            elsif @diligence_advisor.advisor_type.name == "Legal Advisor"
+              redirect_to "/deals/#{ @diligence_advisor.deal_id}", :notice => "#{@diligence_advisor.advisor_type.name} Advisor Type added successfully."
             end
           elsif @diligence_advisor.nda.present?
             redirect_to "/ndas/#{ @diligence_advisor.nda_id}", :notice => "#{@diligence_advisor.advisor_type.name} Advisor Type added successfully."
