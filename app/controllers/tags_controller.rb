@@ -101,7 +101,7 @@ before_action :ensure_banker_access,  only: [:show, :new, :create, :edit, :updat
 
     @tag.destroy
 
-    redirect_to "/Tags", :notice => "Tag deleted."
+    redirect_to "/tags", :notice => "Tag deleted."
   end
   def import
     Tag.import(params[:file])

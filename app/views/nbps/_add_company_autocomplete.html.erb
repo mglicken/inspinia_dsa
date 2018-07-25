@@ -1,0 +1,44 @@
+<div class="ui-widget">
+  <form action="/create_nbp_company/" method="post" class="form-inline">
+
+    <input name="authenticity_token" type="hidden" value="<%= form_authenticity_token %>">
+
+    <!-- js-switch elements for formatting -->
+    <div>
+      <input type="hidden" class="js-switch" />
+      <input type="hidden" class="js-switch_2" />
+      <input type="hidden" class="js-switch_3"  />
+      <input type="hidden" class="js-switch_4"  />
+    </div>
+      <select name="company_id" data-placeholder="Add Companies..." class="chosen-select back-change input-sm col-lg-2"  tabindex="2" >
+        <% Company.where(id: (Company.ids - NbpCompany.where(nbp_id: @nbp.id, bucket_id: bucket.id).pluck(:company_id)).uniq).order("name asc").each do |company| %>
+        <option value="<%=company.id %>"><%=company.name %></option>
+        <% end %>
+      </select>
+    <input name="nbp_id" type="hidden" value="<%= @nbp.id%>">
+    <input name="bucket_id" type="hidden" value="<%= bucket.id%>">
+    <button class="btn btn-success btn-xs">
+      Enter
+    </button>
+
+  </form>
+</div>
+
+<script type="text/javascript">
+$(function() {
+
+    var elem = document.querySelector('.js-switch');
+    var switchery = new Switchery(elem, { color: '#1AB394' });
+
+    var elem_2 = document.querySelector('.js-switch_2');
+    var switchery_2 = new Switchery(elem_2, { color: '#ED5565' });
+
+    var elem_3 = document.querySelector('.js-switch_3');
+    var switchery_3 = new Switchery(elem_3, { color: '#1AB394' });
+
+    var elem_4 = document.querySelector('.js-switch_4');
+    var switchery_4 = new Switchery(elem_4, { color: '#f8ac59' });
+   
+    $('.chosen-select').chosen({width: "80%"});
+});
+</script>

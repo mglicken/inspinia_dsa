@@ -23,37 +23,36 @@
   <%= render('view_bucket_labels', buckets: @buckets, nbp: @nbp, size: size) %>
 
 <% for i in 1..4 %>
-  <%if i != 1 %>
-    <div class="row container" style="background-color: #f2f2f2;">
-    <strong>Tier <%= i %></strong>
+    <div class="row ibox" style="margin-top: 10px;margin-bottom: 0px;">
+      <strong style="font-size: 18px;">Tier <%= i %>:</strong>
     </div>
-  <% end %>
-  <div class="row container panel panel-default" style="border-color: #f2f2f2; border-width: 2px;">
+
+  <div class="row ibox-content">
     <% for j in 1..number_buckets %>
       <div class="col-lg-<%= size %> connectedSortable" id="sortable<%=i.to_s + j.to_s%>" style="text-align:center; padding-top:15px; border-color: #f2f2f2; border-width: 10px; font-size: 10px;">
         <% Company.where(id: @nbp_companies.where(bucket_id: @buckets[j-1].id, tier_id: i).pluck(:company_id)).order('name ASC').each do |company| %>
-          <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 isotope-item" id="<%=NbpCompany.find_by(company_id: company.id, bucket_id: @nbp.buckets[j-1].id).id %>">
+          <div style="margin:0px" id="<%=NbpCompany.find_by(company_id: company.id, bucket_id: @nbp.buckets[j-1].id).id %>">
+            <div class="ibox collapsed">
             <%if company.nbp_companies.find_by(bucket_id: @nbp.buckets[j-1].id).tier_id == 1 %>
-              <div class="panel panel-primary">
+              <div class="ibox-title bg-primary">
             <%elsif company.nbp_companies.find_by(bucket_id: @nbp.buckets[j-1].id).tier_id == 2 %>
-              <div class="panel panel-success">
+              <div class="ibox-title bg-success">
             <%elsif company.nbp_companies.find_by(bucket_id: @nbp.buckets[j-1].id).tier_id == 3 %>
-              <div class="panel panel-warning">
+              <div class="ibox-title bg-warning">
             <%else%>
-              <div class="panel panel-danger">
+              <div class="ibox-title bg-danger">
             <%end%>
-              <div class="panel-heading" style="padding-top:5px; padding-bottom:10px;">
-                <div class="pull-right">
-                    <%= link_to content_tag(:i,nil,class: 'fa fa-times'), "/delete_nbp_company/#{ company.nbp_companies.find_by(bucket_id: @nbp.buckets[j-1].id).id }", :class => "btn btn-xs", :style=> "padding-top:0px; color:white;", :remote => true  %>
-
-                </div>
-                <strong ><a style="color:white" href="/companies/<%= company.id %>"><%= company.name %></a></strong>
+              <div class="col-lg-9">
+              <div class="ibox-tools" style="text-align: left">
+                <strong ><a href="/companies/<%= company.id %>" style="color:white; padding-bottom: 10px;"><%= company.name %></a> <a class="collapse-link" style="color:white" ><i class="fa fa-chevron-up"></i></a></strong>
               </div>
-              <div class="panel-body" style="padding-top:5px; padding-bottom:5px;">
-
-                <div class="pull-right">
+              </div>
+                <div class="pull-right col-lg-3" style="margin-right: 0px;">
                   <%= render('shared/edit_nbp_company_modal', nbp_company: company.nbp_companies.find_by(bucket_id: @buckets[j-1])) %>
+                  <%= link_to content_tag(:i,nil,class: 'fa fa-times'), "/delete_nbp_company/#{ company.nbp_companies.find_by(bucket_id: @nbp.buckets[j-1].id).id }", :style=> "font-size:10px; color:white;", :remote => true  %>
                 </div>
+              </div>
+              <div class="ibox-content" >
 
                 <% if company.nbp_companies.find_by(bucket_id: @buckets[j-1].id).strip.present? %>
                   <div style="text-align: left">
@@ -84,7 +83,7 @@
     });
 
     $( "#sortable11, #sortable12, #sortable13, #sortable14, #sortable21, #sortable22, #sortable23, #sortable24, #sortable31, #sortable32, #sortable33, #sortable34,#sortable41, #sortable42, #sortable43, #sortable44" ).sortable({
-      axis: "y"
+      
 
     });
 
