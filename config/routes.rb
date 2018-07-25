@@ -725,6 +725,7 @@ Myapp::Application.routes.draw do
   get "/nbps/:id", :controller => "nbps", :action => "show"
   get "/nbps/:id/sponsors", :controller => "nbps", :action => "show_sponsors"
   get "/nbps/:id/companies", :controller => "nbps", :action => "show_companies"
+  get "/nbps/:id/companies/table", :controller => "nbps", :action => "show_companies_table"
   get "/nbp_search/:search", :controller => "nbps", :action => "search"
 
   # UPDATE

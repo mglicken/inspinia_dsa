@@ -1,0 +1,181 @@
+<style>
+.scrollbar {
+  overflow-x: scroll;
+  white-space: nowrap;
+  padding: 5px;
+  padding-bottom: 0px;
+  margin-right: 10px;
+}
+</style>
+<br>
+<div class="row">
+  <div class="pull-right">
+    <div class="btn-group-vertical">
+      <%= render('shared/file_buyer_download_upload', type: "strategic", nbp: @nbp) %>
+
+      <%if @buckets.count < 4%>
+        <%= render('shared/create_bucket_modal',nbp: @nbp) %>
+      <%end%>
+      <br>
+      <% if @nbp_companies.present? %>
+      <form method="get" class="form-horizontal" id="nbp-cos-form-id" name="nbp-cos-form-name"> 
+      <!-- Hidden input for authenticity token to protect from forgery -->
+        <button class="btn btn-success" id="nbp-cos-button-id">
+          Save Strategic Buyer Bucket Layout
+        </button>
+      </form>
+      <% end %>
+    </div>
+  </div> 
+  <div class="col-lg-offset-1 col-lg-8">
+    <div class="ibox-content">
+        <h3 class="ibox-title"><%= @nbp.name %></h3>
+      <div class="ibox-body">
+        <div class="row">
+          <div class="col-lg-12">
+            <dl class="dl-horizontal" style="font-size:10px">
+
+              <dt>Deal:</dt>
+              <dd> <a href="/deals/<%= @nbp.deal_id %>"><%= @nbp.deal.name %></a></dd>
+              <dt>Company:</dt>
+              <dd> <a href="/companies/<%= @nbp.deal.company.id %>"><%= @nbp.deal.company.name %></a></dd>
+              <dt>Date:</dt>
+              <dd><%= @nbp.nbp_date %></dd>
+              <dt>Tier 1:</dt>
+              <dd><%= @nbp_companies.where(tier_id: 1).count %></dd>
+              <dt>Tier 2:</dt>
+              <dd><%= @nbp_companies.where(tier_id: 2).count %></dd>
+              <dt>Other:</dt>
+              <dd><%= @nbp_companies.where(tier_id: [3,4]).count %></dd>
+              <dt>Acquirer Matrix Tags:</dt>
+              <dd>
+                <form action="/create_nbp_tag/<%= @nbp.id%>" method="post" class="form-horizontal">
+                  <input name="authenticity_token" type="hidden" value="<%= form_authenticity_token %>">
+                  <input type="text" class="" id="tags" name="name" style="width:300px">
+                  <button class="btn btn-success btn-xs">
+                    Enter
+                  </button>
+                </form>
+              </dd>
+              <br>
+              <dd>
+              <% @nbp.nbp_tags.each do |nbp_tag|%>
+                <span class="label label-success"><%= nbp_tag.tag.name %><a href="/delete_nbp_tag/<%= nbp_tag.id %>" ><span style="font: blue">| | |</span><i class="fa fa-times" style="color:white"></i></a></span>
+              <%end%>
+              </dd>
+            </dl>
+            <div class="btn-group btn-group-justified">
+              <a href="/nbps" class="btn btn-lincoln">
+                <i class="fa fa-reply"></i>
+              </a>
+
+              <%= render('shared/edit_nbp_modal', :nbp => @nbp)%>
+
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+<br>
+<div class="row">
+  <a class="btn btn-lincoln" href="/nbps/<%= @nbp.id %>">View Slides</a>
+  <a class="btn btn-lincoln" href="/nbps/<%= @nbp.id %>/sponsors">View Financial Acquirers</a>
+  <a class="btn btn-lincoln" href="/nbps/<%= @nbp.id %>/companies">View Strategic Acquirers (Tiers View)</a>
+</div>
+<br>
+
+<div class="row">
+  <div class="scrollbar">
+    <div class="col-lg-12">
+            <div class="ibox-content">
+              <table class="table table-hover margin bottom dataTables-NBP-Companies" style="table-layout: fixed;">
+                  <thead>
+                  <tr>
+                      <th style="width:40px;text-align:center;"></th>
+                      <th style="width:150px;">Company</th>
+                      <th style="width:250px;">Bucket</th>
+                      <th style="width:50px; text-align:center; white-space:normal;">Tier (1-4)</th>
+                      <th style="width:85px; text-align:center; white-space:normal;">Annual Net Sales<br>($ million)</th>
+                      <th style="width:85px; text-align:center; white-space:normal;">Annual EBITDA<br>($ million)</th>
+                      <th style="width:500px; white-space: wrap;">Lincoln Rationale</th>
+                      <th style="width:350px; white-space:normal;">Recent Acquisitions</th>                            
+                      <th style="width:500px; white-space:normal;">Internal Notes</th>
+                  </tr>
+                  </thead>
+                  <tbody>
+                  <%i=0%>
+                  <% @nbp_companies.each do |nbp_company| 
+                      i=i+1%>
+                  <% if nbp_company.tier_id == 1 %>
+                      <tr class="success">
+                  <% elsif nbp_company.tier_id == 2 %>
+                      <tr class="info">
+                  <% elsif nbp_company.tier_id == 3 %>
+                      <tr class="warning">
+                  <% else %>
+                      <tr class="danger">
+                  <% end %>
+                      <td class="text-center">
+                        <%= render('shared/edit_nbp_company_modal', nbp_company: nbp_company, color: "black") %>
+                      </td>
+                      <td style="white-space:normal;"><a href="/companies/<%=nbp_company.company.id %>"><%=nbp_company.company.name %></a></td>
+                      <td style="white-space:normal;"><a href="/nbps/<%=nbp_company.nbp.id %>/companies"><%=nbp_company.bucket.title %></a></td>
+                      <td style="text-align: center;"><%=nbp_company.tier_id %></td>
+                      <td style="text-align: center;">$300.0</td>
+                      <td style="text-align: center;">$25.0</td>
+                      <td style="white-space:normal;"><%= simple_format(nbp_company.strip) %></td>
+                      <td style="white-space:normal;">N/A</td>
+                      <td style="white-space:normal;"><%= simple_format(nbp_company.note) %></td>
+                  </tr>
+                  <%end%>
+                  </tbody>
+              </table>
+            </div>
+        </div>
+    </div>
+</div>
+<br>
+<br>
+<%= render('shared/quick_search_js') %>
+<script>
+
+$(function() {
+
+    $('.dataTables-NBP-Companies').DataTable({
+        pageLength: 100,
+        responsive: true,
+        dom: '<"html5buttons"B>lTfgitp',
+        buttons: [
+            { extend: 'copy'},
+            {extend: 'csv'},
+            {extend: 'excel', title: 'ExampleFile'},
+            {extend: 'pdf', title: 'ExampleFile'},
+
+            {extend: 'print',
+                customize: function (win){
+                    $(win.document.body).addClass('white-bg');
+                    $(win.document.body).css('font-size', '10px');
+
+                    $(win.document.body).find('table')
+                            .addClass('compact')
+                            .css('font-size', 'inherit');
+                }
+            }
+        ]
+
+    });
+
+
+});
+
+$('#tags').autocomplete({
+    source: '/tag_query.json',
+
+});
+
+</script>
+

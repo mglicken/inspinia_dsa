@@ -48,7 +48,7 @@
               </div>
               </div>
                 <div class="pull-right col-lg-3" style="margin-right: 0px;">
-                  <%= render('shared/edit_nbp_company_modal', nbp_company: company.nbp_companies.find_by(bucket_id: @buckets[j-1])) %>
+                  <%= render('shared/edit_nbp_company_modal', nbp_company: company.nbp_companies.find_by(bucket_id: @buckets[j-1]), color: "white") %>
                   <%= link_to content_tag(:i,nil,class: 'fa fa-times'), "/delete_nbp_company/#{ company.nbp_companies.find_by(bucket_id: @nbp.buckets[j-1].id).id }", :style=> "font-size:10px; color:white;", :remote => true  %>
                 </div>
               </div>

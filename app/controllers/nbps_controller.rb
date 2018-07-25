@@ -92,6 +92,19 @@ before_action :ensure_view_access,  only: [:search, :show, :show_companies, :sho
     end
   end
 
+  def show_companies_table
+    @nbp = Nbp.find(params[:id].to_i)
+    @nbp_companies = @nbp.nbp_companies.joins(:company).order("name ASC")
+    @companies = @nbp.companies
+    @buckets = @nbp.buckets
+    respond_to do |format|
+      format.html
+      format.xlsx {
+        response.headers['Content-Disposition'] = 'attachment; filename="Strategic_Acquirers_List.xlsx"'
+        }
+    end
+  end
+
   def new
     @nbp = Nbp.new
   end
