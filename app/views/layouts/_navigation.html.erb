@@ -1,5 +1,6 @@
+<style>
+</style>
 <nav class="navbar-default navbar-static-side" role="navigation">
-    <div class="sidebar-collapse">
         <ul class="nav metismenu" id="side-menu">
             <li class="nav-header">
                 <div class="dropdown profile-element">
@@ -46,16 +47,16 @@
                 <a href="#"><i class="fa fa-trophy"></i> <span class="nav-label" data-i18n="nav.deals">Deals</span><span class="fa arrow"></span></a>
                 <ul class="nav nav-second-level collapse <%= is_active_controller('deals', 'in') %>">
                     <% current_user.person.deals.where(deal_stage_id: [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16]).order("name ASC").each do |deal| %>
-                        <li class="<%= is_active_action('show')%>"><%= link_to deal.name, "/deals/#{deal.id}"%></li>
+                        <li class="<%= is_active_action('show')%> txt-sm"><%= link_to deal.name, "/deals/#{deal.id}"%></li>
                     <% end %>
                 </ul>
             </li>
             <li class="<%= is_active_controller('layouts') %>">
                 <a href="#"><i class="fa fa-th"></i> <span class="nav-label" data-i18n="nav.layouts">Slide Layouts</span><span class="fa arrow"></span></a>
                 <ul class="nav nav-second-level collapse <%= is_active_controller('layouts', 'in') %>">
-                    <li class="<%= is_active_action('index') %>"><%= link_to "Favorite Slides", "/favorite_slides" %></li>
+                    <li class="<%= is_active_action('index') %> txt-sm"><%= link_to "Favorite Slides", "/favorite_slides" %></li>
                     <% current_user.slide_layouts.order("name ASC").each do |slide_layout| %>
-                        <li class="<%= is_active_action('show')%>"><%= link_to slide_layout.name, "/slide_layouts/#{slide_layout.id}"%></li>
+                        <li class="<%= is_active_action('show')%> txt-sm"><%= link_to slide_layout.name, "/slide_layouts/#{slide_layout.id}"%></li>
                     <% end %>
                 </ul>
             </li>
@@ -63,7 +64,7 @@
                 <a href="#"><i class="fa fa-cogs"></i> <span class="nav-label" data-i18n="nav.companies">Companies</span><span class="fa arrow"></span></a>
                 <ul class="nav nav-second-level collapse <%= is_active_controller('companies', 'in') %>">
                     <% current_user.company_follows.joins(:company).order("name ASC").each do |company_follow| %>
-                        <li class="<%= is_active_action('show')%>"><%= link_to company_follow.company.name, "/companies/#{company_follow.company_id}"%></li>
+                        <li class="<%= is_active_action('show')%> txt-sm"><%= link_to company_follow.company.name, "/companies/#{company_follow.company_id}"%></li>
                     <% end %>
                 </ul>
             </li>
@@ -71,11 +72,9 @@
                 <a href="#"><i class="fa fa-university"></i> <span class="nav-label" data-i18n="nav.sponsors">Financial Sponsors</span><span class="fa arrow"></span></a>
                 <ul class="nav nav-second-level collapse <%= is_active_controller('sponsors', 'in') %>">
                     <% current_user.sponsor_follows.joins(:sponsor).order("name ASC").each do |sponsor_follow| %>
-                        <li class="<%= is_active_action('show')%>"><%= link_to sponsor_follow.sponsor.name, "/sponsors/#{sponsor_follow.sponsor_id}"%></li>
+                        <li class="<%= is_active_action('show')%> txt-sm"><%= link_to sponsor_follow.sponsor.name, "/sponsors/#{sponsor_follow.sponsor_id}"%></li>
                     <% end %>
                 </ul>
             </li>
         </ul>
-
-    </div>
 </nav>
