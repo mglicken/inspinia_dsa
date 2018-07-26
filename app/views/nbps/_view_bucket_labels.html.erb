@@ -1,15 +1,11 @@
-
-<%size_px = 1000/ buckets.count%>
 <div class="row container">
     <thead>
       <tr>
         <% buckets.each do |bucket| %>
           <div class="col-sm-<%= size %> col-md-<%= size %> col-lg-<%= size %>">
 
-            <div class="col-lg-12">
             <%=  render('add_company_autocomplete', bucket: bucket) %>
 
-            </div>
           </div>
         <% end %>
       </tr>
