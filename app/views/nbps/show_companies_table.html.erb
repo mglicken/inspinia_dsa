@@ -120,7 +120,9 @@
                       <tr class="danger">
                   <% end %>
                       <td class="text-center">
-                        <%= render('shared/edit_nbp_company_modal', nbp_company: nbp_company, color: "black") %>
+                        <%= render('shared/edit_nbp_company_modal', nbp_company: nbp_company, color: "black",, table: true) %>
+                        <%= render('shared/delete_nbp_company_modal', nbp_company: nbp_company, color: "black") %>
+
                       </td>
                       <td style="white-space:normal;"><a href="/companies/<%=nbp_company.company.id %>"><%=nbp_company.company.name %></a></td>
                       <td style="white-space:normal;"><a href="/nbps/<%=nbp_company.nbp.id %>/companies"><%=nbp_company.bucket.title %></a></td>

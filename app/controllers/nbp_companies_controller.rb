@@ -115,10 +115,15 @@ before_action :ensure_banker_access,  only: [:new, :create, :edit, :update, :upd
     @nbp_company.bucket_id = params[:bucket_id]
     @nbp_company.include_strip = params[:include_strip]    
     @nbp_company.strip = params[:strip]    
-    @nbp_company.note = params[:note]        
+    @nbp_company.note = params[:note]
+    table = params[:table]      
 
     if @nbp_company.save
-      redirect_to "/nbps/#{@nbp_company.nbp_id}/companies", :notice => "#{@nbp_company.company.name} created successfully."
+      if table
+        redirect_to "/nbps/#{@nbp_company.nbp_id}/companies/table", :notice => "#{@nbp_company.company.name} created successfully."
+      else
+        redirect_to "/nbps/#{@nbp_company.nbp_id}/companies", :notice => "#{@nbp_company.company.name} created successfully."
+      end
     else
       render 'edit'
     end
@@ -160,12 +165,12 @@ before_action :ensure_banker_access,  only: [:new, :create, :edit, :update, :upd
 
   def destroy
     @nbp_company = NbpCompany.find(params[:id])
-
+    table = params[:table]
     @nbp_company.destroy
 
     respond_to do |format|
       format.html do
-        redirect_to "/nbps/#{params[:id]}/companies", :notice => "Company removed."
+        redirect_to "/nbps/#{@nbp_company.nbp_id}/companies/table", :notice => "Company removed."
       end
       format.js do
         render('destroy.js.erb')
