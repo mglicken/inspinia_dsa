@@ -89,18 +89,21 @@
 <br>
 
 <div class="row">
-  <div class="scrollbar">
     <div class="col-lg-12">
-            <div class="ibox-content">
+        <div class="ibox-content">
+            <div class="scrollbar">
               <table class="table table-hover margin bottom dataTables-NBP-Companies" style="table-layout: fixed;">
                   <thead>
                   <tr>
                       <th style="width:40px;text-align:center;"></th>
                       <th style="width:150px;">Company</th>
                       <th style="width:250px;">Bucket</th>
-                      <th style="width:50px; text-align:center; white-space:normal;">Tier (1-4)</th>
+                      <th style="width:40px; text-align:center; white-space:normal;">Tier<br>(1-4)</th>
                       <th style="width:85px; text-align:center; white-space:normal;">Annual Net Sales<br>($ million)</th>
                       <th style="width:85px; text-align:center; white-space:normal;">Annual EBITDA<br>($ million)</th>
+                      <% @nbp.nbp_tags.order("tag_id ASC").each do |nbp_tag| %>
+                        <th style="width:85px; text-align:center; white-space:normal;"><%= nbp_tag.tag.name %></th>
+                      <% end %>
                       <th style="width:500px; white-space: wrap;">Lincoln Rationale</th>
                       <th style="width:350px; white-space:normal;">Recent Acquisitions</th>                            
                       <th style="width:500px; white-space:normal;">Internal Notes</th>
@@ -129,6 +132,22 @@
                       <td style="text-align: center;"><%=nbp_company.tier_id %></td>
                       <td style="text-align: center;">$300.0</td>
                       <td style="text-align: center;">$25.0</td>
+                      <% nbp_company.strip_tags.order("tag_id ASC").each do |strip_tag| %>
+                        
+                        <td style="text-align: center;">
+                        <% if strip_tag.value == 1 %>
+                          <%= link_to content_tag(:i,nil, class: 'fa fa-times'), "/update_strip_tag/#{strip_tag.id}/2/table", :id => "strip_tag_#{strip_tag.id}", :remote => true  %>
+                        <% elsif strip_tag.value == 2 %>
+                          <%= link_to content_tag(:i,nil, class: 'fa fa-circle-o'), "/update_strip_tag/#{strip_tag.id}/3/table", :id => "strip_tag_#{strip_tag.id}", :remote => true  %>
+                        <% elsif strip_tag.value == 3 %>
+                          <%= link_to content_tag(:i,nil, class: 'fa fa-dot-circle-o'), "/update_strip_tag/#{strip_tag.id}/4/table", :id => "strip_tag_#{strip_tag.id}", :remote => true  %>
+                        <% elsif strip_tag.value == 4 %>
+                          <%= link_to content_tag(:i,nil, class: 'fa fa-circle'), "/update_strip_tag/#{strip_tag.id}/5/table", :id => "strip_tag_#{strip_tag.id}", :remote => true  %>
+                        <% elsif strip_tag.value == 5 %>
+                          <%= link_to content_tag(:i,nil, class: 'fa fa-check'), "/update_strip_tag/#{strip_tag.id}/1/table", :id => "strip_tag_#{strip_tag.id}", :remote => true  %>
+                        <% end %>
+                        </td>
+                      <% end %>
                       <td style="white-space:normal;"><%= simple_format(nbp_company.strip) %></td>
                       <td style="white-space:normal;">N/A</td>
                       <td style="white-space:normal;"><%= simple_format(nbp_company.note) %></td>

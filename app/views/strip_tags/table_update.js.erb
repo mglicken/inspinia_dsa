@@ -1,0 +1,16 @@
+<% if @strip_tag.value == 1 %>
+	$('#strip_tag_<%= @strip_tag.id %>:first i').removeClass("fa fa-check").addClass("fa fa-times");
+	$('#strip_tag_<%= @strip_tag.id %>').attr("href", "/update_strip_tag/#{strip_tag.id}/2/table");
+<% elsif @strip_tag.value == 2 %>
+	$('#strip_tag_<%= @strip_tag.id %>:first i').removeClass("fa fa-times").addClass("fa fa-circle-o");
+	$('#strip_tag_<%= @strip_tag.id %>').attr("href", "/update_strip_tag/#{strip_tag.id}/3/table");
+<% elsif @strip_tag.value == 3 %>
+	$('#strip_tag_<%= @strip_tag.id %>:first i').removeClass("fa fa-circle-o").addClass("fa fa-dot-circle-o");
+	$('#strip_tag_<%= @strip_tag.id %>').attr("href", "/update_strip_tag/#{strip_tag.id}/4/table");
+<% elsif @strip_tag.value == 4 %>
+	$('#strip_tag_<%= @strip_tag.id %>:first i').removeClass("fa fa-circle-dot-o").addClass("fa fa-circle");
+	$('#strip_tag_<%= @strip_tag.id %>').attr("href", "/update_strip_tag/#{strip_tag.id}/5/table");
+<% elsif @strip_tag.value == 5 %>
+	$('#strip_tag_<%= @strip_tag.id %>:first i').removeClass("fa fa-circle").addClass("fa fa-check");
+	$('#strip_tag_<%= @strip_tag.id %>').attr("href", "/update_strip_tag/#{strip_tag.id}/1/table");
+<% end %>

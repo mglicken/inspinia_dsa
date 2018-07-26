@@ -108,6 +108,17 @@ before_action :ensure_banker_access,  only: [:new, :create, :edit, :update, :des
     end
   end
 
+  def table_update_value
+    @strip_tag = StripTag.find(params[:id])
+    @strip_tag.value = params[:value]
+    @strip_tag.save
+    respond_to do |format|
+      format.js do
+        render('table_update.js.erb')
+      end
+    end
+  end
+
   def destroy
     @strip_tag = StripTag.find(params[:id])
     @strip_tag.destroy
