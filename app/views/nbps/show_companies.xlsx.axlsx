@@ -64,19 +64,27 @@ wb = xlsx_package.workbook
 
 	wb.add_worksheet(name: "nbp_companies") do |sheet|
   
-	  sheet.add_row ["id", "nbp_id", "company_id", "company_id", "include", "strip", "note"]
+		title_row = ["id", "nbp_id", "company_id", "include", "strip", "note"]
+    	@nbp.nbp_tags.order("tag_id ASC").each do |nbp_tag|
+    		title_row.push(nbp_tag.tag.name)
+    	end
+    	sheet.add_row title_row
+
 	  
-	  # each nbp_company is a row on your spreadsheet
-	  @nbp_companies.joins(:company).order("name ASC").each do |nbp_company|
-	    sheet.add_row [
-	    	nbp_company.id,
-	    	nbp_company.nbp_id,
-	    	nbp_company.company.id,
-	    	nbp_company.company.name,
-	    	nbp_company.include_strip,
-	    	nbp_company.strip,
-	    	nbp_company.note]
-	  end
+		# each nbp_company is a row on your spreadsheet
+		@nbp_companies.joins(:company).order("name ASC").each do |nbp_company|
+		    nbp_company_row = [
+		    	nbp_company.id,
+		    	nbp_company.nbp_id,
+		    	nbp_company.company.id,
+		    	nbp_company.include_strip,
+		    	nbp_company.strip,
+		    	nbp_company.note]
+		    	nbp_company.strip_tags.order("tag_id ASC").each do |strip_tag|
+		    		nbp_company_row.push(strip_tag.value)
+		    	end
+    		sheet.add_row nbp_company_row		    	
+		end
 end
 
 end	
