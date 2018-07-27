@@ -14,15 +14,12 @@
 //= require slimscroll/jquery.slimscroll.min.js
 //= require inspinia.js
 //= require jquery-ujs/src/rails.js
-//= require select2
-//= require typehead/bootstrap3-typeahead.min.js
+//= require select2/select2.full.js
 //= require pdfjs/pdf.js
 //= require pdfjs/pdf.worker.js
 //= require iCheck/icheck.min.js
 //= require jeditable/jquery.jeditable.js
 //= require dataTables/datatables.min.js
-//= require chosen/chosen.jquery.js
-//= require jQuery-Autocomplete/dist/jquery.autocomplete.js
 
 //= require steps/jquery.steps.min.js
 //= require validate/jquery.validate.min.js

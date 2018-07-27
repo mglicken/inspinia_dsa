@@ -29,21 +29,13 @@
           <!-- Hidden input for authenticity token to protect from forgery -->
           <input name="authenticity_token" type="hidden" value="<%= form_authenticity_token %>">
 
-          <!-- js-switch elements for formatting -->
-          <div>
-            <input type="hidden" class="js-switch" />
-            <input type="hidden" class="js-switch_2" />
-            <input type="hidden" class="js-switch_3"  />
-            <input type="hidden" class="js-switch_4"  />
-          </div>
-
             <!-- Label and input for Company -->
             <div class="form-group">
               <h5><label for="company_id" class="col-sm-2 control-label">
                 Company
               </label></h5>
               <div class="col-sm-10">
-                <select name="company_id" data-placeholder="Choose a Company..." class="chosen-select back-change"  tabindex="2">
+                <select name="company_id" data-placeholder="Select Company..." class="select2 form-control form-inline"  tabindex="2" style="width:80%">
                   <% Company.where(id: (Company.ids - CompanyNote.where(note_id: @note.id).pluck(:company_id)).uniq).order("name asc").each do |company| %>
                   <option value="<%=company.id %>"><%=company.name %></option>
                   <% end %>
@@ -85,6 +77,6 @@ $(function() {
     var elem_4 = document.querySelector('.js-switch_4');
     var switchery_4 = new Switchery(elem_4, { color: '#f8ac59' });
    
-    $('.chosen-select').chosen({width: "80%"});
+    $('.select2').select2();
 });
 </script>
