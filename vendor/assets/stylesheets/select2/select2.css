@@ -58,6 +58,10 @@
   width: 100%;
   z-index: 1051; }
 
+.select2-dropdown.increasedzindexclass {
+  z-index: 999999;
+}
+
 .select2-results {
   display: block; }
 
