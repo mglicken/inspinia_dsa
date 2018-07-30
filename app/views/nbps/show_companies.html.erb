@@ -1,23 +1,5 @@
 <br>
 <div class="row">
-  <div class="pull-right">
-    <div class="btn-group-vertical">
-      <%= render('shared/file_buyer_download_upload', type: "strategic", nbp: @nbp) %>
-
-      <%if @buckets.count < 4%>
-        <%= render('shared/create_bucket_modal',nbp: @nbp) %>
-      <%end%>
-      <br>
-      <% if @nbp_companies.present? %>
-      <form method="get" class="form-horizontal" id="nbp-cos-form-id" name="nbp-cos-form-name"> 
-      <!-- Hidden input for authenticity token to protect from forgery -->
-        <button class="btn btn-success" id="nbp-cos-button-id">
-          Save Strategic Buyer Bucket Layout
-        </button>
-      </form>
-      <% end %>
-    </div>
-  </div> 
   <div class="col-lg-offset-1 col-lg-8">
     <div class="ibox-content">
         <h3 class="ibox-title"><%= @nbp.name %></h3>
@@ -70,14 +52,32 @@
 
     </div>
   </div>
+  <div class="col-lg-3">
+    <div class="btn-group-vertical">
+      <%= render('shared/file_buyer_download_upload', type: "strategic", nbp: @nbp) %>
+
+      <%if @buckets.count < 4%>
+        <%= render('shared/create_bucket_modal',nbp: @nbp) %>
+      <%end%>
+      <br>
+      <% if @nbp_companies.present? %>
+      <form method="get" class="form-horizontal" id="nbp-cos-form-id" name="nbp-cos-form-name"> 
+      <!-- Hidden input for authenticity token to protect from forgery -->
+        <button class="btn btn-success" id="nbp-cos-button-id">
+          Save Strategic Buyer Bucket Layout
+        </button>
+      </form>
+      <% end %>
+    </div>
+  </div> 
 </div>
 <br>
-<div class="row">
+<div class="row container">
   <a class="btn btn-lincoln" href="/nbps/<%= @nbp.id %>">View Slides</a>
   <a class="btn btn-lincoln" href="/nbps/<%= @nbp.id %>/sponsors">View Financial Acquirers</a>
   <a class="btn btn-lincoln" href="/nbps/<%= @nbp.id %>/companies/table">View Strategic Acquirers (Table View)</a>
 </div>
-<br>
+
 <%= render('view_companies') %>
 <br>
 <br>

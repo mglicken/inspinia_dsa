@@ -908,7 +908,7 @@ Myapp::Application.routes.draw do
   get "/people/:id", :controller => "people", :action => "show"
   get "/person_search/:search", :controller => "people", :action => "search"
   get "/person_query", :controller => "people", :action => "index_query" 
-
+  post "/person_image_query", :controller => "people", :action => "image_query" 
 
   # UPDATE
   get "/people/:id/edit", :controller => "people", :action => "edit"

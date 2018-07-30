@@ -98,6 +98,7 @@ GEM
     jbuilder (1.5.3)
       activesupport (>= 3.0.0)
       multi_json (>= 1.2.0)
+    json (2.1.0)
     loofah (2.2.2)
       crass (~> 1.0.2)
       nokogiri (>= 1.5.9)
@@ -234,6 +235,7 @@ DEPENDENCIES
   devise
   font-awesome-rails (= 4.7.0.1)
   jbuilder (~> 1.2)
+  json
   pg (~> 0.21.0)
   rails (= 5.0.1)
   rails_12factor

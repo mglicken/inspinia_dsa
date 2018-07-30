@@ -32,16 +32,14 @@
     </div>
   </div>
     <div class="col-lg-3">
-    <div class="btn-group-vertical">
       <%= render('shared/file_buyer_download_upload', type: "financial", nbp: @nbp) %>
 
       <%= render('add_sponsor_autocomplete', nbp: @nbp) %>
-      
-    </div>
+
   </div> 
 </div>
 <br>
-<div class="row">
+<div class="row container">
   <a class="btn btn-lincoln" href="/nbps/<%= @nbp.id %>">View Slides</a>
   <a class="btn btn-lincoln" href="/nbps/<%= @nbp.id %>/companies">View Strategic Acquirers (Tiers View)</a>
   <a class="btn btn-lincoln" href="/nbps/<%= @nbp.id %>/companies/table">View Strategic Acquirers (Table View)</a>

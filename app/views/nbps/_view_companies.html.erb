@@ -2,28 +2,10 @@
 <% number_buckets = @buckets.count %>
 <% size_perc = "#{100/@buckets.count - 5}%"%> 
 <% size = "#{12/ @buckets.count }" %>
-<br>
+<% size_px = "#{1555/ @buckets.count }px" %>
+<div style="margin:20px">
 
-<div class="row container">
-  <table class="table">
-    <thead>
-      <tr>
-        <% @buckets.each do |bucket| %>
-          <td class="panel col" style="text-align: center; border-width: 3px; border-color: #FFFFFF; background-color: #006b6e; color: #ffffff; padding: 5px; width:<%= size_perc%>">
-              <div class="pull-right">
-                <%= render('shared/delete_bucket_modal', bucket: bucket, color: "white") %>
-              </div>
-              <div style="width: <%= 1100/@buckets.count %>px; text-align: center">
-                <%= render('shared/edit_bucket_modal',nbp: @nbp, bucket: bucket) %>
-              </div>
-          </td>
-        <% end %>
-      </tr>
-    </thead>
-  </table> 
-</div>
-
-  <%= render('view_bucket_labels', buckets: @buckets, nbp: @nbp, size: size) %>
+ <%= render('view_bucket_labels', buckets: @buckets, nbp: @nbp, size: size, size_px: size_px) %>
 
 <% for i in 1..4 %>
     <div class="row ibox" style="margin-top: 10px;margin-bottom: 0px;">
@@ -75,7 +57,7 @@
     <% end %>
   </div>
 <% end %>
-
+</div>
   <script>
 
   $( function() {

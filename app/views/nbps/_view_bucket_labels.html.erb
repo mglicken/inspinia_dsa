@@ -1,22 +1,27 @@
-<div class="row container">
+
+<% buckets.each do |bucket| %>
+  <div class="col-lg-<%= size %>">
+    <%=  render('add_company_autocomplete', bucket: bucket) %>
+  </div>
+<% end %>
+<br>
+<br>
+<div class="row container" style="margin-top: 10px;padding-bottom: 0px;">
+  <table class="table">
     <thead>
       <tr>
-        <% buckets.each do |bucket| %>
-          <div class="col-sm-<%= size %> col-md-<%= size %> col-lg-<%= size %>">
-
-            <%=  render('add_company_autocomplete', bucket: bucket) %>
-
-          </div>
+        <% @buckets.each do |bucket| %>
+          <td class="panel col" style="text-align: center; border-width: 3px; border-color: #FFFFFF; background-color: #006b6e; color: #ffffff; padding: 5px; width:<%= size_px %>">
+              <div class="pull-right">
+                <%= render('shared/delete_bucket_modal', bucket: bucket, color: "white") %>
+              </div>
+              <div style="width: <%= size_px %>; text-align: center">
+                <%= render('shared/edit_bucket_modal',nbp: @nbp, bucket: bucket) %>
+              </div>
+          </td>
         <% end %>
       </tr>
     </thead>
+  </table> 
 </div>
-<br>
 
-<script>
-  <% buckets.each do |bucket|%>
-    $('#companies_<%=bucket.id%>').autocomplete({
-        source: '/nbp_company_query/<%= bucket.id%>/bucket.json',
-      });
-  <% end %>
-</script>

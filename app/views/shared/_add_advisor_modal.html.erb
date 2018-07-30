@@ -84,9 +84,37 @@
 
 <script type="text/javascript">
   $(function() {
-      $('.select2').select2({
-                    dropdownCssClass: "increasedzindexclass"
-                    });
+
+  var url_data = $.ajax({
+      url: "/person_image_query.json",
+      type: "post"
   });
+
+function formatState (state) {
+  if (!state.id) {
+    return state.text;
+  }
+  var person_id = state.id;
+
+  
+
+  var url = JSON.stringify(url_data);
+  var $state = $(
+    '<span><img src="' + url + '" alt="" style="width:25px;" />' + url + ' ' + state.text + '</span>'
+  );
+  return $state;
+};
+
+$(".select2").select2({
+
+  dropdownCssClass: "increasedzindexclass",
+  templateResult: formatState
+
+});
+
+
+  });
+
+
 </script>
 

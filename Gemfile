@@ -26,6 +26,7 @@ gem 'rubyzip', '>= 1.2.1', require: 'zip'
 gem 'zip-zip'
 gem 'axlsx', git: 'https://github.com/randym/axlsx.git', ref: 'c8ac844'
 gem 'axlsx_rails'
+gem 'json'
 
 # Use SCSS for stylesheets
 gem 'sass-rails', '~> 5.0.4'
