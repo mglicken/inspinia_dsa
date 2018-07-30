@@ -8,20 +8,22 @@
   padding-bottom: 0px;
   margin-right: 10px;
   max-height: 275px
+
 }
 .card {
-  display: inline-block;
-  width:235px;
+display: inline-block;
+width:235px;
 }
 .fixed-box {
-  position: fixed;
-  background-color: #F4F4F4;
-  padding: 5px;
-  padding-top: 10px;
-  margin-bottom: 0px;
-  margin-top: 0px;
-  padding-bottom: 0px;
-  z-index: 10;
+position: fixed;
+background-color: #F4F4F4;
+padding: 5px;
+padding-top: 10px;
+margin-bottom: 0px;
+margin-top: 0px;
+padding-bottom: 0px;
+width:86%;
+z-index: 10;
 }
 .btn-favorites{
   position:absolute;
@@ -33,18 +35,17 @@
 .btn-layout{
   position:absolute;
   top:0px;
-  right:30px;
+  right:10px;
   color: #ffbf00;
 }
 </style>
 
-<div class="row container ibox-content fixed-box"> 
-<div class="col-lg-12" style="padding-top: 5px; padding-bottom: 0px;">
+<div class="row" style="margin-left: 40px; margin-right: 40px;">
+<div class="row ibox-content fixed-box">
+  <div class="col-lg-12" style="padding-top: 5px; padding-bottom: 0px;">
+    <div class="col-lg-8">
 
-<div class="col-lg-8">
-
-<!-- Responsive, Isotope-based layout example -->
-<form method="post" class="form-horizontal" id="sl-form-id" name="sl-form-name"> 
+      <form method="post" class="form-horizontal" id="sl-form-id" name="sl-form-name"> 
 <!-- Hidden input for authenticity token to protect from forgery -->
   <input name="authenticity_token" type="hidden" value="<%= form_authenticity_token %>">
 
@@ -72,6 +73,9 @@
     </div>
   </div>
 </form>
+
+
+
 </div>
 <div class="col-lg-4">
    <div >
@@ -88,10 +92,10 @@
 </div> 
 </div>
 
-<br>
-<div class="row container">
-<div class="ibox float-e-margins">
-    <div class="ibox-title">
+  <br>
+  <div class="col-lg-12">
+    <div class="ibox">
+      <div class="ibox-title">
         <h5><%=current_user.person.name%>'s Favorite Slides (Click and Drag Favorite Slides into <%= @slide_layout.name%>)</h5>
         <div class="ibox-tools">
             <a class="collapse-link" id="content-box">
@@ -100,7 +104,7 @@
         </div>
     </div>
     <div class="ibox-content">
-      <div class="row container">
+      <div class="row">
         <div class=" col-lg-12">
           <div id="sortable1" class="connectedSortable scrollbar">
               <% i = 0 %>
@@ -193,12 +197,12 @@
   <br>
   <br>
 </div>
-<div class = "row container" style=" position: relative; z-index: 1;">
+<div class = "row" style=" position: relative; z-index: 1;">
 <h3 class="text-center m">
     <%=@slide_layout.name%>
 </h3>
 
-<div class="row container">
+<div class="row">
   <% i = 0 %>
   <div class="col-lg-12 connectedSortable ibox-content" id="sortable2" style="text-align:center; padding-top:25px; padding-bottom:25px; border-width:5px;border-color: #1ab394;">
     <% @slide_layout.slide_layout_slides.order("id ASC").each do |slide_layout_slide| %>
