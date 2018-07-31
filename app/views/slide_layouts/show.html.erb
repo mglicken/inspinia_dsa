@@ -35,7 +35,7 @@ z-index: 10;
 .btn-layout{
   position:absolute;
   top:0px;
-  right:10px;
+  right:50px;
   color: #ffbf00;
 }
 </style>
@@ -207,7 +207,7 @@ z-index: 10;
   <div class="col-lg-12 connectedSortable ibox-content" id="sortable2" style="text-align:center; padding-top:25px; padding-bottom:25px; border-width:5px;border-color: #1ab394;">
     <% @slide_layout.slide_layout_slides.order("id ASC").each do |slide_layout_slide| %>
     <% i = i+1 %>
-    <div class="col-lg-4 isotope-item" id="<%=slide_layout_slide.slide_id%>">
+      <div class="col-lg-3 isotope-item" id="<%=slide_layout_slide.slide_id%>">
         <div class="panel panel-primary">
           <div class="pull-right">
             <% if slide_layout_slide.slide.favorite_slides.where(user_id: current_user.id).present? %>
@@ -252,7 +252,9 @@ z-index: 10;
         $( "#sortable1, #sortable2" ).sortable({
             out: function(event, ui) {
                 ui.item.removeClass('scrollbar card');
-                ui.item.addClass('col-lg-4 isotope-item');
+                ui.item.addClass('col-lg-3 isotope-item');
+                ui.item.children("a").removeClass('btn-favorites');
+                ui.item.children("a").addClass('btn-layout');
             }
         })
 

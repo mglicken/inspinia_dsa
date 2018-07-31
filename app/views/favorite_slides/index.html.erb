@@ -35,7 +35,7 @@ z-index: 10;
 .btn-layout{
   position:absolute;
   top:0px;
-  right:10px;
+  right:50px;
   color: #ffbf00;
 }
 </style>
@@ -224,6 +224,8 @@ z-index: 10;
         over: function(event, ui) {
             ui.item.removeClass('scrollbar card');
             ui.item.addClass('col-lg-3 isotope-item');
+            ui.item.children("a").removeClass('btn-favorites');
+            ui.item.children("a").addClass('btn-layout');
         }
     })
       $( "#content-box" ).click(function() {
