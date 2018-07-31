@@ -1,60 +1,99 @@
-<div class="page-header">
-  <h1>
-    Financial Acquirers (<%= @sponsors.count%>)
-  </h1>
-</div>
-
-<div class="row">
-  <div class="col-xs-12">
-    <input type="text" id="quicksearch" placeholder="Search Sponsors (start typing)" class="form-control">
-  </div>
-</div>
-
 <br>
+<div class="row">
+    <div class="col-lg-12">
+        <div class="ibox-content">
+            <div class="full-scrollbar">
+              <table class="table table-hover margin bottom dataTables-NBP-Sponsors" style="table-layout: fixed;">
+                  <thead>
+                  <tr>
+                      <th style="width:40px;text-align:center;"></th>
+                      <th style="width:150px;">Sponsor</th>
+                      <th style="width:40px;">Type</th>
+                      <th style="width:85px; text-align:center; white-space:normal;">Highlighted</th>
+                      <th style="width:150px; white-space:normal;">Funds<br>($ million)</th>
+                      <th style="width:150px; white-space:normal;">Fund Companies</th>
+                      <th style="width:500px; white-space: wrap;">Lincoln Rationale</th>
+                      <th style="width:500px; white-space: wrap;">Internal Notes</th>
+                  </tr>
+                  </thead>
+                  <tbody>
+                  <%i=0%>
+                  <% @nbp_sponsors.each do |nbp_sponsor| 
+                      i=i+1%>
+                  <% if nbp_sponsor.featured %>
+                      <tr class="success">
+                  <% else %>
+                      <tr>
+                  <% end %>
+                      <td class="text-center">
+                        <%= render('shared/edit_nbp_sponsor_modal', nbp_sponsor: nbp_sponsor, color: "black", table: true) %>
+                        <%= render('shared/delete_nbp_sponsor_modal', nbp_sponsor: nbp_sponsor, color: "black") %>
 
-<div class="row isotope-container">
-<% @sponsors.order("name ASC").each do |sponsor| %>
-  <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4 isotope-item">
-    <%if sponsor.nbp_sponsors.find_by(nbp_id: @nbp.id).featured %>
-      <div class="panel panel-success">
-    <%else%>
-      <div class="panel panel-default">
-    <%end%>
-      <div class="panel-heading">
-        <h3 class="panel-title"><a href="/sponsors/<%= sponsor.id %>"><%= sponsor.name %> (<%= sponsor.sponsor_type %>)</a></h3>
-
-      </div>
-      <div class="panel-body">
-        <div class="row">
-          <div class="col-md-12">
-
-              <strong>Funds: </strong><br>
-              <% sponsor.funds.where(close_year: nil).each do |fund|%>                            
-                <% if fund.size.present? %>
-                  <%if fund.size > 1000 %>
-                  <%= fund.name%> - $<%= fund.size/1000 %> billion (<%= fund.open_year %>)<br>
-                  <%else fund.size%>
-                  <%= fund.name%> - $<%= fund.size %> million (<%= fund.open_year %>)<br>
+                      </td>
+                      <td style="white-space:normal;"><a href="/sponsors/<%=nbp_sponsor.sponsor.id %>"><%=nbp_sponsor.sponsor.name %></a></td>
+                      <td style="white-space:normal;"><a href="/nbps/<%=nbp_sponsor.nbp.id %>/companies"><%=nbp_sponsor.sponsor.sponsor_type %></a></td>
+                      <% if nbp_sponsor.featured %>
+                        <td style="text-align: center;"><i class="fa fa-check-square-o"></td>
+                      <% else %>
+                        <td style="text-align: center;"><i class="fa fa-square-o"></i></td>
+                      <% end %>
+                      <td style="white-space:normal;">
+                        <% nbp_sponsor.sponsor.funds.each do |fund| %>
+                          <a href="/funds/<%= fund.id %>"><%= fund.name %></a><br>($ <%= fund.size %> million)<br>
+                        <% end %>                        
+                      </td>
+                      <td style="white-space:normal;">
+                        <% Company.where(id: FundCompany.where(fund_id: nbp_sponsor.sponsor.funds.ids).pluck(:company_id)).order("name asc").each do |company| %>
+                          <a href="/companies/<%= company.id %>"><%= company.name %></a><br>
+                        <% end %>                        
+                      </td>
+                      <td style="white-space:normal;"><%= simple_format(nbp_sponsor.rationale) %></td>
+                      <td style="white-space:normal;"><%= simple_format(nbp_sponsor.note) %></td>
+                  </tr>
                   <%end%>
-                <%end%>
-              <%end%>
-
-              <strong>Companies: </strong><br>
-              <% sponsor.companies.each do |company|%>                            
-                <a href="/companies/<%=company.id%>"><%= company.name%></a><br>
-              <%end%>
-
-              <strong>Lincoln Rationale: </strong><br>
-                <%= simple_format(NbpSponsor.find_by(sponsor_id: sponsor.id, nbp_id: @nbp.id).rationale) %>
-              
-              <div class="pull-right">
-                <%= render('shared/edit_nbp_sponsor_modal', nbp_sponsor: NbpSponsor.where(sponsor_id: sponsor.id, nbp_id: @nbp.id).first) %>
-              </div>
-
-          </div>
+                  </tbody>
+              </table>
+            </div>
         </div>
-      </div>
     </div>
-  </div>
-<% end %>
 </div>
+<br>
+<br>
+<%= render('shared/quick_search_js') %>
+<script>
+
+$(function() {
+
+    $('.dataTables-NBP-Sponsors').DataTable({
+        pageLength: 100,
+        responsive: true,
+        dom: '<"html5buttons"B>lTfgitp',
+        buttons: [
+            { extend: 'copy'},
+            {extend: 'csv'},
+            {extend: 'excel', title: 'ExampleFile'},
+            {extend: 'pdf', title: 'ExampleFile'},
+
+            {extend: 'print',
+                customize: function (win){
+                    $(win.document.body).addClass('white-bg');
+                    $(win.document.body).css('font-size', '10px');
+
+                    $(win.document.body).find('table')
+                            .addClass('compact')
+                            .css('font-size', 'inherit');
+                }
+            }
+        ]
+
+    });
+
+
+});
+
+$('#tags').autocomplete({
+    source: '/tag_query.json',
+
+});
+
+</script>

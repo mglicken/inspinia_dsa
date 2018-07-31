@@ -1,0 +1,31 @@
+
+<!-- Button trigger modal -->
+<a style="color:<%=color%>; padding-right: 5px; font-size:10px;" href="#" data-toggle="modal" data-target="#myModalDeleteNBPSponsor_<%=nbp_sponsor.id %>">
+  <strong><i class="fa fa-trash"></i></strong>
+</a>
+
+<div class="modal inmodal fade" id="myModalDeleteNBPSponsor_<%=nbp_sponsor.id %>" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-md">
+        <div class="modal-content">
+             <div class="modal-header" style="width:600px; color:#676767">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                <h4 class="modal-title" >Remove <%= nbp_sponsor.sponsor.name %></h4>
+                <small class="font-bold">Remove <strong><%= nbp_sponsor.sponsor.name %></strong> as it relates to this deal.</small>
+            </div>
+            <div class="modal-body" style="color:#676767;white-space: normal;text-align: left">
+               <strong>Are you sure you want to remove "<%= nbp_sponsor.sponsor.name%>" from the financial acquirer list for <%= nbp_sponsor.nbp.name%>?</strong> Doing so will permanently destroy all content created for this acquirer for this list (No other lists or buyers in the list will be affected). 
+
+
+            </div>
+            <div class="modal-footer">
+
+                    <a class="btn btn-danger" href="/delete_nbp_sponsor/<%=nbp_sponsor.id %>">
+                      Remove Financial Acquirer from list
+                    </a>
+                    <button style="color:#676767" type="button" class="btn btn-white" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+

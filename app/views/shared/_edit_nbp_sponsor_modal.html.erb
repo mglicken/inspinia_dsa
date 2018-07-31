@@ -1,86 +1,73 @@
 
 <!-- Button trigger modal -->
-<div class="btn btn-edit" data-toggle="modal" data-target="#myModalEditNBPSponsor_<%=nbp_sponsor.id %>">
-  <i class="fa fa-edit"></i>
-</div>
+<a style="color:<%=color%>; padding-right: 5px; font-size:10px;" href="#" data-toggle="modal" data-target="#myModalEditNBPSponsor_<%=nbp_sponsor.id %>">
+  <strong><i class="fa fa-edit"></i></strong>
+</a>
 
-<!-- Modal -->
-<div class="modal fade" id="myModalEditNBPSponsor_<%= nbp_sponsor.id %>" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        <h4 class="modal-title" id="myModalLabel"> Edit <%= nbp_sponsor.sponsor.name %> Content</h4>
-      </div>
-      <div class="modal-body">
+<div class="modal inmodal fade" id="myModalEditNBPSponsor_<%=nbp_sponsor.id %>" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-sm">
+        <div class="modal-content">
+          <form enctype="multipart/form-data" action="/update_nbp_sponsor/<%= nbp_sponsor.id %>" method="post" class="form-horizontal">
+            <div class="modal-header" style="color:#676767; white-space: normal">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                <h4 class="modal-title">Edit <%= nbp_sponsor.sponsor.name %></h4>
+                <small class="font-bold" style="text-align: left">Change research and rationale content for <strong><%= nbp_sponsor.sponsor.name %></strong> as it relates to this deal.</small>
+            </div>
+            <div class="modal-body" style="text-align: left;">
 
-<!-- Responsive panel example -->
-
-<div class="row">
-  <div class="col-sm-offset-0 col-sm-12 col-md-offset-0 col-md-12">
-    <div class="panel panel-default">
-      <div class="panel-body" style="color:#000000;font-size: 12px">
-
-        <form enctype="multipart/form-data" action="/update_nbp_sponsor/<%= nbp_sponsor.id %>" method="post" class="form-horizontal">
           <!-- Hidden input for authenticity token to protect from forgery -->
           <input name="authenticity_token" type="hidden" value="<%= form_authenticity_token %>">
 
 
           <!-- Check boxes Featured -->
-          <div class="checkbox-inline">
+          <div class="checkbox-inline" style="color:#676767; margin-left: 10px">
             <% if nbp_sponsor.featured %>
-              <h5><label><input type="checkbox" name="featured" checked>Featured</label></h5>
+              <h5><label><input class="checkbox-success" type="checkbox" name="featured" checked>Include</label></h5>
             <% else %>
-              <h5><label><input type="checkbox" name="featured">Featured</label></h5>
+              <h5><label><input class="checkbox-success" type="checkbox" name="featured">Include</label></h5>
             <% end %>
-          </div>          
+          </div>
 
           <input name="sponsor_id" type="hidden" value="<%= nbp_sponsor.sponsor_id%>">
 
           <input name="nbp_id" type="hidden" value="<%= nbp_sponsor.nbp_id%>">
 
+          <br>
           <!-- Label and input for Lincoln Rationale -->
-          <div class="form-group">
-            <h5><label for="rationale" class="col-lg-2 control-label">
+          <div class="form-group" style="width:750px; color:#676767">
+            <h5 style="width:150px;text-align: right; margin-right: 10px;">
               Lincoln Rationale:
-            </label></h5>
-            <div class="col-lg-10">
-              <textarea id="rationale" name="rationale" placeholder="e.g., Lincoln has sold..."  class="form-control" rows="5"><%= nbp_sponsor.rationale %></textarea>
+            </h5>
+            <div>
+              <textarea style="width:550px" id="strip" name="strip" placeholder="e.g., Lincoln has sold..."  class="form-control" rows="8"><%= nbp_sponsor.rationale %></textarea>
             </div>
           </div>
-
+          <br>
           <!-- Label and input for Notes -->
-          <div class="form-group">
-            <h5><label for="note" class="col-lg-2 control-label">
+          <div class="form-group" style="width:750px; color:#676767">
+            <h5 style="width:150px; text-align: right; margin-right: 10px;">
               Notes:
-            </label></h5>
-            <div class="col-lg-10">
-              <textarea id="note" name="note" placeholder="e.g., Lincoln has sold..."  class="form-control" rows="3"><%= nbp_sponsor.note %></textarea>
+            </h5>
+            <div>
+              <textarea style="width:550px" id="note" name="note" placeholder="e.g., Lincoln has sold..."  class="form-control" rows="8"><%= nbp_sponsor.note %></textarea>
             </div>
           </div>
 
 
-          <div class="form-group">
-            <div class="col-sm-offset-2 col-sm-10">
-              <button class="btn btn-warning">
-                Update Sponsor Detail
-              </button>
+            </div>
+            <div class="modal-footer">
+
+                <div class="form-group">
+                    <button class="btn btn-lincoln">
+                      Update Strategic Rationale
+                    </button>
+                    <button style="color:#676767" type="button" class="btn btn-white" data-dismiss="modal">Close</button>
+                </div>
 
             </div>
-          </div>
-
-        </form>
-
-      </div>
+        </div>
+      </form>
     </div>
-  </div>
 </div>
 
 
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-      </div>
-    </div>
-  </div>
-</div>

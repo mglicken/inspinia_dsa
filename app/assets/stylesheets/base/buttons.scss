@@ -307,3 +307,52 @@ button.dim:active:before {
 .btn:focus {
   outline: none !important;
 }
+
+
+.scrollbar {
+  overflow-x: scroll;
+  overflow-y: scroll;
+  white-space: nowrap;
+  background-color: black;
+  padding: 5px;
+  padding-bottom: 0px;
+  margin-right: 10px;
+  max-height: 275px
+
+}
+.full-scrollbar {
+  overflow-x: scroll;
+  white-space: nowrap;
+  background-color: white;
+  padding: 5px;
+  padding-bottom: 0px;
+  margin-right: 10px
+}
+.card {
+display: inline-block;
+width:235px;
+}
+.fixed-box {
+position: fixed;
+background-color: #F4F4F4;
+padding: 5px;
+padding-top: 10px;
+margin-bottom: 0px;
+margin-top: 0px;
+padding-bottom: 0px;
+width:84%;
+z-index: 10;
+}
+.btn-favorites{
+  position:absolute;
+  top:115px;
+  left:95px;
+  color: #ffffff;
+  background-color: #ffbf00
+}
+.btn-layout{
+  position:absolute;
+  top:0px;
+  right:40px;
+  color: #ffbf00;
+}

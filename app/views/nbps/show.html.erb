@@ -1,17 +1,11 @@
 <br>
 <div class="row">
-  <div class="pull-right">
-    <div class="btn-group-vertical">
-       <a class="btn btn-success" href="/copy_nbp_layout/<%= @nbp.id %>">Copy NBP Layout <i class="fa fa-copy (alias)"></i></a><br>
-       <a class="btn btn-success" href="http://res.cloudinary.com/mglicken/image/upload/<%= @nbp.image_id %>.pdf">View PDF <i class="fa fa-copy (alias)"></i></a>
-    </div>
-  </div> 
   <div class="col-lg-offset-2 col-lg-7">
     <div class="ibox-content">
-        <% if @nbp.slides.empty? %>
-          <a href="#" class="btn btn-lincoln pull-right" style="text-align:center; margin-top:10px" id="upload_widget_opener">Upload NBP PDF</a>
-        <% end %> 
-        <h3 class="ibox-title"><%= @nbp.name %></h3>
+      <% if @nbp.slides.empty? %>
+        <a href="#" class="btn btn-lincoln pull-right" style="text-align:center; margin-top:10px" id="upload_widget_opener">Upload NBP PDF</a>
+      <% end %> 
+      <h3 class="ibox-title"><%= @nbp.name %></h3>
       <div class="ibox-body">
         <div class="row">
           <div class="col-lg-12">
@@ -36,6 +30,12 @@
 
     </div>
   </div>
+  <div class="col-lg-3">
+    <div class="btn-group-vertical">
+       <a class="btn btn-success" href="/copy_nbp_layout/<%= @nbp.id %>">Copy NBP Layout <i class="fa fa-copy (alias)"></i></a><br>
+       <a class="btn btn-success" href="http://res.cloudinary.com/mglicken/image/upload/<%= @nbp.image_id %>.pdf">View PDF <i class="fa fa-copy (alias)"></i></a>
+    </div>
+  </div> 
 </div>
 <br>
 <div class="row container">
@@ -52,5 +52,3 @@
 <% if @nbp.slides.empty? %>
   <%= render('shared/upload_widget',url: "/create_nbp_slide/#{@nbp.id}", p_id: @p_id) %>
 <% end %>
-
-<!-- End responsive panel -->
