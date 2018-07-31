@@ -385,6 +385,42 @@ Myapp::Application.routes.draw do
   # DELETE
   get "/delete_diligence_advisor/:id", :controller => "diligence_advisors", :action => "destroy"
 
+  # Routes for the Engagement Companies resource:
+  resources :engagement_companies do
+    collection {post :import}
+  end
+  # CREATE
+  get "/engagement_companies/new", :controller => "engagement_companies", :action => "new"
+  post "/create_engagement_company", :controller => "engagement_companies", :action => "create"
+  # READ
+  get "/engagement_companies", :controller => "engagement_companies", :action => "index"
+  get "/engagement_companies/:id", :controller => "engagement_companies", :action => "show"
+
+  # UPDATE
+  get "/engagement_companies/:id/edit", :controller => "engagement_companies", :action => "edit"
+  post "/update_engagement_company/:id", :controller => "engagement_companies", :action => "update"
+
+  # DELETE
+  get "/delete_engagement_company/:id", :controller => "engagement_companies", :action => "destroy"
+
+  # Routes for the Engagement Sponsors resource:
+  resources :engagement_sponsors do
+    collection {post :import}
+  end
+  # CREATE
+  get "/engagement_sponsors/new", :controller => "engagement_sponsors", :action => "new"
+  post "/create_engagement_sponsor", :controller => "engagement_sponsors", :action => "create"
+  # READ
+  get "/engagement_sponsors", :controller => "engagement_sponsors", :action => "index"
+  get "/engagement_sponsors/:id", :controller => "engagement_sponsors", :action => "show"
+
+  # UPDATE
+  get "/engagement_sponsors/:id/edit", :controller => "engagement_sponsors", :action => "edit"
+  post "/update_engagement_sponsor/:id", :controller => "engagement_sponsors", :action => "update"
+
+  # DELETE
+  get "/delete_engagement_sponsor/:id", :controller => "engagement_sponsors", :action => "destroy"
+
   # Routes for the Favorite_Slide resource:
   resources :favorite_slides do
     collection {post :import}

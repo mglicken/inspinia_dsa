@@ -58,6 +58,8 @@ before_action :ensure_banker_access,  only: [:new, :create, :edit, :update, :des
     @loi.loi_date = Date.current
     @loi.save
     @mp_sponsor.loi_id = params[:loi_id]
+    @mp_sponsor.declined = params[:declined]
+    @mp_sponsor.final_buyer = params[:final_buyer]
 
     #Create LoiHighlights for each Highlight associated with other LOIs
     if LoiHighlight.where(loi_id: (@mp_sponsor.mp.mp_sponsors.pluck(:loi_id) + @mp_sponsor.mp.mp_companies.pluck(:loi_id)).uniq).present?
@@ -109,6 +111,8 @@ before_action :ensure_banker_access,  only: [:new, :create, :edit, :update, :des
     @mp_sponsor.sponsor_id = params[:sponsor_id]
     @mp_sponsor.mp_date = params[:mp_date]
     @mp_sponsor.loi_id = params[:loi_id]
+    @mp_sponsor.declined = params[:declined]
+    @mp_sponsor.final_buyer = params[:final_buyer]
 
     if @mp_sponsor.save
       redirect_to "/mp_sponsors/#{@mp_sponsor.id}/", :notice => "MP Sponsor updated successfully!"

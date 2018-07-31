@@ -68,6 +68,15 @@
               <input type="boolean" id="declined" name="declined" placeholder="e.g., 17" class="form-control" value="<%= @mp_sponsor.declined %>">
             </div>
           </div>
+          <!-- Label and input for Final Buyer -->
+          <div class="form-group">
+            <label for="final_buyer" class="col-sm-2 control-label">
+              Final Buyer
+            </label>
+            <div class="col-sm-10">
+              <input type="boolean" id="final_buyer" name="final_buyer" placeholder="e.g., 17" class="form-control" value="<%= @mp_sponsor.final_buyer %>">
+            </div>
+          </div>
           <div class="form-group">
             <div class="col-sm-offset-2 col-sm-10">
               <button class="btn btn-warning">
