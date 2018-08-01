@@ -28,7 +28,7 @@
                 <% if engager.class.name == "Sponsor" %>
                   <a href="/sponsors/<%= engager.id%>"><%= engager.name %></a><br>
                 <% elsif engager.class.name == "Company" %>
-                  <a href="/companies/<%= company.id%>"><%= engager.name %></a><br>
+                  <a href="/companies/<%= engager.id%>"><%= engager.name %></a><br>
                 <%end%>
               <% end %>
               </dd>
