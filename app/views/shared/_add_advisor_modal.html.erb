@@ -58,7 +58,7 @@
                     <h5><label for="person_id" class="col-lg-2 control-label">
                       Advisor
                     </label></h5>
-                    <select name="person_id" data-placeholder="Select Advisor..." class="select2 form-control form-inline"  tabindex="2" style="width:80%">
+                    <select name="person_id" data-placeholder="Select Advisor..." class="select2_1 form-control form-inline"  tabindex="2" style="width:80%">
                       <% Person.order("name asc").each do |person| %>
                       <option value="<%=person.id %>"><%=person.name %></option>
                       <% end %>
@@ -95,12 +95,11 @@ function formatState (state) {
     return state.text;
   }
   var person_id = state.id;
-
+ 
+  var url = JSON.parse(url_data["responseText"])[(person_id - 1 )];
   
-
-  var url = JSON.stringify(url_data);
   var $state = $(
-    '<span><img src="' + url + '" alt="" style="width:25px;" />' + url + ' ' + state.text + '</span>'
+    '<span><img src="' + url + '" alt="" style="width:25px;" />' +' ' + state.text + '</span>'
   );
   return $state;
 };
@@ -108,10 +107,15 @@ function formatState (state) {
 $(".select2").select2({
 
   dropdownCssClass: "increasedzindexclass",
+  
+});
+
+$(".select2_1").select2({
+
+  dropdownCssClass: "increasedzindexclass",
   templateResult: formatState
 
 });
-
 
   });
 
