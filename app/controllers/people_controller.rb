@@ -51,7 +51,7 @@ before_action :ensure_view_access,  only: [:user_dashboard, :search, :show]
   def image_query
     @people = Person.order("name ASC")
     respond_to do |format|
-      format.json {send_data @people.map(&:name)}
+      format.json {send_data @people.map(&:image_url)}
     end
   end
   

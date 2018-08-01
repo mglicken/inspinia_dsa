@@ -1,9 +1,11 @@
 <%= render('show_header') %>
   
+  <%= render('shared/add_person_to_deal_modal', deal: @deal, person: Person.none )%>
+  <%= render('shared/add_company_to_engagement_modal', deal: @deal, company: Company.none )%>
+  <%= render('shared/add_sponsor_to_engagement_modal', deal: @deal, sponsor: Sponsor.none )%>
   <%= render('shared/create_nbp_modal', deal: @deal)%>
   <%= render('shared/create_cip_modal', deal: @deal)%>
   <%= render('shared/create_mp_modal', deal: @deal)%>
-  <%= render('shared/add_person_to_deal_modal', deal: @deal, person: Person.none )%>
   <a class="btn btn-lincoln" href="/deals/<%= @deal.id %>/qoves">Quality of Earnings</a>
   <a class="btn btn-lincoln" href="/deals/<%= @deal.id %>/market_studies">Market Studies</a>
 
