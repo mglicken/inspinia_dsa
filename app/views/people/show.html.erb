@@ -10,21 +10,17 @@
 </style>
 <br>
 <div class="row">
-  <div class="col-sm-offset-0 col-sm-12 col-md-offset-0 col-md-12">
+  <div class="col-lg-offset-2 col-lg-8">
     <div class="ibox-content">
-        <h3 class="ibox-title"><strong><%= @person.name %></strong> (<%= @person.role.name %>)</h3>
+      <h3 class="ibox-title"><strong><%= @person.name %></strong> (<%= @person.role.name %>)</h3>
       <div class="ibox-body">
         <div class="row">
-          <div class="col-md-12">
+          <div class="col-lg-9">
           
-          <div class="card">
-              <img class="card-img-left" src="<%=@person.image_url%>" alt="Card image cap" style="width:150px; padding-bottom:25px">
+              <img class="card-img-left" src="<%=@person.image_url%>" alt="No image" style="width:150px; padding-bottom:25px">
               <div class="card-block">
                 <h4 class="card-title"><strong>Personal Information</strong></h4>
-
-
                 <div class="card-text">
-
                   <%= @person.address %><br>
                   <%= @person.city %> <%= @person.state %>, <%= @person.zip %><br>
                   <% if @person.phone.present? %> 
@@ -36,48 +32,37 @@
                   <% if @person.email_address.present? %> 
                     <abbr title="email_address"><strong>Email:</strong></abbr> <a href="mailto:<%= @person.email_address %>"><%= @person.email_address %></a>
                   <%end%>                  
-
-              </div>
-
-                <div class="pull-right">
-                  <div class="btn-group-vertical">
-                    <div class="btn-group-horizontal">
-                      <a href="<%= @person.linkedin_url%>" class="btn"><i class="fa fa-linkedin"></i></a>
-                      <a href="mailto:<%= @person.email_address %>" class="btn"><i class="fa fa-envelope"></i></a>
-                  </div>
-
-
-                  <br>
-                  <div class="btn-group-horizontal">
-                    <%= render('shared/edit_person_modal', :person => @person)%>
-                    <% if current_user.access_id <= 2 %>
-                      <%= render('shared/delete_person_modal', :person => @person)%>
-                    <% end %>
-                  </div>
                 </div>
               </div>
+          </div>
+          <div class="col-lg-3">
+            <div class="btn-group-vertical">
+              <div class="btn-group-horizontal">
+                <a href="<%= @person.linkedin_url%>" class="btn"><i class="fa fa-linkedin"></i></a>
+                <a href="mailto:<%= @person.email_address %>" class="btn"><i class="fa fa-envelope"></i></a>
+              </div>
+              <br>
+              <div class="btn-group-horizontal">
+                <%= render('shared/edit_person_modal', :person => @person)%>
+                <% if current_user.access_id <= 2 %>
+                  <%= render('shared/delete_person_modal', :person => @person)%>
+                <% end %>
               </div>
             </div>
-            
-
           </div>
         </div>
       </div>
-
-
     </div>
   </div>
 </div>
-
 <br>
-
+<div class="row container">
   <%= render('shared/create_work_history_modal', :company => 0, :person => @person )%>
   <%= render('shared/create_sponsor_history_modal', :sponsor => 0, :person => @person )%>
   <%= render('shared/create_note_modal')%>
   <%= render('shared/add_person_to_deal_modal', :deal => Deal.none, person: @person )%>
+</div>
 <br>
-<br>
-
 <%= render('view_deals') %>
 <%= render('view_work_history') %>
 <%= render('view_sponsor_history') %>
@@ -85,4 +70,4 @@
 <%= render('shared/quick_search_js') %>
 
 
-<!-- End responsive panel example -->
+
