@@ -30,6 +30,8 @@ has_many	:market_studies, :dependent => :destroy
 has_many 	:market_study_slides, :through => :market_studies
 has_many	:qoves, :dependent => :destroy
 has_many 	:qofe_slides, :through => :qoves
+has_many 	:engagement_companies, :dependent => :destroy
+has_many 	:engagement_sponsors, :dependent => :destroy
 
 	def self.to_csv
 		CSV.generate do |csv|

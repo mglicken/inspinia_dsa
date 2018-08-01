@@ -22,6 +22,16 @@
               <dd><%= @deal.project_alias %></dd>
               <dt>Project Code:</dt>
               <dd><%= @deal.project_code %></dd>
+              <dt>Engaged By:</dt>
+              <dd>
+              <% @engagers.each do |engager| %>
+                <% if engager.class.name == "Sponsor" %>
+                  <a href="/sponsors/<%= engager.id%>"><%= engager.name %></a><br>
+                <% elsif engager.class.name == "Company" %>
+                  <a href="/companies/<%= company.id%>"><%= engager.name %></a><br>
+                <%end%>
+              <% end %>
+              </dd>
               <dt>NBPs:</dt>
                 <% Nbp.where(deal_id: @deal).order("nbp_date DESC").each do |nbp| %>
                   <% if NbpSlide.where(nbp_id: nbp.id).present? %>
