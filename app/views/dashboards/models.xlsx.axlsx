@@ -5,9 +5,8 @@ require 'axlsx'
 wb = xlsx_package.workbook
 
 wb.add_worksheet(name: "accesses") do |sheet|
-  
 	title_row = []
-	@accesses.first.class.column_names.each do |column|
+	@accesses.new.class.column_names.each do |column|
 		title_row.push(column)
 	end
 	sheet.add_row title_row
@@ -20,9 +19,8 @@ wb.add_worksheet(name: "accesses") do |sheet|
 	end
 end
 wb.add_worksheet(name: "advisor_types") do |sheet|
-  
 	title_row = []
-	@advisor_types.first.class.column_names.each do |column|
+	@advisor_types.new.class.column_names.each do |column|
 		title_row.push(column)
 	end
 	sheet.add_row title_row
@@ -35,9 +33,8 @@ wb.add_worksheet(name: "advisor_types") do |sheet|
 	end
 end
 wb.add_worksheet(name: "buckets") do |sheet|
-  
 	title_row = []
-	@buckets.first.class.column_names.each do |column|
+	@buckets.new.class.column_names.each do |column|
 		title_row.push(column)
 	end
 	sheet.add_row title_row
@@ -50,9 +47,8 @@ wb.add_worksheet(name: "buckets") do |sheet|
 	end
 end
 wb.add_worksheet(name: "case_studies") do |sheet|
-  
 	title_row = []
-	@case_studies.first.class.column_names.each do |column|
+	@case_studies.new.class.column_names.each do |column|
 		title_row.push(column)
 	end
 	sheet.add_row title_row
@@ -65,9 +61,8 @@ wb.add_worksheet(name: "case_studies") do |sheet|
 	end
 end
 wb.add_worksheet(name: "case_study_slides") do |sheet|
-  
 	title_row = []
-	@case_study_slides.first.class.column_names.each do |column|
+	@case_study_slides.new.class.column_names.each do |column|
 		title_row.push(column)
 	end
 	sheet.add_row title_row
@@ -80,9 +75,8 @@ wb.add_worksheet(name: "case_study_slides") do |sheet|
 	end
 end
 wb.add_worksheet(name: "cips") do |sheet|
-  
 	title_row = []
-	@cips.first.class.column_names.each do |column|
+	@cips.new.class.column_names.each do |column|
 		title_row.push(column)
 	end
 	sheet.add_row title_row
@@ -95,9 +89,8 @@ wb.add_worksheet(name: "cips") do |sheet|
 	end
 end
 wb.add_worksheet(name: "cip_companies") do |sheet|
-  
 	title_row = []
-	@cip_companies.first.class.column_names.each do |column|
+	@cip_companies.new.class.column_names.each do |column|
 		title_row.push(column)
 	end
 	sheet.add_row title_row
@@ -110,9 +103,8 @@ wb.add_worksheet(name: "cip_companies") do |sheet|
 	end
 end
 wb.add_worksheet(name: "cip_slides") do |sheet|
-  
 	title_row = []
-	@cip_slides.first.class.column_names.each do |column|
+	@cip_slides.new.class.column_names.each do |column|
 		title_row.push(column)
 	end
 	sheet.add_row title_row
@@ -125,9 +117,8 @@ wb.add_worksheet(name: "cip_slides") do |sheet|
 	end
 end
 wb.add_worksheet(name: "cip_sponsors") do |sheet|
-  
 	title_row = []
-	@cip_sponsors.first.class.column_names.each do |column|
+	@cip_sponsors.new.class.column_names.each do |column|
 		title_row.push(column)
 	end
 	sheet.add_row title_row
@@ -140,9 +131,8 @@ wb.add_worksheet(name: "cip_sponsors") do |sheet|
 	end
 end
 wb.add_worksheet(name: "companies") do |sheet|
-  
 	title_row = []
-	@companies.first.class.column_names.each do |column|
+	@companies.new.class.column_names.each do |column|
 		title_row.push(column)
 	end
 	sheet.add_row title_row
@@ -155,9 +145,8 @@ wb.add_worksheet(name: "companies") do |sheet|
 	end
 end
 wb.add_worksheet(name: "company_follows") do |sheet|
-  
 	title_row = []
-	@company_follows.first.class.column_names.each do |column|
+	@company_follows.new.class.column_names.each do |column|
 		title_row.push(column)
 	end
 	sheet.add_row title_row
@@ -170,9 +159,8 @@ wb.add_worksheet(name: "company_follows") do |sheet|
 	end
 end
 wb.add_worksheet(name: "company_notes") do |sheet|
-  
 	title_row = []
-	@company_notes.first.class.column_names.each do |column|
+	@company_notes.new.class.column_names.each do |column|
 		title_row.push(column)
 	end
 	sheet.add_row title_row
@@ -185,9 +173,8 @@ wb.add_worksheet(name: "company_notes") do |sheet|
 	end
 end
 wb.add_worksheet(name: "deals") do |sheet|
-  
 	title_row = []
-	@deals.first.class.column_names.each do |column|
+	@deals.new.class.column_names.each do |column|
 		title_row.push(column)
 	end
 	sheet.add_row title_row
@@ -200,9 +187,8 @@ wb.add_worksheet(name: "deals") do |sheet|
 	end
 end
 wb.add_worksheet(name: "deal_follows") do |sheet|
-  
 	title_row = []
-	@deal_follows.first.class.column_names.each do |column|
+	@deal_follows.new.class.column_names.each do |column|
 		title_row.push(column)
 	end
 	sheet.add_row title_row
@@ -215,9 +201,8 @@ wb.add_worksheet(name: "deal_follows") do |sheet|
 	end
 end
 wb.add_worksheet(name: "deal_people") do |sheet|
-  
 	title_row = []
-	@deal_people.first.class.column_names.each do |column|
+	@deal_people.new.class.column_names.each do |column|
 		title_row.push(column)
 	end
 	sheet.add_row title_row
@@ -230,9 +215,8 @@ wb.add_worksheet(name: "deal_people") do |sheet|
 	end
 end
 wb.add_worksheet(name: "deal_stages") do |sheet|
-  
 	title_row = []
-	@deal_stages.first.class.column_names.each do |column|
+	@deal_stages.new.class.column_names.each do |column|
 		title_row.push(column)
 	end
 	sheet.add_row title_row
@@ -245,9 +229,8 @@ wb.add_worksheet(name: "deal_stages") do |sheet|
 	end
 end
 wb.add_worksheet(name: "deal_types") do |sheet|
-  
 	title_row = []
-	@deal_types.first.class.column_names.each do |column|
+	@deal_types.new.class.column_names.each do |column|
 		title_row.push(column)
 	end
 	sheet.add_row title_row
@@ -255,6 +238,678 @@ wb.add_worksheet(name: "deal_types") do |sheet|
 		content_row = []
 		deal_type.class.column_names.each do |column|
 			content_row.push(deal_type[column])
+		end
+		sheet.add_row content_row
+	end
+end
+wb.add_worksheet(name: "diligence_advisors") do |sheet|
+	title_row = []
+	@diligence_advisors.new.class.column_names.each do |column|
+		title_row.push(column)
+	end
+	sheet.add_row title_row
+	@diligence_advisors.each do |diligence_advisor|
+		content_row = []
+		diligence_advisor.class.column_names.each do |column|
+			content_row.push(diligence_advisor[column])
+		end
+		sheet.add_row content_row
+	end
+end
+wb.add_worksheet(name: "engagement_companies") do |sheet|
+	title_row = []
+	@engagement_companies.new.class.column_names.each do |column|
+		title_row.push(column)
+	end
+	sheet.add_row title_row
+	@engagement_companies.each do |engagement_company|
+		content_row = []
+		engagement_company.class.column_names.each do |column|
+			content_row.push(engagement_company[column])
+		end
+		sheet.add_row content_row
+	end
+end
+wb.add_worksheet(name: "engagement_sponsors") do |sheet|
+	title_row = []
+	@engagement_sponsors.new.class.column_names.each do |column|
+		title_row.push(column)
+	end
+	sheet.add_row title_row
+	@engagement_sponsors.each do |engagement_sponsor|
+		content_row = []
+		engagement_sponsor.class.column_names.each do |column|
+			content_row.push(engagement_sponsor[column])
+		end
+		sheet.add_row content_row
+	end
+end
+wb.add_worksheet(name: "favorite_slides") do |sheet|
+	title_row = []
+	@favorite_slides.new.class.column_names.each do |column|
+		title_row.push(column)
+	end
+	sheet.add_row title_row
+	@favorite_slides.each do |favorite_slide|
+		content_row = []
+		favorite_slide.class.column_names.each do |column|
+			content_row.push(favorite_slide[column])
+		end
+		sheet.add_row content_row
+	end
+end
+wb.add_worksheet(name: "funds") do |sheet|
+	title_row = []
+	@funds.new.class.column_names.each do |column|
+		title_row.push(column)
+	end
+	sheet.add_row title_row
+	@funds.each do |fund|
+		content_row = []
+		fund.class.column_names.each do |column|
+			content_row.push(fund[column])
+		end
+		sheet.add_row content_row
+	end
+end
+wb.add_worksheet(name: "fund_companies") do |sheet|
+	title_row = []
+	@fund_companies.new.class.column_names.each do |column|
+		title_row.push(column)
+	end
+	sheet.add_row title_row
+	@fund_companies.each do |fund_company|
+		content_row = []
+		fund_company.class.column_names.each do |column|
+			content_row.push(fund_company[column])
+		end
+		sheet.add_row content_row
+	end
+end
+wb.add_worksheet(name: "highlights") do |sheet|
+	title_row = []
+	@highlights.new.class.column_names.each do |column|
+		title_row.push(column)
+	end
+	sheet.add_row title_row
+	@highlights.each do |highlight|
+		content_row = []
+		highlight.class.column_names.each do |column|
+			content_row.push(highlight[column])
+		end
+		sheet.add_row content_row
+	end
+end
+wb.add_worksheet(name: "iois") do |sheet|
+	title_row = []
+	@iois.new.class.column_names.each do |column|
+		title_row.push(column)
+	end
+	sheet.add_row title_row
+	@iois.each do |ioi|
+		content_row = []
+		ioi.class.column_names.each do |column|
+			content_row.push(ioi[column])
+		end
+		sheet.add_row content_row
+	end
+end
+wb.add_worksheet(name: "ioi_highlights") do |sheet|
+	title_row = []
+	@ioi_highlights.new.class.column_names.each do |column|
+		title_row.push(column)
+	end
+	sheet.add_row title_row
+	@ioi_highlights.each do |ioi_highlight|
+		content_row = []
+		ioi_highlight.class.column_names.each do |column|
+			content_row.push(ioi_highlight[column])
+		end
+		sheet.add_row content_row
+	end
+end
+wb.add_worksheet(name: "ioi_slides") do |sheet|
+	title_row = []
+	@ioi_slides.new.class.column_names.each do |column|
+		title_row.push(column)
+	end
+	sheet.add_row title_row
+	@ioi_slides.each do |ioi_slide|
+		content_row = []
+		ioi_slide.class.column_names.each do |column|
+			content_row.push(ioi_slide[column])
+		end
+		sheet.add_row content_row
+	end
+end
+wb.add_worksheet(name: "lois") do |sheet|
+	title_row = []
+	@lois.new.class.column_names.each do |column|
+		title_row.push(column)
+	end
+	sheet.add_row title_row
+	@lois.each do |loi|
+		content_row = []
+		loi.class.column_names.each do |column|
+			content_row.push(loi[column])
+		end
+		sheet.add_row content_row
+	end
+end
+wb.add_worksheet(name: "loi_highlights") do |sheet|
+	title_row = []
+	@loi_highlights.new.class.column_names.each do |column|
+		title_row.push(column)
+	end
+	sheet.add_row title_row
+	@loi_highlights.each do |loi_highlight|
+		content_row = []
+		loi_highlight.class.column_names.each do |column|
+			content_row.push(loi_highlight[column])
+		end
+		sheet.add_row content_row
+	end
+end
+wb.add_worksheet(name: "loi_slides") do |sheet|
+	title_row = []
+	@loi_slides.new.class.column_names.each do |column|
+		title_row.push(column)
+	end
+	sheet.add_row title_row
+	@loi_slides.each do |loi_slide|
+		content_row = []
+		loi_slide.class.column_names.each do |column|
+			content_row.push(loi_slide[column])
+		end
+		sheet.add_row content_row
+	end
+end
+wb.add_worksheet(name: "market_studies") do |sheet|
+	title_row = []
+	@market_studies.new.class.column_names.each do |column|
+		title_row.push(column)
+	end
+	sheet.add_row title_row
+	@market_studies.each do |market_study|
+		content_row = []
+		market_study.class.column_names.each do |column|
+			content_row.push(market_study[column])
+		end
+		sheet.add_row content_row
+	end
+end
+wb.add_worksheet(name: "market_study_slides") do |sheet|
+	title_row = []
+	@market_study_slides.new.class.column_names.each do |column|
+		title_row.push(column)
+	end
+	sheet.add_row title_row
+	@market_study_slides.each do |market_study_slide|
+		content_row = []
+		market_study_slide.class.column_names.each do |column|
+			content_row.push(market_study_slide[column])
+		end
+		sheet.add_row content_row
+	end
+end
+wb.add_worksheet(name: "mps") do |sheet|
+	title_row = []
+	@mps.new.class.column_names.each do |column|
+		title_row.push(column)
+	end
+	sheet.add_row title_row
+	@mps.each do |mp|
+		content_row = []
+		mp.class.column_names.each do |column|
+			content_row.push(mp[column])
+		end
+		sheet.add_row content_row
+	end
+end
+wb.add_worksheet(name: "mp_companies") do |sheet|
+	title_row = []
+	@mp_companies.new.class.column_names.each do |column|
+		title_row.push(column)
+	end
+	sheet.add_row title_row
+	@mp_companies.each do |mp_company|
+		content_row = []
+		mp_company.class.column_names.each do |column|
+			content_row.push(mp_company[column])
+		end
+		sheet.add_row content_row
+	end
+end
+wb.add_worksheet(name: "mp_slides") do |sheet|
+	title_row = []
+	@mp_slides.new.class.column_names.each do |column|
+		title_row.push(column)
+	end
+	sheet.add_row title_row
+	@mp_slides.each do |mp_slide|
+		content_row = []
+		mp_slide.class.column_names.each do |column|
+			content_row.push(mp_slide[column])
+		end
+		sheet.add_row content_row
+	end
+end
+wb.add_worksheet(name: "mp_sponsors") do |sheet|
+	title_row = []
+	@mp_sponsors.new.class.column_names.each do |column|
+		title_row.push(column)
+	end
+	sheet.add_row title_row
+	@mp_sponsors.each do |mp_sponsor|
+		content_row = []
+		mp_sponsor.class.column_names.each do |column|
+			content_row.push(mp_sponsor[column])
+		end
+		sheet.add_row content_row
+	end
+end
+wb.add_worksheet(name: "nbps") do |sheet|
+	title_row = []
+	@nbps.new.class.column_names.each do |column|
+		title_row.push(column)
+	end
+	sheet.add_row title_row
+	@nbps.each do |nbp|
+		content_row = []
+		nbp.class.column_names.each do |column|
+			content_row.push(nbp[column])
+		end
+		sheet.add_row content_row
+	end
+end
+wb.add_worksheet(name: "nbp_companies") do |sheet|
+	title_row = []
+	@nbp_companies.new.class.column_names.each do |column|
+		title_row.push(column)
+	end
+	sheet.add_row title_row
+	@nbp_companies.each do |nbp_company|
+		content_row = []
+		nbp_company.class.column_names.each do |column|
+			content_row.push(nbp_company[column])
+		end
+		sheet.add_row content_row
+	end
+end
+wb.add_worksheet(name: "nbp_slides") do |sheet|
+	title_row = []
+	@nbp_slides.new.class.column_names.each do |column|
+		title_row.push(column)
+	end
+	sheet.add_row title_row
+	@nbp_slides.each do |nbp_slide|
+		content_row = []
+		nbp_slide.class.column_names.each do |column|
+			content_row.push(nbp_slide[column])
+		end
+		sheet.add_row content_row
+	end
+end
+wb.add_worksheet(name: "nbp_sponsors") do |sheet|
+	title_row = []
+	@nbp_sponsors.new.class.column_names.each do |column|
+		title_row.push(column)
+	end
+	sheet.add_row title_row
+	@nbp_sponsors.each do |nbp_sponsor|
+		content_row = []
+		nbp_sponsor.class.column_names.each do |column|
+			content_row.push(nbp_sponsor[column])
+		end
+		sheet.add_row content_row
+	end
+end
+wb.add_worksheet(name: "nbp_tags") do |sheet|
+	title_row = []
+	@nbp_tags.new.class.column_names.each do |column|
+		title_row.push(column)
+	end
+	sheet.add_row title_row
+	@nbp_tags.each do |nbp_tag|
+		content_row = []
+		nbp_tag.class.column_names.each do |column|
+			content_row.push(nbp_tag[column])
+		end
+		sheet.add_row content_row
+	end
+end
+wb.add_worksheet(name: "ndas") do |sheet|
+	title_row = []
+	@ndas.new.class.column_names.each do |column|
+		title_row.push(column)
+	end
+	sheet.add_row title_row
+	@ndas.each do |nda|
+		content_row = []
+		nda.class.column_names.each do |column|
+			content_row.push(nda[column])
+		end
+		sheet.add_row content_row
+	end
+end
+wb.add_worksheet(name: "nda_highlights") do |sheet|
+	title_row = []
+	@nda_highlights.new.class.column_names.each do |column|
+		title_row.push(column)
+	end
+	sheet.add_row title_row
+	@nda_highlights.each do |nda_highlight|
+		content_row = []
+		nda_highlight.class.column_names.each do |column|
+			content_row.push(nda_highlight[column])
+		end
+		sheet.add_row content_row
+	end
+end
+wb.add_worksheet(name: "nda_slides") do |sheet|
+	title_row = []
+	@nda_slides.new.class.column_names.each do |column|
+		title_row.push(column)
+	end
+	sheet.add_row title_row
+	@nda_slides.each do |nda_slide|
+		content_row = []
+		nda_slide.class.column_names.each do |column|
+			content_row.push(nda_slide[column])
+		end
+		sheet.add_row content_row
+	end
+end
+wb.add_worksheet(name: "notes") do |sheet|
+	title_row = []
+	@notes.new.class.column_names.each do |column|
+		title_row.push(column)
+	end
+	sheet.add_row title_row
+	@notes.each do |note|
+		content_row = []
+		note.class.column_names.each do |column|
+			content_row.push(note[column])
+		end
+		sheet.add_row content_row
+	end
+end
+wb.add_worksheet(name: "people") do |sheet|
+	title_row = []
+	@people.new.class.column_names.each do |column|
+		title_row.push(column)
+	end
+	sheet.add_row title_row
+	@people.each do |person|
+		content_row = []
+		person.class.column_names.each do |column|
+			content_row.push(person[column])
+		end
+		sheet.add_row content_row
+	end
+end
+wb.add_worksheet(name: "person_notes") do |sheet|
+	title_row = []
+	@person_notes.new.class.column_names.each do |column|
+		title_row.push(column)
+	end
+	sheet.add_row title_row
+	@person_notes.each do |person_note|
+		content_row = []
+		person_note.class.column_names.each do |column|
+			content_row.push(person_note[column])
+		end
+		sheet.add_row content_row
+	end
+end
+wb.add_worksheet(name: "qoves") do |sheet|
+	title_row = []
+	@qoves.new.class.column_names.each do |column|
+		title_row.push(column)
+	end
+	sheet.add_row title_row
+	@qoves.each do |qofe|
+		content_row = []
+		qofe.class.column_names.each do |column|
+			content_row.push(qofe[column])
+		end
+		sheet.add_row content_row
+	end
+end
+wb.add_worksheet(name: "qofe_slides") do |sheet|
+	title_row = []
+	@qofe_slides.new.class.column_names.each do |column|
+		title_row.push(column)
+	end
+	sheet.add_row title_row
+	@qofe_slides.each do |qofe_slide|
+		content_row = []
+		qofe_slide.class.column_names.each do |column|
+			content_row.push(qofe_slide[column])
+		end
+		sheet.add_row content_row
+	end
+end
+wb.add_worksheet(name: "roles") do |sheet|
+	title_row = []
+	@roles.new.class.column_names.each do |column|
+		title_row.push(column)
+	end
+	sheet.add_row title_row
+	@roles.each do |role|
+		content_row = []
+		role.class.column_names.each do |column|
+			content_row.push(role[column])
+		end
+		sheet.add_row content_row
+	end
+end
+wb.add_worksheet(name: "slide_layouts") do |sheet|
+	title_row = []
+	@slide_layouts.new.class.column_names.each do |column|
+		title_row.push(column)
+	end
+	sheet.add_row title_row
+	@slide_layouts.each do |slide_layout|
+		content_row = []
+		slide_layout.class.column_names.each do |column|
+			content_row.push(slide_layout[column])
+		end
+		sheet.add_row content_row
+	end
+end
+wb.add_worksheet(name: "slide_layout_slides") do |sheet|
+	title_row = []
+	@slide_layout_slides.new.class.column_names.each do |column|
+		title_row.push(column)
+	end
+	sheet.add_row title_row
+	@slide_layout_slides.each do |slide_layout_slide|
+		content_row = []
+		slide_layout_slide.class.column_names.each do |column|
+			content_row.push(slide_layout_slide[column])
+		end
+		sheet.add_row content_row
+	end
+end
+wb.add_worksheet(name: "sponsors") do |sheet|
+	title_row = []
+	@sponsors.new.class.column_names.each do |column|
+		title_row.push(column)
+	end
+	sheet.add_row title_row
+	@sponsors.each do |sponsor|
+		content_row = []
+		sponsor.class.column_names.each do |column|
+			content_row.push(sponsor[column])
+		end
+		sheet.add_row content_row
+	end
+end
+wb.add_worksheet(name: "sponsor_follows") do |sheet|
+	title_row = []
+	@sponsor_follows.new.class.column_names.each do |column|
+		title_row.push(column)
+	end
+	sheet.add_row title_row
+	@sponsor_follows.each do |sponsor_follow|
+		content_row = []
+		sponsor_follow.class.column_names.each do |column|
+			content_row.push(sponsor_follow[column])
+		end
+		sheet.add_row content_row
+	end
+end
+wb.add_worksheet(name: "sponsor_histories") do |sheet|
+	title_row = []
+	@sponsor_histories.new.class.column_names.each do |column|
+		title_row.push(column)
+	end
+	sheet.add_row title_row
+	@sponsor_histories.each do |sponsor_history|
+		content_row = []
+		sponsor_history.class.column_names.each do |column|
+			content_row.push(sponsor_history[column])
+		end
+		sheet.add_row content_row
+	end
+end
+wb.add_worksheet(name: "sponsor_notes") do |sheet|
+	title_row = []
+	@sponsor_notes.new.class.column_names.each do |column|
+		title_row.push(column)
+	end
+	sheet.add_row title_row
+	@sponsor_notes.each do |sponsor_note|
+		content_row = []
+		sponsor_note.class.column_names.each do |column|
+			content_row.push(sponsor_note[column])
+		end
+		sheet.add_row content_row
+	end
+end
+wb.add_worksheet(name: "strip_tags") do |sheet|
+	title_row = []
+	@strip_tags.new.class.column_names.each do |column|
+		title_row.push(column)
+	end
+	sheet.add_row title_row
+	@strip_tags.each do |strip_tag|
+		content_row = []
+		strip_tag.class.column_names.each do |column|
+			content_row.push(strip_tag[column])
+		end
+		sheet.add_row content_row
+	end
+end
+wb.add_worksheet(name: "subsidiaries") do |sheet|
+	title_row = []
+	@subsidiaries.new.class.column_names.each do |column|
+		title_row.push(column)
+	end
+	sheet.add_row title_row
+	@subsidiaries.each do |subsidiary|
+		content_row = []
+		subsidiary.class.column_names.each do |column|
+			content_row.push(subsidiary[column])
+		end
+		sheet.add_row content_row
+	end
+end
+wb.add_worksheet(name: "tags") do |sheet|
+	title_row = []
+	@tags.new.class.column_names.each do |column|
+		title_row.push(column)
+	end
+	sheet.add_row title_row
+	@tags.each do |tag|
+		content_row = []
+		tag.class.column_names.each do |column|
+			content_row.push(tag[column])
+		end
+		sheet.add_row content_row
+	end
+end
+wb.add_worksheet(name: "teasers") do |sheet|
+	title_row = []
+	@teasers.new.class.column_names.each do |column|
+		title_row.push(column)
+	end
+	sheet.add_row title_row
+	@teasers.each do |teaser|
+		content_row = []
+		teaser.class.column_names.each do |column|
+			content_row.push(teaser[column])
+		end
+		sheet.add_row content_row
+	end
+end
+wb.add_worksheet(name: "teaser_companies") do |sheet|
+	title_row = []
+	@teaser_companies.new.class.column_names.each do |column|
+		title_row.push(column)
+	end
+	sheet.add_row title_row
+	@teaser_companies.each do |teaser_company|
+		content_row = []
+		teaser_company.class.column_names.each do |column|
+			content_row.push(teaser_company[column])
+		end
+		sheet.add_row content_row
+	end
+end
+wb.add_worksheet(name: "teaser_slides") do |sheet|
+	title_row = []
+	@teaser_slides.new.class.column_names.each do |column|
+		title_row.push(column)
+	end
+	sheet.add_row title_row
+	@teaser_slides.each do |teaser_slide|
+		content_row = []
+		teaser_slide.class.column_names.each do |column|
+			content_row.push(teaser_slide[column])
+		end
+		sheet.add_row content_row
+	end
+end
+wb.add_worksheet(name: "teaser_sponsors") do |sheet|
+	title_row = []
+	@teaser_sponsors.new.class.column_names.each do |column|
+		title_row.push(column)
+	end
+	sheet.add_row title_row
+	@teaser_sponsors.each do |teaser_sponsor|
+		content_row = []
+		teaser_sponsor.class.column_names.each do |column|
+			content_row.push(teaser_sponsor[column])
+		end
+		sheet.add_row content_row
+	end
+end
+wb.add_worksheet(name: "users") do |sheet|
+	title_row = []
+	@users.new.class.column_names.each do |column|
+		title_row.push(column)
+	end
+	sheet.add_row title_row
+	@users.each do |user|
+		content_row = []
+		user.class.column_names.each do |column|
+			content_row.push(user[column])
+		end
+		sheet.add_row content_row
+	end
+end
+wb.add_worksheet(name: "work_histories") do |sheet|
+	title_row = []
+	@work_histories.new.class.column_names.each do |column|
+		title_row.push(column)
+	end
+	sheet.add_row title_row
+	@work_histories.each do |work_history|
+		content_row = []
+		work_history.class.column_names.each do |column|
+			content_row.push(work_history[column])
 		end
 		sheet.add_row content_row
 	end
