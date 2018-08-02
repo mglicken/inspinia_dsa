@@ -4,7 +4,7 @@
 <br>
 <br>
 <div class="row">
-  <div class= "col-offset-lg-1  col-xs-10 col-sm-10 col-md-10 col-lg-10 isotope-item">
+  <div class= "col-lg-offset-2 col-lg-8 isotope-item">
     <div class="ibox-content">
       <div class="pull-right" style="margin-right:25px">
           <% if @slide.favorite_slides.where(user_id: current_user.id).present? %>
@@ -65,11 +65,7 @@
                   <i class="fa fa-chevron-left"></i>
                 </a>
               <% end %>
-              <% if @slide.number < Slide.find(@slide.id+1).number %>
-                <a href="/slides/<%= @slide.id + 1%>" class="btn btn-lincoln">
                   <i class="fa fa-chevron-right"></i>
-                </a>
-              <% end %>
 
             </div>
           </div>

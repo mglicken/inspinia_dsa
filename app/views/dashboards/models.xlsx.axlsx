@@ -1,0 +1,261 @@
+require 'axlsx'
+
+# app/views/dashboards/models.xlsx.axlsx
+
+wb = xlsx_package.workbook
+
+wb.add_worksheet(name: "accesses") do |sheet|
+  
+	title_row = []
+	@accesses.first.class.column_names.each do |column|
+		title_row.push(column)
+	end
+	sheet.add_row title_row
+	@accesses.each do |access|
+		content_row = []
+		access.class.column_names.each do |column|
+			content_row.push(access[column])
+		end
+		sheet.add_row content_row
+	end
+end
+wb.add_worksheet(name: "advisor_types") do |sheet|
+  
+	title_row = []
+	@advisor_types.first.class.column_names.each do |column|
+		title_row.push(column)
+	end
+	sheet.add_row title_row
+	@advisor_types.each do |advisor_type|
+		content_row = []
+		advisor_type.class.column_names.each do |column|
+			content_row.push(advisor_type[column])
+		end
+		sheet.add_row content_row
+	end
+end
+wb.add_worksheet(name: "buckets") do |sheet|
+  
+	title_row = []
+	@buckets.first.class.column_names.each do |column|
+		title_row.push(column)
+	end
+	sheet.add_row title_row
+	@buckets.each do |bucket|
+		content_row = []
+		bucket.class.column_names.each do |column|
+			content_row.push(bucket[column])
+		end
+		sheet.add_row content_row
+	end
+end
+wb.add_worksheet(name: "case_studies") do |sheet|
+  
+	title_row = []
+	@case_studies.first.class.column_names.each do |column|
+		title_row.push(column)
+	end
+	sheet.add_row title_row
+	@case_studies.each do |case_study|
+		content_row = []
+		case_study.class.column_names.each do |column|
+			content_row.push(case_study[column])
+		end
+		sheet.add_row content_row
+	end
+end
+wb.add_worksheet(name: "case_study_slides") do |sheet|
+  
+	title_row = []
+	@case_study_slides.first.class.column_names.each do |column|
+		title_row.push(column)
+	end
+	sheet.add_row title_row
+	@case_study_slides.each do |case_study_slide|
+		content_row = []
+		case_study_slide.class.column_names.each do |column|
+			content_row.push(case_study_slide[column])
+		end
+		sheet.add_row content_row
+	end
+end
+wb.add_worksheet(name: "cips") do |sheet|
+  
+	title_row = []
+	@cips.first.class.column_names.each do |column|
+		title_row.push(column)
+	end
+	sheet.add_row title_row
+	@cips.each do |cip|
+		content_row = []
+		cip.class.column_names.each do |column|
+			content_row.push(cip[column])
+		end
+		sheet.add_row content_row
+	end
+end
+wb.add_worksheet(name: "cip_companies") do |sheet|
+  
+	title_row = []
+	@cip_companies.first.class.column_names.each do |column|
+		title_row.push(column)
+	end
+	sheet.add_row title_row
+	@cip_companies.each do |cip_company|
+		content_row = []
+		cip_company.class.column_names.each do |column|
+			content_row.push(cip_company[column])
+		end
+		sheet.add_row content_row
+	end
+end
+wb.add_worksheet(name: "cip_slides") do |sheet|
+  
+	title_row = []
+	@cip_slides.first.class.column_names.each do |column|
+		title_row.push(column)
+	end
+	sheet.add_row title_row
+	@cip_slides.each do |cip_slide|
+		content_row = []
+		cip_slide.class.column_names.each do |column|
+			content_row.push(cip_slide[column])
+		end
+		sheet.add_row content_row
+	end
+end
+wb.add_worksheet(name: "cip_sponsors") do |sheet|
+  
+	title_row = []
+	@cip_sponsors.first.class.column_names.each do |column|
+		title_row.push(column)
+	end
+	sheet.add_row title_row
+	@cip_sponsors.each do |cip_sponsor|
+		content_row = []
+		cip_sponsor.class.column_names.each do |column|
+			content_row.push(cip_sponsor[column])
+		end
+		sheet.add_row content_row
+	end
+end
+wb.add_worksheet(name: "companies") do |sheet|
+  
+	title_row = []
+	@companies.first.class.column_names.each do |column|
+		title_row.push(column)
+	end
+	sheet.add_row title_row
+	@companies.each do |company|
+		content_row = []
+		company.class.column_names.each do |column|
+			content_row.push(company[column])
+		end
+		sheet.add_row content_row
+	end
+end
+wb.add_worksheet(name: "company_follows") do |sheet|
+  
+	title_row = []
+	@company_follows.first.class.column_names.each do |column|
+		title_row.push(column)
+	end
+	sheet.add_row title_row
+	@company_follows.each do |company_follow|
+		content_row = []
+		company_follow.class.column_names.each do |column|
+			content_row.push(company_follow[column])
+		end
+		sheet.add_row content_row
+	end
+end
+wb.add_worksheet(name: "company_notes") do |sheet|
+  
+	title_row = []
+	@company_notes.first.class.column_names.each do |column|
+		title_row.push(column)
+	end
+	sheet.add_row title_row
+	@company_notes.each do |company_note|
+		content_row = []
+		company_note.class.column_names.each do |column|
+			content_row.push(company_note[column])
+		end
+		sheet.add_row content_row
+	end
+end
+wb.add_worksheet(name: "deals") do |sheet|
+  
+	title_row = []
+	@deals.first.class.column_names.each do |column|
+		title_row.push(column)
+	end
+	sheet.add_row title_row
+	@deals.each do |deal|
+		content_row = []
+		deal.class.column_names.each do |column|
+			content_row.push(deal[column])
+		end
+		sheet.add_row content_row
+	end
+end
+wb.add_worksheet(name: "deal_follows") do |sheet|
+  
+	title_row = []
+	@deal_follows.first.class.column_names.each do |column|
+		title_row.push(column)
+	end
+	sheet.add_row title_row
+	@deal_follows.each do |deal_follow|
+		content_row = []
+		deal_follow.class.column_names.each do |column|
+			content_row.push(deal_follow[column])
+		end
+		sheet.add_row content_row
+	end
+end
+wb.add_worksheet(name: "deal_people") do |sheet|
+  
+	title_row = []
+	@deal_people.first.class.column_names.each do |column|
+		title_row.push(column)
+	end
+	sheet.add_row title_row
+	@deal_people.each do |deal_person|
+		content_row = []
+		deal_person.class.column_names.each do |column|
+			content_row.push(deal_person[column])
+		end
+		sheet.add_row content_row
+	end
+end
+wb.add_worksheet(name: "deal_stages") do |sheet|
+  
+	title_row = []
+	@deal_stages.first.class.column_names.each do |column|
+		title_row.push(column)
+	end
+	sheet.add_row title_row
+	@deal_stages.each do |deal_stage|
+		content_row = []
+		deal_stage.class.column_names.each do |column|
+			content_row.push(deal_stage[column])
+		end
+		sheet.add_row content_row
+	end
+end
+wb.add_worksheet(name: "deal_types") do |sheet|
+  
+	title_row = []
+	@deal_types.first.class.column_names.each do |column|
+		title_row.push(column)
+	end
+	sheet.add_row title_row
+	@deal_types.each do |deal_type|
+		content_row = []
+		deal_type.class.column_names.each do |column|
+			content_row.push(deal_type[column])
+		end
+		sheet.add_row content_row
+	end
+end

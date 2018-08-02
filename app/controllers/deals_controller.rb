@@ -164,7 +164,6 @@ before_action :ensure_view_access,  only: [:index, :search, :search_all, :show]
   def show_qoves
     @deal = Deal.find(params[:id])
     @qoves = @deal.qoves.order("name ASC")
-    
   end
 
   def show_market_studies
@@ -174,7 +173,6 @@ before_action :ensure_view_access,  only: [:index, :search, :search_all, :show]
 
   def new
     @deal = Deal.new
-    
   end
 
   def create

@@ -19,24 +19,25 @@
                     <tr>
                         <th style="width: 1%" class="text-center">No.</th>
                         <th>Project</th>
-                        <th class="text-center">NBP Date</th>
-                        <th class="text-center">Stage</th>
+                        <th style="width: 10%" class="text-center">Role</th>
+                        <th style="width: 10%" class="text-center">NBP Date</th>
+                        <th style="width: 20%" class="text-center">Stage</th>
                     </tr>
                     </thead>
                     <tbody>
                             <%i=0%>
-                            <% @person.deals.each do |deal| 
+                            <% Nbp.where(deal_id: @person.deals.ids).order("nbp_date DESC").each do |nbp| 
                                 i=i+1%>
                     <tr>
                         <td class="text-center"><%=i%></td>
-                        <td><a href="/deals/<%= deal.id %>"><%= deal.name %></a></td>
-                        <td class="text-center small"><%= Nbp.where(deal_id: deal.id).first.nbp_date %></td>
-                        <% if deal.deal_stage_id == 15 %>
-                           <td class="text-center"><span class="label label-primary"><%= deal.deal_stage.name%></span></td>
-                        <% elsif deal.deal_stage_id == 16 || deal.deal_stage_id == 17 || deal.deal_stage_id == 18 %>
-                           <td class="text-center"><span class="label label-danger"><%= deal.deal_stage.name%></span></td>
+                        <td><a href="/deals/<%= nbp.deal.id %>"><%= nbp.deal.name %></a></td>
+                        <td class="text-center small"><%= nbp.nbp_date %></td>
+                        <% if nbp.deal.deal_stage_id == 15 %>
+                           <td class="text-center"><span class="label label-primary"><%= nbp.deal.deal_stage.name%></span></td>
+                        <% elsif nbp.deal.deal_stage_id == 16 || nbp.deal.deal_stage_id == 17 || nbp.deal.deal_stage_id == 18 %>
+                           <td class="text-center"><span class="label label-danger"><%= nbp.deal.deal_stage.name%></span></td>
                         <% else %>
-                           <td class="text-center"><span class="label label-warning"><%= deal.deal_stage.name%></span></td>
+                           <td class="text-center"><span class="label label-warning"><%= nbp.deal.deal_stage.name%></span></td>
                         <% end %> 
 
                     </tr>

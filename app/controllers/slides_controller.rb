@@ -156,6 +156,7 @@ before_action :ensure_view_access,  only: [:show, :search]
   def create_nbp_slides
     public_id = Cloudinary::Api.resources(type:"upload")["resources"].first["public_id"]
     pdf_len = Cloudinary::Api.resource( public_id , pages: true)["pages"].to_i
+    @nbp = Nbp.find(params[:nbp_id])
 
 
     for i in 0..(pdf_len-1)
@@ -176,9 +177,9 @@ before_action :ensure_view_access,  only: [:show, :search]
       slide_tag.save
 
     end
-    nbp_slide.nbp.image_id = public_id
+    @nbp.image_id = public_id
     if slide.save
-      nbp_slide.nbp.save
+      @nbp.save
       redirect_to "/nbps/#{nbp_slide.nbp_id}", :notice => "NBP slides uploaded successfully. Please start tagging slides to aid searches."
     else
       render 'new'
@@ -188,7 +189,7 @@ before_action :ensure_view_access,  only: [:show, :search]
   def create_nda_slides
     public_id = Cloudinary::Api.resources(type:"upload")["resources"].first["public_id"]
     pdf_len = Cloudinary::Api.resource( public_id , pages: true)["pages"].to_i
-
+    @nda = Nda.find(params[:nda_id])
 
     for i in 0..(pdf_len-1)
       slide = Slide.new
@@ -208,9 +209,9 @@ before_action :ensure_view_access,  only: [:show, :search]
       slide_tag.save
 
     end
-    nda_slide.nda.image_id = public_id
+    @nda.image_id = public_id
     if slide.save
-      nda_slide.nda.save
+      @nda.save
       redirect_to "/ndas/#{nda_slide.nda_id}", :notice => "NDA slides uploaded successfully. Please start tagging slides to aid searches."
     else
       render 'new'
@@ -220,7 +221,7 @@ before_action :ensure_view_access,  only: [:show, :search]
   def create_teaser_slides
     public_id = Cloudinary::Api.resources(type:"upload")["resources"].first["public_id"]
     pdf_len = Cloudinary::Api.resource( public_id , pages: true)["pages"].to_i
-
+    @teaser = Teaser.find(params[:teaser_id])
 
     for i in 0..(pdf_len-1)
       slide = Slide.new
@@ -241,9 +242,9 @@ before_action :ensure_view_access,  only: [:show, :search]
       slide_tag.save
 
     end
-    teaser_slide.teaser.image_id = public_id
+    @teaser.image_id = public_id
     if slide.save
-      teaser_slide.teaser.save
+      @teaser.save
       redirect_to "/teasers/#{teaser_slide.teaser_id}", :notice => "Teaser slides uploaded successfully. Please start tagging slides to aid searches."
     else
       render 'new'
@@ -253,7 +254,7 @@ before_action :ensure_view_access,  only: [:show, :search]
   def create_cip_slides
     public_id = Cloudinary::Api.resources(type:"upload")["resources"].first["public_id"]
     pdf_len = Cloudinary::Api.resource( public_id , pages: true)["pages"].to_i
-
+    @cip = Cip.find(params[:cip_id])
 
     for i in 0..(pdf_len-1)
       slide = Slide.new
@@ -274,9 +275,9 @@ before_action :ensure_view_access,  only: [:show, :search]
       slide_tag.save        
 
     end
-    cip_slide.cip.image_id = public_id
+    @cip.image_id = public_id
     if slide.save
-      cip_slide.cip.save
+      @cip.save
       redirect_to "/cips/#{cip_slide.cip_id}", :notice => "CIP slides uploaded successfully. Please start tagging slides to aid searches."
     else
       render 'new'
@@ -286,7 +287,7 @@ before_action :ensure_view_access,  only: [:show, :search]
   def create_ioi_slides
     public_id = Cloudinary::Api.resources(type:"upload")["resources"].first["public_id"]
     pdf_len = Cloudinary::Api.resource( public_id , pages: true)["pages"].to_i
-
+    @ioi = Ioi.find(params[:ioi_id])
 
     for i in 0..(pdf_len-1)
       slide = Slide.new
@@ -305,9 +306,9 @@ before_action :ensure_view_access,  only: [:show, :search]
       slide_tag.save
 
     end
-    ioi_slide.ioi.image_id = public_id
+    @ioi.image_id = public_id
     if slide.save
-      ioi_slide.ioi.save
+      @ioi.save
       redirect_to "/iois/#{ioi_slide.ioi_id}", :notice => "IOI slides uploaded successfully. Please start tagging slides to aid searches."
     else
       render 'new'
@@ -317,7 +318,7 @@ before_action :ensure_view_access,  only: [:show, :search]
   def create_mp_slides
     public_id = Cloudinary::Api.resources(type:"upload")["resources"].first["public_id"]
     pdf_len = Cloudinary::Api.resource( public_id , pages: true)["pages"].to_i
-
+    @mp = Mp.find(params[:mp_id])
 
     for i in 0..(pdf_len-1)
       slide = Slide.new
@@ -338,9 +339,9 @@ before_action :ensure_view_access,  only: [:show, :search]
       slide_tag.save
 
     end
-    mp_slide.mp.image_id = public_id
+    @mp.image_id = public_id
     if slide.save
-      mp_slide.mp.save
+      @mp.save
       redirect_to "/mps/#{mp_slide.mp_id}", :notice => "MP slides uploaded successfully. Please start tagging slides to aid searches."
     else
       render 'new'
@@ -350,7 +351,7 @@ before_action :ensure_view_access,  only: [:show, :search]
   def create_loi_slides
     public_id = Cloudinary::Api.resources(type:"upload")["resources"].first["public_id"]
     pdf_len = Cloudinary::Api.resource( public_id , pages: true)["pages"].to_i
-
+    @loi = Loi.find(params[:loi_id])
 
     for i in 0..(pdf_len-1)
       slide = Slide.new
@@ -370,9 +371,9 @@ before_action :ensure_view_access,  only: [:show, :search]
       slide_tag.save
 
     end
-    loi_slide.loi.image_id = public_id
+    @loi.image_id = public_id
     if slide.save
-      loi_slide.loi.save
+      @loi.save
       redirect_to "/lois/#{loi_slide.loi_id}", :notice => "LOI slides uploaded successfully. Please start tagging slides to aid searches."
     else
       render 'new'
@@ -382,7 +383,7 @@ before_action :ensure_view_access,  only: [:show, :search]
    def create_case_study_slides
     public_id = Cloudinary::Api.resources(type:"upload")["resources"].first["public_id"]
     pdf_len = Cloudinary::Api.resource( public_id , pages: true)["pages"].to_i
-
+    @case_study = CaseStudy.find(params[:case_study_id])
 
     for i in 0..(pdf_len-1)
       slide = Slide.new
@@ -403,9 +404,9 @@ before_action :ensure_view_access,  only: [:show, :search]
       slide_tag.save
 
     end
-    case_study_slide.case_study.image_id = public_id
+    @case_study.image_id = public_id
     if slide.save
-      case_study_slide.case_study.save
+      @case_study.save
       redirect_to "/case_studies/#{case_study_slide.case_study_id}", :notice => "Case Study Slides uploaded successfully. Please start tagging slides to aid searches."
     else
       render 'new'
@@ -415,7 +416,7 @@ before_action :ensure_view_access,  only: [:show, :search]
   def create_market_study_slides
     public_id = Cloudinary::Api.resources(type:"upload")["resources"].first["public_id"]
     pdf_len = Cloudinary::Api.resource( public_id , pages: true)["pages"].to_i
-
+    @market_study = MarketStudy.find(params[:market_study_id])
 
     for i in 0..(pdf_len-1)
       slide = Slide.new
@@ -434,9 +435,9 @@ before_action :ensure_view_access,  only: [:show, :search]
       slide_tag.save
 
     end
-    market_study_slide.market_study.image_id = public_id
+    @market_study.image_id = public_id
     if slide.save
-      market_study_slide.market_study.save
+      @market_study.save
       redirect_to "/market_studies/#{market_study_slide.market_study_id}", :notice => "Market Study Slides uploaded successfully. Please start tagging slides to aid searches."
     else
       render 'new'
@@ -446,7 +447,7 @@ before_action :ensure_view_access,  only: [:show, :search]
   def create_qofe_slides
     public_id = Cloudinary::Api.resources(type:"upload")["resources"].first["public_id"]
     pdf_len = Cloudinary::Api.resource( public_id , pages: true)["pages"].to_i
-
+    @qofe = Qofe.find(params[:qofe_id])
 
     for i in 0..(pdf_len-1)
       slide = Slide.new
@@ -465,9 +466,9 @@ before_action :ensure_view_access,  only: [:show, :search]
       slide_tag.save
 
     end
-    qofe_slide.qofe.image_id = public_id
+    @qofe.image_id = public_id
     if slide.save
-      qofe_slide.qofe.save
+      @qofe.save
       redirect_to "/qoves/#{qofe_slide.qofe_id}", :notice => "QofE Slides uploaded successfully. Please start tagging slides to aid searches."
     else
       render 'new'

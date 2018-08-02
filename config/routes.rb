@@ -1125,6 +1125,7 @@ Myapp::Application.routes.draw do
   get "/create_loi_slide/:loi_id", :controller => "slides", :action => "create_loi_slides"
   get "/create_market_study_slide/:market_study_id", :controller => "slides", :action => "create_market_study_slides"
   get "/create_qofe_slide/:qofe_id", :controller => "slides", :action => "create_qofe_slides"
+  get "/create_case_study_slide/:case_study_id", :controller => "slides", :action => "create_case_study_slides"
   # READ
   get "/slides", :controller => "slides", :action => "index"
   get "/slides/:id", :controller => "slides", :action => "show"

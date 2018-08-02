@@ -7,7 +7,7 @@
 }
 </style>
 <div class="row">
-  <div class="col-xs-12">
+  <div class="col-lg-offset-2 col-lg-8">
     <input type="text" id="quicksearch" placeholder="Search Pages (start typing)" class="form-control">
   </div>
 </div>
@@ -15,7 +15,7 @@
 
 <div class="row isotope-container">
 <% @case_study.slides.each do |slide| %>
-  <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 isotope-item">
+  <div class="col-lg-offset-2 col-lg-8 isotope-item">
     <div class="panel panel-default">
       <div class="pull-right">
         <% if slide.favorite_slides.where(user_id: current_user.id).present? %>
