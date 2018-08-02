@@ -11,7 +11,7 @@ belongs_to :person
 		end
 	end
 	def self.import(file)
-		allowed_attributes = [ "deal_id", "person_id"]
+		allowed_attributes = [ "deal_id", "person_id", "role_id"]
 		CSV.foreach(file.path,headers: true) do |row|
 			deal_people = find_by_id(row["id"]) || new
 			
