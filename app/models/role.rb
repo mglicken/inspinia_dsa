@@ -1,6 +1,7 @@
 class Role < ActiveRecord::Base
 	validates :name, :presence => true, :uniqueness => true
 	has_many :people
+	has_many :deal_people
 	has_many :work_histories
 	has_many :sponsor_histories
 

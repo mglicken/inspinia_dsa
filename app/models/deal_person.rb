@@ -1,6 +1,7 @@
 class DealPerson < ActiveRecord::Base
 belongs_to :deal
 belongs_to :person
+belongs_to :role
 
 	def self.to_csv
 		CSV.generate do |csv|
