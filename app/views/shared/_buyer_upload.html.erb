@@ -2,9 +2,15 @@
   <div style="text-align: center">
   <div class="btn btn-group btn-group-horizontal">
     <h1>
-      <a id="<%= path%>-button" href="/<%= path %>s/<%= resource_id%>/acquirers.xlsx" class="btn btn-warning btn-outline btn-default" >
-          Export <i class="fa fa-cloud-download"></i>
-      </a>
+      <% if path == "nbp" %>
+        <a id="<%= path%>-button" href="/<%= path %>s/<%= resource_id%>/companies.xlsx" class="btn btn-warning btn-outline btn-default" >
+            Export <i class="fa fa-cloud-download"></i>
+        </a>
+      <% else %>
+        <a id="<%= path%>-button" href="/<%= path %>s/<%= resource_id%>/acquirers.xlsx" class="btn btn-warning btn-outline btn-default" >
+            Export <i class="fa fa-cloud-download"></i>
+        </a>
+      <% end %>
   
       <!-- Button trigger modal -->
       <button type="button" class="btn btn-warning btn-default" data-toggle="modal" data-target="#myModalUpLoad_<%= path.upcase %>">
@@ -34,7 +40,7 @@
                     <%= submit_tag "Import", class: "btn btn-warning btn-group-justified"%> 
                   <% end %>
                 <% elsif path == "nbp" %>
-                  <%= form_tag import_acquirers_nbps_path, multipart: true do %>
+                  <%= form_tag import_companies_nbps_path, multipart: true do %>
                     <%= file_field_tag :file %><br>
                     <%= hidden_field_tag 'id', resource_id %><br>                  
                     <%= submit_tag "Import", class: "btn btn-warning btn-group-justified"%> 

@@ -54,7 +54,7 @@
   </div>
   <div class="col-lg-3">
     <div class="btn-group-vertical">
-      <%= render('shared/file_buyer_download_upload', type: "strategic", nbp: @nbp) %>
+      <%= render('shared/buyer_upload', resource_id: @nbp.id, path: "nbp") %>  
 
       <%if @buckets.count < 4%>
         <%= render('shared/create_bucket_modal',nbp: @nbp) %>

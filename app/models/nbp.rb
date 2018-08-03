@@ -34,16 +34,17 @@ has_many :tags, :through => :nbp_tags
 		@data = CSV.read(file.path, headers: true)
 		nbp = Nbp.find(nbp_id) 
 		@data.each do |data|
-			nbp_company = NbpCompany.find_by(nbp_id: nbp.id, company_id: data["company_id"])
+			nbp_company = NbpCompany.where(nbp_id: nbp.id, company_id: data["company_id"], bucket_id: Bucket.where(title: data["bucket"]).ids).first
 			nbp_company.tier_id = data["tier_id"]
-			nbp_company.include_strip = data["include_strip"]
+			nbp_company.include_strip = data["include"]
 			nbp_company.strip = data["strip"]
 			nbp_company.note = data["note"]
 			nbp_company.save
 			nbp_company.strip_tags.each do |strip_tag|
-				strip_tag.value = data[strip_tag.tag.name]
+				strip_tag.value = data["#{strip_tag.tag.name}"]
 				strip_tag.save
 			end
 		end
+		return @data.count
 	end	
 end
