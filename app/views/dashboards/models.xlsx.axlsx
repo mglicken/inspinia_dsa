@@ -6,7 +6,7 @@ wb = xlsx_package.workbook
 
 wb.add_worksheet(name: "accesses") do |sheet|
 	title_row = []
-	@accesses.new.class.column_names.each do |column|
+	@accesses.column_names.each do |column|
 		title_row.push(column)
 	end
 	sheet.add_row title_row
@@ -20,7 +20,7 @@ wb.add_worksheet(name: "accesses") do |sheet|
 end
 wb.add_worksheet(name: "advisor_types") do |sheet|
 	title_row = []
-	@advisor_types.new.class.column_names.each do |column|
+	@advisor_types.column_names.each do |column|
 		title_row.push(column)
 	end
 	sheet.add_row title_row
@@ -34,7 +34,7 @@ wb.add_worksheet(name: "advisor_types") do |sheet|
 end
 wb.add_worksheet(name: "buckets") do |sheet|
 	title_row = []
-	@buckets.new.class.column_names.each do |column|
+	@buckets.column_names.each do |column|
 		title_row.push(column)
 	end
 	sheet.add_row title_row
@@ -48,7 +48,7 @@ wb.add_worksheet(name: "buckets") do |sheet|
 end
 wb.add_worksheet(name: "case_studies") do |sheet|
 	title_row = []
-	@case_studies.new.class.column_names.each do |column|
+	@case_studies.column_names.each do |column|
 		title_row.push(column)
 	end
 	sheet.add_row title_row
@@ -62,7 +62,7 @@ wb.add_worksheet(name: "case_studies") do |sheet|
 end
 wb.add_worksheet(name: "case_study_slides") do |sheet|
 	title_row = []
-	@case_study_slides.new.class.column_names.each do |column|
+	@case_study_slides.column_names.each do |column|
 		title_row.push(column)
 	end
 	sheet.add_row title_row
@@ -76,7 +76,7 @@ wb.add_worksheet(name: "case_study_slides") do |sheet|
 end
 wb.add_worksheet(name: "cips") do |sheet|
 	title_row = []
-	@cips.new.class.column_names.each do |column|
+	@cips.column_names.each do |column|
 		title_row.push(column)
 	end
 	sheet.add_row title_row
@@ -90,7 +90,7 @@ wb.add_worksheet(name: "cips") do |sheet|
 end
 wb.add_worksheet(name: "cip_companies") do |sheet|
 	title_row = []
-	@cip_companies.new.class.column_names.each do |column|
+	@cip_companies.column_names.each do |column|
 		title_row.push(column)
 	end
 	sheet.add_row title_row
@@ -104,7 +104,7 @@ wb.add_worksheet(name: "cip_companies") do |sheet|
 end
 wb.add_worksheet(name: "cip_slides") do |sheet|
 	title_row = []
-	@cip_slides.new.class.column_names.each do |column|
+	@cip_slides.column_names.each do |column|
 		title_row.push(column)
 	end
 	sheet.add_row title_row
@@ -118,7 +118,7 @@ wb.add_worksheet(name: "cip_slides") do |sheet|
 end
 wb.add_worksheet(name: "cip_sponsors") do |sheet|
 	title_row = []
-	@cip_sponsors.new.class.column_names.each do |column|
+	@cip_sponsors.column_names.each do |column|
 		title_row.push(column)
 	end
 	sheet.add_row title_row
@@ -132,7 +132,7 @@ wb.add_worksheet(name: "cip_sponsors") do |sheet|
 end
 wb.add_worksheet(name: "companies") do |sheet|
 	title_row = []
-	@companies.new.class.column_names.each do |column|
+	@companies.column_names.each do |column|
 		title_row.push(column)
 	end
 	sheet.add_row title_row
@@ -146,7 +146,7 @@ wb.add_worksheet(name: "companies") do |sheet|
 end
 wb.add_worksheet(name: "company_follows") do |sheet|
 	title_row = []
-	@company_follows.new.class.column_names.each do |column|
+	@company_follows.column_names.each do |column|
 		title_row.push(column)
 	end
 	sheet.add_row title_row
@@ -160,7 +160,7 @@ wb.add_worksheet(name: "company_follows") do |sheet|
 end
 wb.add_worksheet(name: "company_notes") do |sheet|
 	title_row = []
-	@company_notes.new.class.column_names.each do |column|
+	@company_notes.column_names.each do |column|
 		title_row.push(column)
 	end
 	sheet.add_row title_row
@@ -174,7 +174,7 @@ wb.add_worksheet(name: "company_notes") do |sheet|
 end
 wb.add_worksheet(name: "deals") do |sheet|
 	title_row = []
-	@deals.new.class.column_names.each do |column|
+	@deals.column_names.each do |column|
 		title_row.push(column)
 	end
 	sheet.add_row title_row
@@ -188,7 +188,7 @@ wb.add_worksheet(name: "deals") do |sheet|
 end
 wb.add_worksheet(name: "deal_follows") do |sheet|
 	title_row = []
-	@deal_follows.new.class.column_names.each do |column|
+	@deal_follows.column_names.each do |column|
 		title_row.push(column)
 	end
 	sheet.add_row title_row
@@ -202,7 +202,7 @@ wb.add_worksheet(name: "deal_follows") do |sheet|
 end
 wb.add_worksheet(name: "deal_people") do |sheet|
 	title_row = []
-	@deal_people.new.class.column_names.each do |column|
+	@deal_people.column_names.each do |column|
 		title_row.push(column)
 	end
 	sheet.add_row title_row
@@ -216,7 +216,7 @@ wb.add_worksheet(name: "deal_people") do |sheet|
 end
 wb.add_worksheet(name: "deal_stages") do |sheet|
 	title_row = []
-	@deal_stages.new.class.column_names.each do |column|
+	@deal_stages.column_names.each do |column|
 		title_row.push(column)
 	end
 	sheet.add_row title_row
@@ -230,7 +230,7 @@ wb.add_worksheet(name: "deal_stages") do |sheet|
 end
 wb.add_worksheet(name: "deal_types") do |sheet|
 	title_row = []
-	@deal_types.new.class.column_names.each do |column|
+	@deal_types.column_names.each do |column|
 		title_row.push(column)
 	end
 	sheet.add_row title_row
@@ -244,7 +244,7 @@ wb.add_worksheet(name: "deal_types") do |sheet|
 end
 wb.add_worksheet(name: "diligence_advisors") do |sheet|
 	title_row = []
-	@diligence_advisors.new.class.column_names.each do |column|
+	@diligence_advisors.column_names.each do |column|
 		title_row.push(column)
 	end
 	sheet.add_row title_row
@@ -258,7 +258,7 @@ wb.add_worksheet(name: "diligence_advisors") do |sheet|
 end
 wb.add_worksheet(name: "engagement_companies") do |sheet|
 	title_row = []
-	@engagement_companies.new.class.column_names.each do |column|
+	@engagement_companies.column_names.each do |column|
 		title_row.push(column)
 	end
 	sheet.add_row title_row
@@ -272,7 +272,7 @@ wb.add_worksheet(name: "engagement_companies") do |sheet|
 end
 wb.add_worksheet(name: "engagement_sponsors") do |sheet|
 	title_row = []
-	@engagement_sponsors.new.class.column_names.each do |column|
+	@engagement_sponsors.column_names.each do |column|
 		title_row.push(column)
 	end
 	sheet.add_row title_row
@@ -286,7 +286,7 @@ wb.add_worksheet(name: "engagement_sponsors") do |sheet|
 end
 wb.add_worksheet(name: "favorite_slides") do |sheet|
 	title_row = []
-	@favorite_slides.new.class.column_names.each do |column|
+	@favorite_slides.column_names.each do |column|
 		title_row.push(column)
 	end
 	sheet.add_row title_row
@@ -300,7 +300,7 @@ wb.add_worksheet(name: "favorite_slides") do |sheet|
 end
 wb.add_worksheet(name: "funds") do |sheet|
 	title_row = []
-	@funds.new.class.column_names.each do |column|
+	@funds.column_names.each do |column|
 		title_row.push(column)
 	end
 	sheet.add_row title_row
@@ -314,7 +314,7 @@ wb.add_worksheet(name: "funds") do |sheet|
 end
 wb.add_worksheet(name: "fund_companies") do |sheet|
 	title_row = []
-	@fund_companies.new.class.column_names.each do |column|
+	@fund_companies.column_names.each do |column|
 		title_row.push(column)
 	end
 	sheet.add_row title_row
@@ -328,7 +328,7 @@ wb.add_worksheet(name: "fund_companies") do |sheet|
 end
 wb.add_worksheet(name: "highlights") do |sheet|
 	title_row = []
-	@highlights.new.class.column_names.each do |column|
+	@highlights.column_names.each do |column|
 		title_row.push(column)
 	end
 	sheet.add_row title_row
@@ -342,7 +342,7 @@ wb.add_worksheet(name: "highlights") do |sheet|
 end
 wb.add_worksheet(name: "iois") do |sheet|
 	title_row = []
-	@iois.new.class.column_names.each do |column|
+	@iois.column_names.each do |column|
 		title_row.push(column)
 	end
 	sheet.add_row title_row
@@ -356,7 +356,7 @@ wb.add_worksheet(name: "iois") do |sheet|
 end
 wb.add_worksheet(name: "ioi_highlights") do |sheet|
 	title_row = []
-	@ioi_highlights.new.class.column_names.each do |column|
+	@ioi_highlights.column_names.each do |column|
 		title_row.push(column)
 	end
 	sheet.add_row title_row
@@ -370,7 +370,7 @@ wb.add_worksheet(name: "ioi_highlights") do |sheet|
 end
 wb.add_worksheet(name: "ioi_slides") do |sheet|
 	title_row = []
-	@ioi_slides.new.class.column_names.each do |column|
+	@ioi_slides.column_names.each do |column|
 		title_row.push(column)
 	end
 	sheet.add_row title_row
@@ -384,7 +384,7 @@ wb.add_worksheet(name: "ioi_slides") do |sheet|
 end
 wb.add_worksheet(name: "lois") do |sheet|
 	title_row = []
-	@lois.new.class.column_names.each do |column|
+	@lois.column_names.each do |column|
 		title_row.push(column)
 	end
 	sheet.add_row title_row
@@ -398,7 +398,7 @@ wb.add_worksheet(name: "lois") do |sheet|
 end
 wb.add_worksheet(name: "loi_highlights") do |sheet|
 	title_row = []
-	@loi_highlights.new.class.column_names.each do |column|
+	@loi_highlights.column_names.each do |column|
 		title_row.push(column)
 	end
 	sheet.add_row title_row
@@ -412,7 +412,7 @@ wb.add_worksheet(name: "loi_highlights") do |sheet|
 end
 wb.add_worksheet(name: "loi_slides") do |sheet|
 	title_row = []
-	@loi_slides.new.class.column_names.each do |column|
+	@loi_slides.column_names.each do |column|
 		title_row.push(column)
 	end
 	sheet.add_row title_row
@@ -426,7 +426,7 @@ wb.add_worksheet(name: "loi_slides") do |sheet|
 end
 wb.add_worksheet(name: "market_studies") do |sheet|
 	title_row = []
-	@market_studies.new.class.column_names.each do |column|
+	@market_studies.column_names.each do |column|
 		title_row.push(column)
 	end
 	sheet.add_row title_row
@@ -440,7 +440,7 @@ wb.add_worksheet(name: "market_studies") do |sheet|
 end
 wb.add_worksheet(name: "market_study_slides") do |sheet|
 	title_row = []
-	@market_study_slides.new.class.column_names.each do |column|
+	@market_study_slides.column_names.each do |column|
 		title_row.push(column)
 	end
 	sheet.add_row title_row
@@ -454,7 +454,7 @@ wb.add_worksheet(name: "market_study_slides") do |sheet|
 end
 wb.add_worksheet(name: "mps") do |sheet|
 	title_row = []
-	@mps.new.class.column_names.each do |column|
+	@mps.column_names.each do |column|
 		title_row.push(column)
 	end
 	sheet.add_row title_row
@@ -468,7 +468,7 @@ wb.add_worksheet(name: "mps") do |sheet|
 end
 wb.add_worksheet(name: "mp_companies") do |sheet|
 	title_row = []
-	@mp_companies.new.class.column_names.each do |column|
+	@mp_companies.column_names.each do |column|
 		title_row.push(column)
 	end
 	sheet.add_row title_row
@@ -482,7 +482,7 @@ wb.add_worksheet(name: "mp_companies") do |sheet|
 end
 wb.add_worksheet(name: "mp_slides") do |sheet|
 	title_row = []
-	@mp_slides.new.class.column_names.each do |column|
+	@mp_slides.column_names.each do |column|
 		title_row.push(column)
 	end
 	sheet.add_row title_row
@@ -496,7 +496,7 @@ wb.add_worksheet(name: "mp_slides") do |sheet|
 end
 wb.add_worksheet(name: "mp_sponsors") do |sheet|
 	title_row = []
-	@mp_sponsors.new.class.column_names.each do |column|
+	@mp_sponsors.column_names.each do |column|
 		title_row.push(column)
 	end
 	sheet.add_row title_row
@@ -510,7 +510,7 @@ wb.add_worksheet(name: "mp_sponsors") do |sheet|
 end
 wb.add_worksheet(name: "nbps") do |sheet|
 	title_row = []
-	@nbps.new.class.column_names.each do |column|
+	@nbps.column_names.each do |column|
 		title_row.push(column)
 	end
 	sheet.add_row title_row
@@ -524,7 +524,7 @@ wb.add_worksheet(name: "nbps") do |sheet|
 end
 wb.add_worksheet(name: "nbp_companies") do |sheet|
 	title_row = []
-	@nbp_companies.new.class.column_names.each do |column|
+	@nbp_companies.column_names.each do |column|
 		title_row.push(column)
 	end
 	sheet.add_row title_row
@@ -538,7 +538,7 @@ wb.add_worksheet(name: "nbp_companies") do |sheet|
 end
 wb.add_worksheet(name: "nbp_slides") do |sheet|
 	title_row = []
-	@nbp_slides.new.class.column_names.each do |column|
+	@nbp_slides.column_names.each do |column|
 		title_row.push(column)
 	end
 	sheet.add_row title_row
@@ -552,7 +552,7 @@ wb.add_worksheet(name: "nbp_slides") do |sheet|
 end
 wb.add_worksheet(name: "nbp_sponsors") do |sheet|
 	title_row = []
-	@nbp_sponsors.new.class.column_names.each do |column|
+	@nbp_sponsors.column_names.each do |column|
 		title_row.push(column)
 	end
 	sheet.add_row title_row
@@ -566,7 +566,7 @@ wb.add_worksheet(name: "nbp_sponsors") do |sheet|
 end
 wb.add_worksheet(name: "nbp_tags") do |sheet|
 	title_row = []
-	@nbp_tags.new.class.column_names.each do |column|
+	@nbp_tags.column_names.each do |column|
 		title_row.push(column)
 	end
 	sheet.add_row title_row
@@ -580,7 +580,7 @@ wb.add_worksheet(name: "nbp_tags") do |sheet|
 end
 wb.add_worksheet(name: "ndas") do |sheet|
 	title_row = []
-	@ndas.new.class.column_names.each do |column|
+	@ndas.column_names.each do |column|
 		title_row.push(column)
 	end
 	sheet.add_row title_row
@@ -594,7 +594,7 @@ wb.add_worksheet(name: "ndas") do |sheet|
 end
 wb.add_worksheet(name: "nda_highlights") do |sheet|
 	title_row = []
-	@nda_highlights.new.class.column_names.each do |column|
+	@nda_highlights.column_names.each do |column|
 		title_row.push(column)
 	end
 	sheet.add_row title_row
@@ -608,7 +608,7 @@ wb.add_worksheet(name: "nda_highlights") do |sheet|
 end
 wb.add_worksheet(name: "nda_slides") do |sheet|
 	title_row = []
-	@nda_slides.new.class.column_names.each do |column|
+	@nda_slides.column_names.each do |column|
 		title_row.push(column)
 	end
 	sheet.add_row title_row
@@ -622,7 +622,7 @@ wb.add_worksheet(name: "nda_slides") do |sheet|
 end
 wb.add_worksheet(name: "notes") do |sheet|
 	title_row = []
-	@notes.new.class.column_names.each do |column|
+	@notes.column_names.each do |column|
 		title_row.push(column)
 	end
 	sheet.add_row title_row
@@ -636,7 +636,7 @@ wb.add_worksheet(name: "notes") do |sheet|
 end
 wb.add_worksheet(name: "people") do |sheet|
 	title_row = []
-	@people.new.class.column_names.each do |column|
+	@people.column_names.each do |column|
 		title_row.push(column)
 	end
 	sheet.add_row title_row
@@ -650,7 +650,7 @@ wb.add_worksheet(name: "people") do |sheet|
 end
 wb.add_worksheet(name: "person_notes") do |sheet|
 	title_row = []
-	@person_notes.new.class.column_names.each do |column|
+	@person_notes.column_names.each do |column|
 		title_row.push(column)
 	end
 	sheet.add_row title_row
@@ -664,7 +664,7 @@ wb.add_worksheet(name: "person_notes") do |sheet|
 end
 wb.add_worksheet(name: "qoves") do |sheet|
 	title_row = []
-	@qoves.new.class.column_names.each do |column|
+	@qoves.column_names.each do |column|
 		title_row.push(column)
 	end
 	sheet.add_row title_row
@@ -678,7 +678,7 @@ wb.add_worksheet(name: "qoves") do |sheet|
 end
 wb.add_worksheet(name: "qofe_slides") do |sheet|
 	title_row = []
-	@qofe_slides.new.class.column_names.each do |column|
+	@qofe_slides.column_names.each do |column|
 		title_row.push(column)
 	end
 	sheet.add_row title_row
@@ -692,7 +692,7 @@ wb.add_worksheet(name: "qofe_slides") do |sheet|
 end
 wb.add_worksheet(name: "roles") do |sheet|
 	title_row = []
-	@roles.new.class.column_names.each do |column|
+	@roles.column_names.each do |column|
 		title_row.push(column)
 	end
 	sheet.add_row title_row
@@ -706,7 +706,7 @@ wb.add_worksheet(name: "roles") do |sheet|
 end
 wb.add_worksheet(name: "slide_layouts") do |sheet|
 	title_row = []
-	@slide_layouts.new.class.column_names.each do |column|
+	@slide_layouts.column_names.each do |column|
 		title_row.push(column)
 	end
 	sheet.add_row title_row
@@ -720,7 +720,7 @@ wb.add_worksheet(name: "slide_layouts") do |sheet|
 end
 wb.add_worksheet(name: "slide_layout_slides") do |sheet|
 	title_row = []
-	@slide_layout_slides.new.class.column_names.each do |column|
+	@slide_layout_slides.column_names.each do |column|
 		title_row.push(column)
 	end
 	sheet.add_row title_row
@@ -734,7 +734,7 @@ wb.add_worksheet(name: "slide_layout_slides") do |sheet|
 end
 wb.add_worksheet(name: "sponsors") do |sheet|
 	title_row = []
-	@sponsors.new.class.column_names.each do |column|
+	@sponsors.column_names.each do |column|
 		title_row.push(column)
 	end
 	sheet.add_row title_row
@@ -748,7 +748,7 @@ wb.add_worksheet(name: "sponsors") do |sheet|
 end
 wb.add_worksheet(name: "sponsor_follows") do |sheet|
 	title_row = []
-	@sponsor_follows.new.class.column_names.each do |column|
+	@sponsor_follows.column_names.each do |column|
 		title_row.push(column)
 	end
 	sheet.add_row title_row
@@ -762,7 +762,7 @@ wb.add_worksheet(name: "sponsor_follows") do |sheet|
 end
 wb.add_worksheet(name: "sponsor_histories") do |sheet|
 	title_row = []
-	@sponsor_histories.new.class.column_names.each do |column|
+	@sponsor_histories.column_names.each do |column|
 		title_row.push(column)
 	end
 	sheet.add_row title_row
@@ -776,7 +776,7 @@ wb.add_worksheet(name: "sponsor_histories") do |sheet|
 end
 wb.add_worksheet(name: "sponsor_notes") do |sheet|
 	title_row = []
-	@sponsor_notes.new.class.column_names.each do |column|
+	@sponsor_notes.column_names.each do |column|
 		title_row.push(column)
 	end
 	sheet.add_row title_row
@@ -790,7 +790,7 @@ wb.add_worksheet(name: "sponsor_notes") do |sheet|
 end
 wb.add_worksheet(name: "strip_tags") do |sheet|
 	title_row = []
-	@strip_tags.new.class.column_names.each do |column|
+	@strip_tags.column_names.each do |column|
 		title_row.push(column)
 	end
 	sheet.add_row title_row
@@ -804,7 +804,7 @@ wb.add_worksheet(name: "strip_tags") do |sheet|
 end
 wb.add_worksheet(name: "subsidiaries") do |sheet|
 	title_row = []
-	@subsidiaries.new.class.column_names.each do |column|
+	@subsidiaries.column_names.each do |column|
 		title_row.push(column)
 	end
 	sheet.add_row title_row
@@ -818,7 +818,7 @@ wb.add_worksheet(name: "subsidiaries") do |sheet|
 end
 wb.add_worksheet(name: "tags") do |sheet|
 	title_row = []
-	@tags.new.class.column_names.each do |column|
+	@tags.column_names.each do |column|
 		title_row.push(column)
 	end
 	sheet.add_row title_row
@@ -832,7 +832,7 @@ wb.add_worksheet(name: "tags") do |sheet|
 end
 wb.add_worksheet(name: "teasers") do |sheet|
 	title_row = []
-	@teasers.new.class.column_names.each do |column|
+	@teasers.column_names.each do |column|
 		title_row.push(column)
 	end
 	sheet.add_row title_row
@@ -846,7 +846,7 @@ wb.add_worksheet(name: "teasers") do |sheet|
 end
 wb.add_worksheet(name: "teaser_companies") do |sheet|
 	title_row = []
-	@teaser_companies.new.class.column_names.each do |column|
+	@teaser_companies.column_names.each do |column|
 		title_row.push(column)
 	end
 	sheet.add_row title_row
@@ -860,7 +860,7 @@ wb.add_worksheet(name: "teaser_companies") do |sheet|
 end
 wb.add_worksheet(name: "teaser_slides") do |sheet|
 	title_row = []
-	@teaser_slides.new.class.column_names.each do |column|
+	@teaser_slides.column_names.each do |column|
 		title_row.push(column)
 	end
 	sheet.add_row title_row
@@ -874,7 +874,7 @@ wb.add_worksheet(name: "teaser_slides") do |sheet|
 end
 wb.add_worksheet(name: "teaser_sponsors") do |sheet|
 	title_row = []
-	@teaser_sponsors.new.class.column_names.each do |column|
+	@teaser_sponsors.column_names.each do |column|
 		title_row.push(column)
 	end
 	sheet.add_row title_row
@@ -888,7 +888,7 @@ wb.add_worksheet(name: "teaser_sponsors") do |sheet|
 end
 wb.add_worksheet(name: "users") do |sheet|
 	title_row = []
-	@users.new.class.column_names.each do |column|
+	@users.column_names.each do |column|
 		title_row.push(column)
 	end
 	sheet.add_row title_row
@@ -902,7 +902,7 @@ wb.add_worksheet(name: "users") do |sheet|
 end
 wb.add_worksheet(name: "work_histories") do |sheet|
 	title_row = []
-	@work_histories.new.class.column_names.each do |column|
+	@work_histories.column_names.each do |column|
 		title_row.push(column)
 	end
 	sheet.add_row title_row

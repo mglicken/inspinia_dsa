@@ -191,7 +191,7 @@ before_action :ensure_view_access,  only: [:search, :show, :show_companies, :sho
     redirect_to "/models/", notice: "NBPs imported."
   end
 
-  def import_acquirers
+  def import_companies
     @nbp = Nbp.find(params[:id])
     Nbp.import_acquirers(params[:file], params[:id])
     redirect_to "/nbps/#{@nbp.id}/companies/table" , notice: "NBP Acquirers imported..."

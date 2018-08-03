@@ -3,88 +3,102 @@ require 'axlsx'
 # app/views/nbps/show_companies.xlsx.axlsx
 
 wb = xlsx_package.workbook
-  wb.styles do |s|
-    title_1 = s.add_style :fg_color => "00", :sz => 24, :font_name => 'Tahoma', b: true, :alignment => { :horizontal=> :left }
-    date_1 =  s.add_style :fg_color => "00", :sz => 12, :font_name => 'Tahoma', :format_code => '[$-x-sysdate]dddd, mmmm dd, yyyy', :alignment => { :horizontal=> :left }
-    header_1 = s.add_style :bg_color => "07325F", :fg_color => "FF", :sz => 14, :font_name => 'Tahoma', b: true, :alignment => { :horizontal=> :center }
-    row_1 = s.add_style :fg_color => "00", :sz => 14, :font_name => 'Tahoma', :alignment => { :horizontal=> :left }
-    row_2 = s.add_style :fg_color => "00", :sz => 14, :font_name => 'Tahoma', :alignment => { :horizontal=> :center }
+
+wb.styles do |s|
+	title_1 = s.add_style :fg_color => "00", :sz => 24, :font_name => 'Tahoma', b: true, :alignment => { :horizontal=> :left }
+	date_1 =  s.add_style :fg_color => "00", :sz => 12, :font_name => 'Tahoma', :format_code => '[$-x-sysdate]dddd, mmmm dd, yyyy', :alignment => { :horizontal=> :left }
+	header_1 = s.add_style :bg_color => "07325F", :fg_color => "FF", :sz => 14, :font_name => 'Tahoma', b: true, :alignment => { :horizontal=> :center }
+	row_1 = s.add_style :fg_color => "00", :sz => 14, :font_name => 'Tahoma', :alignment => { :horizontal=> :left }
+	row_2 = s.add_style :fg_color => "00", :sz => 14, :font_name => 'Tahoma', :alignment => { :horizontal=> :center }
 	row_3 = s.add_style :fg_color => "00", :sz => 14, :font_name => 'Tahoma', :alignment => { :horizontal=> :left, :wrap_text => true }
 
-	wb.add_worksheet(name: "Strategic Acquirers") do |sheet|
+	margins = {:left => 0.3, :right => 0.3, :top => 0.5, :bottom => 1.0}
+  	setup = { :orientation => :landscape}
+	wb.add_worksheet(name: "Strategic Acquirers", :page_margins => margins, :page_setup => setup) do |sheet|
 	  
 	    # Header
-	    sheet.add_row ["Strategic Buyer List"], :style => [title_1]
-	    sheet.add_row [Date.current()], :style => [date_1]
+	    sheet.add_row ["", "Strategic Buyer List"], :style => [title_1,title_1]
+	    sheet.add_row ["", Date.current()], :style => [date_1,date_1]
 	    sheet.add_row []
 
 		# Title Row
-		title_row = ["Company","Tier","Bucket"]
+		title_row = ["id", "Company","Tier","Bucket"]
 	    @nbp.nbp_tags.each do |nbp_tag|
 	   		title_row.push(nbp_tag.tag.name)
 	    end
 		title_row.push("Include").push("Rationale")
-	    title_style = [header_1, header_1, header_1]
+		title_row.push("Internal Notes")
+	    title_style = [header_1, header_1, header_1, header_1]
 	    @nbp.nbp_tags.each do |nbp_tag|
 	    	title_style.push(header_1)
 	    end
-		title_style.push(header_1).push(header_1)
+		title_style.push(header_1).push(header_1).push(header_1)
 
-    	sheet.add_row title_row, style: title_style
+		sheet.add_row title_row, style: title_style
 	   
 	  
 	    # each nbp_company is a row on your spreadsheet
 	    @nbp_companies.order(bucket_id: :asc, tier_id: :asc).each do |nbp_company|
-		    row = [nbp_company.company.name, nbp_company.tier_id, nbp_company.bucket.title]
+		    nbp_company_row = [nbp_company.company.id,nbp_company.company.name, nbp_company.tier_id, nbp_company.bucket.title]
 		    nbp_company.strip_tags.each do |strip_tag|
-		    	row.push(strip_tag.value)
+		    	nbp_company_row.push(strip_tag.value)
 		    end
 		    if 	nbp_company.include_strip
-		    	row.push("X")
+		    	nbp_company_row.push("X")
 		    else
-		    	row.push(nil)
+		    	nbp_company_row.push(nil)
 		    end
-		    row.push(nbp_company.strip)
-		    row_style = [row_1, row_2, row_1]
+		    nbp_company_row.push(nbp_company.strip)
+		    nbp_company_row.push(nbp_company.note)
+		    nbp_company_row_style = [row_1, row_1, row_2, row_1]
 		    nbp_company.strip_tags.each do |strip_tag|
-		    	row_style.push(row_2)
+				nbp_company_row_style.push(row_2)
 		    end
-		    row_style.push(row_2).push(row_3)
-		    sheet.add_row row, style: row_style
+		    nbp_company_row_style.push(row_2).push(row_3).push(row_3)
+		    sheet.add_row nbp_company_row, style: nbp_company_row_style
 	    end
-		sheet_widths = [40, 10, 55]
-	    @nbp.nbp_tags.each do |nbp_tag|
+
+		sheet_widths = [5,40, 10, 55]
+	    @nbp.nbp_tags.order("tag_id ASC").each do |nbp_tag|
 	    	sheet_widths.push(15)
 	    end
-	    sheet_widths.push(10).push(60)
-	    alpha_index = ["D","E","F","G","H","I","J","K","L","M","N","O","P","Q","R","S","T","U","V","W","X","Y","Z"]
+	    sheet_widths.push(10).push(70).push(70)
+	    alpha_index = ["G","H","I","J","K","L","M","N","O","P","Q","R","S","T","U","V","W","X","Y","Z"]
 		sheet.auto_filter = "A4:" + alpha_index[@nbp.nbp_tags.count] + (@nbp_companies.count + 4).to_s
 	    sheet.column_widths *(sheet_widths)
+	    sheet.column_info[0].hidden = true
+   		sheet.page_setup.fit_to :width => 1
+
 	end
 
 	wb.add_worksheet(name: "nbp_companies") do |sheet|
-  
-		title_row = ["id", "nbp_id", "company_id", "include", "strip", "note"]
-    	@nbp.nbp_tags.order("tag_id ASC").each do |nbp_tag|
-    		title_row.push(nbp_tag.tag.name)
-    	end
-    	sheet.add_row title_row
 
+		title_row = ["id", "nbp_id", "company_id","tier_id", "include", "strip", "note"]
+		@nbp.nbp_tags.order("tag_id ASC").each do |nbp_tag|
+			title_row.push(nbp_tag.tag.name)
+		end
+		sheet.add_row title_row
+	    alpha_index = ["D","E","F","G","H","I","J","K","L","M","N","O","P","Q","R","S","T","U","V","W","X","Y","Z"]
 	  
 		# each nbp_company is a row on your spreadsheet
+		row = 5
 		@nbp_companies.joins(:company).order("name ASC").each do |nbp_company|
 		    nbp_company_row = [
 		    	nbp_company.id,
-		    	nbp_company.nbp_id,
-		    	nbp_company.company.id,
-		    	nbp_company.include_strip,
-		    	nbp_company.strip,
-		    	nbp_company.note]
+		    	nbp_company.nbp_id]
+		    	nbp_company_row.push("='Strategic Acquirers'!A" + row.to_s)
+		    	nbp_company_row.push("='Strategic Acquirers'!C" + row.to_s)
+		    	nbp_company_row.push("='Strategic Acquirers'!" + alpha_index[@nbp.nbp_tags.count + 1] + row.to_s + "=\"X\"")
+		    	nbp_company_row.push("=IF('Strategic Acquirers'!" + alpha_index[@nbp.nbp_tags.count + 2] + row.to_s + "=\"\",\"\",'Strategic Acquirers'!" + alpha_index[@nbp.nbp_tags.count + 2] + row.to_s + ")")
+		    	nbp_company_row.push("=IF('Strategic Acquirers'!" + alpha_index[@nbp.nbp_tags.count + 3] + row.to_s + "=\"\",\"\",'Strategic Acquirers'!" + alpha_index[@nbp.nbp_tags.count + 3] + row.to_s + ")")
+		    	strips_col = 0
 		    	nbp_company.strip_tags.order("tag_id ASC").each do |strip_tag|
-		    		nbp_company_row.push(strip_tag.value)
+		    		nbp_company_row.push("=IF('Strategic Acquirers'!" + alpha_index[@nbp.nbp_tags.count + strips_col] + row.to_s + "=\"\",\"\",'Strategic Acquirers'!" + alpha_index[@nbp.nbp_tags.count + strips_col] + row.to_s + ")")
+		    		strips_col = strips_col + 1
 		    	end
-    		sheet.add_row nbp_company_row		    	
+			sheet.add_row nbp_company_row
+			row = row + 1    	
 		end
-end
+	end
 
 end	
