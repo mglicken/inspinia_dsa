@@ -10,5 +10,9 @@ class User < ApplicationRecord
   has_many :slides, :through => :favorite_slides
   has_many :slide_layouts, :dependent => :destroy
   has_many :company_follows, :dependent => :destroy  
+  has_many :companies, :through => :company_follows  
   has_many :sponsor_follows, :dependent => :destroy  
+  has_many :sponsors, :through => :sponsor_follows
+  has_many :deal_follows, :dependent => :destroy  
+  has_many :deals, :through => :deal_follows
 end

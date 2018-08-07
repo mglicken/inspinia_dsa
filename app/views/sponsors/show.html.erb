@@ -1,21 +1,13 @@
 <br>
 <div class="row">
-  <div class="col-sm-offset-1 col-sm-10 col-md-offset-2 col-md-8">
+  <div class="col-lg-offset-2 col-lg-8">
     <div class="ibox-content">
         <h3 class="ibox-title"><%= @sponsor.name %> (<%= @sponsor.sponsor_type %>)</h3>
       <div class="ibox-body">
         <div class="row">
-          <div class="col-md-12">
+          <div class="col-lg-10">
             <dl class="dl-horizontal">
 
-              <div class="pull-right">
-                  <a target="_blank" href="<%= @sponsor.linkedin_url%>" class="btn btn-lg"><i class="fa fa-linkedin"></i></a>
-                  <% if @followed %>
-                    <a href="/unfollow_sponsor/<%=@sponsor.id%>" class="btn btn-lg btn-unfollow"><i class="fa fa-star"></i></a>
-                  <% else %>
-                    <a href="/follow_sponsor/<%=@sponsor.id%>" class="btn btn-lg btn-follow"><i class="fa fa-star-o"></i></a>
-                  <% end %>
-              </div>
 
               <dt>Address:</dt>
               <dd> <address>
@@ -48,14 +40,22 @@
               <% end %>
 
             </dl>
-            <div class="btn-group btn-group-justified">
-              <a href="/sponsors" class="btn btn-lincoln">
-                <i class="fa fa-chevron-left"></i>
-              </a>
+          </div>
+          <div class="col-lg-2">
+              <a target="_blank" href="<%= @sponsor.linkedin_url%>" class="btn btn-lg"><i class="fa fa-linkedin"></i></a>
+              <% if @followed %>
+                <a href="/unfollow_sponsor/<%=@sponsor.id%>" class="btn btn-lg btn-unfollow"><i class="fa fa-star"></i></a>
+              <% else %>
+                <a href="/follow_sponsor/<%=@sponsor.id%>" class="btn btn-lg btn-follow"><i class="fa fa-star-o"></i></a>
+              <% end %>
+          </div>
+          <div class="btn-group btn-group-justified">
+            <a href="/sponsors" class="btn btn-lincoln">
+              <i class="fa fa-chevron-left"></i>
+            </a>
 
-              <%= render('shared/edit_sponsor_modal', :sponsor => @sponsor)%>
+            <%= render('shared/edit_sponsor_modal', :sponsor => @sponsor)%>
 
-            </div>
           </div>
         </div>
       </div>

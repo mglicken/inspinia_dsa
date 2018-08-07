@@ -146,8 +146,45 @@ before_action :ensure_view_access,  only: [:index, :search, :search_all, :show]
     end
   end
 
+  def follow
+    @deal_follow = DealFollow.new
+
+    @deal_follow.deal_id = params[:deal_id]
+    @deal_follow.user_id = current_user.id
+ 
+    respond_to do |format|
+      format.html do
+        if @deal_follow.save
+          redirect_to "/deals/#{ params[:deal_id] }", :notice => "Deal followed."
+        else
+          render 'new'
+        end
+      end
+        
+      format.js do
+        @deal_follow.save
+        render('create_follow.js.erb')
+      end
+    end
+  end
+
+  def unfollow
+    @deal_follow = DealFollow.where(deal_id: params[:id], user_id: current_user.id).first
+    @deal_follow.destroy
+
+    respond_to do |format|
+      format.html do
+        redirect_to "/deals/#{params[:id]}", :notice => "Deal unfollowed." 
+      end
+      format.js do
+        render('destroy_follow.js.erb')
+      end
+    end
+  end
+
   def show
     @deal = Deal.find(params[:id].to_i)
+    @followed = DealFollow.find_by(user_id: current_user.id, deal_id: @deal.id).present?
     @advisor_type = AdvisorType.find_by(name: "Legal Advisor")
     @cip = @deal.cips[0]
     @cip_sponsors = @cip.cip_sponsors
@@ -157,7 +194,7 @@ before_action :ensure_view_access,  only: [:index, :search, :search_all, :show]
     @sponsors = @cip.sponsors.order("name ASC")
     @companies = @cip.companies.order("name ASC")
     @acquirers = (@companies + @sponsors).sort! { |a, b| a.name <=> b.name }
-    @engagers = (Company.where(id:@deal.engagement_companies.pluck(:company_id)) + Sponsor.where(id:@deal.engagement_sponsors.pluck(:sponsor_id))).sort! { |a, b| a.name <=> b.name }
+    @engagers = (Deal.where(id:@deal.engagement_companies.pluck(:company_id)) + Sponsor.where(id:@deal.engagement_sponsors.pluck(:sponsor_id))).sort! { |a, b| a.name <=> b.name }
 
   end
 

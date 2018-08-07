@@ -13,9 +13,8 @@
         <h3 class="ibox-title"><%= @deal.name %> - <%= @deal.deal_type.name %></h3>
       <div class="ibox-body">
         <div class="row">
-          <div class="col-md-12">
+          <div class="col-lg-10">
             <dl class="dl-horizontal" style="font-size:10px" >
-
               <dt>Company:</dt>
               <dd><a href="/companies/<%= @deal.company.id %>"><%= @deal.company.name %></a></dd>
               <dt>Project Alias:</dt>
@@ -73,10 +72,17 @@
                   <% end %>
                 <% end %>
             </dl>
-            <div class="btn-group btn-group-justified">
-              <%= render('shared/edit_deal_modal', deal: @deal)%>
-            </div>
           </div>
+          <div class="col-lg-2">
+            <% if @followed %>
+              <a href="/unfollow_deal/<%=@deal.id%>" class="btn btn-lg btn-unfollow"><i class="fa fa-star"></i></a>
+            <% else %>
+              <a href="/follow_deal/<%=@deal.id%>" class="btn btn-lg btn-follow"><i class="fa fa-star-o"></i></a>
+            <% end %>
+        </div>
+        <div class="btn-group btn-group-justified">
+          <%= render('shared/edit_deal_modal', deal: @deal)%>
+        </div>
         </div>
       </div>
 

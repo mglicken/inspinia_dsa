@@ -21,7 +21,6 @@
                 </div>
                 <div class="ibox-content">
                     <h1 class="no-margins"><%= current_user.company_follows.count %></h1>
-                    <div class="stat-percent font-bold text-info">10% <i class="fa fa-level-up"></i></div>
 
                 </div>
             </div>
@@ -34,7 +33,6 @@
                 </div>
                 <div class="ibox-content">
                     <h1 class="no-margins"><%= current_user.company_follows.count %></h1>
-                    <div class="stat-percent font-bold text-navy">30% <i class="fa fa-level-up"></i></div>
                 </div>
             </div>
         </div>
@@ -42,12 +40,11 @@
             <div class="ibox float-e-margins">
                 <div class="ibox-title">
 
-                    <span class="label label-danger pull-right">Stale</span>
+                    <span class="label label-primary pull-right">Current</span>
                     <h5>Slide Layouts</h5>
                 </div>
                 <div class="ibox-content">
                     <h1 class="no-margins"><%= current_user.slide_layouts.count %></h1>
-                    <div class="stat-percent font-bold text-danger">15% <i class="fa fa-level-down"></i></div>
                 </div>
             </div>
         </div>
@@ -56,72 +53,10 @@
 
     <div class="row">
         <%= render('view_slide_layouts') %>
-
         <div class="col-lg-6">
-            <div class="ibox float-e-margins">
-                <div class="ibox-title bg-danger" style="border-color: red;">
-                    <h5>Task List (Feature Not Implemented)</h5>
-                    <div class="ibox-tools">
-                        <a class="collapse-link" style="font:white;">
-                            <i class="fa fa-chevron-up"></i>
-                        </a>
-                        <a class="close-link" style="font:white;">
-                            <i class="fa fa-times"></i>
-                        </a>
-                    </div>
-                </div>
-                <div class="ibox-content border-top-bottom ">
-                    <ul class="todo-list m-t small-list">
-                        <li>
-                            <a href="#" class="check-link"><i class="fa fa-check-square"></i> </a>
-                            <span class="m-l-xs todo-completed">Update <%= Deal.find(rand(15)+1).name%> Buyer's List</span>
-                        </li>
-                        <li>
-                            <a href="#" class="check-link"><i class="fa fa-square-o"></i> </a>
-                            <span class="m-l-xs">Create new slide for <%= Deal.find(rand(15)+1).name%> NBP</span>
-
-                        </li>
-                        <li>
-                            <a href="#" class="check-link"><i class="fa fa-square-o"></i> </a>
-                            <span class="m-l-xs">Send documents to <%= Sponsor.find(rand(1700)+1).name%></span>
-                            <small class="label label-primary"><i class="fa fa-clock-o"></i> 1 mins</small>
-                        </li>
-                        <li>
-                            <a href="#" class="check-link"><i class="fa fa-square-o"></i> </a>
-                            <span class="m-l-xs">Fill out Weekly Hours</span>
-                        </li>
-                        <li>
-                            <a href="#" class="check-link"><i class="fa fa-check-square"></i> </a>
-                            <span class="m-l-xs todo-completed">Send Expenses to MM</span>
-                        </li>
-                        <li>
-                            <a href="#" class="check-link"><i class="fa fa-square-o"></i> </a>
-                            <span class="m-l-xs">Update Logistics letter for <%= Deal.find(rand(15)+1).name%> MP</span>
-                        </li>
-                        <li>
-                            <a href="#" class="check-link"><i class="fa fa-square-o"></i> </a>
-                            <span class="m-l-xs">Call <%= Person.find(rand(500)+1).name%></span>
-                        </li>
-                                                <li>
-                            <a href="#" class="check-link"><i class="fa fa-square-o"></i> </a>
-                            <span class="m-l-xs">Schedule MP for <%=Sponsor.find(rand(1700)+1).name%>.</span>
-
-                        </li>
-                        <li>
-                            <a href="#" class="check-link"><i class="fa fa-square-o"></i> </a>
-                            <span class="m-l-xs">QofE Call with <%= Sponsor.find(rand(1700)+1).name%></span>
-                            <small class="label label-primary"><i class="fa fa-clock-o"></i> 1 mins</small>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <div class="row">
-        <div class="col-lg-12">
             <%= render('view_user_deals') %>
         </div>
+
     </div>
 
     <div class="row">

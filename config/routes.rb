@@ -276,6 +276,7 @@ Myapp::Application.routes.draw do
   get "/deals/:id/qoves", :controller => "deals", :action => "show_qoves"
   get "/deals/:id/market_studies", :controller => "deals", :action => "show_market_studies"
   get "/deal_search/:search", :controller => "deals", :action => "search"
+  get "/follow_deal/:deal_id/", :controller => "deals", :action => "follow"
 
   # UPDATE
   get "/deals/:id/edit", :controller => "deals", :action => "edit"
@@ -283,11 +284,10 @@ Myapp::Application.routes.draw do
 
   # DELETE
   get "/delete_deal/:id", :controller => "deals", :action => "destroy"
-
+  get "/unfollow_deal/:id", :controller => "deals", :action => "unfollow"
 
 # DASHBOARD
   get "/dashboard/", :controller => "people", :action => "dashboard"
-
   post "/search/", :controller => "deals", :action => "search_all"
 
   # Routes for the Deal Follows resource:
