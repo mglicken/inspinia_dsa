@@ -1,6 +1,6 @@
 <br>
 <div class="row">
-  <div class="col-sm-offset-1 col-sm-10 col-md-offset-2 col-md-8">
+  <div class="col-lg-offset-2 col-lg-8">
     <div class="ibox">
     <div class="ibox-content">
         <% if @deal.deal_stage_id == 15 %>
@@ -40,37 +40,37 @@
                   <% end %>
                 <% end %>
               <dt>Teasers:</dt>
-                <% Teaser.where(deal_id: @deal).order("teaser_date DESC").each do |teaser| %>
-                  <% if TeaserSlide.where(teaser_id: teaser.id).present? %>
-                    <dd> <a href="/teasers/<%=teaser.id %>"><%= teaser.name%> (<%= teaser.teaser_date%>)</a></dd>
-                  <% else %>
-                    <dd> <a href="/teasers/<%=teaser.id %>">No Documents Uploaded</a></dd>
-                  <% end %>
+              <% Teaser.where(deal_id: @deal).order("teaser_date DESC").each do |teaser| %>
+                <% if TeaserSlide.where(teaser_id: teaser.id).present? %>
+                  <dd> <a href="/teasers/<%=teaser.id %>"><%= teaser.name%> (<%= teaser.teaser_date%>)</a></dd>
+                <% else %>
+                  <dd> <a href="/teasers/<%=teaser.id %>">No Documents Uploaded</a></dd>
                 <% end %>
-                <dt>CIPs:</dt>
-                <% Cip.where(deal_id: @deal).order("cip_date DESC").each do |cip| %>
-                  <% if CipSlide.where(cip_id: cip.id).present? %>
-                    <dd> <a href="/cips/<%=cip.id %>"><%= cip.name %> (<%= cip.cip_date %>)</a></dd>
-                  <% else %>
-                    <dd> <a href="/cips/<%=cip.id %>"> No Documents Uploaded</a></dd>
-                  <% end %>
+              <% end %>
+              <dt>CIPs:</dt>
+              <% Cip.where(deal_id: @deal).order("cip_date DESC").each do |cip| %>
+                <% if CipSlide.where(cip_id: cip.id).present? %>
+                  <dd><a href="/cips/<%=cip.id %>"><%= cip.name %> (<%= cip.cip_date %>)</a></dd>
+                <% else %>
+                  <dd><a href="/cips/<%=cip.id %>">No Documents Uploaded</a></dd>
                 <% end %>
-                <dt>MPs:</dt>
-                <% Mp.where(deal_id: @deal).order("mp_date DESC").each do |mp| %>
-                  <% if MpSlide.where(mp_id: mp.id).present? %>
-                    <dd> <a href="/mps/<%=mp.id %>"><%= mp.name%> (<%= mp.mp_date%>)</a></dd>
-                  <% else %>
-                    <dd> <a href="/mps/<%=mp.id %>">No Documents Uploaded</a></dd>
-                  <% end %>
+              <% end %>
+              <dt>MPs:</dt>
+              <% Mp.where(deal_id: @deal).order("mp_date DESC").each do |mp| %>
+                <% if MpSlide.where(mp_id: mp.id).present? %>
+                  <dd><a href="/mps/<%=mp.id %>"><%= mp.name%> (<%= mp.mp_date%>)</a></dd>
+                <% else %>
+                  <dd><a href="/mps/<%=mp.id %>">No Documents Uploaded</a></dd>
                 <% end %>
-                <dt>Case Studies:</dt>
-                <% CaseStudy.where(deal_id: @deal).order("name ASC").each do |case_study| %>
-                  <% if CaseStudySlide.where(case_study_id: case_study.id).present? %>
-                    <dd> <a href="/case_studies/<%=case_study.id %>"><%= case_study.name%> (<%= case_study.case_study_date%>)</a></dd>
-                  <% else %>
-                    <dd> <a href="/case_studies/<%=case_study.id %>">No Documents Uploaded</a></dd>
-                  <% end %>
+              <% end %>
+              <dt>Case Studies:</dt>
+              <% CaseStudy.where(deal_id: @deal).order("name ASC").each do |case_study| %>
+                <% if CaseStudySlide.where(case_study_id: case_study.id).present? %>
+                  <dd><a href="/case_studies/<%=case_study.id %>"><%= case_study.name%> (<%= case_study.case_study_date%>)</a></dd>
+                <% else %>
+                  <dd><a href="/case_studies/<%=case_study.id %>">No Documents Uploaded</a></dd>
                 <% end %>
+              <% end %>
             </dl>
           </div>
           <div class="col-lg-2">
@@ -79,13 +79,12 @@
             <% else %>
               <a href="/follow_deal/<%=@deal.id%>" class="btn btn-lg btn-follow"><i class="fa fa-star-o"></i></a>
             <% end %>
-        </div>
-        <div class="btn-group btn-group-justified">
-          <%= render('shared/edit_deal_modal', deal: @deal)%>
-        </div>
+          </div>
+          <div class="btn-group btn-group-justified">
+            <%= render('shared/edit_deal_modal', deal: @deal)%>
+          </div>
         </div>
       </div>
-
     </div>
   </div>
 </div>

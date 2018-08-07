@@ -105,7 +105,7 @@ class DashboardsController < ApplicationController
     @companies = Company.where(id: CompanyFollow.where(user_id:current_user.id).pluck(:company_id))
     @sponsors = Sponsor.where(id: SponsorFollow.where(user_id:current_user.id).pluck(:sponsor_id))
     @slide_layouts = current_user.slide_layouts.order("id ASC")
-    @deals = current_user.person.deals.order("name ASC")
+    @deals = current_user.deals.order("name ASC")
     @notes = current_user.person.notes
     @nbps = Nbp.where(deal_id: @deals.ids).order("nbp_date DESC")
     @teasers = Teaser.where(deal_id: @deals.ids).order("teaser_date DESC")
