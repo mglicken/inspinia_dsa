@@ -36,8 +36,12 @@
 </thead>
 <tbody>
 <% @sponsors.each do |sponsor| %>
-    <% if @mp.mp_sponsors.find_by(sponsor_id: sponsor.id).loi.present? %> 
-        <tr id="row_<%=sponsor.id%>" class="success">
+    <% if @mp.mp_sponsors.find_by(sponsor_id: sponsor.id).loi.present? %>
+        <% if @mp.mp_sponsors.find_by(sponsor_id: sponsor.id).final_buyer %>
+            <tr id="row_<%=sponsor.id%>" class="bg-primary">
+        <% else %>
+            <tr id="row_<%=sponsor.id%>" class="success">
+        <% end %>
     <% elsif @mp.mp_sponsors.find_by(sponsor_id: sponsor.id).declined? %> 
         <tr id="row_<%=sponsor.id%>" class="danger">
     <% else %>

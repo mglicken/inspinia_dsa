@@ -52,7 +52,7 @@ before_action :ensure_banker_access,  only: [:new, :create, :edit, :update, :des
     @cip_sponsor.cip_id = params[:cip_id]
     @cip_sponsor.sponsor_id = params[:sponsor_id]
     @ioi = Ioi.new
-    @ioi.name = @cip_sponsor.cip.deal.sponsor.name + " / " + @cip_sponsor.sponsor.name + " IOI"
+    @ioi.name = @cip_sponsor.cip.deal.company.name + " / " + @cip_sponsor.sponsor.name + " IOI"
     @ioi.deal_id = @cip_sponsor.cip.deal_id
     @ioi.ioi_date = Date.current
     @ioi.save
@@ -68,7 +68,7 @@ before_action :ensure_banker_access,  only: [:new, :create, :edit, :update, :des
       end
     end
     if @cip_sponsor.save
-      redirect_to "/cips/#{@cip_sponsor.cip_id}", :notice => "CIP Sponsor created successfully."
+      redirect_to "/cips/#{@cip_sponsor.cip_id}/sponsors", :notice => "CIP Sponsor created successfully."
     else
       render 'new'
     end

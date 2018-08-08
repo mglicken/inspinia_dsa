@@ -3,7 +3,7 @@
 
     <input name="authenticity_token" type="hidden" value="<%= form_authenticity_token %>">
 
-    <select name="sponsor_id" data-placeholder="Add Sponsors..." class="select2 form-control form-inline"  tabindex="2" style="width:200px">
+    <select name="sponsor_id" data-placeholder="Add Sponsors..." class="select2 form-control form-inline"  tabindex="2" style="width:75%">
       <% Sponsor.where(id: (Sponsor.ids - CipSponsor.where(cip_id: @cip.id).pluck(:sponsor_id)).uniq).order("name asc").each do |sponsor| %>
       <option value="<%=sponsor.id %>"><%= sponsor.name %></option>
       <% end %>

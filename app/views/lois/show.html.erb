@@ -1,16 +1,11 @@
 <br>
 <div class="row">
-  <div class="pull-right">
-    <div class="btn-group-vertical">
-       <a class="btn btn-success" href="http://res.cloudinary.com/mglicken/image/upload/<%= @loi.image_id %>.pdf">View PDF <i class="fa fa-copy (alias)"></i></a>
-    </div>
-  </div> 
   <div class="col-lg-offset-2 col-lg-7">
     <div class="ibox-content">
         <% if LoiSlide.where(loi_id: @loi.id).empty? %>
           <a href="#" class="btn btn-lincoln pull-right" style="text-align:center; margin-top:10px" id="upload_widget_opener">Upload LOI PDF</a>
         <% end %> 
-        <h3 class="ibox-title"><%= @loi.name %></h3>
+        <h3 class="ibox-title"><%= @loi.name %></h3> 
       <div class="ibox-body">
         <div class="row">
           <div class="col-lg-12">
@@ -38,6 +33,22 @@
              <% end %>
              <dt>Expiration Date:</dt>
              <dd><%= @loi.expiration_date %></dd>
+             <dt>Final Buyer:</dt>
+             <dd>
+                <% if @loi.mp_company.present? %>
+                  <% if @loi.mp_company.final_buyer %>
+                    <input type="checkbox" class="js-switch" id="company" checked />
+                  <% else %>
+                    <input type="checkbox" class="js-switch" id="company"/>
+                  <% end %>
+                <% else %>
+                  <% if @loi.mp_sponsor.final_buyer %>
+                    <input type="checkbox" class="js-switch" id="sponsor" checked />
+                  <% else %>
+                    <input type="checkbox" class="js-switch" id="sponsor"/>
+                  <% end %>
+                <% end %>
+            </dd>
             </dl>
             <div class="btn-group btn-group-justified">
               <%if @loi.mp_company.present? %>
@@ -53,6 +64,9 @@
 
     </div>
   </div>
+    <div class="col-lg-3">
+       <a class="btn btn-success" href="http://res.cloudinary.com/mglicken/image/upload/<%= @loi.image_id %>.pdf">View PDF <i class="fa fa-copy (alias)"></i></a>
+  </div> 
 </div>
 <div class="row">
   <div class="col-lg-offset-2 col-lg-7">
@@ -115,5 +129,21 @@
 <% end %>
 
 <script>
+  $(function() {
+
+    var elem = document.querySelector('.js-switch');
+    var switchery = new Switchery(elem, { color: '#1AB394', size: 'small'});
+
+    var changeCheckbox = document.querySelector('.js-check-change')
+      , changeField = document.querySelector('.js-check-change-field');
+
+    elem.onchange = function() {
+        $.post("/update_final_buyer/",
+         {
+          'final_buyer': elem.checked,
+          'loi_id': <%= @loi.id %>
+         });
+    };
+  })
   
 </script>

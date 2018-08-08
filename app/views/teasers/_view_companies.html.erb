@@ -63,7 +63,7 @@
     <td>...</td>
     <td>
         <a class="btn btn-edit btn-xs" href="/ndas/<%= @teaser.teaser_companies.find_by(company_id: company.id).nda_id %>"><i class="fa fa-edit"></i></a>
-        <%= render('shared/delete_cip_company_modal', :cip_company => @teaser.teaser_companies.find_by(company_id: company.id))%>
+        <%= render('shared/delete_teaser_company_modal', :teaser_company => @teaser.teaser_companies.find_by(company_id: company.id))%>
     </td>
 </tr>
 <%end%>

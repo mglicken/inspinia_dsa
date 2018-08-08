@@ -56,7 +56,6 @@ before_action :ensure_view_access,  only: [:show]
   def create
     @loi = Loi.new
 
-
     @loi.name = params[:name]
     @loi.deal_id = params[:deal_id]
     @loi.loi_date = params[:loi_date]
@@ -83,16 +82,10 @@ before_action :ensure_view_access,  only: [:show]
     @loi.deal_id = params[:deal_id]
     @loi.loi_date = params[:loi_date]
     @loi.image_id = params[:image_id]
-    
     @loi.slides.each do |slide|
       slide.ppt_address = @loi.ppt_address
       slide.save
     end
-
-    @loi.name = params[:name]
-    @loi.deal_id = params[:deal_id]
-    @loi.loi_date = params[:loi_date]
-    @loi.image_id = params[:image_id]
     @loi.enterprise_value = params[:enterprise_value]
     @loi.working_capital_target = params[:working_capital_target]
     @loi.expiration_date = params[:expiration_date]
@@ -102,6 +95,21 @@ before_action :ensure_view_access,  only: [:show]
     else
       render 'edit'
     end
+  end
+
+  def update_final_buyer
+    @loi = Loi.find(params[:loi_id])
+
+    if @loi.mp_company.present?
+      mp_company = @loi.mp_company
+      mp_company.final_buyer = params[:final_buyer]
+      mp_company.save
+    else
+      mp_sponsor = @loi.mp_sponsor
+      mp_sponsor.final_buyer = params[:final_buyer]
+      mp_sponsor.save
+    end
+
   end
 
   def update_loi_and_highlights
@@ -132,9 +140,9 @@ before_action :ensure_view_access,  only: [:show]
     end
 
     if @loi.save
-      redirect_to "/lois/#{@loi.id}", :alert => "LOI updated successfully."
+      redirect_to "/lois/#{@loi.id}", :alert => "LOI updated successfully.#{details}"
     else
-      redirect_to "/lois/#{@loi.id}", :alert => "LOI update failed."
+      redirect_to "/lois/#{@loi.id}", :alert => "LOI update failed.#{details}"
     end
 
   end

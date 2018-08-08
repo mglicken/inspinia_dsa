@@ -71,7 +71,7 @@ before_action :ensure_banker_access,  only: [:new, :create, :edit, :update, :des
     end
 
     if @cip_company.save
-      redirect_to "/cips/#{@cip_company.cip_id}", :notice => "CIP Company created successfully."
+      redirect_to "/cips/#{@cip_company.cip_id}/companies", :notice => "CIP Company created successfully."
     else
       render 'new'
     end

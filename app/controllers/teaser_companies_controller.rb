@@ -134,7 +134,7 @@ before_action :ensure_banker_access,  only: [:new, :create, :edit, :update, :des
 
     @teaser_company.destroy
 
-    redirect_to "/teasers/#{@teaser_company.teaser_id}", :notice => "Teaser Company deleted."
+    redirect_to "/teasers/#{@teaser_company.teaser_id}/companies", :notice => "Teaser Company deleted."
   end
   
   def import

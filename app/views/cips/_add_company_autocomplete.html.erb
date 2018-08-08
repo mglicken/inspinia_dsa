@@ -7,7 +7,7 @@
     <input name="authenticity_token" type="hidden" value="<%= form_authenticity_token %>">
 
 
-    <select name="company_id" data-placeholder="Add Companies..." class="select2 form-control form-inline"  tabindex="2" style="width:200px">
+    <select name="company_id" data-placeholder="Add Companies..." class="select2 form-control form-inline"  tabindex="2" style="width:75%">
       <% Company.where(id: (Company.ids - CipCompany.where(cip_id: @cip.id).pluck(:company_id)).uniq).order("name asc").each do |company| %>
         <option data-thumbnail="http://res.cloudinary.com/mglicken/image/upload/v1513207591/Glicken_Michael_Resized_pf61he.jpg" value="<%=company.id %>"><%=company.name %></option>
       <% end %>

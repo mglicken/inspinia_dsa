@@ -66,7 +66,7 @@
               <dt>Case Studies:</dt>
               <% CaseStudy.where(deal_id: @deal).order("name ASC").each do |case_study| %>
                 <% if CaseStudySlide.where(case_study_id: case_study.id).present? %>
-                  <dd><a href="/case_studies/<%=case_study.id %>"><%= case_study.name%> (<%= case_study.case_study_date%>)</a></dd>
+                  <dd><a href="/case_studies/<%=case_study.id %>"><%= case_study.name%></a></dd>
                 <% else %>
                   <dd><a href="/case_studies/<%=case_study.id %>">No Documents Uploaded</a></dd>
                 <% end %>

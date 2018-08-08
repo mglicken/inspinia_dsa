@@ -3,14 +3,7 @@
 
     <input name="authenticity_token" type="hidden" value="<%= form_authenticity_token %>">
 
-    <!-- js-switch elements for formatting -->
-    <div>
-      <input type="hidden" class="js-switch" />
-      <input type="hidden" class="js-switch_2" />
-      <input type="hidden" class="js-switch_3"  />
-      <input type="hidden" class="js-switch_4"  />
-    </div>
-    <select name="company_id" data-placeholder="Add Companies..." class="select2 form-control form-inline"  tabindex="2" style="width:200px">
+    <select name="company_id" data-placeholder="Add Company..." class="select2 form-control form-inline"  tabindex="2" style="width:75%">
         <% Company.where(id: (Company.ids - MpCompany.where(mp_id: @mp.id).pluck(:company_id)).uniq).order("name asc").each do |company| %>
         <option value="<%=company.id %>"><%=company.name %></option>
         <% end %>
@@ -24,20 +17,7 @@
 </div>
 
 <script type="text/javascript">
-$(function() {
-
-    var elem = document.querySelector('.js-switch');
-    var switchery = new Switchery(elem, { color: '#1AB394' });
-
-    var elem_2 = document.querySelector('.js-switch_2');
-    var switchery_2 = new Switchery(elem_2, { color: '#ED5565' });
-
-    var elem_3 = document.querySelector('.js-switch_3');
-    var switchery_3 = new Switchery(elem_3, { color: '#1AB394' });
-
-    var elem_4 = document.querySelector('.js-switch_4');
-    var switchery_4 = new Switchery(elem_4, { color: '#f8ac59' });
-   
+$(function() {  
     $('.select2').select2();
 });
 </script>

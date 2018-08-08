@@ -573,6 +573,7 @@ Myapp::Application.routes.draw do
   # UPDATE
   get "/lois/:id/edit", :controller => "lois", :action => "edit"
   post "/update_loi/:id", :controller => "lois", :action => "update"
+  post "/update_final_buyer/", :controller => "lois", :action => "update_final_buyer"
   post "/update_loi_and_highlights/", :controller => "lois", :action => "update_loi_and_highlights" 
 
   # DELETE
