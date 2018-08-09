@@ -1,0 +1,156 @@
+<a class=" btn btn-lincoln" data-toggle="modal" href="#myModalLocation">Add Location</i></a>
+
+<div class="modal inmodal fade" id="myModalLocation" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-sm">
+        <div class="modal-content">
+          <form enctype="multipart/form-data" action="/create_location/" method="post" class="form-horizontal">
+            <div class="modal-header">
+                <h4 class="modal-title">Add Location</h4>
+                <small class="font-bold">Add a new Location to <%= @company.name%> </small>
+            </div>
+            <div class="modal-body">
+
+            <!-- Validation failure messages -->
+
+            <% if @location.blank?%>
+              <% @location = Location.new %>
+            <% end %>
+            <% if @location.errors.any? %>
+              <% @location.errors.full_messages.each do |message| %>
+                <div class="alert alert-dismissable alert-danger">
+                  <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                  <%= message %>
+                </div>
+              <% end %>
+            <% end %>
+
+                <!-- Hidden input for authenticity token to protect from forgery -->
+                <input name="authenticity_token" type="hidden" value="<%= form_authenticity_token %>">
+
+              <!-- Label and input for Leased -->
+              <div class="form-group">
+                  <label class="col-lg-2 control-label" for="leased">
+                      Leased
+                  </label>
+                  <div class="col-sm-10">
+                    <input type="checkbox" value="" id="leased" name="leased" class="i-checks" />
+                  </div>
+              </div>
+
+              <!-- Label and input for Owned -->
+              <div class="form-group">
+                  <label class="col-lg-2 control-label" for="owned">
+                      Owned
+                  </label>
+                  <div class="col-sm-10">
+                    <input type="checkbox" value="" id="owned" name="owned" class="i-checks" />
+                  </div>
+              </div>
+
+              <!-- Label and input for Company ID -->
+              <input type="hidden" name="company_id" value="<%= @company.id%>">
+
+                                 
+              <!-- Label and input for name -->
+              <div class="form-group">
+                <h5><label for="name" class="col-sm-2 control-label">
+                  Name
+                </label></h5>
+                <div class="col-sm-10">
+                  <input type="text" id="name" name="name" placeholder="Name" class="form-control" value="<%= @location.name %>">
+                </div>
+              </div>
+
+              <!-- Label and input for street -->
+              <div class="form-group">
+                <h5><label for="address" class="col-sm-2 control-label">
+                  Street
+                </label></h5>
+                <div class="col-sm-10">
+                  <textarea id="address" name="address" placeholder="500 W Madison, Suite 3900" class="form-control" rows="3"><%= @location.address %></textarea>
+                </div>
+              </div>
+
+              <!-- Label and input for city -->
+              <div class="form-group">
+                <h5><label for="city" class="col-sm-2 control-label">
+                  City
+                </label></h5>
+                <div class="col-sm-10">
+                  <input type="text" id="city" name="city" placeholder="City" class="form-control" value="<%= @location.city %>">
+                </div>
+              </div>
+
+              <!-- Label and input for number -->
+              <div class="form-group">
+                <h5><label for="state" class="col-sm-2 control-label">
+                  State
+                </label></h5>
+                <div class="col-sm-10">
+                  <input type="string" id="state" name="state" placeholder="State" class="form-control" value="<%= @location.state %>">
+                </div>
+              </div>
+
+              <!-- Label and input for zip -->
+              <div class="form-group">
+                <h5><label for="zip" class="col-sm-2 control-label">
+                  Zip
+                </label></h5>
+                <div class="col-sm-10">
+                  <input type="integer" id="zip" name="zip" placeholder="Zip" class="form-control" value="<%= @location.zip %>">
+                </div>
+              </div>
+
+              <!-- Label and input for phone -->
+              <div class="form-group">
+                <h5><label for="phone" class="col-sm-2 control-label">
+                  Phone
+                </label></h5>
+                <div class="col-sm-10">
+                  <input type="bigint" id="phone" name="phone" placeholder="1112223333" class="form-control" value="<%= @location.phone %>">
+                </div>
+              </div>
+
+              <!-- Label and input for web_address -->
+              <% if @location.web_address.present?
+                if @location.web_address[0..6] == "http://"
+                  web_add = @location.web_address[7..(@location.web_address.length-1)]
+                else
+                  web_add = @location.web_address
+                end
+              else
+                web_add = nil 
+              end%>
+
+              <div class="form-group">
+                <h5><label for="web_address" class="col-sm-2 control-label">
+                Website
+                </label></h5>
+                <div class="col-sm-10">
+                  <input type="text" id="web_address" name="web_address" placeholder="http://(web address)" class="form-control" value="<%= web_add %>">
+                </div>
+              </div>
+
+            </div>
+            <div class="modal-footer">
+
+                <div class="form-group">
+                    <button class="btn btn-lincoln">
+                      Add Location
+                    </button>
+                    <button type="button" class="btn btn-white" data-dismiss="modal">Close</button>
+                </div>
+
+            </div>
+        </div>
+      </form>
+    </div>
+</div>
+
+<script>
+    $('.i-checks').iCheck({
+        checkboxClass: 'icheckbox_square-green',
+        radioClass: 'iradio_square-green',
+    });
+
+</script>

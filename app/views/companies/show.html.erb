@@ -55,6 +55,7 @@
                 <a href="/follow_company/<%=@company.id%>" class="btn btn-lg btn-follow"><i class="fa fa-star-o"></i></a>
               <% end %>
           </div>
+
           <div class="btn-group btn-group-justified">
             <a href="/companies" class="btn btn-lincoln">
               <i class="fa fa-reply"></i>
@@ -69,11 +70,14 @@
     </div>
   </div>
 </div>
+<br>
+<div class="row container">
+  <%= render('shared/create_note_modal')%>
   <%= render('shared/create_subsidiary_modal')%>
+  <%= render('shared/add_location_modal')%>
   <%= render('shared/create_fund_company_modal', :fund => 0, :company => @company )%>
   <%= render('shared/create_work_history_modal', :company => @company, :person => 0 )%>
-  <%= render('shared/create_note_modal')%>
-<br>
+</div>
 <br>
 
 <%= render('view_contacts') %>

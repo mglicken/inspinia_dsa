@@ -13,7 +13,7 @@
             <!-- Validation failure messages -->
 
             <% if @market_study.blank?%>
-              <% @market_study = CompanyNote.new %>
+              <% @market_study = MarketStudy.new %>
             <% end %>
             <% if @market_study.errors.any? %>
               <% @market_study.errors.full_messages.each do |message| %>
