@@ -242,6 +242,24 @@ Myapp::Application.routes.draw do
   # DELETE
   get "/delete_company_follow/:id", :controller => "company_follows", :action => "destroy"
 
+# Routes for the Company Locations resource:
+  resources :company_locations do
+    collection {post :import}
+  end
+  # CREATE
+  get "/company_locations/new", :controller => "company_locations", :action => "new"
+  post "/create_company_location", :controller => "company_locations", :action => "create"
+  # READ
+  get "/company_locations", :controller => "company_locations", :action => "index"
+  get "/company_locations/:id", :controller => "company_locations", :action => "show"
+
+  # UPDATE
+  get "/company_locations/:id/edit", :controller => "company_locations", :action => "edit"
+  post "/update_company_location/:id", :controller => "company_locations", :action => "update"
+
+  # DELETE
+  get "/delete_company_location/:id", :controller => "company_locations", :action => "destroy"
+
   # Routes for the Company Notes resource:
   resources :company_notes do
     collection {post :import}
@@ -557,6 +575,25 @@ Myapp::Application.routes.draw do
 
   # DELETE
   get "/delete_ioi_slide/:id", :controller => "ioi_slides", :action => "destroy"
+
+    # Routes for the Locations resource:
+  resources :locations do
+    collection {post :import}
+  end
+  # CREATE
+  get "/locations/new", :controller => "locations", :action => "new"
+  post "/create_location", :controller => "locations", :action => "create"
+  
+  # READ
+  get "/locations", :controller => "locations", :action => "index"
+  get "/locations/:id", :controller => "locations", :action => "show"
+
+  # UPDATE
+  get "/locations/:id/edit", :controller => "locations", :action => "edit"
+  post "/update_location/:id", :controller => "locations", :action => "update"
+
+  # DELETE
+  get "/delete_location/:id", :controller => "locations", :action => "destroy"
 
   # Routes for the LOIs resource:
   resources :lois do

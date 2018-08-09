@@ -1,5 +1,5 @@
 class Company < ActiveRecord::Base
-	validates :name, :presence => true, :uniqueness => true
+	validates :name, :presence => true
 
 	has_many :deals, :dependent => :destroy
 	has_many :work_histories, :dependent => :destroy
@@ -17,6 +17,8 @@ class Company < ActiveRecord::Base
 	has_many :mp_companies, :dependent => :destroy
 	has_many :mps, :through => :mp_companies
 	has_many :company_follows, :dependent => :destroy
+	has_many :company_locations, :dependent => :destroy
+	has_many :locations, :through => :company_locations
 
 	has_many :subsidiary_parents, class_name: "Subsidiary", foreign_key: "child_id", dependent: :destroy
 	has_many :subsidiary_children, class_name: "Subsidiary", foreign_key: "parent_id", dependent: :destroy

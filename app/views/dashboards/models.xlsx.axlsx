@@ -158,6 +158,20 @@ wb.add_worksheet(name: "company_follows") do |sheet|
 		sheet.add_row content_row
 	end
 end
+wb.add_worksheet(name: "company_locations") do |sheet|
+	title_row = []
+	@company_locations.column_names.each do |column|
+		title_row.push(column)
+	end
+	sheet.add_row title_row
+	@company_locations.each do |company_location|
+		content_row = []
+		company_location.class.column_names.each do |column|
+			content_row.push(company_location[column])
+		end
+		sheet.add_row content_row
+	end
+end
 wb.add_worksheet(name: "company_notes") do |sheet|
 	title_row = []
 	@company_notes.column_names.each do |column|
@@ -378,6 +392,20 @@ wb.add_worksheet(name: "ioi_slides") do |sheet|
 		content_row = []
 		ioi_slide.class.column_names.each do |column|
 			content_row.push(ioi_slide[column])
+		end
+		sheet.add_row content_row
+	end
+end
+wb.add_worksheet(name: "locations") do |sheet|
+	title_row = []
+	@locations.column_names.each do |column|
+		title_row.push(column)
+	end
+	sheet.add_row title_row
+	@locations.each do |location|
+		content_row = []
+		location.class.column_names.each do |column|
+			content_row.push(location[column])
 		end
 		sheet.add_row content_row
 	end

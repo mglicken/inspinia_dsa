@@ -1,0 +1,50 @@
+
+<br>
+<div class="row">
+  <div class="col-lg-offset-2 col-lg-8">
+    <div class="ibox-content">
+        <h3 class="ibox-title"><%= @location.name %></h3>
+      <div class="ibox-body">
+        <div class="row">
+
+          <div class="col-lg-10">
+            <dl class="dl-horizontal">
+
+
+              <dt>Address:</dt>
+              <dd> <address>
+
+                  <%= @location.address %><br>
+                  <%= @location.city %>, <%= @location.state %> <%= @location.zip %><br>
+                  <% if @location.phone.present? %> 
+                      <abbr title="phone"><strong> Main:</strong></abbr> (<%= @location.phone.to_s[0..2] %>) <%= @location.phone.to_s[3..5] %>-<%= @location.phone.to_s[6..9] %><br>
+                  <%end%>
+                  <% if @location.web_address.present? %>
+                    <%if @location.web_address[0..4] == "https" %>
+                     <strong> Website: </strong><a href="<%= @location.web_address %>" target="_blank"><%= @location.web_address[8..(@location.web_address.length-1)] %></a>
+                    <% elsif @location.web_address[0..3] == "http" %>
+                      <strong> Website: </strong><a href="<%= @location.web_address %>" target="_blank"><%= @location.web_address[7..(@location.web_address.length-1)] %></a>
+                    <%else%>
+                      <strong> Website: </strong><a href="<%= @location.web_address %>" target="_blank"><%= @location.web_address %></a>
+                    <%end%>
+                  <%end%>                  
+                  </address>                         
+              </dd>
+            </dl>
+          </div>
+          <div class="btn-group btn-group-justified">
+            <a href="/companies/<%= @location.company.id %>" class="btn btn-lincoln">
+              <i class="fa fa-reply"></i>
+            </a>
+
+            <%= render('shared/edit_location_modal', :location => @location)%>
+
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+

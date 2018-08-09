@@ -80,6 +80,11 @@
               <%= file_field_tag :file %><br>
               <%= submit_tag "Import", class: "btn btn-warning btn-group-justified"%> 
               <%end %>
+            <% elsif path == "company_locations" %>
+              <%= form_tag import_company_locations_path, multipart: true do %>
+              <%= file_field_tag :file %><br>
+              <%= submit_tag "Import", class: "btn btn-warning btn-group-justified"%> 
+              <%end %>
             <%elsif path == "deals" %>
               <%= form_tag import_deals_path, multipart: true do %>
               <%= file_field_tag :file %><br>
@@ -150,6 +155,11 @@
               <%= file_field_tag :file %><br>
               <%= submit_tag "Import", class: "btn btn-warning btn-group-justified"%> 
               <%end %>
+            <%elsif path == "locations" %>
+              <%= form_tag import_locations_path, multipart: true do %>
+              <%= file_field_tag :file %><br>
+              <%= submit_tag "Import", class: "btn btn-warning btn-group-justified"%>  
+              <%end %> 
             <% elsif path == "lois" %>
               <%= form_tag import_lois_path, multipart: true do %>
               <%= file_field_tag :file %><br>

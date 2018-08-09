@@ -1,0 +1,6 @@
+	<% if defined?(@slide_tag) %>	
+		$('#tag_<%= @slide_tag.tag_id %>').removeClass()
+		$('#tag_<%= @slide_tag.tag_id %>').addClass("panel panel-success")
+		$('#tag_<%= @slide_tag.tag_id %>_button').hide()
+	<% end %>
+
