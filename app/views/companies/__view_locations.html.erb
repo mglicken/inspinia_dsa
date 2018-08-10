@@ -1,0 +1,107 @@
+<div class="ibox">
+    <div class="ibox-title">
+        <h5>Locations (<%= @company.locations.count %>)</h5>
+        <div class="ibox-tools">
+            <a class="collapse-link">
+                <i class="fa fa-chevron-up"></i>
+            </a>
+            <a class="close-link">
+                <i class="fa fa-times"></i>
+            </a>
+        </div>
+    </div>
+    <div class="ibox-content">
+
+        <div id="bubbles"></div>
+
+    </div>
+
+</div>
+
+<script type="text/javascript">
+
+
+
+var bubble_map = new Datamap({
+    element: document.getElementById("bubbles"),
+    height: 800,
+    fills: {
+        defaultFill: '#E9E9E9',
+        active: "#2BA587"
+    },
+    geographyConfig: {
+        dataUrl: null, //if not null, datamaps will fetch the map JSON (currently only supports topojson)
+        hideAntarctica: true,
+        borderWidth: 1,
+        borderOpacity: 1,
+        borderColor: '#FFFFFF',
+        popupOnHover: true, //disable the popup while hovering
+        highlightOnHover: true,
+        highlightFillColor: '#DDDDDD',
+        highlightBorderColor: '#FFFFFF',
+        highlightBorderWidth: 2,
+        highlightBorderOpacity: 1
+    },
+    bubblesConfig: {
+            borderWidth: 2,
+            borderOpacity: 1,
+            borderColor: '#FFFFFF',
+            animate: true,
+            popupOnHover: true,
+            fillOpacity: 0.75,
+            highlightOnHover: true,
+            highlightFillColor: '#127e68',
+            highlightBorderColor: '#FFFFFF',
+            highlightFillOpacity: 0.85
+    }
+});
+bubble_map.bubbles([
+    {
+        name: 'Not a bomb, but centered on Brazil',
+        radius: 15,
+        centered: 'BRA',
+        country: 'USA',
+        yield: 0,
+        fillKey: 'active',
+        date: '1954-03-01'
+    },
+    {
+        name: 'Not a bomb',
+        radius: 15,
+        yield: 0,
+        country: 'USA',
+        centered: 'USA',
+        date: '1986-06-05',
+        significance: 'Centered on US',
+        fillKey: 'active'
+    },
+    {
+        name: 'Castle Bravo',
+        radius: 15,
+        yield: 15000,
+        country: 'USA',
+        significance: 'First dry fusion fuel "staged" thermonuclear weapon; a serious nuclear fallout accident occurred',
+        fillKey: 'active',
+        date: '1954-03-01',
+        latitude: 11.415,
+        longitude: 165.1619
+    },
+    {
+        name: 'Tsar Bomba',
+        radius: 15,
+        yield: 50000,
+        country: 'USSR',
+        fillKey: 'active',
+        significance: 'Largest thermonuclear weapon ever tested—scaled down from its initial 100 Mt design by 50%',
+        date: '1961-10-31',
+        latitude: 73.482,
+        longitude: 54.5854
+    }
+], {
+    popupTemplate: function(geo, data) {
+        return '<div class="hoverinfo"><strong>' + 'test' + '</strong></div>';
+    }
+});
+
+</script>
+

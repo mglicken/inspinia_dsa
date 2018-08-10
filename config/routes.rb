@@ -587,6 +587,7 @@ Myapp::Application.routes.draw do
   # READ
   get "/locations", :controller => "locations", :action => "index"
   get "/locations/:id", :controller => "locations", :action => "show"
+  get "/location_query/:company_id", :controller => "locations", :action => "index_query" 
 
   # UPDATE
   get "/locations/:id/edit", :controller => "locations", :action => "edit"

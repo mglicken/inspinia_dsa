@@ -20,6 +20,10 @@
 //= require iCheck/icheck.min.js
 //= require jeditable/jquery.jeditable.js
 //= require dataTables/datatables.min.js
+//= require d3/d3.min.js
+//= require topojson/topojson.js
+//= require datamaps/datamaps.all.min.js
+
 
 //= require steps/jquery.steps.min.js
 //= require validate/jquery.validate.min.js
@@ -60,9 +64,7 @@
 //= require bootstrapTour/bootstrap-tour.min.js
 //= require i18next/i18next.min.js
 //= require clipboard/clipboard.min.js
-//= require d3/d3.min.js
-//= require topojson/topojson.js
-//= require datamaps/datamaps.all.min.js
+
 //= require pdfjs/pdf.js
 //= require pdfjs/pdf.worker.js
 //= require touchpunch/jquery.ui.touch-punch.min.js

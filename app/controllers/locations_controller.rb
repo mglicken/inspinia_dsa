@@ -36,6 +36,14 @@ before_action :ensure_view_access,  only: [:index, :search, :show]
     end
   end
 
+  def index_query
+    @company = Company.find(params[:company_id])
+    @query_locations = @company.locations
+    respond_to do |format|
+      format.json {send_data @query_locations.to_json}
+    end
+  end
+
   def show
     @location = Location.find(params[:id])
   end
@@ -46,10 +54,10 @@ before_action :ensure_view_access,  only: [:index, :search, :show]
 
   def create
     @location = Location.new
-
+    @company = Company.find(params[:company_id])
+    @location.owned = params[:owned]
+    @location.leased = params[:leased]
     @location.name = params[:name]
-    @location.revenue = params[:revenue]
-    @location.ebitda = params[:ebitda]
     @location.address = params[:address]
     @location.city = params[:city]
     @location.state = params[:state]
@@ -63,7 +71,12 @@ before_action :ensure_view_access,  only: [:index, :search, :show]
     end
 
     if @location.save
-      redirect_to "/locations/#{@location.id}", :notice => "Location created successfully."
+      @company_location = CompanyLocation.new
+      @company_location.company_id = @company.id
+      @company_location.location_id = @location.id
+      @company_location.save
+
+      redirect_to "/companies/#{@company.id}", :notice => "Location created successfully."
     else
       render 'new'
     end
