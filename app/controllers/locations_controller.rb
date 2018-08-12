@@ -109,12 +109,16 @@ before_action :ensure_view_access,  only: [:index, :search, :show]
     @location.country = params[:country]
     @location.phone = params[:phone]
 
+    if params[:longitude].present? && params[:latitude].present?
+      @location.longitude = params[:longitude]
+      @location.latitude = params[:latitude]
+    end
+
     if params[:web_address][0..3] == "http" || params[:web_address] == ""
       @location.web_address = params[:web_address]
     else
       @location.web_address = "http://#{params[:web_address]}"
     end
-
 
     if @location.save
       redirect_to "/locations/#{@location.id}", :notice => "Location updated successfully."
