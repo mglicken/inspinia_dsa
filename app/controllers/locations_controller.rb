@@ -38,7 +38,17 @@ before_action :ensure_view_access,  only: [:index, :search, :show]
 
   def index_query
     @company = Company.find(params[:company_id])
-    @query_locations = @company.locations
+    @query_locations = []
+    @company.locations.each do |location|
+      loc = Hash.new
+      loc[:id] = location.id
+      loc[:name] = location.name
+      loc[:radius] = 15
+      loc[:fillKey] = 'active'
+      loc[:latitude] = location.latitude
+      loc[:longitude] = location.longitude
+      @query_locations.push(loc)
+    end 
     respond_to do |format|
       format.json {send_data @query_locations.to_json}
     end
@@ -58,7 +68,7 @@ before_action :ensure_view_access,  only: [:index, :search, :show]
     @location.owned = params[:owned]
     @location.leased = params[:leased]
     @location.name = params[:name]
-    @location.address = params[:address]
+    @location.street = params[:street]
     @location.city = params[:city]
     @location.state = params[:state]
     @location.zip = params[:zip]
@@ -69,7 +79,6 @@ before_action :ensure_view_access,  only: [:index, :search, :show]
     else
       @location.web_address = "http://#{params[:web_address]}"
     end
-
     if @location.save
       @company_location = CompanyLocation.new
       @company_location.company_id = @company.id
@@ -89,8 +98,10 @@ before_action :ensure_view_access,  only: [:index, :search, :show]
   def update
     @location = Location.find(params[:id])
 
+    @location.owned = params[:owned]
+    @location.leased = params[:leased]
     @location.name = params[:name]
-    @location.address = params[:address]
+    @location.street = params[:street]
     @location.city = params[:city]
     @location.state = params[:state]
     @location.zip = params[:zip]
@@ -100,6 +111,8 @@ before_action :ensure_view_access,  only: [:index, :search, :show]
     else
       @location.web_address = "http://#{params[:web_address]}"
     end
+
+
     if @location.save
       redirect_to "/locations/#{@location.id}", :notice => "Location updated successfully."
     else

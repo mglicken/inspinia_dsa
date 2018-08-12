@@ -88,6 +88,7 @@ GEM
     ffi (1.9.25-x86-mingw32)
     font-awesome-rails (4.7.0.1)
       railties (>= 3.2, < 5.1)
+    geocoder (1.5.0)
     globalid (0.4.1)
       activesupport (>= 4.2.0)
     htmlentities (4.3.4)
@@ -234,6 +235,7 @@ DEPENDENCIES
   coffee-rails (~> 4.2.2)
   devise
   font-awesome-rails (= 4.7.0.1)
+  geocoder
   jbuilder (~> 1.2)
   json
   pg (~> 0.21.0)

@@ -1,11 +1,16 @@
 class Location < ActiveRecord::Base
 	validates :name, :presence => true
 
+	geocoded_by :address
+	after_validation :geocode
+
 	has_one :company_location, :dependent => :destroy
 	has_one :company, :through => :company_location
 
 
-
+	def address
+	  [street, city, state, country].compact.join(', ')
+	end
 
 
 	def self.to_csv
@@ -17,7 +22,7 @@ class Location < ActiveRecord::Base
 		end
 	end
 	def self.import(file)
-		allowed_attributes = [ "name", "address", "city", "state", "zip", "phone", "web_address"]
+		allowed_attributes = [ "name", "street", "city", "state", "zip", "country", "phone", "web_address", "owned", "leased"]
 		CSV.foreach(file.path,headers: true) do |row|
 			locations = find_by_id(row["id"]) || new
 			

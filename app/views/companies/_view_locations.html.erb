@@ -27,7 +27,7 @@ $(function() {
         height: 800,
         fills: {
             defaultFill: '#E9E9E9',
-            active: "#2BA587"
+            active: '#2BA587'
         },
         geographyConfig: {
             dataUrl: null, //if not null, datamaps will fetch the map JSON (currently only supports topojson)
@@ -47,7 +47,7 @@ $(function() {
                 borderOpacity: 1,
                 borderColor: '#FFFFFF',
                 animate: true,
-                popupOnHover: false,
+                popupOnHover: true,
                 fillOpacity: 0.65,
                 highlightOnHover: true,
                 highlightFillColor: '#127e68',
@@ -55,12 +55,9 @@ $(function() {
                 highlightFillOpacity: 0.85
         }
     });
-    bubble_map.bubbles("/location_query/<%= @company.id %>", {
-        popupTemplate: function(geo, data) {
-            return '<div class="hoverinfo"><strong>' + 'test' + '</strong></div>';
-        }
+    $.getJSON("/location_query/<%= @company.id%>.json", function(locations) {
+        bubble_map.bubbles(locations);
     });
-
 
 });
 
