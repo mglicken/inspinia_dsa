@@ -56,7 +56,13 @@ $(function() {
         }
     });
     $.getJSON("/location_query/<%= @company.id%>.json", function(locations) {
-        bubble_map.bubbles(locations);
+        bubble_map.bubbles(locations,
+            {
+            popupTemplate:function (geography, data) { 
+                    return '<div class="hoverinfo"><strong>Test</strong></div>'
+                    
+            }
+        });
     });
 
 });

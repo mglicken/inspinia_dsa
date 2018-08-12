@@ -106,8 +106,6 @@ before_action :ensure_view_access,  only: [:index, :search, :show]
     @cip_companies = CipCompany.where(company_id:  @company.children.ids.push(@company.id) ).joins(:company).order("name ASC")
     @mp_companies = MpCompany.where(company_id:  @company.children.ids.push(@company.id) ).joins(:company).order("name ASC")
     @sponsors = Sponsor.where(id: Fund.where(id: FundCompany.where(company_id: (@company.parents.ids.push(@company.id))).pluck(:fund_id)).pluck(:sponsor_id)).order("name ASC")
-    @location = Location.first
-    @results = Geocoder.search("#{@location.address}, #{@location.city}, #{@location.state}, #{@location.zip} ")
   end
 
   def new
