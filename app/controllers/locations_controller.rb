@@ -72,6 +72,7 @@ before_action :ensure_view_access,  only: [:index, :search, :show]
     @location.city = params[:city]
     @location.state = params[:state]
     @location.zip = params[:zip]
+    @location.country = params[:country]
     @location.phone = params[:phone]
     @location.web_address = params[:web_address]
     if @location.web_address[0..3] == "http" || @location.web_address == ""
@@ -105,7 +106,9 @@ before_action :ensure_view_access,  only: [:index, :search, :show]
     @location.city = params[:city]
     @location.state = params[:state]
     @location.zip = params[:zip]
+    @location.country = params[:country]
     @location.phone = params[:phone]
+
     if params[:web_address][0..3] == "http" || params[:web_address] == ""
       @location.web_address = params[:web_address]
     else
