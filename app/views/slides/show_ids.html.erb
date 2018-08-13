@@ -1,0 +1,250 @@
+<style>
+  .pdf-image-1 {width: 100%;}
+</style>
+<br>
+<br>
+<div class="row">
+  <div class= "col-lg-offset-2 col-lg-8 isotope-item">
+    <div class="ibox-content">
+      <div class="pull-right" style="margin-right:25px">
+          <% if @slide.favorite_slides.where(user_id: current_user.id).present? %>
+            <a href="/destroy_favorite_slide/<%=@slide.favorite_slides.find_by(user_id: current_user.id).id %>" class="btn btn-lg btn-unfavorite" id="slide_<%=@slide.id%>"><i class="fa fa-star"></i></a>
+          <% else %>
+            <a href="/create_favorite_slide/<%=current_user.id%>/<%=@slide.id%>" class="btn btn-lg btn-favorite" id="slide_<%=@slide.id%>"><i class="fa fa-star-o"></i></a>
+          <% end %>
+      </div>  
+        <% if @nbp.present? %> 
+          <h3 class="ibox-title"><a href="/nbps/<%=@nbp.id%>"><%= @nbp.deal.name %> NBP</a> (Slide# <%= @slide.number %>)</h3>
+        <% end %>
+        <% if @teaser.present? %> 
+          <h3 class="ibox-title"><a href="/teasers/<%=@teaser.id%>"><%= @teaser.deal.name %> Teaser</a> (Slide# <%= @slide.number %>)</h3>
+        <% end %>
+        <% if @nda.present? %> 
+          <h3 class="ibox-title"><a href="/ndas/<%=@nda.id%>"><%= @nda.deal.name %> NDA</a> (Slide# <%= @slide.number %>)</h3>
+        <% end %>        
+        <% if @cip.present? %> 
+          <h3 class="ibox-title"><a href="/cips/<%=@cip.id%>"><%= @cip.deal.name %> CIP</a> (Slide# <%= @slide.number %>)</h3>
+        <% end %>
+        <% if @ioi.present? %> 
+          <h3 class="ibox-title"><a href="/iois/<%=@ioi.id%>"><%= @ioi.deal.name %> IOI</a> (Slide# <%= @slide.number %>)</h3>
+        <% end %>
+        <% if @mp.present? %> 
+          <h3 class="ibox-title"><a href="/mps/<%=@mp.id%>"><%= @mp.deal.name %> MP</a> (Slide# <%= @slide.number %>)</h3>
+        <% end %>
+        <% if @loi.present? %> 
+          <h3 class="ibox-title"><a href="/lois/<%=@loi.id%>"><%= @loi.deal.name %> LOI</a> (Slide# <%= @slide.number %>)</h3>
+        <% end %>
+        <% if @case_study.present? %> 
+          <h3 class="ibox-title"><a href="/case_studies/<%=@case_study.id%>"><%= @case_study.deal.name %> Case Study</a> (Slide# <%= @slide.number %>)</h3>
+        <% end %>
+      <div class="ibox-body">
+        <div class="row">
+          <div class="col-lg-12">            
+
+              <% if @slide.nbp.present? %>   
+              <%= link_to image_tag("http://res.cloudinary.com/mglicken/image/upload/f_jpg,pg_#{ @slide.number }/#{@slide.nbp.image_id}.pdf",:class => 'pdf-image-1') %>  
+            <% elsif @slide.teaser.present? %> 
+              <%= link_to image_tag("http://res.cloudinary.com/mglicken/image/upload/f_jpg,pg_#{ @slide.number }/#{@slide.teaser.image_id}.pdf", :class => 'pdf-image-1') %> 
+            <% elsif @slide.nda.present? %> 
+              <%= link_to image_tag("http://res.cloudinary.com/mglicken/image/upload/f_jpg,pg_#{ @slide.number }/#{@slide.nda.image_id}.pdf", :class => 'pdf-image-1') %>
+            <% elsif @slide.cip.present? %> 
+              <%= link_to image_tag("http://res.cloudinary.com/mglicken/image/upload/f_jpg,pg_#{ @slide.number }/#{@slide.cip.image_id}.pdf", :class => 'pdf-image-1') %>
+            <% elsif @slide.ioi.present? %> 
+              <%= link_to image_tag("http://res.cloudinary.com/mglicken/image/upload/f_jpg,pg_#{ @slide.number }/#{@slide.ioi.image_id}.pdf", :class => 'pdf-image-1') %>
+            <% elsif @slide.mp.present? %> 
+              <%= link_to image_tag("http://res.cloudinary.com/mglicken/image/upload/f_jpg,pg_#{ @slide.number }/#{@slide.mp.image_id}.pdf", :class => 'pdf-image-1') %>
+            <% elsif @slide.loi.present? %> 
+              <%= link_to image_tag("http://res.cloudinary.com/mglicken/image/upload/f_jpg,pg_#{ @slide.number }/#{@slide.loi.image_id}.pdf", :class => 'pdf-image-1') %>
+            <% elsif @slide.case_study.present? %> 
+              <%= link_to image_tag("http://res.cloudinary.com/mglicken/image/upload/f_jpg,pg_#{ @slide.number }/#{@slide.case_study.image_id}.pdf",:class => 'pdf-image-1') %>  
+            <% end %>
+
+            <div class="btn-group btn-group-justified">
+              <% if @slide.id == @ids.max() %>
+                <a href="/slides/<%= (@ids[@ids.index(@slide.id) -1]) %>/<%= @ids.join(",") %>" class="btn btn-lincoln">
+                  <i class="fa fa-chevron-left"></i>
+                </a>
+              <% elsif @slide.id == @ids.min() %>
+                <a href="/slides/<%= (@ids[@ids.index(@slide.id) + 1]) %>/<%= @ids.join(",") %>" class="btn btn-lincoln">
+                  <i class="fa fa-chevron-right"></i>
+                </a>
+              <% else %>
+                <a href="/slides/<%= (@ids[@ids.index(@slide.id) - 1]) %>/<%= @ids.join(",") %>" class="btn btn-lincoln">
+                  <i class="fa fa-chevron-left"></i>
+                </a>
+                <a href="/slides/<%= (@ids[@ids.index(@slide.id) + 1]) %>/<%= @ids.join(",") %>" class="btn btn-lincoln">
+                  <i class="fa fa-chevron-right"></i>
+                </a>
+              <% end %>
+
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="row">
+  <div class="col-offset-lg-1 col-lg-10">
+    <%= render('view_tags', slide: @slide) %>
+  </div>
+</div>
+
+<br>
+<br>
+
+<%= render('shared/quick_search_js') %>
+
+<script type="text/javascript">
+        //
+        // If absolute URL from the remote server is provided, configure the CORS
+        // header on that server.
+
+  var url = "http://res.cloudinary.com/mglicken/image/upload/f_jpg,pg_<%= @slide.number %>/<%= @image_id %>.pdf";
+
+  var pdfDoc = null,
+          pageNum = 1,
+          pageRendering = false,
+          pageNumPending = null,
+          scale = 1,
+          zoomRange = 0.25,
+          canvas = document.getElementById('the-canvas'),
+          ctx = canvas.getContext('2d');
+
+        /**
+         * Get page info from document, resize canvas accordingly, and render page.
+         * @param num Page number.
+         */
+        function renderPage(num, scale) {
+            pageRendering = true;
+            // Using promise to fetch the page
+            pdfDoc.getPage(num).then(function(page) {
+                var viewport = page.getViewport(scale);
+                canvas.height = viewport.height;
+                canvas.width = viewport.width;
+
+                // Render PDF page into canvas context
+                var renderContext = {
+                    canvasContext: ctx,
+                    viewport: viewport
+                };
+                var renderTask = page.render(renderContext);
+
+                // Wait for rendering to finish
+                renderTask.promise.then(function () {
+                    pageRendering = false;
+                    if (pageNumPending !== null) {
+                        // New page rendering is pending
+                        renderPage(pageNumPending);
+                        pageNumPending = null;
+                    }
+                });
+            });
+
+            // Update page counters
+            document.getElementById('page_num').value = num;
+        }
+
+        /**
+         * If another page rendering in progress, waits until the rendering is
+         * finised. Otherwise, executes rendering immediately.
+         */
+        function queueRenderPage(num) {
+            if (pageRendering) {
+                pageNumPending = num;
+            } else {
+                renderPage(num,scale);
+            }
+        }
+
+        /**
+         * Displays previous page.
+         */
+        function onPrevPage() {
+            if (pageNum <= 1) {
+                return;
+            }
+            pageNum--;
+            var scale = pdfDoc.scale;
+            queueRenderPage(pageNum, scale);
+        }
+        document.getElementById('prev').addEventListener('click', onPrevPage);
+
+        /**
+         * Displays next page.
+         */
+        function onNextPage() {
+            if (pageNum >= pdfDoc.numPages) {
+                return;
+            }
+            pageNum++;
+            var scale = pdfDoc.scale;
+            queueRenderPage(pageNum, scale);
+        }
+        document.getElementById('next').addEventListener('click', onNextPage);
+
+        /**
+         * Zoom in page.
+         */
+        function onZoomIn() {
+            if (scale >= pdfDoc.scale) {
+                return;
+            }
+            scale += zoomRange;
+            var num = pageNum;
+            renderPage(num, scale)
+        }
+        document.getElementById('zoomin').addEventListener('click', onZoomIn);
+
+        /**
+         * Zoom out page.
+         */
+        function onZoomOut() {
+            if (scale >= pdfDoc.scale) {
+                return;
+            }
+            scale -= zoomRange;
+            var num = pageNum;
+            queueRenderPage(num, scale);
+        }
+        document.getElementById('zoomout').addEventListener('click', onZoomOut);
+
+        /**
+         * Zoom fit page.
+         */
+        function onZoomFit() {
+            if (scale >= pdfDoc.scale) {
+                return;
+            }
+            scale = 1;
+            var num = pageNum;
+            queueRenderPage(num, scale);
+        }
+        document.getElementById('zoomfit').addEventListener('click', onZoomFit);
+
+
+        /**
+         * Asynchronously downloads PDF.
+         */
+
+        PDFJS.disableWorker = true;
+        PDFJS.getDocument(url).then(function (pdfDoc_) {
+            pdfDoc = pdfDoc_;
+            var documentPagesNumber = pdfDoc.numPages;
+            document.getElementById('page_count').textContent = '/ ' + documentPagesNumber;
+
+            $('#page_num').on('change', function() {
+                var pageNumber = Number($(this).val());
+
+                if(pageNumber > 0 && pageNumber <= documentPagesNumber) {
+                    queueRenderPage(pageNumber, scale);
+                }
+
+            });
+
+            // Initial/first page rendering
+            renderPage(pageNum, scale);
+        });
+
+
+</script>

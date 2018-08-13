@@ -102,6 +102,72 @@ before_action :ensure_view_access,  only: [:show, :search]
     end
   end
 
+  def show_ids
+    @ids = params[:ids].split(",").map { |s| s.to_i }
+    @slide = Slide.find(params[:id].to_i)
+    @tags = Tag.all.order("name ASC")
+    if @slide.nbp.present?
+      @nbp = @slide.nbp
+      @image_id = @nbp.image_id
+    else
+      @nbp = Nbp.none
+    end
+    if @slide.nda.present?
+      @nda = @slide.nda
+      @image_id = @nda.image_id
+    else
+      @nda = Nda.none
+    end
+    if @slide.cip.present?
+      @cip = @slide.cip
+      @image_id = @cip.image_id
+    else
+      @cip = Cip.none
+    end
+    if @slide.ioi.present?
+      @ioi = @slide.ioi
+      @image_id = @ioi.image_id
+    else
+      @ioi = Ioi.none
+    end
+    if @slide.mp.present?
+      @mp = @slide.mp
+      @image_id = @mp.image_id
+    else
+      @mp = Mp.none
+    end
+    if @slide.loi.present?
+      @loi = @slide.loi
+      @image_id = @loi.image_id
+    else
+      @loi = Loi.none
+    end
+    if @slide.teaser.present?
+      @teaser = @slide.teaser
+      @image_id = @teaser.image_id
+    else
+      @teaser = Teaser.none
+    end  
+    if @slide.case_study.present?
+      @case_study = @slide.case_study
+      @image_id = @case_study.image_id
+    else
+      @case_study = CaseStudy.none
+    end  
+    if @slide.market_study.present?
+      @market_study = @slide.market_study
+      @image_id = @market_study.image_id
+    else
+      @market_study = MarketStudy.none
+    end 
+      if @slide.qofe.present?
+      @qofe = @slide.qofe
+      @image_id = @qofe.image_id
+    else
+      @qofe = Qofe.none
+    end
+  end
+
   def search
     @text = params[:search].downcase
     @tag_ids = []

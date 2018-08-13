@@ -16,7 +16,7 @@
 
 <div class="row isotope-container">
 <% @slides.each do |slide| %>
-  <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4 isotope-item">
+  <div class="col-lg-3 isotope-item">
     <div class="panel panel-default">
       <div class="pull-right">
         <% if slide.favorite_slides.where(user_id: current_user.id).present? %>
@@ -51,9 +51,9 @@
           <div class="col-md-12">
             <class="dl-horizontal">
             <% if slide.teaser.present? %>
-              <%= link_to image_tag("http://res.cloudinary.com/mglicken/image/upload/c_scale,h_330,w_255/f_jpg,pg_#{slide.number}/#{slide.teaser.image_id}.pdf"), "/slides/#{slide.id}" %>
+              <%= link_to image_tag("http://res.cloudinary.com/mglicken/image/upload/c_scale,h_330,w_255/f_jpg,pg_#{slide.number}/#{slide.teaser.image_id}.pdf"), "/slides/#{slide.id}/#{@slides.ids.join(",")}" %>
             <% else %>
-              <%= link_to image_tag(slide.image_url), "/slides/#{slide.id}" %>
+              <%= link_to image_tag(slide.image_url), "/slides/#{slide.id}/#{@slides.ids.join(",")}" %>
             <% end %>
             <% slide.tags.each do |tag| %>
 

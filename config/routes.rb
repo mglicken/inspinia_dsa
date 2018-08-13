@@ -1168,6 +1168,7 @@ Myapp::Application.routes.draw do
   # READ
   get "/slides", :controller => "slides", :action => "index"
   get "/slides/:id", :controller => "slides", :action => "show"
+  get "/slides/:id/:ids", :controller => "slides", :action => "show_ids"
   get "/slide_search/:search", :controller => "slides", :action => "search"  
 
   # UPDATE

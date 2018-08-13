@@ -59,15 +59,6 @@
               <%= link_to image_tag("http://res.cloudinary.com/mglicken/image/upload/f_jpg,pg_#{ @slide.number }/#{@slide.case_study.image_id}.pdf",:class => 'pdf-image-1') %>  
             <% end %>
 
-            <div class="btn-group btn-group-justified">
-              <% if @slide.number > 1 %>
-                <a href="/slides/<%= (@slide.id - 1) %>" class="btn btn-lincoln">
-                  <i class="fa fa-chevron-left"></i>
-                </a>
-              <% end %>
-                  <i class="fa fa-chevron-right"></i>
-
-            </div>
           </div>
         </div>
       </div>
