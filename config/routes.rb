@@ -1231,7 +1231,7 @@ Myapp::Application.routes.draw do
   get "/slide_tags/new", :controller => "slide_tags", :action => "new"
   get "/create_slide_tag/:slide_id/:tag_id", :controller => "slide_tags", :action => "create"
   post "/create_slide_tag", :controller => "slide_tags", :action => "create"
-  post "/create_slide_tag/:slide_id/", :controller => "slide_tags", :action => "create_by_name"
+  post "/create_slide_tag/:slide_id/:slide_ids", :controller => "slide_tags", :action => "create_by_name"
 
   # READ
   get "/slide_tags", :controller => "slide_tags", :action => "index"
@@ -1298,7 +1298,7 @@ get "/update_strip_tag/:id/:value/table", :controller => "strip_tags", :action =
   get "/tag_query", :controller => "tags", :action => "index_query"  
   get "/tags/:id", :controller => "tags", :action => "show"
   get "/tag_search/:search", :controller => "tags", :action => "search"
-  get "/view_slides/:tag_id", :controller => "tags", :action => "view_slides"
+  get "/view_slides/:tag_id/", :controller => "tags", :action => "view_slides"
 
 
   # UPDATE

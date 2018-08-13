@@ -5,7 +5,7 @@
         <div style="font-size:12px">
 
           <p class="ui-widget">
-            <form action="/create_slide_tag/<%= slide.id%>" method="post" class="form-inline">
+            <form action="/create_slide_tag/<%= slide.id%>/<%=@ids.join(",") %>" method="post" class="form-inline">
               <input name="authenticity_token" type="hidden" value="<%= form_authenticity_token %>">
               <input type="text" id="tags" name="name" style="width:250px">
               <button class="btn btn-success btn-xs">

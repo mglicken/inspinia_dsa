@@ -68,6 +68,7 @@ before_action :ensure_banker_access,  only: [:new, :create, :edit, :update, :des
 
   def create_by_name
     @slide = Slide.find(params[:slide_id])
+    @slide_ids = params[:slide_ids].split(",").map { |s| s.to_i }
     @tag_name = params[:name]
     @slide_tag = SlideTag.new
     @slide_tag.slide_id = @slide.id
@@ -83,7 +84,7 @@ before_action :ensure_banker_access,  only: [:new, :create, :edit, :update, :des
     end
 
     if @slide_tag.save
-      redirect_to "/slides/#{ params[:slide_id] }", :notice => "\"#{@tag_name}\" Tag added successfully."
+      redirect_to "/slides/#{ @slide.id }/#{@slide_ids }", :notice => "\"#{@tag_name}\" Tag added successfully."
     else
       render 'new'
     end

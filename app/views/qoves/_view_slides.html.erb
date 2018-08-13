@@ -36,7 +36,7 @@
           <div class="col-md-12" width=100%>
             <class="dl-horizontal">
            
-            <%= link_to image_tag(slide.image_url, width: 1100), "/slides/#{slide.id}" %>
+            <%= link_to image_tag(slide.image_url, width: 1100), "/slides/#{slide.id}/#{@qofe.slides.order("id ASC").ids.join(",")}" %>
             <% slide.tags.each do |tag| %>
               <dd><div class="hidden"><%= tag.name %></div></dd>
             <% end %>

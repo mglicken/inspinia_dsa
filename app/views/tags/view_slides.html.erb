@@ -1,3 +1,6 @@
+<style>
+  .pdf-image-2 {width: 95%;}
+</style>
 <div class="page-header">
   <h1>
     Slides for 
@@ -16,8 +19,8 @@
 <hr>
 
 <div class="row isotope-container">
-<% @slides.each do |slide| %>
-  <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4 isotope-item">
+<% @slides.order("id ASC").each do |slide| %>
+  <div class="col-lg-3 isotope-item">
     <div class="panel panel-default">
       <div class="pull-right">
         <% if slide.favorite_slides.where(user_id: current_user.id).present? %>
@@ -45,12 +48,17 @@
       </div>
       <div class="panel-body">
         <div class="row">
-          <div class="col-md-12">
-            <class="dl-horizontal">
+            <dl class="dl-horizontal">
             <% if slide.teaser.present? %>
-              <%= link_to image_tag("http://res.cloudinary.com/mglicken/image/upload/c_scale,h_330,w_255/f_jpg,pg_#{slide.number}/#{slide.teaser.image_id}.pdf"), "/slides/#{slide.id}" %>
+              <%= link_to image_tag("http://res.cloudinary.com/mglicken/image/upload/c_scale,h_330,w_255/f_jpg,pg_#{slide.number}/#{slide.teaser.image_id}.pdf", class: "pdf-image-2"), "/slides/#{slide.id}/#{@slides.order("id ASC").ids.join(",")}" %>
+            <% elsif slide.nda.present? %>
+              <%= link_to image_tag("http://res.cloudinary.com/mglicken/image/upload/c_scale,h_330,w_255/f_jpg,pg_#{slide.number}/#{slide.nda.image_id}.pdf", class: "pdf-image-2"), "/slides/#{slide.id}/#{@slides.order("id ASC").ids.join(",")}" %>
+            <% elsif slide.ioi.present? %>
+              <%= link_to image_tag("http://res.cloudinary.com/mglicken/image/upload/c_scale,h_330,w_255/f_jpg,pg_#{slide.number}/#{slide.ioi.image_id}.pdf", class: "pdf-image-2"), "/slides/#{slide.id}/#{@slides.order("id ASC").ids.join(",")}" %>
+            <% elsif slide.loi.present? %>
+              <%= link_to image_tag("http://res.cloudinary.com/mglicken/image/upload/c_scale,h_330,w_255/f_jpg,pg_#{slide.number}/#{slide.loi.image_id}.pdf", class: "pdf-image-2"), "/slides/#{slide.id}/#{@slides.order("id ASC").ids.join(",")}" %>
             <% else %>
-              <%= link_to image_tag(slide.image_url), "/slides/#{slide.id}" %>
+              <%= link_to image_tag(slide.image_url, class: "pdf-image-2"), "/slides/#{slide.id}/#{@slides.order("id ASC").ids.join(",")}" %>
             <% end %>
             <% slide.tags.each do |tag| %>
 
@@ -58,7 +66,6 @@
             <% end %>
 
             </dl>
-          </div>
         </div>
       </div>
     </div>

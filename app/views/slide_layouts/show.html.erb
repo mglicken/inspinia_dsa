@@ -113,7 +113,7 @@
                             <div class="row">
                                 <div>
                                
-                                    <%= link_to image_tag(slide.image_url, size:"95%",class: "img-responsive center-block"), "/slides/#{slide.id}" %>
+                                    <%= link_to image_tag(slide.image_url, size:"95%",class: "img-responsive center-block"), "/slides/#{slide.id}/#{@favorite_slides.pluck(:slide_id).join(",")}" %>
                                 </div>
                             </div>
                         </div>
@@ -185,7 +185,7 @@
           </div>
           <div class="panel-body">
             <div class="row">
-                <%= link_to image_tag(slide_layout_slide.slide.image_url, size:"95%",class: "img-responsive center-block"), "/slides/#{slide_layout_slide.slide_id}" %>
+                <%= link_to image_tag(slide_layout_slide.slide.image_url, size:"95%",class: "img-responsive center-block"), "/slides/#{slide_layout_slide.slide_id}/#{@slide_layout.slides.ids.join(",")}" %>
             </div>
           </div>
         </div>
