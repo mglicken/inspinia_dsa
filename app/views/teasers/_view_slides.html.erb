@@ -1,13 +1,14 @@
 
 <div class="row">
-  <div class="col-xs-12">
+  <div class="col-lg-12">
     <input type="text" id="quicksearch" placeholder="Search Pages (start typing)" class="form-control">
   </div>
 </div>
 <br>
 <div class="row isotope-container">
-<% @teaser.slides.each do |slide| %>
-  <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 isotope-item">
+<div class="col-lg-offset-2 col-lg-8">
+<% @teaser.slides.order("id ASC").each do |slide| %>
+  <div class="col-lg-12 isotope-item">
     <div class="panel panel-default">
       <div class="pull-right">
         <% if slide.favorite_slides.where(user_id: current_user.id).present? %>
@@ -26,7 +27,7 @@
       <div class="panel-body">
         <div class="row">
           <div class="col-md-12" width=100%>
-            <class="dl-horizontal">
+            <dl class="dl-horizontal">
            
             <%= link_to image_tag(slide.image_url, size:"95%",class: "img-responsive center-block"), "/slides/#{slide.id}/#{@teaser.slides.order("id ASC").ids.join(",")}" %>
             <% slide.tags.each do |tag| %>
@@ -39,4 +40,5 @@
     </div>
   </div>
 <% end %>
+</div>
 </div>

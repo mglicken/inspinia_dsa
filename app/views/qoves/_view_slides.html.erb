@@ -14,8 +14,8 @@
 
 
 <div class="row isotope-container">
-<% @qofe.slides.each do |slide| %>
-  <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 isotope-item">
+<% @qofe.slides.order("id ASC").each do |slide| %>
+  <div class="col-lg-offset-1 col-lg-10 isotope-item">
     <div class="panel panel-default">
       <div class="pull-right">
         <% if slide.favorite_slides.where(user_id: current_user.id).present? %>

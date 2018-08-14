@@ -7,7 +7,7 @@
 <br>
 
 <div class="row isotope-container">
-<% @mp.slides.each do |slide| %>
+<% @mp.slides.order("id ASC").each do |slide| %>
   <div class="col-lg-3 isotope-item">
     <div class="panel panel-default">
       <div class="pull-right">

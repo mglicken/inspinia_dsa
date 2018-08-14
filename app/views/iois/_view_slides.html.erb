@@ -17,8 +17,8 @@
 <br>
 
 <div class="row isotope-container">
-<% @ioi.slides.each do |slide| %>
-  <div class="col-lg-12 isotope-item">
+<% @ioi.slides.order("id ASC").each do |slide| %>
+  <div class="col-lg-offset-2 col-lg-8 isotope-item">
     <div class="panel panel-default">
       <div class="pull-right">
         <% if slide.favorite_slides.where(user_id: current_user.id).present? %>
