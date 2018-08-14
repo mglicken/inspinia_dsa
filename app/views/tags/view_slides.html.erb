@@ -48,6 +48,7 @@
       </div>
       <div class="panel-body">
         <div class="row">
+          <div class="col-lg-12">
             <dl class="dl-horizontal">
             <% if slide.teaser.present? %>
               <%= link_to image_tag("http://res.cloudinary.com/mglicken/image/upload/c_scale,h_330,w_255/f_jpg,pg_#{slide.number}/#{slide.teaser.image_id}.pdf", class: "pdf-image-2"), "/slides/#{slide.id}/#{@slides.order("id ASC").ids.join(",")}" %>
@@ -66,6 +67,7 @@
             <% end %>
 
             </dl>
+          </div>
         </div>
       </div>
     </div>

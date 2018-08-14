@@ -26,8 +26,8 @@
       </div>
       <div class="panel-body">
         <div class="row">
-          <div class="col-md-12">
-            <class="dl-horizontal">
+          <div class="col-lg-12">
+            <dl class="dl-horizontal">
            
             <%= link_to image_tag(slide.image_url, size:"95%",class: "img-responsive center-block"), "/slides/#{slide.id}/#{@nbp.slides.order("id ASC").ids.join(",")}" %>
             <% slide.tags.each do |tag| %>
