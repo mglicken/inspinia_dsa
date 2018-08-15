@@ -45,6 +45,11 @@ before_action :ensure_view_access,  only: [:index, :search, :show]
       loc[:name] = location.name
       loc[:radius] = 15
       loc[:fillKey] = 'active'
+      loc[:street] = location.street
+      loc[:city] = location.city
+      loc[:state] = location.state
+      loc[:zip] = location.zip
+      loc[:country] = location.country
       loc[:latitude] = location.latitude
       loc[:longitude] = location.longitude
       @query_locations.push(loc)
