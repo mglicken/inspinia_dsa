@@ -1,97 +1,76 @@
-
-<br>
-<div class="row">
-  <div class="col-lg-offset-2 col-lg-8">
-    <div class="ibox-content">
-        <h3 class="ibox-title"><%= @company.name %></h3>
-      <div class="ibox-body">
-        <div class="row">
-
-          <div class="col-lg-10">
-            <dl class="dl-horizontal">
-
-              <dt>Address:</dt>
-              <dd> <address>
-
-                  <%= @company.address %><br>
-                  <%= @company.city %>, <%= @company.state %> <%= @company.zip %><br>
-                  <% if @company.phone.present? %> 
-                      <abbr title="phone"><strong> Main:</strong></abbr> (<%= @company.phone.to_s[0..2] %>) <%= @company.phone.to_s[3..5] %>-<%= @company.phone.to_s[6..9] %><br>
-                  <%end%>
-                  <% if @company.web_address.present? %>
-                    <%if @company.web_address[0..4] == "https" %>
-                     <strong> Website: </strong><a href="<%= @company.web_address %>" target="_blank"><%= @company.web_address[8..(@company.web_address.length-1)] %></a>
-                    <% elsif @company.web_address[0..3] == "http" %>
-                      <strong> Website: </strong><a href="<%= @company.web_address %>" target="_blank"><%= @company.web_address[7..(@company.web_address.length-1)] %></a>
-                    <%else%>
-                      <strong> Website: </strong><a href="<%= @company.web_address %>" target="_blank"><%= @company.web_address %></a>
-                    <%end%>
-                  <%end%>                  
-                  </address>                         
-              </dd>
-              <% if @company.description.present? %>
-              <dt>Description:</dt>
-                <% if @company.description.length <= 600 %>
-                  <dd> <address>
-                      <%= simple_format(@company.description) %>
-                      </address>                                  
-                  </dd>
-                <% else %>
-                  <dd> <address>
-                      <%= simple_format(@company.description[0..599]) %>...<br>
-                      <%= render('shared/content_modal', :content => @company.description, :title => "#{@company.name} Description")%>
-                      </address>                                  
-                  </dd>
-                <% end %>  
-              <% end %>  
-            </dl>
-          </div>
-          <div class="col-lg-2">
-              <a href="<%= @company.linkedin_url%>" class="btn btn-lg" target="_blank"><i class="fa fa-linkedin"></i></a>
-              <% if @followed %>
-                <a href="/unfollow_company/<%=@company.id%>" class="btn btn-lg btn-unfollow"><i class="fa fa-star"></i></a>
-              <% else %>
-                <a href="/follow_company/<%=@company.id%>" class="btn btn-lg btn-follow"><i class="fa fa-star-o"></i></a>
-              <% end %>
-          </div>
-
-          <div class="btn-group btn-group-justified">
-            <a href="/companies" class="btn btn-lincoln">
-              <i class="fa fa-reply"></i>
+<div class="ibox">
+    <div class="ibox-title">
+        <h5>Locations (<%= @company.locations.count %>)</h5>
+        <div class="ibox-tools">
+            <a class="collapse-link">
+                <i class="fa fa-chevron-up"></i>
             </a>
-
-            <%= render('shared/edit_company_modal', :company => @company)%>
-
-          </div>
+            <a class="close-link">
+                <i class="fa fa-times"></i>
+            </a>
         </div>
-      </div>
+    </div>
+    <div class="ibox-content">
+
+        <div id="bubbles"></div>
 
     </div>
-  </div>
-</div>
-<br>
-<div class="row container">
-  <%= render('shared/create_note_modal')%>
-  <%= render('shared/create_subsidiary_modal')%>
-  <%= render('shared/add_location_modal')%>
-  <%= render('shared/create_fund_company_modal', :fund => 0, :company => @company )%>
-  <%= render('shared/create_work_history_modal', :company => @company, :person => 0 )%>
-</div>
-<br>
 
-<%= render('view_contacts') %>
-<%= render('view_engagements') %>
-<%= render('view_deals') %>
-<%= render('view_nbp_lists') %>
-<%= render('view_teasers_reviewed') %>
-<%= render('view_cips_reviewed') %>
-<%= render('view_mps_attended') %>
-<%= render('view_sponsors') %>
-<%= render('view_parents') %>
-<%= render('view_subsidiaries') %>
-<%= render('view_notes') %>
-<%= render('view_locations') %>
-<br>
-<br>
-<%= render('shared/quick_search_js') %>
+</div>
+
+<script type="text/javascript">
+
+$(function() {
+
+
+  var bubble_map = new Datamap({
+    element: document.getElementById("bubbles"),
+    height: 800,
+    geographyConfig: {
+      popupOnHover: false,
+      highlightOnHover: false
+    },
+          fills: {
+              defaultFill: '#E9E9E9',
+              active: '#2BA587'
+          },
+          geographyConfig: {
+              dataUrl: null, //if not null, datamaps will fetch the map JSON (currently only supports topojson)
+              hideAntarctica: true,
+              borderWidth: 1,
+              borderOpacity: 1,
+              borderColor: '#FFFFFF',
+              popupOnHover: false, //disable the popup while hovering
+              highlightOnHover: true,
+              highlightFillColor: '#DBDAD6',
+              highlightBorderColor: '#FFFFFF',
+              highlightBorderWidth: 2,
+              highlightBorderOpacity: 1
+          },
+          bubblesConfig: {
+                  borderWidth: 2,
+                  borderOpacity: 1,
+                  borderColor: '#FFFFFF',
+                  animate: true,
+                  popupOnHover: true,
+                  fillOpacity: 0.65,
+                  highlightOnHover: true,
+                  highlightFillColor: '#127e68',
+                  highlightBorderColor: '#127e68',
+                  highlightFillOpacity: 0.85
+          }
+  });
+  bubble_map.bubbles(
+      $.getJSON("/location_query/<%= @company.id%>.json", function(locations) {
+          bubble_map.bubbles(locations,
+          {
+              popupTemplate: function(geo, data) {
+                  return '<div class="hoverinfo">Yield: Test '
+              }
+          });
+      })
+  );
+});
+
+</script>
 

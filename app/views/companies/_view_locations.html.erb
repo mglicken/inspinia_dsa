@@ -22,49 +22,54 @@
 
 $(function() {
 
-    var bubble_map = new Datamap({
-        element: document.getElementById("bubbles"),
-        height: 800,
-        fills: {
-            defaultFill: '#E9E9E9',
-            active: '#2BA587'
-        },
-        geographyConfig: {
-            dataUrl: null, //if not null, datamaps will fetch the map JSON (currently only supports topojson)
-            hideAntarctica: true,
-            borderWidth: 1,
-            borderOpacity: 1,
-            borderColor: '#FFFFFF',
-            popupOnHover: false, //disable the popup while hovering
-            highlightOnHover: true,
-            highlightFillColor: '#DBDAD6',
-            highlightBorderColor: '#FFFFFF',
-            highlightBorderWidth: 2,
-            highlightBorderOpacity: 1
-        },
-        bubblesConfig: {
-                borderWidth: 2,
-                borderOpacity: 1,
-                borderColor: '#FFFFFF',
-                animate: true,
-                popupOnHover: true,
-                fillOpacity: 0.65,
-                highlightOnHover: true,
-                highlightFillColor: '#127e68',
-                highlightBorderColor: '#127e68',
-                highlightFillOpacity: 0.85
-        }
-    });
-    $.getJSON("/location_query/<%= @company.id%>.json", function(locations) {
-        bubble_map.bubbles(locations,
-            {
-            popupTemplate:function (geography, data) { 
-                    return '<div class="hoverinfo"><strong>Test</strong></div>';
-                    
-            }
-        });
-    });
 
+  var bubble_map = new Datamap({
+    element: document.getElementById("bubbles"),
+    height: 800,
+    geographyConfig: {
+      popupOnHover: false,
+      highlightOnHover: false
+    },
+          fills: {
+              defaultFill: '#E9E9E9',
+              active: '#2BA587'
+          },
+          geographyConfig: {
+              dataUrl: null, //if not null, datamaps will fetch the map JSON (currently only supports topojson)
+              hideAntarctica: true,
+              borderWidth: 1,
+              borderOpacity: 1,
+              borderColor: '#FFFFFF',
+              popupOnHover: false, //disable the popup while hovering
+              highlightOnHover: true,
+              highlightFillColor: '#DBDAD6',
+              highlightBorderColor: '#FFFFFF',
+              highlightBorderWidth: 2,
+              highlightBorderOpacity: 1
+          },
+          bubblesConfig: {
+                  borderWidth: 2,
+                  borderOpacity: 1,
+                  borderColor: '#FFFFFF',
+                  animate: true,
+                  popupOnHover: true,
+                  fillOpacity: 0.65,
+                  highlightOnHover: true,
+                  highlightFillColor: '#127e68',
+                  highlightBorderColor: '#127e68',
+                  highlightFillOpacity: 0.85
+          }
+  });
+  bubble_map.bubbles(
+      $.getJSON("/location_query/<%= @company.id%>.json", function(locations) {
+          bubble_map.bubbles(locations,
+          {
+              popupTemplate: function(geo, data) {
+                  return '<div class="hoverinfo">Yield: Test '
+              }
+          });
+      })
+  );
 });
 
 </script>
