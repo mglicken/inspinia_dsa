@@ -65,7 +65,7 @@ $(function() {
           bubble_map.bubbles(locations,
           {
               popupTemplate: function(geo, data) {
-                  return '<div style="text-align: center" class="hoverinfo bg-white"><strong>' + data.name + '</strong><br>' + data.street + '<br>' + data.city + ',' + data.state + ' '+ data.zip + '<br>' + data.country + '</div>'
+                  return '<div style="text-align: center; z-index: 9999" class="hoverinfo bg-white"><strong>' + data.name + '</strong><br>' + data.street + '<br>' + data.city + ',' + data.state + ' '+ data.zip + '<br>' + data.country + '</div>'
               }
           });
       })

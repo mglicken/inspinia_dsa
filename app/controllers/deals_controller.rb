@@ -200,11 +200,33 @@ before_action :ensure_view_access,  only: [:index, :search, :search_all, :show]
 
   def show_qoves
     @deal = Deal.find(params[:id])
+    @followed = DealFollow.find_by(user_id: current_user.id, deal_id: @deal.id).present?
+    @advisor_type = AdvisorType.find_by(name: "Legal Advisor")
+    @cip = @deal.cips[0]
+    @cip_sponsors = @cip.cip_sponsors
+    @cip_companies = @cip.cip_companies
+    @iois = Ioi.where(id: (@cip_sponsors.pluck(:ioi_id) + @cip_companies.pluck(:ioi_id)))
+    @declined = (@cip_sponsors.where(declined: true) + @cip_companies.where(declined: true)) 
+    @sponsors = @cip.sponsors.order("name ASC")
+    @companies = @cip.companies.order("name ASC")
+    @acquirers = (@companies + @sponsors).sort! { |a, b| a.name <=> b.name }
+    @engagers = (Deal.where(id:@deal.engagement_companies.pluck(:company_id)) + Sponsor.where(id:@deal.engagement_sponsors.pluck(:sponsor_id))).sort! { |a, b| a.name <=> b.name }
     @qoves = @deal.qoves.order("name ASC")
   end
 
   def show_market_studies
     @deal = Deal.find(params[:id])
+    @followed = DealFollow.find_by(user_id: current_user.id, deal_id: @deal.id).present?
+    @advisor_type = AdvisorType.find_by(name: "Legal Advisor")
+    @cip = @deal.cips[0]
+    @cip_sponsors = @cip.cip_sponsors
+    @cip_companies = @cip.cip_companies
+    @iois = Ioi.where(id: (@cip_sponsors.pluck(:ioi_id) + @cip_companies.pluck(:ioi_id)))
+    @declined = (@cip_sponsors.where(declined: true) + @cip_companies.where(declined: true)) 
+    @sponsors = @cip.sponsors.order("name ASC")
+    @companies = @cip.companies.order("name ASC")
+    @acquirers = (@companies + @sponsors).sort! { |a, b| a.name <=> b.name }
+    @engagers = (Deal.where(id:@deal.engagement_companies.pluck(:company_id)) + Sponsor.where(id:@deal.engagement_sponsors.pluck(:sponsor_id))).sort! { |a, b| a.name <=> b.name }
     @market_studies = @deal.market_studies.order("name ASC")
   end
 
