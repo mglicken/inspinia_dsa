@@ -25,7 +25,12 @@ $(function() {
 
   var bubble_map = new Datamap({
     element: document.getElementById("bubbles"),
-    height: 800,
+    done: function(datamap) {
+        datamap.svg.selectAll('.datamaps-subunit').on('click', function(bubbles) {
+            alert("test");
+        });
+    },
+    responsive: true,
     geographyConfig: {
       popupOnHover: false,
       highlightOnHover: false
@@ -67,9 +72,16 @@ $(function() {
               popupTemplate: function(geo, data) {
                   return '<div style="text-align: center; z-index: 9999" class="hoverinfo bg-white"><strong>' + data.name + '</strong><br>' + data.street + '<br>' + data.city + ',' + data.state + ' '+ data.zip + '<br>' + data.country + '</div>'
               }
+          
           });
       })
   );
+
+  $(window).on('resize', function() {
+     map.resize();
+  });
+
+
 });
 
 </script>
