@@ -20,14 +20,13 @@
 
 <script type="text/javascript">
 
-$(function() {
-
-
   var bubble_map = new Datamap({
     element: document.getElementById("bubbles"),
+    scope: '<%= @scope %>',
     done: function(datamap) {
         datamap.svg.selectAll('.datamaps-subunit').on('click', function(bubbles) {
-            alert("test");
+            url = '/companies/<%= @company.id %>/country/' + bubbles.properties.name;
+            window.location.href = url;
         });
     },
     responsive: true,
@@ -78,10 +77,9 @@ $(function() {
   );
 
   $(window).on('resize', function() {
-     map.resize();
+     bubble_map.resize();
   });
 
 
-});
 
 </script>

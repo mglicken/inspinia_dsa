@@ -106,6 +106,40 @@ before_action :ensure_view_access,  only: [:index, :search, :show]
     @cip_companies = CipCompany.where(company_id:  @company.children.ids.push(@company.id) ).joins(:company).order("name ASC")
     @mp_companies = MpCompany.where(company_id:  @company.children.ids.push(@company.id) ).joins(:company).order("name ASC")
     @sponsors = Sponsor.where(id: Fund.where(id: FundCompany.where(company_id: (@company.parents.ids.push(@company.id))).pluck(:fund_id)).pluck(:sponsor_id)).order("name ASC")
+    
+    if params[:country] == "United States of America"
+      @scope = "usa"
+    elsif params[:country] == "Aruba"
+      @scope = "abw"
+    elsif params[:country] == "Afghanistan"
+      @scope = "afg"
+    elsif params[:country] == "Angola"
+      @scope = "ago"
+    elsif params[:country] == "Anguilla"
+      @scope = "aia"
+    elsif params[:country] == "Aland Islands"
+      @scope = "ala"
+    elsif params[:country] == "Albania"
+      @scope = "alb"
+    elsif params[:country] == "Andorra"
+      @scope = "and"
+    elsif params[:country] == "United Arab Emirates"
+      @scope = "are"
+    elsif params[:country] == "Argentina"
+      @scope = "arg"
+    elsif params[:country] == "Armenia"
+      @scope = "arm"
+    elsif params[:country] == "American Samoa"
+      @scope = "asm"
+    elsif params[:country] == "Antarctica"
+      @scope = "ata"
+    elsif params[:country] == "French Southern Territories"
+      @scope = "atf"
+    elsif params[:country] == "Canada"
+      @scope = "can"
+    else
+      @scope = "world"
+    end
   end
 
   def new

@@ -213,6 +213,7 @@ Myapp::Application.routes.draw do
   get "/nbp_company_query/:bucket_id/bucket", :controller => "companies", :action => "nbp_index_query"
   get "/company_query", :controller => "companies", :action => "index_query"  
   get "/companies/:id", :controller => "companies", :action => "show"
+  get "/companies/:id/country/:country", :controller => "companies", :action => "show"
   get "/company_search/:search", :controller => "companies", :action => "search"
 
   # UPDATE
