@@ -191,9 +191,9 @@ before_action :ensure_view_access,  only: [:index, :search, :show]
     elsif params[:country] == "XXXXXX"
       @scope = "xxx"
       @locations = @company.locations.where(country: "XXXXXX")
-    elsif params[:country] == "XXXXXX"
-      @scope = "xxx"
-      @locations = @company.locations.where(country: "XXXXXX")
+    elsif params[:country] == "Venezuela"
+      @scope = "ven"
+      @locations = @company.locations.where(country: "Venezuela")
     elsif params[:country] == "Brazil"
       @scope = "bra"
       @locations = @company.locations.where(country: "Brazil")
