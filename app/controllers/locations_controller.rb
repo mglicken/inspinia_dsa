@@ -43,7 +43,7 @@ before_action :ensure_view_access,  only: [:index, :search, :show]
       loc = Hash.new
       loc[:id] = location.id
       loc[:name] = location.name
-      loc[:radius] = 15
+      loc[:radius] = 7
       loc[:fillKey] = 'active'
       loc[:street] = location.street
       loc[:city] = location.city
