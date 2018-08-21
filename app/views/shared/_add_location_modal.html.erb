@@ -1,4 +1,4 @@
-<a class=" btn btn-lincoln" data-toggle="modal" href="#myModalLocation">Add Location</i></a>
+<a class="btn btn-primary btn-xs" data-toggle="modal" href="#myModalLocation"><i class="fa fa-plus"></i></a>
 
 <div class="modal inmodal fade" id="myModalLocation" tabindex="-1" role="dialog" aria-hidden="true">
     <div class="modal-dialog modal-sm">
@@ -32,7 +32,7 @@
                   <label class="col-lg-2 control-label" for="leased">
                       Leased
                   </label>
-                  <div class="col-sm-10">
+                  <div class="col-lg-10">
                     <input type="checkbox" value="" id="leased" name="leased" class="i-checks" />
                   </div>
               </div>
@@ -42,7 +42,7 @@
                   <label class="col-lg-2 control-label" for="owned">
                       Owned
                   </label>
-                  <div class="col-sm-10">
+                  <div class="col-lg-10">
                     <input type="checkbox" value="" id="owned" name="owned" class="i-checks" />
                   </div>
               </div>
@@ -53,70 +53,70 @@
                                  
               <!-- Label and input for name -->
               <div class="form-group">
-                <h5><label for="name" class="col-sm-2 control-label">
+                <h5><label for="name" class="col-lg-2 control-label">
                   Name
                 </label></h5>
-                <div class="col-sm-10">
+                <div class="col-lg-10">
                   <input type="text" id="name" name="name" placeholder="Name" class="form-control" value="<%= @location.name %>">
                 </div>
               </div>
 
               <!-- Label and input for street -->
               <div class="form-group">
-                <h5><label for="street" class="col-sm-2 control-label">
+                <h5><label for="street" class="col-lg-2 control-label">
                   Street
                 </label></h5>
-                <div class="col-sm-10">
+                <div class="col-lg-10">
                   <textarea id="street" name="street" placeholder="500 W Madison, Suite 3900" class="form-control" rows="3"><%= @location.street %></textarea>
                 </div>
               </div>
 
               <!-- Label and input for city -->
               <div class="form-group">
-                <h5><label for="city" class="col-sm-2 control-label">
+                <h5><label for="city" class="col-lg-2 control-label">
                   City
                 </label></h5>
-                <div class="col-sm-10">
+                <div class="col-lg-10">
                   <input type="text" id="city" name="city" placeholder="City" class="form-control" value="<%= @location.city %>">
                 </div>
               </div>
 
               <!-- Label and input for number -->
               <div class="form-group">
-                <h5><label for="state" class="col-sm-2 control-label">
+                <h5><label for="state" class="col-lg-2 control-label">
                   State
                 </label></h5>
-                <div class="col-sm-10">
+                <div class="col-lg-10">
                   <input type="string" id="state" name="state" placeholder="State" class="form-control" value="<%= @location.state %>">
                 </div>
               </div>
 
               <!-- Label and input for zip -->
               <div class="form-group">
-                <h5><label for="zip" class="col-sm-2 control-label">
+                <h5><label for="zip" class="col-lg-2 control-label">
                   Zip
                 </label></h5>
-                <div class="col-sm-10">
+                <div class="col-lg-10">
                   <input type="integer" id="zip" name="zip" placeholder="Zip" class="form-control" value="<%= @location.zip %>">
                 </div>
               </div>
 
             <!-- Label and input for Country -->
             <div class="form-group">
-              <label for="country" class="col-sm-2 control-label">
+              <label for="country" class="col-lg-2 control-label">
                 Country
               </label>
-              <div class="col-sm-10">
+              <div class="col-lg-10">
                 <input type="string" id="country" name="country" placeholder="country" class="form-control" value="<%= @location.country %>">
               </div>
             </div>
 
               <!-- Label and input for phone -->
               <div class="form-group">
-                <h5><label for="phone" class="col-sm-2 control-label">
+                <h5><label for="phone" class="col-lg-2 control-label">
                   Phone
                 </label></h5>
-                <div class="col-sm-10">
+                <div class="col-lg-10">
                   <input type="bigint" id="phone" name="phone" placeholder="1112223333" class="form-control" value="<%= @location.phone %>">
                 </div>
               </div>
@@ -133,10 +133,10 @@
               end%>
 
               <div class="form-group">
-                <h5><label for="web_address" class="col-sm-2 control-label">
+                <h5><label for="web_address" class="col-lg-2 control-label">
                 Website
                 </label></h5>
-                <div class="col-sm-10">
+                <div class="col-lg-10">
                   <input type="text" id="web_address" name="web_address" placeholder="http://(web address)" class="form-control" value="<%= web_add %>">
                 </div>
               </div>
