@@ -84,7 +84,7 @@ before_action :ensure_banker_access,  only: [:new, :create, :edit, :update, :des
     end
 
     if @slide_tag.save
-      redirect_to "/slides/#{ @slide.id }/#{@slide_ids }", :notice => "\"#{@tag_name}\" Tag added successfully."
+      redirect_to "/slides/#{ @slide.id }/#{@slide_ids.join(",") }", :notice => "\"#{@tag_name}\" Tag added successfully."
     else
       render 'new'
     end
