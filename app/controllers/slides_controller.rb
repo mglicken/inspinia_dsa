@@ -40,6 +40,7 @@ before_action :ensure_view_access,  only: [:show, :search]
   def show
     @slide = Slide.find(params[:id].to_i)
     @tags = Tag.all.order("name ASC")
+    @ids = [@slide.id]
     if @slide.nbp.present?
       @nbp = @slide.nbp
       @image_id = @nbp.image_id
