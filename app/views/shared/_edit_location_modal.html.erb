@@ -9,180 +9,197 @@
   </div>
 <% end %>
 
-<!-- Modal -->
-<div class="modal fade" id="myModalEditLocation_<%=location.id %>" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        <h4 class="modal-title" id="myModalLabel">Edit Location Details</h4>
-      </div>
-      <div class="modal-body">
-
-
-
-<% if location.errors.any? %>
-  <% location.errors.full_messages.each do |message| %>
-    <div class="alert alert-dismissable alert-danger">
-      <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-      <%= message %>
-    </div>
-  <% end %>
-<% end %>
-
-<!-- Responsive panel example -->
-
-<div class="row">
-  <div class="col-sm-offset-0 col-sm-12 col-md-offset-0 col-md-12">
-    <div class="panel panel-default">
-      <div class="panel-heading">
-        <h3 class="panel-title"><%= location.name %> (#<%= location.id %>)</h3>
-      </div>
-      <div class="panel-body">
-
-        <form enctype="multipart/form-data" action="/update_location/<%= location.id %>" method="post" class="form-horizontal">
-          <!-- Hidden input for authenticity token to protect from forgery -->
-          <input name="authenticity_token" type="hidden" value="<%= form_authenticity_token %>">
-
-          <input type="hidden" name="name"  value="<%= location.name %>">
-
-          <!-- Label and input for Name -->
-          <div class="form-group">
-            <label for="name" class="col-sm-2 control-label">
-              Name
-            </label>
-            <div class="col-sm-10">
-              <input type="string" id="name" name="name" placeholder="name" class="form-control" value="<%= location.name %>">
+<div class="modal inmodal fade" id="myModalEditLocation_<%=location.id %>" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-sm">
+        <div class="modal-content" style="color:#676767;">
+          <form enctype="multipart/form-data" action="/update_location/<%=location.id %>" method="post" class="form-horizontal">
+            <div class="modal-header" style="color:#676767;">
+                <h4 class="modal-title">Edit Location</h4>
+                <small class="font-bold">Edit <%= location.name %> </small>
             </div>
-          </div>
+            <div class="modal-body">
 
-          <!-- Label and input for street -->
-          <div class="form-group">
-            <label for="street" class="col-sm-2 control-label">
-              Street
-            </label>
-            <div class="col-sm-10">
-              <textarea id="street" name="street" placeholder="street" class="form-control" rows="3"><%= location.street %></textarea>
-            </div>
-          </div>
+            <!-- Validation failure messages -->
 
-          <!-- Label and input for city -->
-          <div class="form-group">
-            <label for="city" class="col-sm-2 control-label">
-              City
-            </label>
-            <div class="col-sm-10">
-              <input type="string" id="city" name="city" placeholder="City" class="form-control" value="<%= location.city %>">
-            </div>
-          </div>
+            <% if location.blank?%>
+              <% location = Location.new %>
+            <% end %>
+            <% if location.errors.any? %>
+              <% location.errors.full_messages.each do |message| %>
+                <div class="alert alert-dismissable alert-danger">
+                  <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                  <%= message %>
+                </div>
+              <% end %>
+            <% end %>
 
-          <!-- Label and input for state -->
-          <div class="form-group">
-            <label for="state" class="col-sm-2 control-label">
-              State
-            </label>
-            <div class="col-sm-10">
-              <input type="string" id="state" name="state" placeholder="state" class="form-control" value="<%= location.state %>">
-            </div>
-          </div>
+                <!-- Hidden input for authenticity token to protect from forgery -->
+                <input name="authenticity_token" type="hidden" value="<%= form_authenticity_token %>">
 
-          <!-- Label and input for zip -->
-          <div class="form-group">
-            <label for="zip" class="col-sm-2 control-label">
-              Zip
-            </label>
-            <div class="col-sm-10">
-              <input type="string" id="zip" name="zip" placeholder="Zip" class="form-control" value="<%= location.zip %>">
-            </div>
-          </div>
+              <!-- Label and input for Leased -->
+              <div class="form-group">
+                  <label class="col-lg-2 control-label" for="leased">
+                      Leased
+                  </label>
+                  <div class="col-sm-10">
+                    <% if location.leased %>
+                      <input type="checkbox" id="leased" name="leased" class="i-checks" checked />
+                    <% else %>
+                      <input type="checkbox" id="leased" name="leased" class="i-checks" />
+                    <% end %>
+                  </div>
+              </div>
 
-          <!-- Label and input for Country -->
-          <div class="form-group">
-            <label for="country" class="col-sm-2 control-label">
-              Country
-            </label>
-            <div class="col-sm-10">
-              <input type="string" id="country" name="country" placeholder="country" class="form-control" value="<%= location.country %>">
-            </div>
-          </div>
+              <!-- Label and input for Owned -->
+              <div class="form-group">
+                  <label class="col-lg-2 control-label" for="owned">
+                      Owned
+                  </label>
+                  <div class="col-sm-10">
+                    <% if location.owned %>
+                      <input type="checkbox" id="owned" name="owned" class="i-checks" checked />
+                    <% else %>
+                      <input type="checkbox" id="owned" name="owned" class="i-checks" />
+                    <% end %>
+                  </div>
+              </div>
 
-          <!-- Label and input for phone_1 -->
-          <div class="form-group">
-            <label for="phone_1" class="col-sm-2 control-label">
-              Main
-            </label>
-            <div class="col-sm-10">
-              <input type="int" id="phone" name="phone" placeholder="1112223333" class="form-control" value="<%= location.phone %>">
-            </div>
-          </div>
+              <!-- Label and input for Company ID -->
+              <input type="hidden" name="company_id" value="<%= location.company.id%>">
 
-          <!-- Label and input for web_address -->
-          <% if location.web_address.present?
-            if location.web_address[0..4] == "https"
-              web_add = location.web_address[8..(location.web_address.length-1)]
-            elsif location.web_address[0..3] == "http"
-              web_add = location.web_address[7..(location.web_address.length-1)]
-            else
-              web_add = location.web_address
-            end
-          else
-            web_add = nil 
-          end%>
+                                 
+              <!-- Label and input for name -->
+              <div class="form-group">
+                <h5><label for="name" class="col-sm-2 control-label">
+                  Name
+                </label></h5>
+                <div class="col-sm-10">
+                  <input type="text" id="name" name="name" placeholder="Name" class="form-control" value="<%= location.name %>">
+                </div>
+              </div>
 
-          <div class="form-group">
-            <label for="web_address" class="col-sm-2 control-label">
-              Url
-            </label>
-            <div class="col-sm-10">
-              <input type="text" id="web_address" name="web_address" placeholder="http://(web address)" class="form-control" value="<%= web_add %>">
-            </div>
-          </div>
+              <!-- Label and input for street -->
+              <div class="form-group">
+                <h5><label for="street" class="col-sm-2 control-label">
+                  Street
+                </label></h5>
+                <div class="col-sm-10">
+                  <textarea id="street" name="street" placeholder="500 W Madison, Suite 3900" class="form-control" rows="3"><%= location.street %></textarea>
+                </div>
+              </div>
 
-          <div style="text-align: center">
-            <small>(Only enter longitude and latitude coordinates if backend geocoder is not updating correctly)</small><br>
-          </div>
+              <!-- Label and input for city -->
+              <div class="form-group">
+                <h5><label for="city" class="col-sm-2 control-label">
+                  City
+                </label></h5>
+                <div class="col-sm-10">
+                  <input type="text" id="city" name="city" placeholder="City" class="form-control" value="<%= location.city %>">
+                </div>
+              </div>
 
+              <!-- Label and input for number -->
+              <div class="form-group">
+                <h5><label for="state" class="col-sm-2 control-label">
+                  State
+                </label></h5>
+                <div class="col-sm-10">
+                  <input type="string" id="state" name="state" placeholder="State" class="form-control" value="<%= location.state %>">
+                </div>
+              </div>
+
+              <!-- Label and input for zip -->
+              <div class="form-group">
+                <h5><label for="zip" class="col-sm-2 control-label">
+                  Zip
+                </label></h5>
+                <div class="col-sm-10">
+                  <input type="integer" id="zip" name="zip" placeholder="Zip" class="form-control" value="<%= location.zip %>">
+                </div>
+              </div>
+
+            <!-- Label and input for Country -->
             <div class="form-group">
-            <label for="longitude" class="col-sm-2 control-label">
-              Longitude
-            </label>
-            <div class="col-sm-10">
-              <input type="text" id="longitude" name="longitude" placeholder="-87.640381" class="form-control" value="<%= location.longitude %>">
+              <label for="country" class="col-sm-2 control-label">
+                Country
+              </label>
+              <div class="col-sm-10">
+                <input type="string" id="country" name="country" placeholder="country" class="form-control" value="<%= location.country %>">
+              </div>
             </div>
-          </div>
 
-            <div class="form-group">
-            <label for="latitude" class="col-sm-2 control-label">
-              Latitude
-            </label>
-            <div class="col-sm-10">
-              <input type="text" id="latitude" name="latitude" placeholder="41.882309" class="form-control" value="<%= location.latitude %>">
+              <!-- Label and input for phone -->
+              <div class="form-group">
+                <h5><label for="phone" class="col-sm-2 control-label">
+                  Phone
+                </label></h5>
+                <div class="col-sm-10">
+                  <input type="bigint" id="phone" name="phone" placeholder="1112223333" class="form-control" value="<%= location.phone %>">
+                </div>
+              </div>
+
+              <!-- Label and input for web_address -->
+              <% if location.web_address.present?
+                if location.web_address[0..6] == "http://"
+                  web_add = location.web_address[7..(location.web_address.length-1)]
+                else
+                  web_add = location.web_address
+                end
+              else
+                web_add = nil 
+              end%>
+
+              <div class="form-group">
+                <h5><label for="web_address" class="col-sm-2 control-label">
+                Website
+                </label></h5>
+                <div class="col-sm-10">
+                  <input type="text" id="web_address" name="web_address" placeholder="http://(web address)" class="form-control" value="<%= web_add %>">
+                </div>
+              </div>
+
+              <div style="text-align: center">
+                <small>(Only enter longitude and latitude coordinates if backend geocoder is not updating correctly)</small><br><br>
+              </div>
+
+                <div class="form-group">
+                <label for="longitude" class="col-sm-2 control-label">
+                  Longitude
+                </label>
+                <div class="col-sm-10">
+                  <input type="text" id="longitude" name="longitude" placeholder="-87.640381" class="form-control" value="<%= location.longitude %>">
+                </div>
+              </div>
+
+                <div class="form-group">
+                <label for="latitude" class="col-sm-2 control-label">
+                  Latitude
+                </label>
+                <div class="col-sm-10">
+                  <input type="text" id="latitude" name="latitude" placeholder="41.882309" class="form-control" value="<%= location.latitude %>">
+                </div>
+              </div>
+
             </div>
-          </div>
+            <div class="modal-footer">
 
-
-          <div class="form-group">
-            <div class="col-sm-offset-2 col-sm-10">
-              <button class="btn btn-warning">
-                Update Location
-              </button>
+                <div class="form-group">
+                    <button class="btn btn-lincoln">
+                      Updated Location
+                    </button>
+                    <button type="button" class="btn btn-white" data-dismiss="modal">Close</button>
+                </div>
 
             </div>
-          </div>
-
-        </form>
-
-      </div>
+        </div>
+      </form>
     </div>
-  </div>
 </div>
 
+<script>
+    $('.i-checks').iCheck({
+        checkboxClass: 'icheckbox_square-green',
+        radioClass: 'iradio_square-green',
+    });
 
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-      </div>
-    </div>
-  </div>
-</div>
-
+</script>

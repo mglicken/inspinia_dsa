@@ -15,7 +15,7 @@
         <div class="col-lg-2">
           <% loc = 1 %>
           <table>
-            <% @locations.each do |location| %>
+            <% @locations.order('city ASC').each do |location| %>
               <tr class="bg-primary border-top-bottom border-size-md" style="border-color:white">
                 <td style="width:10%;padding-left: 5px;">
                   <%= loc.to_s + '.'%>

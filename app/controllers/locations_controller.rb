@@ -126,7 +126,7 @@ before_action :ensure_view_access,  only: [:index, :search, :show]
     end
 
     if @location.save
-      redirect_to "/locations/#{@location.id}", :notice => "Location updated successfully."
+      redirect_to "/companies/#{@location.company.id}", :notice => "Location updated successfully."
     else
       render 'edit'
     end
