@@ -10,43 +10,34 @@
   </div>
 <% end %>
 
-<!-- Modal -->
-<div class="modal fade" id="myModalCreateFund" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        <h4 class="modal-title" id="myModalLabel">Create a Fund</h4>
-      </div>
-      <div class="modal-body">
+<div class="modal inmodal fade" id="myModalCreateFund" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-sm">
+        <div class="modal-content">
+          <form enctype="multipart/form-data" action="/create_fund/" method="post" class="form-horizontal">
+            <div class="modal-header">
+                <h4 class="modal-title">Create a Fund</h4>
+                <small class="font-bold">Add a new fund to this sponsor</small>
+            </div>
+            <div class="modal-body">
 
 
 
-<!-- Validation failure messages -->
+              <!-- Validation failure messages -->
 
-<% if @fund.blank?%>
-  <% @fund = Fund.new %>
-<% end %>
-<% if @fund.errors.any? %>
-  <% @fund.errors.full_messages.each do |message| %>
-    <div class="alert alert-dismissable alert-danger">
-      <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-      <%= message %>
-    </div>
-  <% end %>
-<% end %>
+              <% if @fund.blank?%>
+                <% @fund = Fund.new %>
+              <% end %>
+              <% if @fund.errors.any? %>
+                <% @fund.errors.full_messages.each do |message| %>
+                  <div class="alert alert-dismissable alert-danger">
+                    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                    <%= message %>
+                  </div>
+                <% end %>
+              <% end %>
 
-<!-- Responsive panel example -->
 
-<div class="row">
-  <div class="col-sm-offset-0 col-sm-12 col-md-offset-0 col-md-12">
-    <div class="panel panel-default">
-      <div class="panel-heading">
-        <h3 class="panel-title">Add Fund</h3>
-      </div>
-      <div class="panel-body">
 
-        <form enctype="multipart/form-data" action="/create_fund" method="post" class="form-horizontal">
           <!-- Hidden input for authenticity token to protect from forgery -->
           <input name="authenticity_token" type="hidden" value="<%= form_authenticity_token %>">
 
@@ -75,8 +66,14 @@
           <% end %>
 
 
-          <div class="checkbox-inline">
-            <h5><label><input type="checkbox" name="open" checked>Open</label></h5>
+          <!-- Label and input for Open -->
+          <div class="form-group">
+              <label class="col-lg-2 control-label" for="open">
+                  Open
+              </label>
+              <div class="col-lg-10">
+                <input type="checkbox" value="" id="open" name="open" class="i-checks" checked />
+              </div>
           </div>
 
           <!-- Label and input for Size -->
@@ -121,28 +118,26 @@
           </div>  
 
 
-          <div class="form-group">
-            <div class="col-sm-offset-2 col-sm-10">
-              <button class="btn btn-lincoln">
-                Create Fund
-              </button>
             </div>
-          </div>
+            <div class="modal-footer">
 
-        </form>
+                <div class="form-group">
+                    <button class="btn btn-lincoln">
+                      Create Fund
+                    </button>
+                    <button type="button" class="btn btn-white" data-dismiss="modal">Close</button>
+                </div>
 
-      </div>
+            </div>
+        </div>
+      </form>
     </div>
-  </div>
 </div>
 
-<!-- End responsive panel example -->
+<script>
+    $('.i-checks').iCheck({
+        checkboxClass: 'icheckbox_square-green',
+        radioClass: 'iradio_square-green',
+    });
 
-
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-      </div>
-    </div>
-  </div>
-</div>
+</script>
