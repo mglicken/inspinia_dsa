@@ -28,7 +28,7 @@ before_action :ensure_banker_access,  only: [:index, :new, :create, :edit, :upda
   end
 
   def index
-    @favorite_slides = current_user.favorite_slides
+    @favorite_slides = current_user.favorite_slides.order("slide_id ASC")
 
     respond_to do |format|
       format.html
