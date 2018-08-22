@@ -5,52 +5,46 @@
 </div>
 
 <!-- Modal -->
-<div class="modal fade" id="myModalCreateFundCompany" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-  <div class="modal-dialog" role="document">
+<div class="modal inmodal fade" id="myModalCreateFundCompany" role="dialog" aria-hidden="true">
+  <div class="modal-dialog modal-sm">
     <div class="modal-content">
+      <form enctype="multipart/form-data" action="/create_fund_company/" method="post" class="form-horizontal">
       <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        <% if fund.nil? %>
-          <h4 class="modal-title" id="myModalLabel">Add <%= company.name%> to Fund</h4>
+        <% if fund.blank? %>
+          <h4 class="modal-title">Add <%= company.name%> to Fund</h4>
         <%else%>
-          <h4 class="modal-title" id="myModalLabel">Add Company to <%= fund.name%></h4>
+          <h4 class="modal-title">Add Company to <%= fund.name%></h4>
         <% end %>
+                <small class="font-bold">Add a new fund to this sponsor</small>
       </div>
       <div class="modal-body">
 
 
+          <!-- Validation failure messages -->
 
-<!-- Validation failure messages -->
+          <% if @fund_company.blank?%>
+            <% @fund_company = FundCompany.new %>
+          <% end %>
+          <% if @fund_company.errors.any? %>
+            <% @fund_company.errors.full_messages.each do |message| %>
+              <div class="alert alert-dismissable alert-danger">
+                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                <%= message %>
+              </div>
+            <% end %>
+          <% end %>
 
-<% if @fund_company.blank?%>
-  <% @fund_company = FundCompany.new %>
-<% end %>
-<% if @fund_company.errors.any? %>
-  <% @fund_company.errors.full_messages.each do |message| %>
-    <div class="alert alert-dismissable alert-danger">
-      <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-      <%= message %>
-    </div>
-  <% end %>
-<% end %>
-
-<!-- Responsive panel example -->
-
-<div class="row">
-
-
-        <form enctype="multipart/form-data" action="/create_fund_company" method="post" class="form-horizontal">
           <!-- Hidden input for authenticity token to protect from forgery -->
           <input name="authenticity_token" type="hidden" value="<%= form_authenticity_token %>">
 
 
-          <% if fund.nil? %>
+          <% if fund.blank? %>
             <!-- Label and input for Fund -->
             <div class="form-group">
-              <h5><label for="fund_id" class="col-sm-2 control-label">
+              <h5><label for="fund_id" class="col-lg-2 control-label">
                 Fund
               </label></h5>
-              <div class="col-sm-10">
+              <div class="col-lg-10">
                 <%= select_tag :fund_id, options_from_collection_for_select(Fund.all.order("name ASC"), :id, :name, @fund_company.fund_id), :class => "form-control" %>
               </div>
             </div>
@@ -59,13 +53,13 @@
           <% end %>
 
 
-          <% if company.nil? %>
+          <% if company.blank? %>
             <!-- Label and input for Company -->
             <div class="form-group">
-              <h5><label for="company_id" class="col-sm-2 control-label">
+              <h5><label for="company_id" class="col-lg-2 control-label">
                 Company
               </label></h5>
-              <div class="col-sm-10">
+              <div class="col-lg-10">
                 <%= select_tag :company_id, options_from_collection_for_select(Company.all.order("name ASC"), :id, :name, @fund_company.company_id), :class => "form-control" %>
               </div>
             </div>
@@ -75,52 +69,46 @@
 
           <!-- Label and input for Acquisition Date -->
           <div class="form-group">
-            <label for="acquisition_date" class="col-sm-2 control-label">
+            <h5><label for="acquisition_date" class="col-lg-2 control-label">
               Acquisition Date
-            </label>
-            <div class="col-sm-10">
+            </label></h5>
+            <div class="col-lg-10">
               <input type="date" id="acquisition_date" name="acquisition_date" placeholder="01/01/2012" class="form-control" value="<%= @fund_company.acquisition_date %>">
             </div>
           </div>
 
           <!-- Label and input for Acquisition Price -->
           <div class="form-group">
-            <label for="acquisition_price" class="col-sm-2 control-label">
+            <h5><label for="acquisition_price" class="col-lg-2 control-label">
               Acquisition Price
-            </label>
-            <div class="col-sm-10">
+            </label></h5>
+            <div class="col-lg-10">
               <input type="float" id="acquisition_price" name="acquisition_price" placeholder="250.5" class="form-control" value="<%= @fund_company.acquisition_price %>">
             </div>
           </div>
 
           <!-- Label and input for Link -->
           <div class="form-group">
-            <label for="link" class="col-sm-2 control-label">
+            <h5>label for="link" class="col-lg-2 control-label">
               Link
-            </label>
-            <div class="col-sm-10">
+            </label></h5>
+            <div class="col-lg-10">
               <input type="string" id="link" name="link" placeholder="e.g., http://www.forbes.com/" class="form-control" value="<%= @fund_company.link %>">
             </div>
           </div>
 
-          <div class="form-group">
-            <div class="col-sm-offset-2 col-sm-10">
-              <button class="btn btn-lincoln">
-                Create Fund Company
-              </button>
             </div>
-          </div>
+            <div class="modal-footer">
 
-        </form>
-</div>
+                <div class="form-group">
+                    <button class="btn btn-lincoln">
+                      Create Fund
+                    </button>
+                    <button type="button" class="btn btn-white" data-dismiss="modal">Close</button>
+                </div>
 
-<!-- End responsive panel example -->
-
-
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-      </div>
+            </div>
+        </div>
+      </form>
     </div>
-  </div>
 </div>
