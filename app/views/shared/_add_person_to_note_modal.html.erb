@@ -1,5 +1,5 @@
 
-<a class=" btn btn-lincoln" data-toggle="modal" href="#myModalCreatePersonNote">Add Person to Note</i></a>
+<a class="btn btn-primary btn-xs" data-toggle="modal" href="#myModalCreatePersonNote"><i class="fa fa-plus"></i></a>
 
 <div class="modal inmodal fade" id="myModalCreatePersonNote" role="dialog" aria-hidden="true">
     <div class="modal-dialog modal-sm">
@@ -11,45 +11,41 @@
             </div>
             <div class="modal-body">
 
+          <!-- Validation failure messages -->
 
-
-<!-- Validation failure messages -->
-
-<% if @person_note.blank?%>
-  <% @person_note = PersonNote.new %>
-<% end %>
-<% if @person_note.errors.any? %>
-  <% @person_note.errors.full_messages.each do |message| %>
-    <div class="alert alert-dismissable alert-danger">
-      <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-      <%= message %>
-    </div>
-  <% end %>
-<% end %>
+          <% if @person_note.blank?%>
+            <% @person_note = PersonNote.new %>
+          <% end %>
+          <% if @person_note.errors.any? %>
+            <% @person_note.errors.full_messages.each do |message| %>
+              <div class="alert alert-dismissable alert-danger">
+                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                <%= message %>
+              </div>
+            <% end %>
+          <% end %>
 
           <!-- Hidden input for authenticity token to protect from forgery -->
           <input name="authenticity_token" type="hidden" value="<%= form_authenticity_token %>">
-
 
           <!-- Label and input for Person -->
           <div class="form-group">
             <h5><label for="person_id" class="col-lg-2 control-label">
               Person
             </label></h5>
-            <select name="person_id" data-placeholder="Select Person..." class="select2_1 form-control"  tabindex="2" style="width:80%">
-              <% Person.order("name asc").each do |person| %>
+            <select name="person_id" data-placeholder="Select Person..." class="select2 form-control"  tabindex="2" style="width:80%">
+              <% Person.where(id: (Person.ids - @note.people.ids)).order("name asc").each do |person| %>
               <option value="<%=person.id %>"><%=person.name %></option>
               <% end %>
             </select>
           </div>
-
  
 
           <input name="note_id" type="hidden" value="<%= @note.id %>">
 
+
             </div>
             <div class="modal-footer">
-
                 <div class="form-group">
                     <button class="btn btn-lincoln">
                       Add Person to Note

@@ -10,7 +10,7 @@
     <div class="modal-content">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        <% if fund == 0 %>
+        <% if fund.nil? %>
           <h4 class="modal-title" id="myModalLabel">Add <%= company.name%> to Fund</h4>
         <%else%>
           <h4 class="modal-title" id="myModalLabel">Add Company to <%= fund.name%></h4>
@@ -44,7 +44,7 @@
           <input name="authenticity_token" type="hidden" value="<%= form_authenticity_token %>">
 
 
-          <% if fund == 0 %>
+          <% if fund.nil? %>
             <!-- Label and input for Fund -->
             <div class="form-group">
               <h5><label for="fund_id" class="col-sm-2 control-label">
@@ -59,7 +59,7 @@
           <% end %>
 
 
-          <% if company == 0 %>
+          <% if company.nil? %>
             <!-- Label and input for Company -->
             <div class="form-group">
               <h5><label for="company_id" class="col-sm-2 control-label">

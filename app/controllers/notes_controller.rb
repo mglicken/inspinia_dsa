@@ -38,6 +38,9 @@ before_action :ensure_banker_access,  only: [:show, :new, :create, :edit, :updat
 
   def show
     @note = Note.find(params[:id])
+    @people = @note.people.order(name: :asc)
+    @companies = @note.companies.order(name: :asc)
+    @sponsors = @note.sponsors.order(name: :asc)
   end
 
   def search
