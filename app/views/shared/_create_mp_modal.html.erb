@@ -11,15 +11,15 @@
 <% end %>
 
 
-<!-- Modal -->
-<div class="modal fade" id="myModalCreateMP" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        <h4 class="modal-title" id="myModalLabel">Create MP Content <span style="font-size:12px"> (upload PDF later)</span></h4>
-      </div>
-      <div class="modal-body">
+<div class="modal inmodal fade" id="myModalCreateMP" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-sm">
+        <div class="modal-content">
+          <form enctype="multipart/form-data" action="/create_mp/" method="post" class="form-horizontal">
+            <div class="modal-header">
+                <h4 class="modal-title">Create MP Content</h4>
+                <small class="font-bold">Add a new landing page for a MP document and buyers (who attended one and who offered and LOI).</small>
+            </div>
+            <div class="modal-body">
 
 
       <!-- Validation failure messages -->
@@ -36,11 +36,7 @@
         <% end %>
       <% end %>
 
-      <!-- Responsive panel example -->
 
-      <div class="row">
-
-        <form enctype="multipart/form-data" action="/create_mp" method="post" class="form-horizontal">
           <!-- Hidden input for authenticity token to protect from forgery -->
           <input name="authenticity_token" type="hidden" value="<%= form_authenticity_token %>">
 
@@ -117,25 +113,18 @@
             </div>
           </div>    
 
-
-          <div class="form-group">
-            <div class="col-sm-offset-2 col-sm-10">
-              <button class="btn btn-lincoln">
-                Create MP Content
-              </button>
             </div>
-          </div>
+            <div class="modal-footer">
 
-        </form>
-      </div>
+                <div class="form-group">
+                    <button class="btn btn-lincoln">
+                      Create MP Content
+                    </button>
+                    <button type="button" class="btn btn-white" data-dismiss="modal">Close</button>
+                </div>
 
-      <!-- End responsive panel example -->
-
-
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-      </div>
+            </div>
+        </div>
+      </form>
     </div>
-  </div>
 </div>
