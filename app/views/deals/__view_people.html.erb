@@ -1,0 +1,34 @@
+
+<div class="wrapper wrapper-content animated fadeInRight">
+    <div class="row">
+        <% @deal.deal_people.order("role_id ASC").each do |deal_person| %>
+            <div class="col-lg-1">
+                <div class="ibox">
+                    <div class="ibox-content product-box">
+
+                          <a href="/people/<%= deal_person.person_id %>">
+                            <!-- Make Height 225px if want to look right, need to make it clip -->
+                            <img src="<%= deal_person.person.image_url %>" width = 100%>
+                          
+                          </a>
+                        <div class="product-desc">
+                            <% if deal_person.person.employee == true%>
+                            <span class="product-price">
+                                        LI
+                            </span>
+                            <%end %>
+                            <small class="text-muted"><%=deal_person.role.name %></small><br>
+                            <strong><%=deal_person.person.name %></strong>
+                            <div style="padding-top: 5px; padding-bottom: 5px;">
+                                <div class="pull-right">
+                                    <%= render('shared/edit_deal_person_modal', deal_person: deal_person) %>
+                                    <%= render('shared/delete_deal_person_modal', deal_person: deal_person) %>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        <%end%>
+    </div>
+</div>

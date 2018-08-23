@@ -1,6 +1,6 @@
 <div class="ibox collapsed float-e-margins">
     <div class="ibox-title">
-        <h5>Projects (<%= @person.deals.count %>)</h5>
+        <h5>Projects (<%= @person.deals.count %>) <%= render('shared/add_person_to_deal_modal', :deal => Deal.none, person: @person )%></h5>
         <div class="ibox-tools">
             <a class="collapse-link">
                 <i class="fa fa-chevron-up"></i>

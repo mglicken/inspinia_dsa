@@ -59,8 +59,6 @@
 <div class="row container">
   <%= render('shared/create_work_history_modal', :company => 0, :person => @person )%>
   <%= render('shared/create_sponsor_history_modal', :sponsor => 0, :person => @person )%>
-  <%= render('shared/create_note_modal')%>
-  <%= render('shared/add_person_to_deal_modal', :deal => Deal.none, person: @person )%>
 </div>
 <br>
 <%= render('view_deals') %>

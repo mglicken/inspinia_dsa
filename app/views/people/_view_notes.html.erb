@@ -1,6 +1,6 @@
 <div class="ibox collapsed float-e-margins">
     <div class="ibox-title">
-        <h5>Notes (<%= @person.notes.count %>)</h5>
+        <h5>Notes (<%= @person.notes.count %>) <%= render('shared/create_note_modal' )%></h5>
         <div class="ibox-tools">
             <a class="collapse-link">
                 <i class="fa fa-chevron-up"></i>
