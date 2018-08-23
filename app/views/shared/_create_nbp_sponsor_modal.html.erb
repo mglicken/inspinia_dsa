@@ -1,18 +1,14 @@
+<a class="btn btn-primary btn-lg" data-toggle="modal" href="#myModalCreateNBPSponsor"><i class="fa fa-plus"></i></a>
 
-<!-- Button trigger modal -->
-<div class="btn btn-success" data-toggle="modal" data-target="#myModalCreateNBPSponsor">
-  Add Sponsor
-</div>
-
-<!-- Modal -->
-<div class="modal fade" id="myModalCreateNBPSponsor" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-         <h4 class="modal-title" id="myModalLabel">Add Financial Acquirer</h4>
-      </div>
-      <div class="modal-body">
+<div class="modal inmodal fade" id="myModalCreateNBPSponsor" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-sm">
+        <div class="modal-content">
+          <form enctype="multipart/form-data" action="/create_nbp_sponsor/" method="post" class="form-horizontal">
+            <div class="modal-header">
+                <h4 class="modal-title">Add Sponsor to NBP</h4>
+                <small class="font-bold">Add a new financial acquirer to potential acquirer list.</small>
+            </div>
+            <div class="modal-body">
 
 
 
@@ -30,14 +26,7 @@
   <% end %>
 <% end %>
 
-<!-- Responsive panel example -->
-
-<div class="row">
-  <div class="col-sm-offset-0 col-sm-12 col-md-offset-0 col-md-12">
-    <div class="panel panel-default">
-      <div class="panel-body">
-
-        <form enctype="multipart/form-data" action="/create_nbp_sponsor" method="post" class="form-horizontal">
+        <form enctype="multipart/form-data" action="/create_nbp_sponsor" method="post" class="form-horizontal" style="font-size: 12px;">
           <!-- Hidden input for authenticity token to protect from forgery -->
           <input name="authenticity_token" type="hidden" value="<%= form_authenticity_token %>">
 
@@ -46,19 +35,32 @@
             <h5><label><input type="checkbox" name="featured">Featured</label></h5>
           </div>          
 
-          <div class="form-group">
-            <h5><label for="sponsor_id" class="col-sm-2 control-label">
+          <!-- Label and input for Sponsor -->
+          <div class="form-group" style="font-size: 12px;">
+            <h5><label for="sponsor_id" class="col-lg-2 control-label">
               Sponsor
             </label></h5>
-            <div class="col-sm-10">
-              <%= select_tag :sponsor_id, options_from_collection_for_select(Sponsor.where(id: Sponsor.ids - NbpSponsor.where(nbp_id: nbp.id).pluck(:sponsor_id)).order("name ASC"), :id, :name), :class => "form-control" %>
-            </div>
+            <select name="sponsor_id" data-placeholder="Select Sponsor..." class="select2 form-control"  tabindex="2" style="width:80%">
+              <% Sponsor.order("name asc").each do |sponsor| %>
+              <option value="<%=sponsor.id %>"><%=sponsor.name %></option>
+              <% end %>
+            </select>
           </div>
 
-          <input name="nbp_id" type="hidden" value="<%= nbp.id%>">
+          <!-- Label and input for NBP -->
+          <div class="form-group" style="font-size: 12px;">
+            <h5><label for="nbp_id" class="col-lg-2 control-label">
+              NBP
+            </label></h5>
+            <select name="nbp_id" data-placeholder="Select NBP..." class="select2 form-control"  tabindex="2" style="width:80%">
+              <% Nbp.order("name asc").each do |nbp| %>
+              <option value="<%=nbp.id %>"><%=nbp.name %></option>
+              <% end %>
+            </select>
+          </div>
 
           <!-- Label and input for Lincoln Rationale -->
-          <div class="form-group">
+          <div class="form-group" style="font-size: 12px;">
             <h5><label for="rationale" class="col-lg-2 control-label">
               Lincoln Rationale:
             </label></h5>
@@ -68,7 +70,7 @@
           </div>
 
           <!-- Label and input for Notes -->
-          <div class="form-group">
+          <div class="form-group" style="font-size: 12px;">
             <h5><label for="note" class="col-lg-2 control-label">
               Notes:
             </label></h5>
@@ -77,28 +79,30 @@
             </div>
           </div>
 
-          <div class="form-group">
-            <div class="col-sm-offset-2 col-sm-10">
-              <button class="btn btn-lincoln">
-                Add Financial Acquirer
-              </button>
+
             </div>
-          </div>
+            <div class="modal-footer">
+                <div class="form-group">
+                    <button class="btn btn-lincoln">
+                      Add Financial Acquirer
+                    </button>
+                    <button type="button" class="btn btn-white" data-dismiss="modal">Close</button>
+                </div>
 
-        </form>
-
-      </div>
+            </div>
+        </div>
+      </form>
     </div>
-  </div>
 </div>
 
-<!-- End responsive panel example -->
+<script type="text/javascript">
+$(function() {
+   
+  $(".select2").select2({
 
+    dropdownCssClass: "increasedzindexclass",
+    
+  });
 
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-      </div>
-    </div>
-  </div>
-</div>
+});
+</script>
