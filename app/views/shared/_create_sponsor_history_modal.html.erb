@@ -1,71 +1,48 @@
+<a class="btn btn-primary btn-xs" data-toggle="modal" href="#myModalSponsorHistory"><i class="fa fa-plus"></i></a>
 
-<!-- Button trigger modal -->
-<div class="btn btn-lincoln" data-toggle="modal" data-target="#myModalCreateSponsorHistory">
-  <% if sponsor == 0 %>        
-    Add Sponsor History
-  <% else %>
-    Add this Sponsor to Person's Sponsor History
-  <% end %>
-</div>
-
-<!-- Modal -->
-<div class="modal fade" id="myModalCreateSponsorHistory" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        <% if sponsor == 0 %>
-          <h4 class="modal-title" id="myModalLabel">Add <%= person.name%> to sponsor</h4>
-        <%else%>
-          <h4 class="modal-title" id="myModalLabel">Add Person to <%= sponsor.name%></h4>
-        <% end %>
-      </div>
-      <div class="modal-body">
+<div class="modal inmodal fade" id="myModalSponsorHistory" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-sm">
+        <div class="modal-content">
+          <form enctype="multipart/form-data" action="/create_sponsor_history/" method="post" class="form-horizontal">
+            <div class="modal-header">
+              <% if sponsor.nil? %>        
+                <h4 class="modal-title">Add to Sponsor</h4>
+                <small class="font-bold">Add a sponsor history to <%= person.name%> </small>
+              <% else %>
+                <h4 class="modal-title">Add Person</h4>
+                <small class="font-bold">Add a sponsor history for a person at <%= sponsor.name%> </small>
+              <% end %>
+            </div>
+            <div class="modal-body">
 
 
 
-<!-- Validation failure messages -->
+          <!-- Validation failure messages -->
 
-<% if @sponsor_history.blank?%>
-  <% @sponsor_history = SponsorHistory.new %>
-<% end %>
-<% if @sponsor_history.errors.any? %>
-  <% @sponsor_history.errors.full_messages.each do |message| %>
-    <div class="alert alert-dismissable alert-danger">
-      <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-      <%= message %>
-    </div>
-  <% end %>
-<% end %>
-
-<!-- Responsive panel example -->
-
-<div class="row">
-  <div class="col-sm-offset-0 col-sm-12 col-md-offset-0 col-md-12">
-    <div class="panel panel-default">
-      <div class="panel-heading">
-        <% if sponsor == 0 %>        
-          <h3 class="panel-title">Add to a Sponsor</h3>
-        <% else %>
-          <h3 class="panel-title">Add Person</h3>
-        <% end %>
-      </div>
-      <div class="panel-body">
-
-        <form enctype="multipart/form-data" action="/create_sponsor_history" method="post" class="form-horizontal">
-          <!-- Hidden input for authenticity token to protect from forgery -->
-          <input name="authenticity_token" type="hidden" value="<%= form_authenticity_token %>">
+          <% if @sponsor_history.blank?%>
+            <% @sponsor_history = SponsorHistory.new %>
+          <% end %>
+          <% if @sponsor_history.errors.any? %>
+            <% @sponsor_history.errors.full_messages.each do |message| %>
+              <div class="alert alert-dismissable alert-danger">
+                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                <%= message %>
+              </div>
+            <% end %>
+          <% end %>
 
 
-          <% if sponsor == 0 %>
+          <% if sponsor.blank? %>
             <!-- Label and input for sponsor -->
             <div class="form-group">
-              <h5><label for="sponsor_id" class="col-sm-2 control-label">
+              <h5><label for="sponsor_id" class="col-lg-2 control-label">
                 Sponsor
               </label></h5>
-              <div class="col-sm-10">
-                <%= select_tag :sponsor_id, options_from_collection_for_select(Sponsor.all.order("name ASC"), :id, :name, @sponsor_history.sponsor_id), :class => "form-control" %>
-              </div>
+              <select name="sponsor_id" data-placeholder="Select Sponsor..." class="select2 form-control"  tabindex="2" style="width:80%">
+                <% Sponsor.order("name asc").each do |sponsor| %>
+                <option value="<%=sponsor.id %>"><%=sponsor.name %></option>
+                <% end %>
+              </select>
             </div>
           <%else%>
             <input name="sponsor_id" type="hidden" value="<%= sponsor.id %>">
@@ -73,33 +50,42 @@
 
 
             <!-- Label and input for Person -->
-          <% if person == 0 %>
-            <div class="form-group">
-              <h5><label for="person_id" class="col-sm-2 control-label">
-                Person
-              </label></h5>
-              <div class="col-sm-10">
-                <%= select_tag :person_id, options_from_collection_for_select(Person.all.order("name ASC"), :id, :name, @sponsor_history.person_id), :class => "form-control" %>
-              </div>
-            </div>
+          <% if person.blank? %>
+          <div class="form-group">
+            <h5><label for="person_id" class="col-lg-2 control-label">
+              Person
+            </label></h5>
+            <select name="person_id" data-placeholder="Select Person..." class="select2 form-control"  tabindex="2" style="width:80%">
+              <% Person.order("name asc").each do |person| %>
+              <option value="<%=person.id %>"><%=person.name %></option>
+              <% end %>
+            </select>
+          </div>
           <%else%>
             <input name="person_id" type="hidden" value="<%= person.id %>">
           <% end %>
 
 
-          <!-- Check boxes Current -->
-          <div class="checkbox-inline">
-            <h5><label><input type="checkbox" name="current" checked>Current</label></h5>
-          </div>
+              <!-- Label and input for Current -->
+              <div class="form-group">
+                  <label class="col-lg-2 control-label" for="current">
+                      Current
+                  </label>
+                  <div class="col-lg-10">
+                    <input type="checkbox" value="" id="current" name="current" class="i-checks" />
+                  </div>
+              </div>
 
            <!-- Label and input for Role -->
           <div class="form-group">
-            <h5><label for="role_id" class="col-sm-2 control-label">
+            <h5><label for="role_id" class="col-lg-2 control-label">
               Role
             </label></h5>
-            <div class="col-sm-10">
-              <%= select_tag :role_id, options_from_collection_for_select(Role.order("name ASC"), :id, :name, @sponsor_history.role_id), :class => "form-control" %>
-            </div>
+            <select name="role_id" data-placeholder="Select Role..." class="select2 form-control"  tabindex="2" style="width:80%">
+              <% Role.order("name asc").each do |role| %>
+              <option value="<%=role.id %>"><%=role.name %></option>
+              <% end %>
+            </select>
           </div>
 
           <!-- Label and input for Start Year -->
@@ -122,28 +108,34 @@
             </div>
           </div>
 
-          <div class="form-group">
-            <div class="col-sm-offset-2 col-sm-10">
-              <button class="btn btn-lincoln">
-                Add Sponsor History
-              </button>
             </div>
-          </div>
+            <div class="modal-footer">
 
-        </form>
+                <div class="form-group">
+                    <button class="btn btn-lincoln">
+                      Add Sponsor History
+                    </button>
+                    <button type="button" class="btn btn-white" data-dismiss="modal">Close</button>
+                </div>
 
-      </div>
+            </div>
+        </div>
+      </form>
     </div>
-  </div>
 </div>
+<script type="text/javascript">
+$(function() {
+   
+  $(".select2").select2({
 
-<!-- End responsive panel example -->
+    dropdownCssClass: "increasedzindexclass",
+    
+  });
 
+  $('.i-checks').iCheck({
+      checkboxClass: 'icheckbox_square-green',
+      radioClass: 'iradio_square-green',
+  });
 
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-      </div>
-    </div>
-  </div>
-</div>
+});
+</script>
