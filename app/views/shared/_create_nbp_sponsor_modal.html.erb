@@ -4,7 +4,7 @@
     <div class="modal-dialog modal-sm">
         <div class="modal-content">
           <form enctype="multipart/form-data" action="/create_nbp_sponsor/" method="post" class="form-horizontal">
-            <div class="modal-header">
+            <div class="modal-header" style="font-size: 14px;">
                 <h4 class="modal-title">Add Sponsor to NBP</h4>
                 <small class="font-bold">Add a new financial acquirer to potential acquirer list.</small>
             </div>
@@ -12,19 +12,19 @@
 
 
 
-<!-- Validation failure messages -->
+          <!-- Validation failure messages -->
 
-<% if @nbp_sponsor.blank?%>
-  <% @nbp_sponsor = Bucket.new %>
-<% end %>
-<% if @nbp_sponsor.errors.any? %>
-  <% @nbp_sponsor.errors.full_messages.each do |message| %>
-    <div class="alert alert-dismissable alert-danger">
-      <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-      <%= message %>
-    </div>
-  <% end %>
-<% end %>
+          <% if @nbp_sponsor.blank?%>
+            <% @nbp_sponsor = Bucket.new %>
+          <% end %>
+          <% if @nbp_sponsor.errors.any? %>
+            <% @nbp_sponsor.errors.full_messages.each do |message| %>
+              <div class="alert alert-dismissable alert-danger">
+                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                <%= message %>
+              </div>
+            <% end %>
+          <% end %>
 
         <form enctype="multipart/form-data" action="/create_nbp_sponsor" method="post" class="form-horizontal" style="font-size: 12px;">
           <!-- Hidden input for authenticity token to protect from forgery -->
