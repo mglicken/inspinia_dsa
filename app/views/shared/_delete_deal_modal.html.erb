@@ -4,19 +4,15 @@
   <i class="fa fa-trash-o"></i>
 </div>
 
-<!-- Modal -->
-<div class="modal fade" id="myModalDeleteDeal_<%= deal.id %>" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        <h4 class="modal-title" id="myModalLabel"><%= deal.name %></h4>
-      </div>
-      <div class="modal-body">
-
-
-
-<!-- Validation failure messages -->
+<div class="modal inmodal fade" id="myModalDeleteDeal_<%= deal.id %>" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-md">
+        <div class="modal-content">
+             <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                <h4 class="modal-title" >Remove <%= deal.name %></h4>
+                <small class="font-bold">Remove <strong><%= deal.name %></strong>.</small>
+            </div>
+            <div class="modal-body">
 
 <% if deal.errors.any? %>
   <% deal.errors.full_messages.each do |message| %>
@@ -27,46 +23,17 @@
   <% end %>
 <% end %>
 
-<!-- Responsive panel example -->
-
-<div class="row">
-  <div class="col-sm-offset-0 col-sm-12 col-md-offset-0 col-md-12">
-    <div class="panel panel-default">
-      <div class="panel-heading">
-        <h3 class="panel-title">Delete Deal</h3>
-      </div>
-      <div class="panel-body">
-
-        <form enctype="multipart/form-data" action="/delete_deal/<%= deal.id %>" method="get" class="form-horizontal">
-          <!-- Hidden input for authenticity token to protect from forgery -->
-          <input name="authenticity_token" type="hidden" value="<%= form_authenticity_token %>">
-
           <h3 text-align="center"> Are you sure you want to delete <span font-weight="bold"><%= deal.name %></span>?
           <small>Once it is deleted, all NBPs, CIPs, and MPs associated with it will be destroyed!!!</small></h3>
 
-
-          <div class="form-group pull-left">
-            <div class="col-sm-offset-2 col-sm-10">
-              <button class="btn btn-success">
-                Delete Deal
-              </button>
             </div>
-          </div>
+            <div class="modal-footer">
 
-        </form>
-
-      </div>
+                    <a class="btn btn-danger" href="/delete_deal/<%=deal.id %>">
+                      Delete Case Study
+                    </a>
+                    <button type="button" class="btn btn-white" data-dismiss="modal">Close</button>
+            </div>
+        </div>
     </div>
-  </div>
-</div>
-
-<!-- End responsive panel example -->
-
-
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-      </div>
-    </div>
-  </div>
 </div>

@@ -60,9 +60,9 @@
             </a>
 
             <%= render('shared/edit_company_modal', :company => @company)%>
-              <% if current_user.access_id < 3 %>
-                <%= render('shared/delete_company_modal', :company => @company)%>
-              <% end %>
+            <% if current_user.access_id < 3 %>
+              <%= render('shared/delete_company_modal', :company => @company)%>
+            <% end %>
 
           </div>
         </div>

@@ -37,6 +37,9 @@
                 <a href="/cips/<%= @ioi.cip_sponsor.cip_id %>/sponsors" class="btn btn-lincoln"><i class="fa fa-chevron-left"></i></a>
               <% end %>
               <%= render('shared/edit_ioi_and_highlights_modal', :ioi => @ioi)%>
+              <% if current_user.access_id < 3 %>
+                <%= render('shared/delete_ioi_modal', :ioi => @ioi)%>
+              <% end %>
             </div>
           </div>
         </div>

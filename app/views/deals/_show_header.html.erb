@@ -82,6 +82,9 @@
           </div>
           <div class="btn-group btn-group-justified">
             <%= render('shared/edit_deal_modal', deal: @deal)%>
+            <% if current_user.access_id < 3 %>
+              <%= render('shared/delete_deal_modal', :deal => @deal)%>
+            <% end %>
           </div>
         </div>
       </div>

@@ -29,7 +29,9 @@
               </a>
 
               <%= render('shared/edit_fund_modal', :fund => @fund)%>
-
+              <% if current_user.access_id < 3 %>
+                <%= render('shared/delete_fund_modal', :fund => @fund)%>
+              <% end %>
             </div>
     </div>
     </div>
