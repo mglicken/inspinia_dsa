@@ -53,9 +53,10 @@
             <a href="/sponsors" class="btn btn-lincoln">
               <i class="fa fa-chevron-left"></i>
             </a>
-
             <%= render('shared/edit_sponsor_modal', :sponsor => @sponsor)%>
-
+            <% if current_user.access_id < 3 %>
+              <%= render('shared/delete_sponsor_modal', :sponsor => @sponsor)%>
+            <% end %>
           </div>
         </div>
       </div>

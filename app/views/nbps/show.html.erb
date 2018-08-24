@@ -22,6 +22,9 @@
             <div class="btn-group btn-group-justified">
 
               <%= render('shared/edit_nbp_modal', :nbp => @nbp)%>
+              <% if current_user.access_id < 3 %>
+                <%= render('shared/delete_nbp_modal', :nbp => @nbp)%>
+              <% end %>
 
             </div>
           </div>

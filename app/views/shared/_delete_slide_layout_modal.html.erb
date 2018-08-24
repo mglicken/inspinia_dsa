@@ -1,64 +1,38 @@
-
-<!-- Button trigger modal -->
-
-
 <div class="btn btn-danger" data-toggle="modal" data-target="#myModalDeleteSlideLayout_<%= @slide_layout.id %>">
     <i class="fa fa-trash-o"></i>
 </div>
-<!-- Modal -->
-<div class="modal fade" id="myModalDeleteSlideLayout_<%= slide_layout.id %>" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        <h4 class="modal-title" id="myModalLabel"><%= slide_layout.name%></h4>
-      </div>
-      <div class="modal-body">
 
+<div class="modal inmodal fade" id="myModalDeleteSlideLayout_<%= slide_layout.id %>" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-md">
+        <div class="modal-content">
+             <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                <h4 class="modal-title" >Remove <%= slide_layout.name %></h4>
+                <small class="font-bold">Remove <strong><%= slide_layout.name %></strong>.</small>
+            </div>
+            <div class="modal-body">
 
-
-<!-- Validation failure messages -->
-
-<% if slide_layout.errors.any? %>
-  <% slide_layout.errors.full_messages.each do |message| %>
-    <div class="alert alert-dismissable alert-danger">
-      <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-      <%= message %>
-    </div>
-  <% end %>
-<% end %>
-
-<!-- Responsive panel example -->
-
-<div class="row">
-
-
-        <form enctype="multipart/form-data" action="/delete_slide_layout/<%= slide_layout.id %>" method="get" class="form-horizontal">
-          <!-- Hidden input for authenticity token to protect from forgery -->
-          <input name="authenticity_token" type="hidden" value="<%= form_authenticity_token %>">
+          <% if slide_layout.errors.any? %>
+            <% slide_layout.errors.full_messages.each do |message| %>
+              <div class="alert alert-dismissable alert-danger">
+                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                <%= message %>
+              </div>
+            <% end %>
+          <% end %>
 
           <h3 text-align="center"> Are you sure you want to delete <span font-weight="bold"><%= slide_layout.name %> Layout</span>?
-          <br>
-          <br>
           <small>Once it is deleted, all slides in the layout associated with it will be destroyed!!!</small></h3>
           <br>
 
-          <div class="form-group pull-left">
-            <div class="col-sm-offset-2 col-sm-10">
-              <button class="btn btn-danger">
-                Delete Slide Layout
-              </button>
             </div>
-          </div>
+            <div class="modal-footer">
 
-        </form>
-
-</div>
-
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-      </div>
+                    <a class="btn btn-danger" href="/delete_slide_layout/<%=slide_layout.id %>">
+                      Delete Slide Layout
+                    </a>
+                    <button type="button" class="btn btn-white" data-dismiss="modal">Close</button>
+            </div>
+        </div>
     </div>
-  </div>
 </div>

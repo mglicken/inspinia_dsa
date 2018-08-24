@@ -31,6 +31,9 @@
                 </a>
               <% end %>
               <%= render('shared/edit_teaser_modal', :teaser => @teaser)%>
+              <% if current_user.access_id < 3 %>
+                <%= render('shared/delete_teaser_modal', :teaser => @teaser)%>
+              <% end %>
 
               </a>
             </div>

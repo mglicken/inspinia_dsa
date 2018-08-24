@@ -44,7 +44,7 @@
               <br>
               <div class="btn-group-horizontal">
                 <%= render('shared/edit_person_modal', :person => @person)%>
-                <% if current_user.access_id <= 2 %>
+                <% if current_user.access_id < 3 %>
                   <%= render('shared/delete_person_modal', :person => @person)%>
                 <% end %>
               </div>

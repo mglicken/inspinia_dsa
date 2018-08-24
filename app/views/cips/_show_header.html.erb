@@ -25,6 +25,9 @@
             </dl>
             <div class="btn-group btn-group-justified">
               <%= render('shared/edit_cip_modal', :cip => @cip)%>
+              <% if current_user.access_id < 3 %>
+                <%= render('shared/delete_cip_modal', :cip => @cip)%>
+              <% end %>
             </div>
           </div>
         </div>

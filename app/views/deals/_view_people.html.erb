@@ -2,7 +2,7 @@
     <div class="col-lg-12">
         <div class="ibox">
             <div class="ibox-title">
-                <h5> People (<%= @deal.deal_people.count%>) <%= render('shared/add_person_to_deal_modal', :deal => @deal, person: Person.none )%></h5>
+                <h5> Deal Team (<%= @deal.deal_people.count%>) <%= render('shared/add_person_to_deal_modal', :deal => @deal, person: Person.none )%></h5>
                 <div class="ibox-tools">
                     <a class="collapse-link">
                         <i class="fa fa-chevron-up"></i>

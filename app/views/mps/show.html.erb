@@ -39,6 +39,9 @@
             </dl>
             <div class="btn-group btn-group-justified">
               <%= render('shared/edit_mp_modal', :mp => @mp)%>
+              <% if current_user.access_id < 3 %>
+                <%= render('shared/delete_mp_modal', :mp => @mp)%>
+              <% end %>
             </div>
           </div>
         </div>

@@ -20,11 +20,12 @@
               <a href="/seasers/<%= @teaser_sponsor.teaser_id %>" class="btn btn-primary">
                 <i class="fa fa-reply"></i>
               </a>
-
               <a href="/teaser_sponsors/<%= @teaser_sponsor.id %>/edit" class="btn btn-warning">
                 <i class="fa fa-edit"></i>
               </a>
-
+              <% if current_user.access_id < 3 %>
+                <%= render('shared/delete_teaser_sponsor_modal', :teaser_sponsor => @teaser_sponsor)%>
+              <% end %>
             </div>
           </div>
         </div>
