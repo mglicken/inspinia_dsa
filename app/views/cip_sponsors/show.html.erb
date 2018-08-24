@@ -24,6 +24,9 @@
               <a href="/cip_sponsors/<%= @cip_sponsor.id %>/edit" class="btn btn-warning">
                 <i class="fa fa-edit"></i>
               </a>
+              <% if current_user.access_id < 3 %>
+                <%= render('shared/delete_cip_sponsor_modal', :cip_sponsor => @cip_sponsor)%>
+              <% end %>
 
             </div>
           </div>
