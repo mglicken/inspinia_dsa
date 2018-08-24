@@ -60,6 +60,9 @@
             </a>
 
             <%= render('shared/edit_company_modal', :company => @company)%>
+              <% if current_user.access_id < 3 %>
+                <%= render('shared/delete_company_modal', :company => @company)%>
+              <% end %>
 
           </div>
         </div>
@@ -68,11 +71,7 @@
     </div>
   </div>
 </div>
-<br>
-<div class="row container">
-  <%= render('shared/create_note_modal')%>
-  <%= render('shared/create_work_history_modal', :company => @company, :person => 0 )%>
-</div>
+
 <br>
 
 <%= render('view_contacts') %>

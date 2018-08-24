@@ -38,6 +38,9 @@
             </dl>
             <div class="btn-group btn-group-justified">
               <%= render('shared/edit_cip_modal', :cip => @cip)%>
+              <% if current_user.access_id < 3 %>
+                <%= render('shared/delete_cip_modal', :cip => @cip)%>
+              <% end %>
             </div>
           </div>
         </div>
@@ -53,8 +56,7 @@
   <a class="btn btn-lincoln" href="/cips/<%= @cip.id %>/companies">View Strategic Acquirers (Tiers View)</a>
   <a class="btn btn-lincoln" href="/cips/<%= @cip.id %>/companies/tables">View Strategic Acquirers (Table View)</a>
 </div>
-
-
+<br>
 <%= render('view_slides') %>
 
 <%= render('shared/quick_search_js') %>

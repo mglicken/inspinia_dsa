@@ -33,8 +33,10 @@
           <input name="authenticity_token" type="hidden" value="<%= form_authenticity_token %>">
 
 
-          <% if company.blank? %>
-            <!-- Label and input for Company -->
+          <!-- Label and input for Company -->
+          <% if company.present? %>
+            <input name="company_id" type="hidden" value="<%= company.id %>">
+          <%else%>
             <div class="form-group">
               <h5><label for="company_id" class="col-lg-2 control-label">
                 Company
@@ -45,24 +47,22 @@
                 <% end %>
               </select>
             </div>
-          <%else%>
-            <input name="sponsor_id" type="hidden" value="<%= sponsor.id %>">
           <% end %>
 
-            <!-- Label and input for Person -->
-          <% if person.blank? %>
-          <div class="form-group">
-            <h5><label for="person_id" class="col-lg-2 control-label">
-              Person
-            </label></h5>
-            <select name="person_id" data-placeholder="Select Person..." class="select2 form-control"  tabindex="2" style="width:80%">
-              <% Person.order("name asc").each do |person| %>
-              <option value="<%=person.id %>"><%=person.name %></option>
-              <% end %>
-            </select>
-          </div>
-          <%else%>
+          <!-- Label and input for Person -->
+          <% if person.present? %>
             <input name="person_id" type="hidden" value="<%= person.id %>">
+          <%else%>
+            <div class="form-group">
+              <h5><label for="person_id" class="col-lg-2 control-label">
+                Person
+              </label></h5>
+              <select name="person_id" data-placeholder="Select Person..." class="select2 form-control"  tabindex="2" style="width:80%">
+                <% Person.order("name asc").each do |person| %>
+                <option value="<%=person.id %>"><%=person.name %></option>
+                <% end %>
+              </select>
+            </div>
           <% end %>
 
           <!-- Label and input for Current -->
