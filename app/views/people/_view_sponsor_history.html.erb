@@ -1,6 +1,6 @@
 <div class="ibox collapsed float-e-margins">
     <div class="ibox-title">
-        <h5>Sponsor History (<%= @person.sponsor_histories.count %>)</h5>
+        <h5>Sponsor History (<%= @person.sponsor_histories.count %>) <%= render('shared/create_sponsor_history_modal', :sponsor => Sponsor.none, :person => @person )%></h5>
         <div class="ibox-tools">
             <a class="collapse-link">
                 <i class="fa fa-chevron-up"></i>

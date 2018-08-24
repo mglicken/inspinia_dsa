@@ -1,6 +1,6 @@
 <div class="ibox collapsed float-e-margins">
     <div class="ibox-title">
-        <h5>Work History (<%= @person.work_histories.count %>)</h5>
+        <h5>Work History (<%= @person.work_histories.count %>) <%= render('shared/create_work_history_modal', :company => Company.none, :person => @person )%></h5>
         <div class="ibox-tools">
             <a class="collapse-link">
                 <i class="fa fa-chevron-up"></i>

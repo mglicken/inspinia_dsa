@@ -1,110 +1,90 @@
+<a class="btn btn-primary btn-xs" data-toggle="modal" href="#myModalWorkHistory"><i class="fa fa-plus"></i></a>
 
-<!-- Button trigger modal -->
-<div class="btn btn-lincoln" data-toggle="modal" data-target="#myModalCreateWorkHistory">
-  <% if company == 0 %>        
-    Add Work History
-  <% else %>
-    Add this Company to Person's Work History
-  <% end %>
-</div>
+<div class="modal inmodal fade" id="myModalWorkHistory" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-sm">
+        <div class="modal-content">
+          <form enctype="multipart/form-data" action="/create_work_history/" method="post" class="form-horizontal">
+            <div class="modal-header">
+              <% if company.present? %>        
+                <h4 class="modal-title">Add Person</h4>
+                <small class="font-bold">Add a work history for a person at <%= company.name%> </small>
+              <% else %>
+                <h4 class="modal-title">Add Company</h4>
+                <small class="font-bold">Add a work history to <%= person.name%> </small>
+              <% end %>
+            </div>
+            <div class="modal-body">
 
-<!-- Modal -->
-<div class="modal fade" id="myModalCreateWorkHistory" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        <% if company == 0 %>
-          <h4 class="modal-title" id="myModalLabel">Add <%= person.name%> to Company</h4>
-        <%else%>
-          <h4 class="modal-title" id="myModalLabel">Add Person to <%= company.name%></h4>
-        <% end %>
-      </div>
-      <div class="modal-body">
+          <!-- Validation failure messages -->
 
-<!-- Validation failure messages -->
+          <% if @work_history.blank?%>
+            <% @work_history = WorkHistory.new %>
+          <% end %>
+          <% if @work_history.errors.any? %>
+            <% @work_history.errors.full_messages.each do |message| %>
+              <div class="alert alert-dismissable alert-danger">
+                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                <%= message %>
+              </div>
+            <% end %>
+          <% end %>
 
-<% if @work_history.blank?%>
-  <% @work_history = WorkHistory.new %>
-<% end %>
-<% if @work_history.errors.any? %>
-  <% @work_history.errors.full_messages.each do |message| %>
-    <div class="alert alert-dismissable alert-danger">
-      <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-      <%= message %>
-    </div>
-  <% end %>
-<% end %>
-
-<!-- Responsive panel example -->
-
-<div class="row">
-
-        <form enctype="multipart/form-data" action="/create_work_history" method="post" class="form-horizontal">
-          <!-- Hidden input for authenticity token to protect from forgery -->
+            <!-- Hidden input for authenticity token to protect from forgery -->
           <input name="authenticity_token" type="hidden" value="<%= form_authenticity_token %>">
 
-         <!-- js-switch elements for formatting -->
-          <div>
-            <input type="hidden" class="js-switch" />
-            <input type="hidden" class="js-switch_2" />
-            <input type="hidden" class="js-switch_3"  />
-            <input type="hidden" class="js-switch_4"  />
-          </div>
 
-          <% if company == 0 %>
+          <% if company.blank? %>
             <!-- Label and input for Company -->
             <div class="form-group">
-              <h5><label for="company_id" class="col-sm-2 control-label">
+              <h5><label for="company_id" class="col-lg-2 control-label">
                 Company
               </label></h5>
-              <div class="col-sm-10">
-                <select name="company_id" data-placeholder="Choose a Company..." class="chosen-select back-change"  tabindex="2">
-                  <% Company.all.order("name asc").each do |company| %>
-                  <option value="<%=company.id %>"><%=company.name %></option>
-                  <% end %>
-                </select>
-              </div>
+              <select name="company_id" data-placeholder="Select Company..." class="select2 form-control"  tabindex="2" style="width:80%">
+                <% Company.order("name asc").each do |company| %>
+                <option value="<%=company.id %>"><%=company.name %></option>
+                <% end %>
+              </select>
             </div>
           <%else%>
-            <input name="company_id" type="hidden" value="<%= company.id %>">
+            <input name="sponsor_id" type="hidden" value="<%= sponsor.id %>">
           <% end %>
 
             <!-- Label and input for Person -->
-          <% if person == 0 %>
-            <div class="form-group">
-              <h5><label for="person_id" class="col-sm-2 control-label">
-                Person
-              </label></h5>
-              <div class="col-sm-10">
-                <select name="person_id" data-placeholder="Choose a Person..." class="chosen-select back-change"  tabindex="2">
-                  <% Person.all.order("name asc").each do |person| %>
-                  <option value="<%=person.id %>"><%=person.name %></option>
-                  <% end %>
-                </select>
-              </div>
-            </div>
+          <% if person.blank? %>
+          <div class="form-group">
+            <h5><label for="person_id" class="col-lg-2 control-label">
+              Person
+            </label></h5>
+            <select name="person_id" data-placeholder="Select Person..." class="select2 form-control"  tabindex="2" style="width:80%">
+              <% Person.order("name asc").each do |person| %>
+              <option value="<%=person.id %>"><%=person.name %></option>
+              <% end %>
+            </select>
+          </div>
           <%else%>
-            <input name="person_id" id="person_id" type="hidden" value="<%= person.id %>">
+            <input name="person_id" type="hidden" value="<%= person.id %>">
           <% end %>
 
-          <!-- Check boxes Current -->
-          <div class="checkbox-inline">
-            <h5><label><input type="checkbox" name="current" checked>Current</label></h5>
+          <!-- Label and input for Current -->
+          <div class="form-group">
+              <label class="col-lg-2 control-label" for="current">
+                  Current
+              </label>
+              <div class="col-lg-10">
+                <input type="checkbox" value="" id="current" name="current" class="i-checks" />
+              </div>
           </div>
 
            <!-- Label and input for Role -->
           <div class="form-group">
-            <h5><label for="role_id" class="col-sm-2 control-label">
+            <h5><label for="role_id" class="col-lg-2 control-label">
               Role
             </label></h5>
-            <div class="col-sm-10">
-                <select name="role_id" data-placeholder="Choose a Role..." class="chosen-select back-change"  tabindex="2">
-                  <% Role.all.order("name asc").each do |role| %>
-                  <option value="<%=role.id %>"><%=role.name %></option>
-                  <% end %>
-                </select>
-            </div>
+            <select name="role_id" data-placeholder="Select Role..." class="select2 form-control"  tabindex="2" style="width:80%">
+              <% Role.order("name asc").each do |role| %>
+              <option value="<%=role.id %>"><%=role.name %></option>
+              <% end %>
+            </select>
           </div>
 
           <!-- Label and input for Start Year -->
@@ -127,46 +107,35 @@
             </div>
           </div>
 
-          <div class="form-group">
-            <div class="col-sm-offset-2 col-sm-10">
-              <button class="btn btn-lincoln">
-                Add Work History
-              </button>
             </div>
-          </div>
+            <div class="modal-footer">
 
-        </form>
+                <div class="form-group">
+                    <button class="btn btn-lincoln">
+                      Add Work History
+                    </button>
+                    <button type="button" class="btn btn-white" data-dismiss="modal">Close</button>
+                </div>
 
-</div>
-
-
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-      </div>
+            </div>
+        </div>
+      </form>
     </div>
-  </div>
 </div>
 
 <script type="text/javascript">
-
 $(function() {
-
-    var elem = document.querySelector('.js-switch');
-    var switchery = new Switchery(elem, { color: '#1AB394' });
-
-    var elem_2 = document.querySelector('.js-switch_2');
-    var switchery_2 = new Switchery(elem_2, { color: '#ED5565' });
-
-    var elem_3 = document.querySelector('.js-switch_3');
-    var switchery_3 = new Switchery(elem_3, { color: '#1AB394' });
-
-    var elem_4 = document.querySelector('.js-switch_4');
-    var switchery_4 = new Switchery(elem_4, { color: '#f8ac59' });
    
+  $(".select2").select2({
 
-    $('.chosen-select').chosen({width: "100%"});
+    dropdownCssClass: "increasedzindexclass",
+    
+  });
+
+  $('.i-checks').iCheck({
+      checkboxClass: 'icheckbox_square-green',
+      radioClass: 'iradio_square-green',
+  });
 
 });
-
 </script>

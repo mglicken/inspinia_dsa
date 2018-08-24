@@ -1,15 +1,15 @@
 <a class="btn btn-primary btn-xs" data-toggle="modal" href="#myModalSponsorHistory"><i class="fa fa-plus"></i></a>
 
-<div class="modal inmodal fade" id="myModalSponsorHistory" tabindex="-1" role="dialog" aria-hidden="true">
+<div class="modal inmodal fade" id="myModalSponsorHistory" role="dialog" aria-hidden="true">
     <div class="modal-dialog modal-sm">
         <div class="modal-content">
           <form enctype="multipart/form-data" action="/create_sponsor_history/" method="post" class="form-horizontal">
             <div class="modal-header">
               <% if sponsor.nil? %>        
-                <h4 class="modal-title">Add to Sponsor</h4>
+                <h4 class="modal-title">Add Person</h4>
                 <small class="font-bold">Add a sponsor history to <%= person.name%> </small>
               <% else %>
-                <h4 class="modal-title">Add Person</h4>
+                <h4 class="modal-title">Add Sponsor</h4>
                 <small class="font-bold">Add a sponsor history for a person at <%= sponsor.name%> </small>
               <% end %>
             </div>
