@@ -22,10 +22,12 @@
               <a href="/seasers/<%= @mp_company.mp_id %>" class="btn btn-primary">
                 <i class="fa fa-reply"></i>
               </a>
-
               <a href="/mp_companies/<%= @mp_company.id %>/edit" class="btn btn-warning">
                 <i class="fa fa-edit"></i>
               </a>
+              <% if current_user.access_id < 3 %>
+                <%= render('shared/delete_mp_company_modal', :mp_company => @mp_company)%>
+              <% end %>
 
             </div>
           </div>

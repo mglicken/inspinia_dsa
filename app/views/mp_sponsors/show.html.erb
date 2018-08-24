@@ -21,11 +21,12 @@
               <a href="/seasers/<%= @mp_sponsor.mp_id %>" class="btn btn-primary">
                 <i class="fa fa-reply"></i>
               </a>
-
               <a href="/mp_sponsors/<%= @mp_sponsor.id %>/edit" class="btn btn-warning">
                 <i class="fa fa-edit"></i>
               </a>
-
+              <% if current_user.access_id < 3 %>
+                <%= render('shared/delete_mp_sponsor_modal', :mp_sponsor => @mp_sponsor)%>
+              <% end %>
             </div>
           </div>
         </div>

@@ -1,72 +1,46 @@
 
-<!-- Button trigger modal -->
+<% if @loi.present? %>
+<div class="btn btn-danger" data-toggle="modal" data-target="#myModalDeleteLOI_<%= loi.id %>">
+  <i class="fa fa-trash-o"></i>
+</div>
+<%else%>
 <div class="btn btn-xs" data-toggle="modal" data-target="#myModalDeleteLOI_<%= loi.id %>" style="color:black;">
   <i class="fa fa-times"></i>
 </div>
-
-<!-- Modal -->
-<div class="modal fade" id="myModalDeleteLOI_<%= loi.id %>" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        <h4 class="modal-title" id="myModalLabel"><%= loi.name%></h4>
-      </div>
-      <div class="modal-body">
+<%end%>
 
 
+<div class="modal inmodal fade" id="myModalDeleteLOI_<%= loi.id %>" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-md">
+        <div class="modal-content">
+             <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                <h4 class="modal-title" >Remove <%= loi.name %></h4>
+                <small class="font-bold">Remove <strong><%= loi.name %></strong>.</small>
+            </div>
+            <div class="modal-body">
 
-<!-- Validation failure messages -->
-
-<% if loi.errors.any? %>
-  <% loi.errors.full_messages.each do |message| %>
-    <div class="alert alert-dismissable alert-danger">
-      <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-      <%= message %>
-    </div>
-  <% end %>
-<% end %>
-
-<!-- Responsive panel example -->
-
-<div class="row">
-  <div class="col-lg-12">
-    <div class="panel panel-default">
-      <div class="panel-heading">
-        <h3 class="panel-title">Delete CIP Sponsor</h3>
-      </div>
-      <div class="panel-body">
-
-        <form enctype="multipart/form-data" action="/delete_loi/<%= loi.id %>" method="get" class="form-horizontal">
-          <!-- Hidden input for authenticity token to protect from forgery -->
-          <input name="authenticity_token" type="hidden" value="<%= form_authenticity_token %>">
+          <% if loi.errors.any? %>
+            <% loi.errors.full_messages.each do |message| %>
+              <div class="alert alert-dismissable alert-danger">
+                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                <%= message %>
+              </div>
+            <% end %>
+          <% end %>
 
           <h3 text-align="center"><p>Are you sure you want to delete <span font-weight="bold"><%= loi.name %></span>?<p>
           <p><small>Once it is deleted, any content associated with it will be destroyed!!!</small></p></h3>
 
 
-          <div class="form-group pull-left">
-            <div class="col-sm-offset-2 col-sm-10">
-              <button class="btn btn-danger">
-                Delete LOI
-              </button>
             </div>
-          </div>
+            <div class="modal-footer">
 
-        </form>
-
-      </div>
+                    <a class="btn btn-danger" href="/delete_loi/<%=loi.id %>">
+                      Delete LOI
+                    </a>
+                    <button type="button" class="btn btn-white" data-dismiss="modal">Close</button>
+            </div>
+        </div>
     </div>
-  </div>
-</div>
-
-<!-- End responsive panel example -->
-
-
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-      </div>
-    </div>
-  </div>
 </div>
