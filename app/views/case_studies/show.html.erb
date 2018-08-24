@@ -21,7 +21,9 @@
             <div class="btn-group btn-group-justified">
 
               <%= render('shared/edit_case_study_modal', :case_study => @case_study)%>
-
+              <% if current_user.access_id < 3 %>
+                <%= render('shared/delete_case_study_modal', :case_study => @case_study)%>
+              <% end %>
             </div>
           </div>
         </div>

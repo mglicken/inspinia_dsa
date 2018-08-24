@@ -7,10 +7,10 @@
             <div class="modal-header">
               <% if sponsor.nil? %>        
                 <h4 class="modal-title">Add Person</h4>
-                <small class="font-bold">Add a sponsor history to <%= person.name%> </small>
+                <small class="font-bold">Add a sponsor history for a person at <%= sponsor.name%> </small>
               <% else %>
                 <h4 class="modal-title">Add Sponsor</h4>
-                <small class="font-bold">Add a sponsor history for a person at <%= sponsor.name%> </small>
+                <small class="font-bold">Add a sponsor history to <%= person.name%> </small>
               <% end %>
             </div>
             <div class="modal-body">

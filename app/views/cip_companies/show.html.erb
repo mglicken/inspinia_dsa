@@ -17,13 +17,16 @@
 
             </dl>
             <div class="btn-group btn-group-justified">
-              <a href="/seasers/<%= @cip_company.cip_id %>" class="btn btn-primary">
+              <a href="/cips/<%= @cip_company.cip_id %>" class="btn btn-primary">
                 <i class="fa fa-reply"></i>
               </a>
 
               <a href="/cip_companies/<%= @cip_company.id %>/edit" class="btn btn-warning">
                 <i class="fa fa-edit"></i>
               </a>
+              <% if current_user.access_id < 3 %>
+                <%= render('shared/delete_cip_company_modal', :cip_company => @cip_company)%>
+              <% end %>
 
             </div>
           </div>
