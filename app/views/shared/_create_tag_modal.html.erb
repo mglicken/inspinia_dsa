@@ -10,36 +10,29 @@
   </div>
 <% end %>
 
-<!-- Modal -->
-<div class="modal fade" id="myModalCreateTag" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        <h4 class="modal-title" id="myModalLabel">Add Tag</h4>
-      </div>
-      <div class="modal-body">
+<div class="modal inmodal fade" id="myModalCreateTag" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-sm">
+        <div class="modal-content">
+          <form enctype="multipart/form-data" action="/create_tag/" method="post" class="form-horizontal">
+            <div class="modal-header">
+              <h4 class="modal-title">Create Tag</h4>
+                <small class="font-bold">Add a new searchable tag for slides</small>
+            </div>
+            <div class="modal-body">
 
 
-<!-- Validation failure messages -->
-<% if @tag.blank?%>
-  <% @tag = Tag.new %>
-<% end %>
-<% if @tag.errors.any? %>
-  <% @tag.errors.full_messages.each do |message| %>
-    <div class="alert alert-dismissable alert-danger">
-      <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-      <%= message %>
-    </div>
-  <% end %>
-<% end %>
-
-<!-- Responsive panel example -->
-<div class="row">
-  <div class="col-sm-offset-0 col-sm-12 col-md-offset-0 col-md-12">
-    <div class="panel panel-default">
-      <div class="panel-body">
-        <form enctype="multipart/form-data" action="/create_tag" method="post" class="form-horizontal">
+          <!-- Validation failure messages -->
+          <% if @tag.blank?%>
+            <% @tag = Tag.new %>
+          <% end %>
+          <% if @tag.errors.any? %>
+            <% @tag.errors.full_messages.each do |message| %>
+              <div class="alert alert-dismissable alert-danger">
+                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                <%= message %>
+              </div>
+            <% end %>
+          <% end %>
 
 
           <!-- Hidden input for authenticity token to protect from forgery -->
@@ -56,26 +49,18 @@
             </div>
           </div>
 
-          <div class="form-group">
-            <div class="col-sm-offset-2 col-sm-10">
-              <button class="btn btn-lincoln">
-                Add Tag
-              </button>
             </div>
-          </div>
+            <div class="modal-footer">
 
-        </form>
+                <div class="form-group">
+                    <button class="btn btn-lincoln">
+                      Add Tag
+                    </button>
+                    <button type="button" class="btn btn-white" data-dismiss="modal">Close</button>
+                </div>
 
-      </div>
+            </div>
+        </div>
+      </form>
     </div>
-  </div>
-</div>
-
-<!-- End responsive panel example -->
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-      </div>
-    </div>
-  </div>
 </div>

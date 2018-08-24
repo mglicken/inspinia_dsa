@@ -4,36 +4,31 @@
   <i class="fa fa-plus"></i>
 </div>
 
-<!-- Modal -->
-<div class="modal fade" id="myModalCreateSubsidiary" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        <h4 class="modal-title" id="myModalLabel">Add <%= @company.name%> Subsidiary</h4>
-      </div>
-      <div class="modal-body">
+<div class="modal inmodal fade" id="myModalCreateSubsidiary" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-sm">
+        <div class="modal-content">
+          <form enctype="multipart/form-data" action="/create_subsidiary/" method="post" class="form-horizontal">
+            <div class="modal-header">
+                <h4 class="modal-title" id="myModalLabel">Add <%= @company.name%> Subsidiary</h4>
+                <small class="font-bold">Add a new subsidiary to <%= @company.name%></small>
+            </div>
+            <div class="modal-body">
 
-<!-- Validation failure messages -->
+          <!-- Validation failure messages -->
 
-<% if @subsidiary.blank?%>
-  <% @subsidiary = Subsidiary.new %>
-<% end %>
-<% if @subsidiary.errors.any? %>
-  <% @subsidiary.errors.full_messages.each do |message| %>
-    <div class="alert alert-dismissable alert-danger">
-      <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-      <%= message %>
-    </div>
-  <% end %>
-<% end %>
-
-<!-- Responsive panel example -->
-
-<div class="row">
+          <% if @subsidiary.blank?%>
+            <% @subsidiary = Subsidiary.new %>
+          <% end %>
+          <% if @subsidiary.errors.any? %>
+            <% @subsidiary.errors.full_messages.each do |message| %>
+              <div class="alert alert-dismissable alert-danger">
+                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                <%= message %>
+              </div>
+            <% end %>
+          <% end %>
 
 
-        <form enctype="multipart/form-data" action="/create_subsidiary" method="post" class="form-horizontal">
           <!-- Hidden input for authenticity token to protect from forgery -->
           <input name="authenticity_token" type="hidden" value="<%= form_authenticity_token %>">
 
@@ -41,12 +36,14 @@
 
             <!-- Label and input for Subsidiary -->
             <div class="form-group">
-              <h5><label for="child_id" class="col-sm-2 control-label">
+              <h5><label for="sponsor_id" class="col-lg-2 control-label">
                 Subsidiary
               </label></h5>
-              <div class="col-sm-10">
-                <%= select_tag :child_id, options_from_collection_for_select(Company.all.order("name ASC"), :id, :name, @subsidiary.child_id), :class => "form-control" %>
-              </div>
+              <select name="sponsor_id" data-placeholder="Select Company..." class="select2 form-control"  tabindex="2" style="width:80%">
+                <% Company.where(id: (Company.ids - [@company.id])).order("name asc").each do |company| %>
+                <option value="<%=company.id %>"><%=company.name %></option>
+                <% end %>
+              </select>
             </div>
 
           <!-- Label and input for Acquisition Date -->
@@ -79,23 +76,30 @@
             </div>
           </div>
 
-          <div class="form-group">
-            <div class="col-sm-offset-2 col-sm-10">
-              <button class="btn btn-lincoln">
-                Create Subsidiary
-              </button>
             </div>
-          </div>
+            <div class="modal-footer">
 
-        </form>
-</div>
+                <div class="form-group">
+                    <button class="btn btn-lincoln">
+                      Add Subsidiary
+                    </button>
+                    <button type="button" class="btn btn-white" data-dismiss="modal">Close</button>
+                </div>
 
-<!-- End responsive panel example -->
-
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-      </div>
+            </div>
+        </div>
+      </form>
     </div>
-  </div>
 </div>
+
+<script type="text/javascript">
+$(function() {
+   
+  $(".select2").select2({
+
+    dropdownCssClass: "increasedzindexclass",
+    
+  });
+
+});
+</script>
