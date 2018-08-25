@@ -4,95 +4,84 @@
   <strong style="word-wrap: break-word; text-align: center"><%= bucket.title%></strong>
 </div>
 
-<!-- Modal -->
-<div class="modal fade" id="myModalEditBucket_<%= bucket.id %>" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        <h4 class="modal-title" id="myModalLabel" style="color:#676767"><%= bucket.nbp.name %> Category</h4>
-      </div>
-      <div class="modal-body">
+<div class="modal inmodal fade" id="myModalEditBucket_<%=bucket.id %>" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-sm" style="color:#676767">
+        <div class="modal-content">
+          <form enctype="multipart/form-data" action="/update_bucket/<%= bucket.id %>" method="post" class="form-horizontal">
+            <div class="modal-header" >
+                <h4 class="modal-title">Create a Bucket Category</h4>
+                <small class="font-bold">Add a new bucket category to the strategic acquirer list</small>
+            </div>
+            <div class="modal-body">
 
+          <% if bucket.errors.any? %>
+            <% bucket.errors.full_messages.each do |message| %>
+              <div class="alert alert-dismissable alert-danger">
+                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                <%= message %>
+              </div>
+            <% end %>
+          <% end %>
 
-
-<% if bucket.errors.any? %>
-  <% bucket.errors.full_messages.each do |message| %>
-    <div class="alert alert-dismissable alert-danger">
-      <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-      <%= message %>
-    </div>
-  <% end %>
-<% end %>
-
-<!-- Responsive panel example -->
-
-<div class="row">
-  <div class="col-sm-offset-0 col-sm-12 col-md-offset-0 col-md-12">
-    <div class="panel panel-default">
-      <div class="panel-body" style="color:#000000;font-size: 12px">
-
-        <form enctype="multipart/form-data" action="/update_bucket/<%= bucket.id %>" method="post" class="form-horizontal">
           <!-- Hidden input for authenticity token to protect from forgery -->
           <input name="authenticity_token" type="hidden" value="<%= form_authenticity_token %>">
 
-
                    <!-- Label and input for Title -->
           <div class="form-group">
-            <label for="title" class="col-sm-2 control-label" >
+            <label for="title" class="col-lg-2 control-label" >
               Bucket:
             </label>
-            <div class="col-sm-10">
+            <div class="col-lg-10">
               <input type="string" id="title" name="title" placeholder="e.g., Industrial Companies" class="form-control" value="<%= bucket.title %>">
             </div>
           </div>
           
-          <%if nbp.nil?%>
-          <!-- Label and input for Sponsor -->
-            <div class="form-group">
-              <h5><label for="nbp_id" class="col-sm-2 control-label">
-                NBP
-              </label></h5>
-              <div class="col-sm-10">
-                <%= select_tag :nbp_id, options_from_collection_for_select(Nbp.all.order("name ASC"), :id, :name, bucket.nbp_id), :class => "form-control" %>
-              </div>
-            </div>
-          <%else%>
+          <!-- Label and input for NBP -->
+          <%if nbp.present?%>
             <input name="nbp_id" type="hidden" value="<%= nbp.id%>">
+          <%else%>
+          <div class="form-group">
+            <h5><label for="nbp_id" class="col-lg-2 control-label">
+              NBP
+            </label></h5>
+            <select name="nbp_id" data-placeholder="Select NBP..." class="select2 form-control"  tabindex="2" style="width:80%">
+              <% Nbp.order("name asc").each do |nbp| %>
+              <option value="<%=nbp.id %>"><%=nbp.name %></option>
+              <% end %>
+            </select>
+          </div>
           <%end%>
 
           <!-- Label and input for Strategic Rationale -->
           <div class="form-group">
-            <label for="rationale" class="col-sm-2 control-label">
+            <label for="rationale" class="col-lg-2 control-label">
               Strategic Rationale:
             </label>
-            <div class="col-sm-10">
+            <div class="col-lg-10">
               <textarea id="rationale" name="rationale" placeholder="e.g., Synergies... " class="form-control" rows="10"><%= bucket.rationale %></textarea>
             </div>
           </div>
 
+            </div>
+            <div class="modal-footer">
 
-          <div class="form-group">
-            <div class="col-sm-offset-2 col-sm-10">
-              <button class="btn btn-warning">
-                Update Bucket Category
-              </button>
+                <div class="form-group">
+                    <button class="btn btn-lincoln">
+                      Update Bucket Category
+                    </button>
+                    <button type="button" class="btn btn-white" data-dismiss="modal">Close</button>
+                </div>
 
             </div>
-          </div>
-
-        </form>
-
-      </div>
+        </div>
+      </form>
     </div>
-  </div>
 </div>
 
-
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-      </div>
-    </div>
-  </div>
-</div>
+<script type="text/javascript">
+$(function() {
+  $(".select2").select2({
+    dropdownCssClass: "increasedzindexclass",   
+  });
+});
+</script>

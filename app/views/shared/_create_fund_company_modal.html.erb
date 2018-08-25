@@ -38,8 +38,10 @@
           <input name="authenticity_token" type="hidden" value="<%= form_authenticity_token %>">
 
 
-          <% if fund.blank? %>
             <!-- Label and input for Fund -->
+          <% if fund.present? %>
+            <input name="fund_id" type="hidden" value="<%= fund.id %>">
+          <%else%>
             <div class="form-group">
               <h5><label for="fund_id" class="col-lg-2 control-label">
                 Fund
@@ -48,13 +50,13 @@
                 <%= select_tag :fund_id, options_from_collection_for_select(Fund.all.order("name ASC"), :id, :name, @fund_company.fund_id), :class => "form-control" %>
               </div>
             </div>
-          <%else%>
-            <input name="fund_id" type="hidden" value="<%= fund.id %>">
           <% end %>
 
 
-          <% if company.blank? %>
             <!-- Label and input for Company -->
+          <% if company.present? %>
+            <input name="company_id" type="hidden" value="<%= company.id %>">
+          <%else%>
             <div class="form-group">
               <h5><label for="company_id" class="col-lg-2 control-label">
                 Company
@@ -63,8 +65,6 @@
                 <%= select_tag :company_id, options_from_collection_for_select(Company.all.order("name ASC"), :id, :name, @fund_company.company_id), :class => "form-control" %>
               </div>
             </div>
-          <%else%>
-            <input name="company_id" type="hidden" value="<%= company.id %>">
           <% end %>
 
           <!-- Label and input for Acquisition Date -->

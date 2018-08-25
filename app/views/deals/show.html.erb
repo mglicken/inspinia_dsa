@@ -1,5 +1,6 @@
 <%= render('show_header') %>
-  
+
+<div class="row">  
   <%= render('shared/add_company_to_engagement_modal', deal: @deal, company: Company.none )%>
   <%= render('shared/add_sponsor_to_engagement_modal', deal: @deal, sponsor: Sponsor.none )%>
   <%= render('shared/create_nbp_modal', deal: @deal)%>
@@ -7,8 +8,7 @@
   <%= render('shared/create_mp_modal', deal: @deal)%>
   <a class="btn btn-lincoln" href="/deals/<%= @deal.id %>/qoves">Quality of Earnings</a>
   <a class="btn btn-lincoln" href="/deals/<%= @deal.id %>/market_studies">Market Studies</a>
-
-<br>
+</div>
 <br>
 <%= render('view_people') %>
 <%= render('view_advisors') %>
