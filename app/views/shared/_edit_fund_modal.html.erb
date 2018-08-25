@@ -4,41 +4,27 @@
   <i class="fa fa-edit"></i>
 </div>
 
-<!-- Modal -->
-<div class="modal fade" id="myModalEditFund_<%= fund.id %>" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        <h4 class="modal-title" id="myModalLabel">Edit Fund Details</h4>
-      </div>
-      <div class="modal-body">
+<div class="modal inmodal fade" id="myModalEditFund_<%=case_study.id %>" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+          <form enctype="multipart/form-data" action="/update_fund_company/<%= fund_company.id %>" method="post" class="form-horizontal">
+            <div class="modal-header">
+                <h4 class="modal-title">Update Fund Company</h4>
+                <small class="font-bold">Update fund or company.</small>
+            </div>
+            <div class="modal-body">
 
+          <% if fund.errors.any? %>
+            <% fund.errors.full_messages.each do |message| %>
+              <div class="alert alert-dismissable alert-danger">
+                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                <%= message %>
+              </div>
+            <% end %>
+          <% end %>
 
-
-<% if fund.errors.any? %>
-  <% fund.errors.full_messages.each do |message| %>
-    <div class="alert alert-dismissable alert-danger">
-      <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-      <%= message %>
-    </div>
-  <% end %>
-<% end %>
-
-<!-- Responsive panel example -->
-
-<div class="row">
-  <div class="col-sm-offset-0 col-sm-12 col-md-offset-0 col-md-12">
-    <div class="panel panel-default">
-      <div class="panel-heading">
-        <h3 class="panel-title"><%= fund.name %> (#<%= fund.id %>)</h3>
-      </div>
-      <div class="panel-body">
-
-        <form enctype="multipart/form-data" action="/update_fund/<%= fund.id %>" method="post" class="form-horizontal">
           <!-- Hidden input for authenticity token to protect from forgery -->
           <input name="authenticity_token" type="hidden" value="<%= form_authenticity_token %>">
-
 
           <!-- Label and input for Fund Name -->
           <div class="form-group">
@@ -52,12 +38,14 @@
           
           <!-- Label and input for Sponsor -->
           <div class="form-group">
-            <h5><label for="company_id" class="col-sm-2 control-label">
+            <h5><label for="sponsor_id" class="col-lg-2 control-label">
               Sponsor
             </label></h5>
-            <div class="col-sm-10">
-              <%= select_tag :sponsor_id, options_from_collection_for_select(Sponsor.all.order("name ASC"), :id, :name, fund.sponsor_id), :class => "form-control" %>
-            </div>
+            <select name="sponsor_id" data-placeholder="Select Sponsor..." class="select2 form-control"  tabindex="2" style="width:80%">
+              <% Sponsor.order("name asc").each do |sponsor| %>
+              <option value="<%=sponsor.id %>"><%=sponsor.name %></option>
+              <% end %>
+            </select>
           </div>
 
           <div class="checkbox-inline">
@@ -104,28 +92,22 @@
             </div>
           </div>          
 
-
-          <div class="form-group">
-            <div class="col-sm-offset-2 col-sm-10">
-              <button class="btn btn-warning">
-                Update Fund
-              </button>
-
             </div>
-          </div>
-
-        </form>
-
-      </div>
+            <div class="modal-footer">
+              <div class="form-group">
+                <button type="button" class="btn btn-white" data-dismiss="modal">Close</button>
+                <button class="btn btn-lincoln" style="margin-right: 10px;">Update</button>
+              </div>
+            </div>
+          </form>
+        </div>
     </div>
-  </div>
 </div>
 
-
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-      </div>
-    </div>
-  </div>
-</div>
+<script type="text/javascript">
+$(function() {
+  $(".select2").select2({
+    dropdownCssClass: "increasedzindexclass",
+  });
+});
+</script>
