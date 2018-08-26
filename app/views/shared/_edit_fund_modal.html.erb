@@ -4,13 +4,13 @@
   <i class="fa fa-edit"></i>
 </div>
 
-<div class="modal inmodal fade" id="myModalEditFund_<%=case_study.id %>" role="dialog" aria-hidden="true">
+<div class="modal inmodal fade" id="myModalEditFund_<%=fund.id %>" role="dialog" aria-hidden="true">
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
-          <form enctype="multipart/form-data" action="/update_fund_company/<%= fund_company.id %>" method="post" class="form-horizontal">
+          <form enctype="multipart/form-data" action="/update_fund/<%= fund.id %>" method="post" class="form-horizontal">
             <div class="modal-header">
-                <h4 class="modal-title">Update Fund Company</h4>
-                <small class="font-bold">Update fund or company.</small>
+                <h4 class="modal-title">Update Fund</h4>
+                <small class="font-bold">Update <%= fund.name %>.</small>
             </div>
             <div class="modal-body">
 
