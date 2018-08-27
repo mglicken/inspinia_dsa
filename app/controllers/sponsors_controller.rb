@@ -105,7 +105,7 @@ before_action :ensure_view_access,  only: [:show, :search]
     @teaser_sponsors = @sponsor.teaser_sponsors.joins(:sponsor).order("name ASC")
     @cip_sponsors = @sponsor.cip_sponsors.joins(:sponsor).order("name ASC")
     @mp_sponsors = @sponsor.mp_sponsors.joins(:sponsor).order("name ASC")
-    @country == params[:country]
+    @country = params[:country]
 
     if @country == "United States of America"
       @scope = "usa"

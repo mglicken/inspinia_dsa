@@ -67,7 +67,7 @@
             <% else %>
               <td></td>
             <% end %>
-            <td><%= render('shared/create_nbp_modal', deal: nil) %></td>  
+            <td><%= render('shared/create_nbp_modal', deal: Deal.none) %></td>  
           </tr>
           <tr>
             <td>CIPS</td>
@@ -95,7 +95,7 @@
             <% else %>
               <td></td>
             <% end %>
-            <td><%= render('shared/create_cip_modal') %></td>  
+            <td><%= render('shared/create_cip_modal', deal: Deal.none) %></td>  
           </tr>
           <tr>
             <td>MPs</td>
@@ -123,7 +123,7 @@
             <% else %>
               <td></td>
             <% end %>
-            <td><%= render('shared/create_mp_modal') %></td>  
+            <td><%= render('shared/create_mp_modal', deal: Deal.none) %></td>  
           </tr>
           <tr>
             <td>Companies</td>
@@ -207,7 +207,7 @@
             <% else %>
               <td></td>
             <% end %>
-            <td><%= render('shared/create_fund_modal', sponsor: 0) %></td>
+            <td><%= render('shared/create_fund_modal', sponsor: Sponsor.none) %></td>
           </tr>
           <tr>
             <td>People</td>

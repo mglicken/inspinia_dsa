@@ -52,17 +52,17 @@
           </div>
           
             <!-- Label and input for sponsor -->
-         <% if sponsor == 0 %>
-          <div class="form-group">
-            <h5><label for="sponsor_id" class="col-sm-2 control-label">
-              Sponsor
-            </label></h5>
-            <div class="col-sm-10">
-              <%= select_tag :sponsor_id, options_from_collection_for_select(Sponsor.all.order("name ASC"), :id, :name, @fund.sponsor_id), :class => "form-control" %>
-            </div>
-          </div>
-          <%else%>
+         <% if sponsor.present? %>
             <input name="sponsor_id" type="hidden" value="<%= sponsor.id %>">
+          <%else%>
+            <div class="form-group">
+              <h5><label for="sponsor_id" class="col-sm-2 control-label">
+                Sponsor
+              </label></h5>
+              <div class="col-sm-10">
+                <%= select_tag :sponsor_id, options_from_collection_for_select(Sponsor.all.order("name ASC"), :id, :name, @fund.sponsor_id), :class => "form-control" %>
+              </div>
+            </div>
           <% end %>
 
 

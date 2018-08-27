@@ -38,7 +38,6 @@ before_action :ensure_view_access,  only: [:index, :search, :show]
 
   def company_query
     @company = Company.find(params[:company_id])
-    @country = params[:country]
     if @country.present?
       if @country == world
         @locations = @company.locations
