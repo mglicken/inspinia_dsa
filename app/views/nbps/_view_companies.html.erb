@@ -1,8 +1,16 @@
 
-<% number_buckets = @buckets.count %>
-<% size_perc = "#{100/@buckets.count - 5}%"%> 
-<% size = "#{12/ @buckets.count }" %>
-<% size_px = "#{1780/ @buckets.count }px" %>
+<%
+number_buckets = @buckets.count
+if number_buckets == 0
+  size_perc = "#{100/@buckets.count - 5}%"
+  size = "#{12/ @buckets.count }"
+  size_px = "#{1780/ @buckets.count }px"
+else
+  size_perc = "100%"
+  size = "12"
+  size_px = "1780px"
+end
+%>
 <div style="margin:20px">
 
  <%= render('view_bucket_labels', buckets: @buckets, nbp: @nbp, size: size, size_px: size_px) %>
