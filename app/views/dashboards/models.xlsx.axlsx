@@ -802,6 +802,20 @@ wb.add_worksheet(name: "sponsor_histories") do |sheet|
 		sheet.add_row content_row
 	end
 end
+wb.add_worksheet(name: "sponsor_locations") do |sheet|
+	title_row = []
+	@sponsor_locations.column_names.each do |column|
+		title_row.push(column)
+	end
+	sheet.add_row title_row
+	@sponsor_locations.each do |sponsor_location|
+		content_row = []
+		sponsor_location.class.column_names.each do |column|
+			content_row.push(sponsor_location[column])
+		end
+		sheet.add_row content_row
+	end
+end
 wb.add_worksheet(name: "sponsor_notes") do |sheet|
 	title_row = []
 	@sponsor_notes.column_names.each do |column|
