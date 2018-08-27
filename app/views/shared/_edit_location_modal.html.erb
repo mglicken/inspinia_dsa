@@ -1,5 +1,5 @@
   <!-- Button trigger modal -->
-<% if @company.present? %>
+<% if @company.present? || @sponsor.present? %>
   <div class="btn btn-md" style="color:white" data-toggle="modal" data-target="#myModalEditLocation_<%=location.id %>">
     <i class="fa fa-edit"></i>
   </div>
@@ -64,8 +64,13 @@
                   </div>
               </div>
 
-              <!-- Label and input for Company ID -->
-              <input type="hidden" name="company_id" value="<%= location.company.id%>">
+              <% if @company.present? %>
+                <input type="hidden" name="company_id" value="<%= @company.id%>">
+                <input type="hidden" name="sponsor_id" value="zzz">
+              <% elsif @sponsor.present? %>
+                <input type="hidden" name="company_id" value="zzz">
+                <input type="hidden" name="sponsor_id" value="<%= @sponsor.id%>">
+              <% end %>
 
                                  
               <!-- Label and input for name -->

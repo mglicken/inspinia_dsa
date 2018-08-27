@@ -1,7 +1,7 @@
 <!-- Validation failure messages -->
 
-<% if @company_location.errors.any? %>
-  <% @company_location.errors.full_messages.each do |message| %>
+<% if @sponsor_location.errors.any? %>
+  <% @sponsor_location.errors.full_messages.each do |message| %>
     <div class="alert alert-dismissable alert-danger">
       <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
       <%= message %>
@@ -14,14 +14,14 @@
 <div class="row">
   <div class="col-sm-offset-1 col-sm-10 col-md-offset-2 col-md-8">
     <div class="panel panel-default">
+  
       <div class="panel-heading">
-        <h3 class="panel-title">Add Company Location</h3>
+        <h3 class="panel-title">Edit Sponsor Location</h3>
       </div>
       <div class="panel-body">
-        <form action="/create_company_location" method="post" class="form-horizontal">
+        <form action="/update_sponsor_location/<%= @sponsor_location.id %>" method="post" class="form-horizontal">
           <!-- Hidden input for authenticity token to protect from forgery -->
           <input name="authenticity_token" type="hidden" value="<%= form_authenticity_token %>">
-
 
           <!-- Label and input for Location ID -->
           <div class="form-group">
@@ -29,27 +29,27 @@
               Location ID
             </label>
             <div class="col-sm-10">
-              <input type="integer" id="location_id" name="location_id" placeholder="e.g., 17" class="form-control" value="<%= @company_location.location_id %>">
+              <input type="integer" id="location_id" name="location_id" placeholder="e.g., 17" class="form-control" value="<%= @sponsor_location.location_id %>">
             </div>
           </div>
 
-          <!-- Label and input for Company ID -->
+          <!-- Label and input for Sponsor ID -->
           <div class="form-group">
-            <label for="company_id" class="col-sm-2 control-label">
-              Company ID
+            <label for="sponsor_id" class="col-sm-2 control-label">
+              Sponsor ID
             </label>
             <div class="col-sm-10">
-              <input type="integer" id="company_id" name="company_id" placeholder="e.g., 17" class="form-control" value="<%= @company_location.company_id %>">
+              <input type="integer" id="sponsor_id" name="sponsor_id" placeholder="e.g., 17" class="form-control" value="<%= @sponsor_location.sponsor_id %>">
             </div>
           </div>
 
           <div class="form-group">
             <div class="col-sm-offset-2 col-sm-10">
-              <button class="btn btn-success">
-                Create Company Location
+              <button class="btn btn-warning">
+                Update Sponsor Location
               </button>
               or
-              <a href="/companies/<%= @company_location.company_id%>">Cancel</a>
+              <a href="/sponsor_locations/<%= @sponsor_location.id %>">Cancel</a>
             </div>
           </div>
         </form>
@@ -57,5 +57,6 @@
     </div>
   </div>
 </div>
+
 
 <!-- End responsive panel example -->

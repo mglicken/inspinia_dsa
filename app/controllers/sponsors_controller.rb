@@ -105,8 +105,107 @@ before_action :ensure_view_access,  only: [:show, :search]
     @teaser_sponsors = @sponsor.teaser_sponsors.joins(:sponsor).order("name ASC")
     @cip_sponsors = @sponsor.cip_sponsors.joins(:sponsor).order("name ASC")
     @mp_sponsors = @sponsor.mp_sponsors.joins(:sponsor).order("name ASC")
-   
-   end
+    @country == params[:country]
+
+    if @country == "United States of America"
+      @scope = "usa"
+      @locations = @sponsor.locations.where(country: "United States of America")
+    elsif @country == "Aruba"
+      @scope = "abw"
+      @locations = @sponsor.locations.where(country: "Aruba")
+    elsif @country == "Afghanistan"
+      @scope = "afg"
+      @locations = @sponsor.locations.where(country: "Afghanistan")
+    elsif @country == "Angola"
+      @scope = "ago"
+      @locations = @sponsor.locations.where(country: "Angola")
+    elsif @country == "Anguilla"
+      @scope = "aia"
+      @locations = @sponsor.locations.where(country: "Anguilla")
+    elsif @country == "Aland Islands"
+      @scope = "ala"
+      @locations = @sponsor.locations.where(country: "Anguilla")
+    elsif @country == "Albania"
+      @scope = "alb"
+      @locations = @sponsor.locations.where(country: "Albania")
+    elsif @country == "Andorra"
+      @scope = "and"
+      @locations = @sponsor.locations.where(country: "Andorra")
+    elsif @country == "United Arab Emirates"
+      @scope = "are"
+      @locations = @sponsor.locations.where(country: "United Arab Emirates")
+    elsif @country == "Argentina"
+      @scope = "arg"
+      @locations = @sponsor.locations.where(country: "Argentina")
+    elsif @country == "Armenia"
+      @scope = "arm"
+      @locations = @sponsor.locations.where(country: "Armenia")
+    elsif @country == "American Samoa"
+      @scope = "asm"
+      @locations = @sponsor.locations.where(country: "American Samoa")
+    elsif @country == "Antarctica"
+      @scope = "ata"
+      @locations = @sponsor.locations.where(country: "Antarctica")
+    elsif @country == "French Southern Territories"
+      @scope = "atf"
+      @locations = @sponsor.locations.where(country: "French Southern Territories")
+    elsif @country == "XXXXXX"
+      @scope = "xxx"
+      @locations = @sponsor.locations.where(country: "XXXXXX")
+    elsif @country == "XXXXXX"
+      @scope = "xxx"
+      @locations = @sponsor.locations.where(country: "XXXXXX")
+    elsif @country == "XXXXXX"
+      @scope = "xxx"
+      @locations = @sponsor.locations.where(country: "XXXXXX")
+    elsif @country == "XXXXXX"
+      @scope = "xxx"
+      @locations = @sponsor.locations.where(country: "XXXXXX")
+    elsif @country == "XXXXXX"
+      @scope = "xxx"
+      @locations = @sponsor.locations.where(country: "XXXXXX")
+    elsif @country == "XXXXXX"
+      @scope = "xxx"
+      @locations = @sponsor.locations.where(country: "XXXXXX")
+    elsif @country == "XXXXXX"
+      @scope = "xxx"
+      @locations = @sponsor.locations.where(country: "XXXXXX")
+    elsif @country == "XXXXXX"
+      @scope = "xxx"
+      @locations = @sponsor.locations.where(country: "XXXXXX")
+    elsif @country == "XXXXXX"
+      @scope = "xxx"
+      @locations = @sponsor.locations.where(country: "XXXXXX")
+    elsif @country == "XXXXXX"
+      @scope = "xxx"
+      @locations = @sponsor.locations.where(country: "XXXXXX")
+    elsif @country == "XXXXXX"
+      @scope = "xxx"
+      @locations = @sponsor.locations.where(country: "XXXXXX")
+    elsif @country == "XXXXXX"
+      @scope = "xxx"
+      @locations = @sponsor.locations.where(country: "XXXXXX")
+    elsif @country == "XXXXXX"
+      @scope = "xxx"
+      @locations = @sponsor.locations.where(country: "XXXXXX")
+    elsif @country == "XXXXXX"
+      @scope = "xxx"
+      @locations = @sponsor.locations.where(country: "XXXXXX")
+    elsif @country == "Venezuela"
+      @scope = "ven"
+      @locations = @sponsor.locations.where(country: "Venezuela")
+    elsif @country == "Brazil"
+      @scope = "bra"
+      @locations = @sponsor.locations.where(country: "Brazil")
+    elsif @country == "Canada"
+      @scope = "can"
+      @locations = @sponsor.locations.where(country: "Canada")
+    else
+      @country = "world"
+      @scope = "world"
+      @locations = @sponsor.locations
+    end
+  end
 
   def new
     @sponsor = Sponsor.new

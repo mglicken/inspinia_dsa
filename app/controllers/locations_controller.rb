@@ -36,10 +36,52 @@ before_action :ensure_view_access,  only: [:index, :search, :show]
     end
   end
 
-  def index_query
+  def company_query
     @company = Company.find(params[:company_id])
+    @country = params[:country]
+    if @country.present?
+      if @country == world
+        @locations = @company.locations
+      else
+        @locations = @company.locations.where(country: @country)
+      end
+    else
+      @locations = @company.locations
+    end
     @query_locations = []
-    @company.locations.each do |location|
+    @locations.each do |location|
+      loc = Hash.new
+      loc[:id] = location.id
+      loc[:name] = location.name
+      loc[:radius] = 7
+      loc[:fillKey] = 'active'
+      loc[:street] = location.street
+      loc[:city] = location.city
+      loc[:state] = location.state
+      loc[:zip] = location.zip
+      loc[:country] = location.country
+      loc[:latitude] = location.latitude
+      loc[:longitude] = location.longitude
+      @query_locations.push(loc)
+    end 
+    respond_to do |format|
+      format.json {send_data @query_locations.to_json}
+    end
+  end
+
+  def sponsor_query
+    @sponsor = Sponsor.find(params[:sponsor_id])
+    if @country.present?
+      if @country == world
+        @locations = @sponsor.locations
+      else
+        @locations = @sponsor.locations.where(country: @country)
+      end
+    else
+      @locations = @sponsor.locations
+    end
+    @query_locations = []
+    @locations.each do |location|
       loc = Hash.new
       loc[:id] = location.id
       loc[:name] = location.name
@@ -69,7 +111,16 @@ before_action :ensure_view_access,  only: [:index, :search, :show]
 
   def create
     @location = Location.new
-    @company = Company.find(params[:company_id])
+    if params[:company_id] == "zzz"
+      @company = Company.none
+    else
+      @company = Company.find(params[:company_id])
+    end
+    if params[:sponsor_id] == "zzz"
+      @sponsor = Sponsor.none
+    else
+      @sponsor = Sponsor.find(params[:sponsor_id])
+    end
     @location.owned = params[:owned]
     @location.leased = params[:leased]
     @location.name = params[:name]
@@ -86,12 +137,21 @@ before_action :ensure_view_access,  only: [:index, :search, :show]
       @location.web_address = "http://#{params[:web_address]}"
     end
     if @location.save
-      @company_location = CompanyLocation.new
-      @company_location.company_id = @company.id
-      @company_location.location_id = @location.id
-      @company_location.save
+      if @company.present?
+        @company_location = CompanyLocation.new
+        @company_location.company_id = @company.id
+        @company_location.location_id = @location.id
+        @company_location.save
 
-      redirect_to "/companies/#{@company.id}", :notice => "Location created successfully."
+        redirect_to "/companies/#{@company.id}", :notice => "Location created successfully."
+      elsif @sponsor.present?
+        @sponsor_location = SponsorLocation.new
+        @sponsor_location.sponsor_id = @sponsor.id
+        @sponsor_location.location_id = @location.id
+        @sponsor_location.save
+
+        redirect_to "/sponsors/#{@sponsor.id}", :notice => "Location created successfully."
+      end
     else
       render 'new'
     end
@@ -126,7 +186,11 @@ before_action :ensure_view_access,  only: [:index, :search, :show]
     end
 
     if @location.save
+      if params[:company_id] == "zzz"
+      redirect_to "/sponsors/#{@location.sponsor.id}", :notice => "Location updated successfully."
+      elsif params[:sponsor_id] == "zzz"
       redirect_to "/companies/#{@location.company.id}", :notice => "Location updated successfully."
+      end
     else
       render 'edit'
     end

@@ -106,101 +106,103 @@ before_action :ensure_view_access,  only: [:index, :search, :show]
     @cip_companies = CipCompany.where(company_id:  @company.children.ids.push(@company.id) ).joins(:company).order("name ASC")
     @mp_companies = MpCompany.where(company_id:  @company.children.ids.push(@company.id) ).joins(:company).order("name ASC")
     @sponsors = Sponsor.where(id: Fund.where(id: FundCompany.where(company_id: (@company.parents.ids.push(@company.id))).pluck(:fund_id)).pluck(:sponsor_id)).order("name ASC")
-    
-    if params[:country] == "United States of America"
+    @country == params[:country]
+
+    if @country == "United States of America"
       @scope = "usa"
       @locations = @company.locations.where(country: "United States of America")
-    elsif params[:country] == "Aruba"
+    elsif @country == "Aruba"
       @scope = "abw"
       @locations = @company.locations.where(country: "Aruba")
-    elsif params[:country] == "Afghanistan"
+    elsif @country == "Afghanistan"
       @scope = "afg"
       @locations = @company.locations.where(country: "Afghanistan")
-    elsif params[:country] == "Angola"
+    elsif @country == "Angola"
       @scope = "ago"
       @locations = @company.locations.where(country: "Angola")
-    elsif params[:country] == "Anguilla"
+    elsif @country == "Anguilla"
       @scope = "aia"
       @locations = @company.locations.where(country: "Anguilla")
-    elsif params[:country] == "Aland Islands"
+    elsif @country == "Aland Islands"
       @scope = "ala"
       @locations = @company.locations.where(country: "Anguilla")
-    elsif params[:country] == "Albania"
+    elsif @country == "Albania"
       @scope = "alb"
       @locations = @company.locations.where(country: "Albania")
-    elsif params[:country] == "Andorra"
+    elsif @country == "Andorra"
       @scope = "and"
       @locations = @company.locations.where(country: "Andorra")
-    elsif params[:country] == "United Arab Emirates"
+    elsif @country == "United Arab Emirates"
       @scope = "are"
       @locations = @company.locations.where(country: "United Arab Emirates")
-    elsif params[:country] == "Argentina"
+    elsif @country == "Argentina"
       @scope = "arg"
       @locations = @company.locations.where(country: "Argentina")
-    elsif params[:country] == "Armenia"
+    elsif @country == "Armenia"
       @scope = "arm"
       @locations = @company.locations.where(country: "Armenia")
-    elsif params[:country] == "American Samoa"
+    elsif @country == "American Samoa"
       @scope = "asm"
       @locations = @company.locations.where(country: "American Samoa")
-    elsif params[:country] == "Antarctica"
+    elsif @country == "Antarctica"
       @scope = "ata"
       @locations = @company.locations.where(country: "Antarctica")
-    elsif params[:country] == "French Southern Territories"
+    elsif @country == "French Southern Territories"
       @scope = "atf"
       @locations = @company.locations.where(country: "French Southern Territories")
-    elsif params[:country] == "XXXXXX"
+    elsif @country == "XXXXXX"
       @scope = "xxx"
       @locations = @company.locations.where(country: "XXXXXX")
-    elsif params[:country] == "XXXXXX"
+    elsif @country == "XXXXXX"
       @scope = "xxx"
       @locations = @company.locations.where(country: "XXXXXX")
-    elsif params[:country] == "XXXXXX"
+    elsif @country == "XXXXXX"
       @scope = "xxx"
       @locations = @company.locations.where(country: "XXXXXX")
-    elsif params[:country] == "XXXXXX"
+    elsif @country == "XXXXXX"
       @scope = "xxx"
       @locations = @company.locations.where(country: "XXXXXX")
-    elsif params[:country] == "XXXXXX"
+    elsif @country == "XXXXXX"
       @scope = "xxx"
       @locations = @company.locations.where(country: "XXXXXX")
-    elsif params[:country] == "XXXXXX"
+    elsif @country == "XXXXXX"
       @scope = "xxx"
       @locations = @company.locations.where(country: "XXXXXX")
-    elsif params[:country] == "XXXXXX"
+    elsif @country == "XXXXXX"
       @scope = "xxx"
       @locations = @company.locations.where(country: "XXXXXX")
-    elsif params[:country] == "XXXXXX"
+    elsif @country == "XXXXXX"
       @scope = "xxx"
       @locations = @company.locations.where(country: "XXXXXX")
-    elsif params[:country] == "XXXXXX"
+    elsif @country == "XXXXXX"
       @scope = "xxx"
       @locations = @company.locations.where(country: "XXXXXX")
-    elsif params[:country] == "XXXXXX"
+    elsif @country == "XXXXXX"
       @scope = "xxx"
       @locations = @company.locations.where(country: "XXXXXX")
-    elsif params[:country] == "XXXXXX"
+    elsif @country == "XXXXXX"
       @scope = "xxx"
       @locations = @company.locations.where(country: "XXXXXX")
-    elsif params[:country] == "XXXXXX"
+    elsif @country == "XXXXXX"
       @scope = "xxx"
       @locations = @company.locations.where(country: "XXXXXX")
-    elsif params[:country] == "XXXXXX"
+    elsif @country == "XXXXXX"
       @scope = "xxx"
       @locations = @company.locations.where(country: "XXXXXX")
-    elsif params[:country] == "XXXXXX"
+    elsif @country == "XXXXXX"
       @scope = "xxx"
       @locations = @company.locations.where(country: "XXXXXX")
-    elsif params[:country] == "Venezuela"
+    elsif @country == "Venezuela"
       @scope = "ven"
       @locations = @company.locations.where(country: "Venezuela")
-    elsif params[:country] == "Brazil"
+    elsif @country == "Brazil"
       @scope = "bra"
       @locations = @company.locations.where(country: "Brazil")
-    elsif params[:country] == "Canada"
+    elsif @country == "Canada"
       @scope = "can"
       @locations = @company.locations.where(country: "Canada")
     else
+      @country = "world"
       @scope = "world"
       @locations = @company.locations
     end

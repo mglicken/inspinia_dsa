@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180811024919) do
+ActiveRecord::Schema.define(version: 20180827134545) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -424,6 +424,11 @@ ActiveRecord::Schema.define(version: 20180811024919) do
     t.boolean "current"
     t.integer "start_year"
     t.integer "end_year"
+  end
+
+  create_table "sponsor_locations", force: :cascade do |t|
+    t.integer "sponsor_id"
+    t.integer "location_id"
   end
 
   create_table "sponsor_notes", force: :cascade do |t|

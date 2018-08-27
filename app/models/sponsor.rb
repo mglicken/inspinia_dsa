@@ -16,6 +16,8 @@ class Sponsor < ActiveRecord::Base
 	has_many :people, :through => :sponsor_histories
 	has_many :sponsor_notes, :dependent => :destroy
 	has_many :notes, :through => :sponsor_notes
+	has_many :sponsor_locations, :dependent => :destroy
+	has_many :locations, :through => :sponsor_locations
 
 	def self.to_csv
 		CSV.generate do |csv|

@@ -6,7 +6,11 @@
           <form enctype="multipart/form-data" action="/create_location/" method="post" class="form-horizontal">
             <div class="modal-header">
                 <h4 class="modal-title">Add Location</h4>
-                <small class="font-bold">Add a new Location to <%= @company.name%> </small>
+                <% if @company.present? %>
+                  <small class="font-bold">Add a new Location to <%= @company.name%> </small>
+                <% elsif @sponsor.present? %>
+                  <small class="font-bold">Add a new Location to <%= @sponsor.name%> </small>
+                <% end %>
             </div>
             <div class="modal-body">
 
@@ -47,9 +51,13 @@
                   </div>
               </div>
 
-              <!-- Label and input for Company ID -->
-              <input type="hidden" name="company_id" value="<%= @company.id%>">
-
+              <% if @company.present? %>
+                <input type="hidden" name="company_id" value="<%= @company.id%>">
+                <input type="hidden" name="sponsor_id" value="zzz">
+              <% elsif @sponsor.present? %>
+                <input type="hidden" name="company_id" value="zzz">
+                <input type="hidden" name="sponsor_id" value="<%= @sponsor.id%>">
+              <% end %>
                                  
               <!-- Label and input for name -->
               <div class="form-group">

@@ -1,8 +1,8 @@
 
 <div class="page-header">
   <h1>
-    Company Locations
-    <a href="/company_locations/new" class="btn btn-lg btn-success"><i class="fa fa-plus"></i></a>
+    Sponsor Locations
+    <a href="/sponsor_locations/new" class="btn btn-lg btn-success"><i class="fa fa-plus"></i></a>
   </h1>
 </div>
 
@@ -10,18 +10,18 @@
 
 <div class="row">
   <div class="col-xs-12">
-    <input type="text" id="quicksearch" placeholder="Search companies (start typing)" class="form-control">
+    <input type="text" id="quicksearch" placeholder="Search sponsors (start typing)" class="form-control">
   </div>
 </div>
 
 <hr>
 
 <div class="row isotope-container">
-<% @company_locations.each do |company_location| %>
+<% @sponsor_locations.each do |sponsor_location| %>
   <div class="col-xs-11 col-sm-11 col-md-11 col-lg-11 isotope-item">
     <div class="panel panel-default">
       <div class="panel-heading">
-        <h3 class="panel-title">Company Location # <%= company_location.id %></h3>
+        <h3 class="panel-title">Sponsor Location # <%= sponsor_location.id %></h3>
       </div>
       <div class="panel-body">
         <div class="row">
@@ -29,17 +29,17 @@
             <class="dl-horizontal">
 
               <dt> Location ID</dt>
-              <dd><%= company_location.location_id %></dd>
-              <dt> Company ID</dt>
-              <dd><%= company_location.company_id %></dd>          
+              <dd><%= sponsor_location.location_id %></dd>
+              <dt> Sponsor ID</dt>
+              <dd><%= sponsor_location.sponsor_id %></dd>          
 
             </dl>
             <div class="btn-group btn-group-justified">
-              <a href="/company_locations/<%= company_location.id %>" class="btn btn-primary">
+              <a href="/sponsor_locations/<%= sponsor_location.id %>" class="btn btn-primary">
                 <i class="fa fa-search-plus"></i>
               </a>
 
-              <a href="/company_locations/<%= company_location.id %>/edit" class="btn btn-warning">
+              <a href="/sponsor_locations/<%= sponsor_location.id %>/edit" class="btn btn-warning">
                 <i class="fa fa-edit"></i>
               </a>
 

@@ -2,24 +2,24 @@
 <div class="row">
   <div class="col-sm-offset-1 col-sm-10 col-md-offset-2 col-md-8">
     <div class="ibox-content">
-        <h3 class="ibox-title"> Company Location # <%= @company_location.id %></h3>
+        <h3 class="ibox-title"> Sponsor Location # <%= @sponsor_location.id %></h3>
       <div class="ibox-body">
         <div class="row">
           <div class="col-md-12">
             <dl>
 
               <dt> Location ID</dt>
-              <dd><%= @company_location.location_id %></dd>
-              <dt> Company ID</dt>
-              <dd><%= @company_location.company_id %></dd>  
+              <dd><%= @sponsor_location.location_id %></dd>
+              <dt> Sponsor ID</dt>
+              <dd><%= @sponsor_location.sponsor_id %></dd>  
 
             </dl>
             <div class="btn-group btn-group-justified">
-              <a href="/companies/<%= @company_location.company_id %>" class="btn btn-primary">
+              <a href="/sponsors/<%= @sponsor_location.sponsor_id %>" class="btn btn-primary">
                 <i class="fa fa-reply"></i>
               </a>
 
-              <a href="/company_locations/<%= @company_location.id %>/edit" class="btn btn-warning">
+              <a href="/sponsor_locations/<%= @sponsor_location.id %>/edit" class="btn btn-warning">
                 <i class="fa fa-edit"></i>
               </a>
 

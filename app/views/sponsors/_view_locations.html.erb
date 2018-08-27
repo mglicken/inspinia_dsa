@@ -47,7 +47,7 @@
     responsive: true,
     done: function(datamap) {
         datamap.svg.selectAll('.datamaps-subunit').on('click', function(bubbles) {
-            url = '/companies/<%= @company.id %>/country/' + bubbles.properties.name;
+            url = '/sponsors/<%= @sponsor.id %>/country/' + bubbles.properties.name;
             window.location.href = url;
         });
     },
@@ -86,7 +86,7 @@
           }
   });
   bubble_map.bubbles(
-      $.getJSON("/location_query/<%= @company.id%>/companies/<%= @country%>.json", function(locations) {
+      $.getJSON("/location_query/<%= @sponsor.id%>/sponsors/<%= @country%>.json", function(locations) {
           bubble_map.bubbles(locations,
           {
               popupTemplate: function(geo, data) {

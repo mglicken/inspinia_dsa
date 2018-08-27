@@ -6,6 +6,8 @@ class Location < ActiveRecord::Base
 
 	has_one :company_location, :dependent => :destroy
 	has_one :company, :through => :company_location
+	has_one :sponsor_location, :dependent => :destroy
+	has_one :sponsor, :through => :sponsor_location
 
 
 	def address

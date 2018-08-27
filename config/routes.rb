@@ -588,7 +588,8 @@ Myapp::Application.routes.draw do
   # READ
   get "/locations", :controller => "locations", :action => "index"
   get "/locations/:id", :controller => "locations", :action => "show"
-  get "/location_query/:company_id", :controller => "locations", :action => "index_query" 
+  get "/location_query/:company_id/companies/:country", :controller => "locations", :action => "company_query"
+  get "/location_query/:sponsor_id/sponsors/:country", :controller => "locations", :action => "sponsor_query"
 
   # UPDATE
   get "/locations/:id/edit", :controller => "locations", :action => "edit"
@@ -1085,6 +1086,7 @@ Myapp::Application.routes.draw do
   get "/sponsors", :controller => "sponsors", :action => "index"
   get "/sponsor_query", :controller => "sponsors", :action => "index_query"  
   get "/sponsors/:id", :controller => "sponsors", :action => "show"
+  get "/sponsors/:id/country/:country", :controller => "sponsors", :action => "show"
   get "/sponsor_search/:search", :controller => "sponsors", :action => "search"
 
   # UPDATE
@@ -1130,6 +1132,24 @@ Myapp::Application.routes.draw do
 
   # DELETE
   get "/delete_sponsor_history/:id", :controller => "sponsor_histories", :action => "destroy"
+
+# Routes for the Sponsor Locations resource:
+  resources :sponsor_locations do
+    collection {post :import}
+  end
+  # CREATE
+  get "/sponsor_locations/new", :controller => "sponsor_locations", :action => "new"
+  post "/create_sponsor_location", :controller => "sponsor_locations", :action => "create"
+  # READ
+  get "/sponsor_locations", :controller => "sponsor_locations", :action => "index"
+  get "/sponsor_locations/:id", :controller => "sponsor_locations", :action => "show"
+
+  # UPDATE
+  get "/sponsor_locations/:id/edit", :controller => "sponsor_locations", :action => "edit"
+  post "/update_sponsor_location/:id", :controller => "sponsor_locations", :action => "update"
+
+  # DELETE
+  get "/delete_sponsor_location/:id", :controller => "sponsor_locations", :action => "destroy"
 
   # Routes for the Sponsor Notes resource:
   resources :sponsor_notes do
