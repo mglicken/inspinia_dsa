@@ -37,9 +37,16 @@ before_action :ensure_view_access,  only: [:index, :search, :show]
   end
 
   def index_query
-    @query_companies = Company.where("lower(name) LIKE ?", "%#{params[:term].downcase}%").order("name asc")
+    @companies = Company.where("lower(name) LIKE ?", "%#{params[:term].downcase}%").order("name asc")
+    @query_companies = []
+    @companies.each do |company|
+      comp = Hash.new
+      comp[:id] = company.id.to_s
+      comp[:text] = company.name
+      @query_companies.push(comp)
+    end 
     respond_to do |format|
-      format.json {send_data @query_companies.map(&:name)}
+      format.json {send_data @query_companies.to_json}
     end
   end
   
