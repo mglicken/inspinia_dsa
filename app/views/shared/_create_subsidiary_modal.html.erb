@@ -35,12 +35,16 @@
             <input name="parent_id" type="hidden" value="<%= @company.id %>">
 
             <!-- Label and input for Subsidiary -->
-            <div class="form-group">
-              <h5><label for="sponsor_id" class="col-lg-2 control-label">
-                Subsidiary
-              </label></h5>
-              <select name="sponsor_id" data-placeholder="Select Company..." class="select2 form-control"  tabindex="2" style="width:80%"></select>
-            </div>
+          <div class="form-group">
+            <h5><label for="child_id" class="col-lg-2 control-label">
+              Subsidiary
+            </label></h5>
+            <select name="child_id" data-placeholder="Select Subsidiary..." class="select2 form-control"  tabindex="2" style="width:80%">
+              <% Company.order("name asc").each do |company| %>
+                <option value="<%=company.id %>"><%=company.name %></option>
+              <% end %>
+            </select>
+          </div>
 
           <!-- Label and input for Acquisition Date -->
           <div class="form-group">
@@ -94,36 +98,6 @@ $(function() {
   $(".select2").select2({
 
     dropdownCssClass: "increasedzindexclass",
-    ajax: {
-      delay: 250,
-      url: function (params) {
-        return "/company_query.json";
-      },
-      data: function (params) {
-        var queryParameters = {
-          q: params.term
-        }
-
-        return queryParameters;
-      },
-      processResults: function (data) {
-        return {
-          results: data
-        };
-      },
-      transport: function (params, success, failure) {
-        var $request = $.ajax(params);
-
-        $request.then(success);
-        $request.fail(failure);
-
-        return $request;
-      }
-    },
-    placeholder: 'Search Companies...'
-    
-  });
-
 
 });
 </script>
