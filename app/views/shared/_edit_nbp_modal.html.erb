@@ -4,38 +4,25 @@
   <i class="fa fa-edit"></i>
 </div>
 
-<!-- Modal -->
-<div class="modal fade" id="myModalEditNBP_<%=nbp.id %>" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        <h4 class="modal-title" id="myModalLabel">Edit NBP Details</h4>
-      </div>
-      <div class="modal-body">
+<div class="modal inmodal fade" id="myModalEditNBP_<%=nbp.id %>" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+          <form enctype="multipart/form-data" action="/update_nbp/<%= nbp.id %>" method="post" class="form-horizontal">
+            <div class="modal-header" >
+                <h4 class="modal-title">Edit NBP Content</h4>
+                <small class="font-bold">Update <%= nbp.name %> landing page.</small>
+            </div>
+            <div class="modal-body">
 
+          <% if nbp.errors.any? %>
+            <% nbp.errors.full_messages.each do |message| %>
+              <div class="alert alert-dismissable alert-danger">
+                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                <%= message %>
+              </div>
+            <% end %>
+          <% end %>
 
-
-<% if nbp.errors.any? %>
-  <% nbp.errors.full_messages.each do |message| %>
-    <div class="alert alert-dismissable alert-danger">
-      <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-      <%= message %>
-    </div>
-  <% end %>
-<% end %>
-
-<!-- Responsive panel example -->
-
-<div class="row">
-  <div class="col-sm-offset-0 col-sm-12 col-md-offset-0 col-md-12">
-    <div class="panel panel-default">
-      <div class="panel-heading">
-        <h3 class="panel-title"><%= nbp.deal.name %></h3>
-      </div>
-      <div class="panel-body">
-
-        <form enctype="multipart/form-data" action="/update_nbp/<%= nbp.id %>" method="post" class="form-horizontal">
           <!-- Hidden input for authenticity token to protect from forgery -->
           <input name="authenticity_token" type="hidden" value="<%= form_authenticity_token %>">
 
@@ -74,27 +61,18 @@
           </div>
  
 
-          <div class="form-group">
-            <div class="col-sm-offset-2 col-sm-10">
-              <button class="btn btn-warning">
-                Update NBP
-              </button>
+            </div>
+            <div class="modal-footer">
+
+                <div class="form-group">
+                    <button class="btn btn-lincoln">
+                      Update NBP
+                    </button>
+                    <button type="button" class="btn btn-white" data-dismiss="modal">Close</button>
+                </div>
 
             </div>
-          </div>
-
-        </form>
-
-      </div>
+        </div>
+      </form>
     </div>
-  </div>
-</div>
-
-
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-      </div>
-    </div>
-  </div>
 </div>
