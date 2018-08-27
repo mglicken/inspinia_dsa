@@ -1,10 +1,12 @@
-  <form action="/create_nbp_sponsor/<%= nbp.id%>" method="post" class="form-inline">
+  <form action="/create_nbp_sponsor/" method="post" class="form-inline">
 
     <input name="authenticity_token" type="hidden" value="<%= form_authenticity_token %>">
 
+    <input name="nbp_id" type="hidden" value="<%= @nbp.id %>">
+
     <select name="sponsor_id" data-placeholder="Add Sponsors..." class="select2 form-control"  tabindex="2" style="width:80%">
         <% Sponsor.where(id: (Sponsor.ids - NbpSponsor.where(nbp_id: @nbp.id).pluck(:sponsor_id)).uniq).order("name asc").each do |sponsor| %>
-        <option value="<%=sponsor.id %>"><%=sponsor.name %></option>
+          <option value="<%=sponsor.id %>"><%=sponsor.name %></option>
         <% end %>
       </select>
 
