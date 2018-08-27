@@ -31,12 +31,18 @@
              <input name="parent_id" type="hidden" value="<%= subsidiary.parent_id%>">
           <% else %>
           <div class="form-group">
-            <label for="parent_id" class="col-sm-2 control-label">
-              Parent ID
-            </label>
-            <div class="col-sm-10">
-              <%= select_tag :parent_id, options_from_collection_for_select(Company.order("name ASC"), :id, :name, subsidiary.parent_id), :class => "form-control" %>
-            </div>
+            <h5><label for="parent_id" class="col-lg-2 control-label">
+              Parent
+            </label></h5>
+            <select name="parent_id" data-placeholder="Select Parent..." class="select2 form-control"  tabindex="2" style="width:80%">
+              <% Company.order("name asc").each do |company| %>
+                <% if subsidiary.parent_id == company.id %>
+                  <option value="<%=company.id %>" selected><%=company.name %></option>
+                <% else %>
+                  <option value="<%=company.id %>"><%=company.name %></option>
+                <% end %>
+              <% end %>
+            </select>
           </div>
           <%end%>
 
@@ -44,12 +50,18 @@
              <input name="child_id" type="hidden" value="<%= subsidiary.child_id%>">
           <% else %>
           <div class="form-group">
-            <label for="child_id" class="col-sm-2 control-label">
-              Child ID
-            </label>
-            <div class="col-sm-10">
-              <%= select_tag :child_id, options_from_collection_for_select(Company.order("name ASC"), :id, :name, subsidiary.child_id), :class => "form-control" %>
-            </div>
+            <h5><label for="child_id" class="col-lg-2 control-label">
+              Child
+            </label></h5>
+            <select name="child_id" data-placeholder="Select Child..." class="select2 form-control"  tabindex="2" style="width:80%">
+              <% Company.order("name asc").each do |company| %>
+                <% if subsidiary.child_id == company.id %>
+                  <option value="<%=company.id %>" selected><%=company.name %></option>
+                <% else %>
+                  <option value="<%=company.id %>"><%=company.name %></option>
+                <% end %>
+              <% end %>
+            </select>
           </div>
           <%end%>
 

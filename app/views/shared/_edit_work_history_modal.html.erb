@@ -4,68 +4,74 @@
   <i class="fa fa-edit"></i>
 </div>
 
-<!-- Modal -->
-<div class="modal fade" id="myModalEditWorkHistory_<%= work_history.id %>" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        <h4 class="modal-title" id="myModalLabel">Edit Work History Details</h4>
-      </div>
-      <div class="modal-body">
+<div class="modal inmodal fade" id="myModalEditWorkHistory_<%=work_history.id %>" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+          <form enctype="multipart/form-data" action="/update_work_history/<%= work_history.id %>" method="post" class="form-horizontal">
+            <div class="modal-header" >
+                <h4 class="modal-title">Edit Work History Content</h4>
+                <small class="font-bold">Update work history details.</small>
+            </div>
+            <div class="modal-body">
 
+          <% if work_history.errors.any? %>
+            <% work_history.errors.full_messages.each do |message| %>
+              <div class="alert alert-dismissable alert-danger">
+                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                <%= message %>
+              </div>
+            <% end %>
+          <% end %>
 
-
-<% if work_history.errors.any? %>
-  <% work_history.errors.full_messages.each do |message| %>
-    <div class="alert alert-dismissable alert-danger">
-      <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-      <%= message %>
-    </div>
-  <% end %>
-<% end %>
-
-<div class="row">
-  <div class="col-sm-offset-0 col-sm-12 col-md-offset-0 col-md-12">
-    <div class="panel panel-default">
-      <div class="panel-heading">
-        <h3 class="panel-title">Update History</h3>
-      </div>
-      <div class="panel-body">
-
-        <form enctype="multipart/form-data" action="/update_work_history/<%= work_history.id %>" method="post" class="form-horizontal">
           <!-- Hidden input for authenticity token to protect from forgery -->
           <input name="authenticity_token" type="hidden" value="<%= form_authenticity_token %>">
 
 
-            <div class="form-group">
-              <h5><label for="company_id" class="col-sm-2 control-label">
-                Company
-              </label></h5>
-              <div class="col-sm-10">
-                <%= select_tag :company_id, options_from_collection_for_select(Company.order("name ASC"), :id, :name, work_history.company_id), :class => "form-control" %>
-              </div>
-            </div>
+          <div class="form-group">
+            <h5><label for="company_id" class="col-lg-2 control-label">
+              Company
+            </label></h5>
+            <select name="company_id" data-placeholder="Select Company..." class="select2 form-control"  tabindex="2" style="width:80%">
+              <% Company.order("name asc").each do |company| %>
+                <% if work_history.company_id == company.id %>
+                  <option value="<%=company.id %>" selected><%=company.name %></option>
+                <% else %>
+                  <option value="<%=company.id %>"><%=company.name %></option>
+                <% end %>
+              <% end %>
+            </select>
+          </div>
 
           <!-- Label and input for Person -->
           <input name="person_id" type="hidden" value="<%= work_history.person_id %>">
 
           <!-- Check boxes Current -->
-          <div class="checkbox-inline">
-            <% if work_history.current == true%>
-              <h5><label><input type="checkbox" name="current" checked>Current</label></h5>
-            <% else %>
-              <h5><label><input type="checkbox" name="current">Current</label></h5>
-            <% end %>
+          <div class="form-group">
+              <label class="col-lg-2 control-label" for="current">
+                  Current
+              </label>
+              <div class="col-sm-10">
+                <% if work_history.current %>
+                  <input type="checkbox" id="current" name="current" class="i-checks" checked />
+                <% else %>
+                  <input type="checkbox" id="current" name="current" class="i-checks" />
+                <% end %>
+              </div>
           </div>
            <!-- Label and input for Role -->
           <div class="form-group">
-            <h5><label for="role_id" class="col-sm-2 control-label">
+            <h5><label for="role_id" class="col-lg-2 control-label">
               Role
             </label></h5>
-            <div class="col-sm-10">
-              <%= select_tag :role_id, options_from_collection_for_select(Role.order("name ASC"), :id, :name, work_history.role_id), :class => "form-control" %>
-            </div>
+            <select name="role_id" data-placeholder="Select Role..." class="select2 form-control"  tabindex="2" style="width:80%">
+              <% Role.order("name asc").each do |person| %>
+                <% if work_history.role_id == role.id %>
+                  <option value="<%=role.id %>" selected><%=role.name %></option>
+                <% else %>
+                  <option value="<%=role.id %>"><%=role.name %></option>
+                <% end %>
+              <% end %>
+            </select>
           </div>
 
           <!-- Label and input for Start Year -->
@@ -88,27 +94,30 @@
             </div>
           </div>
 
-          <div class="form-group">
-            <div class="col-sm-offset-2 col-sm-10">
-              <button class="btn btn-warning">
-                Update Work History
-              </button>
+            </div>
+            <div class="modal-footer">
+
+                <div class="form-group">
+                    <button class="btn btn-lincoln">
+                      Update Work History
+                    </button>
+                    <button type="button" class="btn btn-white" data-dismiss="modal">Close</button>
+                </div>
 
             </div>
-          </div>
-
-        </form>
-
-      </div>
+        </div>
+      </form>
     </div>
-  </div>
 </div>
 
-
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-      </div>
-    </div>
-  </div>
-</div>
+<script>
+$(function() {
+  $(".select2").select2({
+    dropdownCssClass: "increasedzindexclass",   
+  });
+  $('.i-checks').iCheck({
+      checkboxClass: 'icheckbox_square-green',
+      radioClass: 'iradio_square-green',
+  });
+});
+</script>

@@ -22,9 +22,8 @@
               <input name="authenticity_token" type="hidden" value="<%= form_authenticity_token %>">
 
               <!-- Label and input for Deal -->
-              <!-- Label and input for Person -->
               <% if @deal.present? %>
-                <input type="hidden" name="person_id"  value="<%= deal_person.deal_id %>">
+                <input type="hidden" name="deal_id"  value="<%= deal_person.deal_id %>">
               <% else %>
                 <div class="form-group">
                   <h5><label for="deal_id" class="col-lg-2 control-label">
@@ -32,7 +31,11 @@
                   </label></h5>
                   <select name="deal_id" data-placeholder="Select Deal..." class="select2 form-control"  tabindex="2" style="width:80%">
                     <% Deal.order("name asc").each do |deal| %>
-                    <option value="<%=deal.id %>"><%=deal.name %></option>
+                      <% if deal_person.deal_id == deal.id %>
+                        <option value="<%=deal.id %>" selected><%=deal.name %></option>
+                      <% else %>
+                        <option value="<%=deal.id %>"><%=deal.name %></option>
+                      <% end %>
                     <% end %>
                   </select>
                 </div>
@@ -48,23 +51,31 @@
                   </label></h5>
                   <select name="person_id" data-placeholder="Select Person..." class="select2 form-control"  tabindex="2" style="width:80%">
                     <% Person.order("name asc").each do |person| %>
-                    <option value="<%=person.id %>"><%=person.name %></option>
+                      <% if deal_person.person_id == person.id %>
+                        <option value="<%=person.id %>" selected><%=person.name %></option>
+                      <% else %>
+                        <option value="<%=person.id %>"><%=person.name %></option>
+                      <% end %>
                     <% end %>
                   </select>
                 </div>
               <% end %>
 
               <!-- Label and input for Role -->
-              <div class="form-group">
-                <h5><label for="role_id" class="col-lg-2 control-label">
-                  Role
-                </label></h5>
-                <select name="role_id" data-placeholder="Select Role..." class="select2 form-control"  tabindex="2" style="width:80%">
-                  <% Role.where('id < 7').order(name: :asc).each do |role| %>
-                  <option value="<%=role.id %>"><%=role.name %></option>
-                  <% end %>
-                </select>
-              </div>
+                <div class="form-group">
+                  <h5><label for="role_id" class="col-lg-2 control-label">
+                    Role
+                  </label></h5>
+                  <select name="role_id" data-placeholder="Select Role..." class="select2 form-control"  tabindex="2" style="width:80%">
+                    <% Role.where('id < 7').order("name asc").each do |role| %>
+                      <% if deal_person.role_id == role.id %>
+                        <option value="<%=role.id %>" selected><%=role.name %></option>
+                      <% else %>
+                        <option value="<%=role.id %>"><%=role.name %></option>
+                      <% end %>
+                    <% end %>
+                  </select>
+                </div>
 
             </div>
             <div class="modal-footer">
