@@ -143,22 +143,34 @@
 
           <!-- Label and input for Reverse Coverage Officer -->
           <div class="form-group">
-            <label for="rco_id" class="col-lg-2 control-label">
-              Reverse Coverage Officer
-            </label>
-            <div class="col-lg-10">
-              <%= select_tag :rco_id, options_from_collection_for_select(Person.where(employee: false).order("name ASC"), :id, :name, sponsor.rco_id), :class => "form-control" %>
-            </div>
+            <h5><label for="rco_id" class="col-lg-2 control-label">
+            Reverse Coverage Officer
+            </label></h5>
+            <select name="rco_id" data-placeholder="Select Reverse Coverage Officer..." class="select2 form-control"  tabindex="2" style="width:80%">
+              <% Person.where(employee: true).order("name asc").each do |person| %>
+                <% if sponsor.rco_id == person.id %>
+                  <option value="<%=person.id %>" selected><%=person.name %></option>
+                <% else %>
+                  <option value="<%=person.id %>"><%=person.name %></option>
+                <% end %>
+              <% end %>
+            </select>
           </div>
 
           <!-- Label and input for Coverage Officer -->
           <div class="form-group">
-            <label for="co_id" class="col-lg-2 control-label">
+            <h5><label for="co_id" class="col-lg-2 control-label">
               Coverage Officer
-            </label>
-            <div class="col-lg-10">
-              <%= select_tag :co_id, options_from_collection_for_select(Person.where(employee: true).order("name ASC"), :id, :name, sponsor.co_id), :class => "form-control" %>
-            </div>
+            </label></h5>
+            <select name="co_id" data-placeholder="Select Coverage Officer..." class="select2 form-control"  tabindex="2" style="width:80%">
+              <% Person.where(employee: true).order("name asc").each do |person| %>
+                <% if sponsor.co_id == person.id %>
+                  <option value="<%=person.id %>" selected><%=person.name %></option>
+                <% else %>
+                  <option value="<%=person.id %>"><%=person.name %></option>
+                <% end %>
+              <% end %>
+            </select>
           </div>
 
             </div>

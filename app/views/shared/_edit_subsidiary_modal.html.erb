@@ -4,27 +4,18 @@
   <i class="fa fa-edit"></i>
 </div>
 
-<!-- Modal -->
-<div class="modal fade" id="myModalEditSubsidiary_<%= subsidiary.id %>" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        <h4 class="modal-title" id="myModalLabel"> Edit <%= subsidiary.child.name %> Content</h4>
-      </div>
-      <div class="modal-body">
+<div class="modal inmodal fade" id="myModalEditSubsidiary_<%=subsidiary.id %>" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+          <form enctype="multipart/form-data" action="/update_subsidiary/<%= subsidiary.id %>" method="post" class="form-horizontal">
+            <div class="modal-header" >
+                <h4 class="modal-title">Edit Subsidiary Content</h4>
+                <small class="font-bold">Update subsidiary details.</small>
+            </div>
+            <div class="modal-body">
 
-<!-- Responsive panel example -->
-
-<div class="row">
-  <div class="col-sm-offset-0 col-sm-12 col-md-offset-0 col-md-12">
-    <div class="panel panel-default">
-      <div class="panel-body" style="color:#000000;font-size: 12px">
-
-        <form enctype="multipart/form-data" action="/update_subsidiary/<%= subsidiary.id %>" method="post" class="form-horizontal">
           <!-- Hidden input for authenticity token to protect from forgery -->
           <input name="authenticity_token" type="hidden" value="<%= form_authenticity_token %>">
-
 
           <!-- Label and input for Parent ID -->
           <% if subsidiary.present? %>
@@ -97,28 +88,30 @@
             </div>
           </div>
 
+            </div>
+            <div class="modal-footer">
 
-          <div class="form-group">
-            <div class="col-sm-offset-2 col-sm-10">
-              <button class="btn btn-warning">
-                Update Subsidiary
-              </button>
+                <div class="form-group">
+                    <button class="btn btn-lincoln">
+                      Update Subsidiary
+                    </button>
+                    <button type="button" class="btn btn-white" data-dismiss="modal">Close</button>
+                </div>
 
             </div>
-          </div>
-
-        </form>
-
-      </div>
+        </div>
+      </form>
     </div>
-  </div>
 </div>
 
-
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-      </div>
-    </div>
-  </div>
-</div>
+<script>
+$(function() {
+  $(".select2").select2({
+    dropdownCssClass: "increasedzindexclass",   
+  });
+  $('.i-checks').iCheck({
+      checkboxClass: 'icheckbox_square-green',
+      radioClass: 'iradio_square-green',
+  });
+});
+</script>
