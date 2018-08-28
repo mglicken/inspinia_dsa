@@ -52,11 +52,9 @@
               Role
             </label>
             <div class="col-sm-10">
-              <%= select_tag :role_id, options_from_collection_for_select(Role.order("id ASC")[0..9], :id, :name, @person.role_id), id: "dropdown", class: "form-control" %>
+              <%= select_tag :role_id, options_from_collection_for_select(Role.order("id ASC")[0..9], :id, :name, person.role_id), id: "dropdown", class: "form-control" %>
             </div></h5>
           </div>
-
-
 
           <!-- Label and input for street -->
           <div class="form-group">
