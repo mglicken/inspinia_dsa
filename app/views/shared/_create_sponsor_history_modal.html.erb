@@ -31,9 +31,20 @@
             <% end %>
           <% end %>
 
+          <!-- Label and input for Current -->
+          <div class="form-group">
+              <label class="col-lg-2 control-label" for="current">
+                  Current
+              </label>
+              <div class="col-lg-10">
+                <input type="checkbox" value="" id="current" name="current" class="i-checks" />
+              </div>
+          </div>
 
-          <% if sponsor.blank? %>
             <!-- Label and input for sponsor -->
+          <% if sponsor.present? %>
+            <input name="sponsor_id" type="hidden" value="<%= sponsor.id %>">
+          <%else%>
             <div class="form-group">
               <h5><label for="sponsor_id" class="col-lg-2 control-label">
                 Sponsor
@@ -44,13 +55,13 @@
                 <% end %>
               </select>
             </div>
-          <%else%>
-            <input name="sponsor_id" type="hidden" value="<%= sponsor.id %>">
           <% end %>
 
 
             <!-- Label and input for Person -->
-          <% if person.blank? %>
+          <% if person.present? %>
+            <input name="person_id" type="hidden" value="<%= person.id %>">
+          <%else%>
           <div class="form-group">
             <h5><label for="person_id" class="col-lg-2 control-label">
               Person
@@ -61,20 +72,33 @@
               <% end %>
             </select>
           </div>
-          <%else%>
-            <input name="person_id" type="hidden" value="<%= person.id %>">
           <% end %>
 
-
-          <!-- Label and input for Current -->
+            <!-- Label and input for Location -->
+          <% if sponsor.present? %>
           <div class="form-group">
-              <label class="col-lg-2 control-label" for="current">
-                  Current
-              </label>
-              <div class="col-lg-10">
-                <input type="checkbox" value="" id="current" name="current" class="i-checks" />
-              </div>
+            <h5><label for="location_id" class="col-lg-2 control-label">
+              Location
+            </label></h5>
+            <select name="location_id" data-placeholder="Select Location..." class="select2 form-control"  tabindex="2" style="width:80%">
+              <% sponsor.locations.order("name asc").each do |location| %>
+              <option value="<%=location.id %>"><%=location.name %></option>
+              <% end %>
+            </select>
           </div>
+          <%else%>
+          <div class="form-group">
+            <h5><label for="location_id" class="col-lg-2 control-label">
+              Location
+            </label></h5>
+            <select name="location_id" data-placeholder="Select Location..." class="select2 form-control"  tabindex="2" style="width:80%">
+              <% Location.order("name asc").each do |location| %>
+              <option value="<%=location.id %>"><%=location.name %></option>
+              <% end %>
+            </select>
+          </div>
+          <% end %>
+
 
            <!-- Label and input for Role -->
           <div class="form-group">

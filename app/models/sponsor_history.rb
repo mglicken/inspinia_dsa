@@ -12,7 +12,7 @@ class SponsorHistory < ActiveRecord::Base
 		end
 	end
 	def self.import(file)
-		allowed_attributes = [ "sponsor_id", "person_id","role_id","current","start_year","end_year"]
+		allowed_attributes = [ "sponsor_id", "location_id", "person_id", "role_id","current","start_year","end_year"]
 		CSV.foreach(file.path,headers: true) do |row|
 			sponsor_histories = find_by_id(row["id"]) || new
 			

@@ -49,6 +49,7 @@ before_action :ensure_banker_access,  only: [:show, :new, :create, :edit, :updat
 
     @work_history.person_id = params[:person_id]
     @work_history.company_id = params[:company_id]
+    @work_history.location_id = params[:location_id]
     @work_history.role_id = params[:role_id]
     @work_history.current = params[:current]
     @work_history.start_year = params[:start_year]
@@ -79,6 +80,7 @@ before_action :ensure_banker_access,  only: [:show, :new, :create, :edit, :updat
 
     @work_history.person_id = params[:person_id]
     @work_history.company_id = params[:company_id]
+    @work_history.location_id = params[:location_id]
     @work_history.role_id = params[:role_id]
     @work_history.current = params[:current]
     @work_history.start_year = params[:start_year]

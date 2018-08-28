@@ -58,6 +58,24 @@
                 <% end %>
               </div>
           </div>
+
+          <!-- Label and input for Location -->
+          <div class="form-group">
+            <h5><label for="location_id" class="col-lg-2 control-label">
+              Location
+            </label></h5>
+            <select name="location_id" data-placeholder="Select Location..." class="select2 form-control"  tabindex="2" style="width:80%">
+              <% work_history.company.locations.order("name asc").each do |location| %>
+                <% if work_history.location_id == location.id%>
+                  <option value="<%=location.id %>"><%=location.name %></option>
+                <% else %>
+                  <option value="<%=location.id %>"><%=location.name %></option>
+                <% end %>
+              <% end %>
+            </select>
+          </div>
+
+
            <!-- Label and input for Role -->
           <div class="form-group">
             <h5><label for="role_id" class="col-lg-2 control-label">

@@ -49,6 +49,7 @@ before_action :ensure_banker_access,  only: [:show, :new, :create, :edit, :updat
 
     @sponsor_history.person_id = params[:person_id]
     @sponsor_history.sponsor_id = params[:sponsor_id]
+    @sponsor_history.location_id = params[:location_id]
     @sponsor_history.role_id = params[:role_id]
     @sponsor_history.current = params[:current]
     @sponsor_history.start_year = params[:start_year]
@@ -79,6 +80,7 @@ before_action :ensure_banker_access,  only: [:show, :new, :create, :edit, :updat
 
     @sponsor_history.person_id = params[:person_id]
     @sponsor_history.sponsor_id = params[:sponsor_id]
+    @sponsor_history.location_id = params[:location_id]
     @sponsor_history.role_id = params[:role_id]
     @sponsor_history.current = params[:current]
     @sponsor_history.start_year = params[:start_year]

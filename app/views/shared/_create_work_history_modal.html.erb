@@ -32,6 +32,15 @@
             <!-- Hidden input for authenticity token to protect from forgery -->
           <input name="authenticity_token" type="hidden" value="<%= form_authenticity_token %>">
 
+          <!-- Label and input for Current -->
+          <div class="form-group">
+              <label class="col-lg-2 control-label" for="current">
+                  Current
+              </label>
+              <div class="col-lg-10">
+                <input type="checkbox" value="" id="current" name="current" class="i-checks" />
+              </div>
+          </div>
 
           <!-- Label and input for Company -->
           <% if company.present? %>
@@ -65,15 +74,30 @@
             </div>
           <% end %>
 
-          <!-- Label and input for Current -->
+            <!-- Label and input for Location -->
+          <% if company.present? %>
           <div class="form-group">
-              <label class="col-lg-2 control-label" for="current">
-                  Current
-              </label>
-              <div class="col-lg-10">
-                <input type="checkbox" value="" id="current" name="current" class="i-checks" />
-              </div>
+            <h5><label for="location_id" class="col-lg-2 control-label">
+              Location
+            </label></h5>
+            <select name="location_id" data-placeholder="Select Location..." class="select2 form-control"  tabindex="2" style="width:80%">
+              <% company.locations.order("name asc").each do |location| %>
+              <option value="<%=location.id %>"><%=location.name %></option>
+              <% end %>
+            </select>
           </div>
+          <%else%>
+          <div class="form-group">
+            <h5><label for="location_id" class="col-lg-2 control-label">
+              Location
+            </label></h5>
+            <select name="location_id" data-placeholder="Select Location..." class="select2 form-control"  tabindex="2" style="width:80%">
+              <% Location.order("name asc").each do |location| %>
+              <option value="<%=location.id %>"><%=location.name %></option>
+              <% end %>
+            </select>
+          </div>
+          <% end %>
 
            <!-- Label and input for Role -->
           <div class="form-group">

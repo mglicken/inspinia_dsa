@@ -44,6 +44,22 @@
           <!-- Label and input for Person -->
           <input name="person_id" type="hidden" value="<%= sponsor_history.person_id %>">
 
+          <!-- Label and input for Location -->
+          <div class="form-group">
+            <h5><label for="location_id" class="col-lg-2 control-label">
+              Location
+            </label></h5>
+            <select name="location_id" data-placeholder="Select Location..." class="select2 form-control"  tabindex="2" style="width:80%">
+              <% sponsor_history.sponsor.locations.order("name asc").each do |location| %>
+                <% if sponsor_history.location_id == location.id%>
+                  <option value="<%=location.id %>"><%=location.name %></option>
+                <% else %>
+                  <option value="<%=location.id %>"><%=location.name %></option>
+                <% end %>
+              <% end %>
+            </select>
+          </div>
+
           <!-- Check boxes Current -->
           <div class="form-group">
               <label class="col-lg-2 control-label" for="current">
