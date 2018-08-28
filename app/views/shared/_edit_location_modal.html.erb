@@ -130,7 +130,7 @@
                 </label></h5>
                 <select name="country" data-placeholder="Select Country..." class="select2 form-control form-inline"  tabindex="2" style="width:80%">
                   <% @location.country_names.each do |country| %>
-                    <% if @location.country == country %>
+                    <% if @location.country == country.to_s %>
                       <option value="<%= country.to_s %>" selected><%= country %></option>
                     <% else %>
                       <option value="<%= country.to_s %>"><%= country %></option>
