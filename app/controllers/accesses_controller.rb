@@ -1,6 +1,6 @@
 class AccessesController < ApplicationController
 
-before_action :ensure_admin_access
+#before_action :ensure_admin_access
 
 
   def ensure_admin_access
