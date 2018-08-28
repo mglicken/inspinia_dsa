@@ -21,10 +21,10 @@
                   <%= loc.to_s + '.'%>
                 </td>
                 <td style="padding-right:5px;">
-                  <% if location.country == "United States of America" %>
+                  <% if location.country.to_s == "United States of America" %>
                     <%= location.city + ', ' + location.state %>
                   <% else %>
-                    <%= location.city + ', ' + location.country %>
+                    <%= location.city.to_s + ', ' + location.country %>
                   <% end %>
                 </td>
                 <td style="width:20%" >

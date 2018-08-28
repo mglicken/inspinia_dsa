@@ -1,6 +1,6 @@
 <a class="btn btn-primary btn-xs" data-toggle="modal" href="#myModalLocation"><i class="fa fa-plus"></i></a>
 
-<div class="modal inmodal fade" id="myModalLocation" tabindex="-1" role="dialog" aria-hidden="true">
+<div class="modal inmodal fade" id="myModalLocation" role="dialog" aria-hidden="true">
     <div class="modal-dialog modal-sm">
         <div class="modal-content">
           <form enctype="multipart/form-data" action="/create_location/" method="post" class="form-horizontal">
@@ -110,14 +110,16 @@
               </div>
 
             <!-- Label and input for Country -->
-            <div class="form-group">
-              <label for="country" class="col-lg-2 control-label">
-                Country
-              </label>
-              <div class="col-lg-10">
-                <input type="string" id="country" name="country" placeholder="country" class="form-control" value="<%= @location.country %>">
+              <div class="form-group">
+                <h5><label for="country" class="col-lg-2 control-label">
+                  Country
+                </label></h5>
+                <select name="country" data-placeholder="Select Country..." class="select2 form-control form-inline"  tabindex="2" style="width:80%">
+                  <% @location.country_names.each do |country| %>
+                    <option value="<%= country.to_s %>"><%= country.to_s %></option>
+                  <% end %>
+                </select>
               </div>
-            </div>
 
               <!-- Label and input for phone -->
               <div class="form-group">
@@ -165,7 +167,13 @@
     </div>
 </div>
 
-<script>
+<script type="text/javascript">
+  $(function() {
+      $('.select2').select2({
+                    dropdownCssClass: "increasedzindexclass"
+                    });
+  });
+
     $('.i-checks').iCheck({
         checkboxClass: 'icheckbox_square-green',
         radioClass: 'iradio_square-green',

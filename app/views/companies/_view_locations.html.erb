@@ -24,7 +24,7 @@
                   <% if location.country == "United States of America" %>
                     <%= location.city + ', ' + location.state %>
                   <% else %>
-                    <%= location.city + ', ' + location.country %>
+                    <%= location.city + ', ' + location.country.to_s %>
                   <% end %>
                 </td>
                 <td style="width:20%" >
