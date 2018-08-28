@@ -21,7 +21,11 @@
                   <%= loc.to_s + '.'%>
                 </td>
                 <td style="padding-right:5px;">
-                  <%= location.city + ', ' + location.state %>
+                  <% if location.country == "United States of America" %>
+                    <%= location.city + ', ' + location.state %>
+                  <% else %>
+                    <%= location.city + ', ' + location.country %>
+                  <% end %>
                 </td>
                 <td style="width:20%" >
                   <%= render('shared/edit_location_modal', :location => location)%>
