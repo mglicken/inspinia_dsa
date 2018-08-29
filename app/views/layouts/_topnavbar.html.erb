@@ -9,18 +9,18 @@
             </form>
         </div>
         <ul class="nav navbar-top-links navbar-right">
-            <% if 1 == 1%>
+            <% if current_user.present? %>
                 <li>
-                    <span class="m-r-sm text-muted welcome-message" data-i18n="topnav.welcometext"><a href="/dashboard/">Welcome, <%= 'Test' %></a></span>
+                    <span class="m-r-sm text-muted welcome-message" data-i18n="topnav.welcometext"><a href="/dashboard/">Welcome, <%= current_user.person.name %></a></span>
                 </li>
             <% end %>
-            <%if 1 == 1 %>
+            <%if current_user.present? %>
                 <li>
                     <a href="/users/sign_out" data-method="delete" rel="nofollow">
                     <i class="fa fa-sign-out"></i> Sign Out
                 </a>
                 </li>
-                <% if 1 <= 2 %>
+                <% if current_user.access_id <= 2 %>
                     <li>
                         <a href="/user/new">
                             <i class="fa fa-user-plus"></i>Create

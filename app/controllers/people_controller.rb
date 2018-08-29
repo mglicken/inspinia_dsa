@@ -1,8 +1,8 @@
 class PeopleController < ApplicationController
 
-#before_action :ensure_admin_access,  only: [:models, :index, :access_dashboard, :update_user, :update_access,:destroy, :import]
-#before_action :ensure_banker_access,  only: [:new, :create, :create_work_history, :create_sponsor_history, :edit, :update, :update_work_history, :update_sponsor_history]
-#before_action :ensure_view_access,  only: [:user_dashboard, :search, :show]
+before_action :ensure_admin_access,  only: [:models, :index, :access_dashboard, :update_user, :update_access,:destroy, :import]
+before_action :ensure_banker_access,  only: [:new, :create, :create_work_history, :create_sponsor_history, :edit, :update, :update_work_history, :update_sponsor_history]
+before_action :ensure_view_access,  only: [:user_dashboard, :search, :show]
 
   def ensure_admin_access
     if current_user.access_id.present?
