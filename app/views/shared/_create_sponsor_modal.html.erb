@@ -20,10 +20,6 @@
             </div>
             <div class="modal-body">
 
-
-
-            <!-- Validation failure messages -->
-
             <% if @sponsor.blank?%>
               <% @sponsor = Sponsor.new %>
             <% end %>
@@ -38,8 +34,6 @@
 
           <!-- Hidden input for authenticity token to protect from forgery -->
           <input name="authenticity_token" type="hidden" value="<%= form_authenticity_token %>">
-
-
 
           <!-- Label and input for name -->
           <div class="form-group">
@@ -58,56 +52,6 @@
             </label></h5>
             <div class="col-sm-10">
               <textarea id="description" name="description" placeholder="e.g., The sponsor was founded in..."  class="form-control" rows="3"><%= @sponsor.description %></textarea>
-            </div>
-          </div>
-
-          <!-- Label and input for street -->
-          <div class="form-group">
-            <h5><label for="address" class="col-sm-2 control-label">
-              Street
-            </label></h5>
-            <div class="col-sm-10">
-              <textarea id="address" name="address" placeholder="500 W Madison, Suite 3900" class="form-control" rows="3"><%= @sponsor.address %></textarea>
-            </div>
-          </div>
-
-          <!-- Label and input for city -->
-          <div class="form-group">
-            <h5><label for="city" class="col-sm-2 control-label">
-              City
-            </label></h5>
-            <div class="col-sm-10">
-              <input type="text" id="city" name="city" placeholder="City" class="form-control" value="<%= @sponsor.city %>">
-            </div>
-          </div>
-
-          <!-- Label and input for number -->
-          <div class="form-group">
-            <h5><label for="state" class="col-sm-2 control-label">
-              State
-            </label></h5>
-            <div class="col-sm-10">
-              <input type="string" id="state" name="state" placeholder="State" class="form-control" value="<%= @sponsor.state %>">
-            </div>
-          </div>
-
-          <!-- Label and input for zip -->
-          <div class="form-group">
-            <h5><label for="zip" class="col-sm-2 control-label">
-              Zip
-            </label></h5>
-            <div class="col-sm-10">
-              <input type="integer" id="zip" name="zip" placeholder="Zip" class="form-control" value="<%= @sponsor.zip %>">
-            </div>
-          </div>
-
-          <!-- Label and input for phone -->
-          <div class="form-group">
-            <h5><label for="phone" class="col-sm-2 control-label">
-              Phone
-            </label></h5>
-            <div class="col-sm-10">
-              <input type="integer" id="phone" name="phone" placeholder="1112223333" class="form-control" value="<%= @sponsor.phone %>">
             </div>
           </div>
 

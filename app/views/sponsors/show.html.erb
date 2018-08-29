@@ -9,20 +9,6 @@
             <dl class="dl-horizontal">
 
 
-              <dt>Address:</dt>
-              <dd> <address>
-
-                  <%= @sponsor.address %><br>
-                  <%= @sponsor.city %> <%= @sponsor.state %>, <%= @sponsor.zip %><br>
-                  <% if @sponsor.phone.present? %> 
-                      <abbr title="phone">Main:</abbr> (<%= @sponsor.phone.to_s[0..2] %>) <%= @sponsor.phone.to_s[3..5] %>-<%= @sponsor.phone.to_s[6..9] %><br>
-                  <%end%>
-
-                  <% if @sponsor.web_address.present? %> 
-                    <abbr title="web_address">Other:</abbr> <a href="<%= @sponsor.web_address %>" target="-_blank"><%= @sponsor.web_address[7..(@sponsor.web_address.length-1)] %></a>
-                  <%end%>                  
-                </address>                                  
-              </dd>
               <% if @sponsor.description.present? %>
                 <dt>Description:</dt>
                 <% if @sponsor.description.length <= 600 %>

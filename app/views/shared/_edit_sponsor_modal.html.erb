@@ -38,57 +38,6 @@
             </div>
           </div>
 
-          <!-- Label and input for street -->
-          <div class="form-group">
-            <label for="address" class="col-sm-2 control-label">
-              Street
-            </label>
-            <div class="col-sm-10">
-              <textarea id="address" name="address" placeholder="address" class="form-control" rows="3"><%= sponsor.address %></textarea>
-            </div>
-          </div>
-
-          <!-- Label and input for city -->
-          <div class="form-group">
-            <label for="city" class="col-sm-2 control-label">
-              City
-            </label>
-            <div class="col-sm-10">
-              <input type="text" id="city" name="city" placeholder="City" class="form-control" value="<%= sponsor.city %>">
-            </div>
-          </div>
-
-          <!-- Label and input for state -->
-          <div class="form-group">
-            <label for="state" class="col-sm-2 control-label">
-              State
-            </label>
-            <div class="col-sm-10">
-              <input type="string" id="state" name="state" placeholder="state" class="form-control" value="<%= sponsor.state %>">
-            </div>
-          </div>
-
-          <!-- Label and input for zip -->
-          <div class="form-group">
-            <label for="zip" class="col-sm-2 control-label">
-              Zip
-            </label>
-            <div class="col-sm-10">
-              <input type="text" id="zip" name="zip" placeholder="Zip" class="form-control" value="<%= sponsor.zip %>">
-            </div>
-          </div>
-
-          <!-- Label and input for Main -->
-          <div class="form-group">
-            <label for="type" class="col-sm-2 control-label">
-              Main
-            </label>
-            <div class="col-sm-10">
-              <input type="int" id="phone" name="phone" placeholder="1112223333" class="form-control" value="<%= sponsor.phone %>">
-            </div>
-          </div>
-
-
           <!-- Label and input for web_address -->
           <% if sponsor.web_address.present?
             if sponsor.web_address[0..6] == "http://"

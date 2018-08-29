@@ -58,56 +58,6 @@
             </div>
           </div>
 
-          <!-- Label and input for street -->
-          <div class="form-group">
-            <h5><label for="address" class="col-sm-2 control-label">
-              Street
-            </label></h5>
-            <div class="col-sm-10">
-              <textarea id="address" name="address" placeholder="500 W Madison, Suite 3900" class="form-control" rows="3"><%= @company.address %></textarea>
-            </div>
-          </div>
-
-          <!-- Label and input for city -->
-          <div class="form-group">
-            <h5><label for="city" class="col-sm-2 control-label">
-              City
-            </label></h5>
-            <div class="col-sm-10">
-              <input type="text" id="city" name="city" placeholder="City" class="form-control" value="<%= @company.city %>">
-            </div>
-          </div>
-
-          <!-- Label and input for number -->
-          <div class="form-group">
-            <h5><label for="state" class="col-sm-2 control-label">
-              State
-            </label></h5>
-            <div class="col-sm-10">
-              <input type="string" id="state" name="state" placeholder="State" class="form-control" value="<%= @company.state %>">
-            </div>
-          </div>
-
-          <!-- Label and input for zip -->
-          <div class="form-group">
-            <h5><label for="zip" class="col-sm-2 control-label">
-              Zip
-            </label></h5>
-            <div class="col-sm-10">
-              <input type="integer" id="zip" name="zip" placeholder="Zip" class="form-control" value="<%= @company.zip %>">
-            </div>
-          </div>
-
-          <!-- Label and input for phone -->
-          <div class="form-group">
-            <h5><label for="phone" class="col-sm-2 control-label">
-              Phone
-            </label></h5>
-            <div class="col-sm-10">
-              <input type="bigint" id="phone" name="phone" placeholder="1112223333" class="form-control" value="<%= @company.phone %>">
-            </div>
-          </div>
-
           <!-- Label and input for web_address -->
           <% if @company.web_address.present?
             if @company.web_address[0..6] == "http://"

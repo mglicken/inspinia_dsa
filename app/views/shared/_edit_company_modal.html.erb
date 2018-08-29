@@ -47,55 +47,6 @@
               <textarea id="description" name="description" placeholder="e.g., The company was founded in..."  class="form-control" rows="3"><%= company.description %></textarea>
             </div>
           </div>
-          <!-- Label and input for street -->
-          <div class="form-group">
-            <label for="address" class="col-sm-2 control-label">
-              Street
-            </label>
-            <div class="col-sm-10">
-              <textarea id="address" name="address" placeholder="address" class="form-control" rows="3"><%= company.address %></textarea>
-            </div>
-          </div>
-
-          <!-- Label and input for city -->
-          <div class="form-group">
-            <label for="city" class="col-sm-2 control-label">
-              City
-            </label>
-            <div class="col-sm-10">
-              <input type="string" id="city" name="city" placeholder="City" class="form-control" value="<%= company.city %>">
-            </div>
-          </div>
-
-          <!-- Label and input for state -->
-          <div class="form-group">
-            <label for="state" class="col-sm-2 control-label">
-              State
-            </label>
-            <div class="col-sm-10">
-              <input type="string" id="state" name="state" placeholder="state" class="form-control" value="<%= company.state %>">
-            </div>
-          </div>
-
-          <!-- Label and input for zip -->
-          <div class="form-group">
-            <label for="zip" class="col-sm-2 control-label">
-              Zip
-            </label>
-            <div class="col-sm-10">
-              <input type="text" id="zip" name="zip" placeholder="Zip" class="form-control" value="<%= company.zip %>">
-            </div>
-          </div>
-
-          <!-- Label and input for phone_1 -->
-          <div class="form-group">
-            <label for="phone_1" class="col-sm-2 control-label">
-              Main
-            </label>
-            <div class="col-sm-10">
-              <input type="int" id="phone" name="phone" placeholder="1112223333" class="form-control" value="<%= company.phone %>">
-            </div>
-          </div>
 
           <!-- Label and input for web_address -->
           <% if company.web_address.present?
