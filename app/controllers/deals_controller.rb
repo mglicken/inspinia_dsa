@@ -194,7 +194,7 @@ before_action :ensure_view_access,  only: [:index, :search, :search_all, :show]
     @sponsors = @cip.sponsors.order("name ASC")
     @companies = @cip.companies.order("name ASC")
     @acquirers = (@companies + @sponsors).sort! { |a, b| a.name <=> b.name }
-    @engagers = (Deal.where(id:@deal.engagement_companies.pluck(:company_id)) + Sponsor.where(id:@deal.engagement_sponsors.pluck(:sponsor_id))).sort! { |a, b| a.name <=> b.name }
+    @engagers = (Company.where(id:@deal.engagement_companies.pluck(:company_id)) + Sponsor.where(id:@deal.engagement_sponsors.pluck(:sponsor_id))).sort! { |a, b| a.name <=> b.name }
 
   end
 
