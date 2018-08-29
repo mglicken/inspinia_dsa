@@ -11,7 +11,7 @@
     <thead>
       <tr>
         <% @buckets.each do |bucket| %>
-          <td class="panel col" style="text-align: center; border-width: 3px; border-color: #FFFFFF; background-color: #006b6e; color: #ffffff; padding: 5px; width:<%= size_px %>">
+          <td class="panel col" style="text-align: center; border-width: 3px; border-color: #FFFFFF; background-color: #006b6e; color: #ffffff; padding: 5px; width:<%= size_perc %>">
               <div class="pull-right">
                 <%= render('shared/delete_bucket_modal', bucket: bucket, color: "white") %>
               </div>
