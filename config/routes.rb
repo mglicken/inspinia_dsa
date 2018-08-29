@@ -9,7 +9,6 @@ Myapp::Application.routes.draw do
   get "/download/:id", :controller => "accesses", :action => "download_data"
   get "/dashboard/", :controller => "dashboards", :action => "user_dashboard"
   get "/access_dashboard/", :controller => "dashboards", :action => "access_dashboard"
-  get "/remove_sponsors/", :controller => "dashboards", :action => "remove_sponsors"
   
   # Routes for the Access resource:
   resources :accesses do
