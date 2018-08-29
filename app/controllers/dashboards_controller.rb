@@ -96,6 +96,17 @@ class DashboardsController < ApplicationController
     end
   end
 
+  def remove_sponsors
+
+    @sponsors = Sponsor.where("id > ?", 1743)
+    @count = @sponsors.count
+    @sponsors.each do |sponsor|
+        sponsor.destroy
+    end
+    redirect_to "/models", :notice => "#{@count} Sponsors successfully deleted."
+      
+  end
+
   def access_dashboard
     @users = User.all.order("id ASC")
     @people=Person.all

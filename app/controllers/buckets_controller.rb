@@ -95,7 +95,7 @@ before_action :ensure_view_access,  only: [:index, :search, :show]
 
     @bucket.destroy
 
-    redirect_to "/buckets", :notice => "Bucket deleted."
+    redirect_to "/models", :notice => "Bucket deleted."
   end
   def import
     Bucket.import(params[:file])

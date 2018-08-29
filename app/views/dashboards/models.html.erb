@@ -1,6 +1,9 @@
 <div class="pull-right" style="margin-right: 50px">
   <div class="btn-group-horizontal">
     <h1>
+      <a href="/remove_sponsors" class="btn btn-success" >
+        Delete Extra Sponsors
+      </a>
       <a href="/models.xlsx" class="btn btn-success" >
         Download Database
       </a>
@@ -31,7 +34,7 @@
         <% else %>
           <tr>
             <td><a href="/<%=table %>"><%= table %></a></td>
-            <td style="text-align: center"></td>
+            <td style="text-align: center"><%= table %></td>
             <td style="text-align: center"></td>
             <td><%= render('shared/file_download_upload', path: "#{table}") %></td>
           </tr>

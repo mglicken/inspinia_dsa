@@ -209,7 +209,7 @@ before_action :ensure_admin_access
 
     @access.destroy
 
-    redirect_to "/accesses", :notice => "Access deleted."
+    redirect_to "/models", :notice => "Access deleted."
   end
 
   def import

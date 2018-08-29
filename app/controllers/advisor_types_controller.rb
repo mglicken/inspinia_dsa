@@ -82,7 +82,7 @@ before_action :ensure_banker_access,  only: [:new, :create, :edit, :update, :des
 
     @advisor_type.destroy
 
-    redirect_to "/advisor_types", :notice => "Advisor Type deleted."
+    redirect_to "/models", :notice => "Advisor Type deleted."
   end
 
   def import
