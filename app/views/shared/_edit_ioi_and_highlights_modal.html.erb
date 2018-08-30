@@ -7,7 +7,7 @@
 <div class="modal inmodal fade" id="myModalEditIOI_<%=ioi.id %>" role="dialog" aria-hidden="true">
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
-          <form enctype="multipart/form-data" action="/update_ioi/<%= ioi.id %>" method="post" class="form-horizontal">
+          <form id="ioi_elements" class="form-horizontal">
             <div class="modal-header" >
                 <h4 class="modal-title">Edit IOI Content</h4>
                 <small class="font-bold">Update <%= ioi.name %> details and highlights.</small>

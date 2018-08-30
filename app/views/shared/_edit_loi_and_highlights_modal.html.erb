@@ -7,7 +7,7 @@
 <div class="modal inmodal fade" id="myModalEditLOI_<%=loi.id %>" role="dialog" aria-hidden="true">
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
-          <form enctype="multipart/form-data" action="/update_loi/<%= loi.id %>" method="post" class="form-horizontal">
+          <form id="loi_elements" class="form-horizontal">
             <div class="modal-header" >
                 <h4 class="modal-title">Edit LOI Content</h4>
                 <small class="font-bold">Update <%= loi.name %> details and highlights.</small>
