@@ -1,18 +1,15 @@
-
-
 <div class="page-header">
   <h1>
     Companies <%= render('shared/create_fund_company_modal', :fund => @fund, :company => Company.none )%>
   </h1>
 </div>
 
-
 <div class="row">
   <div class="col-xs-12">
     <input type="text" id="quicksearch" placeholder="Search Companies (start typing)" class="form-control">
   </div>
 </div>
-
+<br>
 
 <div class="row isotope-container">
 <% @fund.companies.order("name ASC").each do |company| %>

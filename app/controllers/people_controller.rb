@@ -118,7 +118,11 @@ before_action :ensure_view_access,  only: [:user_dashboard, :search, :show]
     @person.cell = params[:cell]
     @person.email_address = params[:email_address]
     @person.linkedin_url = params[:linkedin_url]
-    @person.employee = params[:employee]
+    if params[:employee]
+      @person.employee = true
+    else
+      @person.employee = false
+    end
     if params[:image_url] == ""
       @person.image_url="http://res.cloudinary.com/mglicken/image/upload/No_Picture_ouh3db.png" 
     else
@@ -216,7 +220,11 @@ before_action :ensure_view_access,  only: [:user_dashboard, :search, :show]
     @person.cell = params[:cell]    
     @person.email_address = params[:email_address]
     @person.linkedin_url = params[:linkedin_url]
-    @person.employee = params[:employee]
+    if params[:employee]
+      @person.employee = true
+    else
+      @person.employee = false
+    end
     @person.role_id = params[:role_id]
     if params[:image_url] == ""
       @person.image_url="http://res.cloudinary.com/mglicken/image/upload/No_Picture_ouh3db.png" 
