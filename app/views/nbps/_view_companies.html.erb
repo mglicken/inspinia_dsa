@@ -10,7 +10,7 @@ if number_buckets == 0
 else
   size_perc = "#{100/@buckets.count - 15}%"
   size = "#{12/ @buckets.count }"
-  size_px = "#{pixels/ @buckets.count }px"
+  size_px = "#{(pixels - adj)/ @buckets.count }px"
 end
 %>
 <div style="margin:20px">
