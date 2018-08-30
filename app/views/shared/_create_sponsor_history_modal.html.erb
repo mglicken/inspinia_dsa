@@ -15,10 +15,6 @@
             </div>
             <div class="modal-body">
 
-
-
-          <!-- Validation failure messages -->
-
           <% if @sponsor_history.blank?%>
             <% @sponsor_history = SponsorHistory.new %>
           <% end %>
@@ -30,6 +26,9 @@
               </div>
             <% end %>
           <% end %>
+
+            <!-- Hidden input for authenticity token to protect from forgery -->
+          <input name="authenticity_token" type="hidden" value="<%= form_authenticity_token %>">
 
           <!-- Label and input for Current -->
           <div class="form-group">
