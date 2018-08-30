@@ -96,7 +96,7 @@
             Reverse Coverage Officer
             </label></h5>
             <select name="rco_id" data-placeholder="Select Reverse Coverage Officer..." class="select2 form-control"  tabindex="2" style="width:80%">
-              <% Person.where(employee: true).order("name asc").each do |person| %>
+              <% Person.where(employee: false).order("name asc").each do |person| %>
                 <% if sponsor.rco_id == person.id %>
                   <option value="<%=person.id %>" selected><%=person.name %></option>
                 <% else %>
