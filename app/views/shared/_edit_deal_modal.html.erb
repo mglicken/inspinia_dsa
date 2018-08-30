@@ -70,7 +70,7 @@
             </label></h5>
             <select name="company_id" data-placeholder="Select Company..." class="select2 form-control"  tabindex="2" style="width:80%">
               <% Company.order("name asc").each do |company| %>
-                <% if deal_person.deal_id == deal.id %>
+                <% if @deal.company_id == company.id %>
                   <option value="<%=company.id %>" selected><%=company.name %></option>
                 <% else %>
                   <option value="<%=company.id %>"><%=company.name %></option>
