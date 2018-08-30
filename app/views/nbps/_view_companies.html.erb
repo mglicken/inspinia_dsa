@@ -1,11 +1,12 @@
 
 <%
 number_buckets = @buckets.count
-  pixels = 1600 #This must be played with to make the screen fit on Production / Staging. It is smaller on Development
+  pixels = 1780 #This must be played with to make the screen fit on Production / Staging. It is smaller on Development
+  adj = 180
 if number_buckets == 0
   size_perc = "100%"
   size = "12"
-  size_px = "#{pixels}px"
+  size_px = "#{pixels - adj}px"
 else
   size_perc = "#{100/@buckets.count - 15}%"
   size = "#{12/ @buckets.count }"
@@ -14,7 +15,7 @@ end
 %>
 <div style="margin:20px">
 
- <%= render('view_bucket_labels', buckets: @buckets, nbp: @nbp, size: size, size_px: size_px, size_perc: size_perc) %>
+ <%= render('view_bucket_labels', buckets: @buckets, nbp: @nbp, size: size, size_px: size_px, size_perc: size_perc, adj: adj) %>
 
 <% for i in 1..4 %>
     <div class="row ibox" style="margin-top: 10px;margin-bottom: 0px;">
