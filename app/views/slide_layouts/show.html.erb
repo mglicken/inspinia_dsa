@@ -13,24 +13,31 @@
 
   <input name="date" type="hidden" value="<%= Date.today %>">
  
-    <!-- Label and input for Deal Name -->
-  <div class="form-group" style="margin-bottom: 0px;">
-    <div class="col-lg-11">
-      <%= select_tag :deal_id, options_from_collection_for_select(Deal.order("name ASC").all, :id, :name, @slide_layout.deal_id), {:include_blank => 'Select Deal', :class => "form-control"} %>
-    </div>
-  </div>
+        <!-- Label and input for Deal Name -->
+        <div class="form-group">
+          <select name="deal_id" data-placeholder="Select Deal..." class="select2 form-control form-inline"  tabindex="2" style="width:80%">
+            <option value="<%= nil %>">Select Deal...</option>
+            <% Deal.order("name asc").each do |deal| %>
+              <% if deal.id == @slide_layout.deal_id %> 
+                <option value="<%= deal.id %>" selected><%= deal.name %></option>
+              <% else %>  
+                <option value="<%= deal.id %>"><%= deal.name %></option>
+              <% end %>
+            <% end %>
+          </select>
+        </div>
 
-  <div class="form-group">
-    <div class="col-lg-8">
-      <input type="string" id="name" name="name" placeholder="Enter Layout Name" class="form-control" value="<%=@slide_layout.name%>">
-    </div>
-    <div class="col-lg-1">
-      <button class="btn btn-lincoln" id="sl-button-id">
-        Update Layout
-      </button>
-    </div>
-  </div>
-</form>
+        <div class="form-group">
+          <div class="col-lg-8">
+            <input type="string" id="name" name="name" placeholder="Enter Layout Name" class="form-control" value="<%=@slide_layout.name%>">
+          </div>
+          <div class="col-lg-1">
+            <button class="btn btn-lincoln" id="sl-button-id">
+              Update Layout
+            </button>
+          </div>
+        </div>
+      </form>
 
 
 
@@ -214,15 +221,19 @@
         })
 
 
-  $( "#content-box" ).click(function() {
-    if($("#blank-content").is(":visible") ) {
-      $( "#blank-content" ).hide();
-    } 
-    else {
-      $( "#blank-content" ).show();
-    }
+      $( "#content-box" ).click(function() {
+        if($("#blank-content").is(":visible") ) {
+          $( "#blank-content" ).hide();
+        } 
+        else {
+          $( "#blank-content" ).show();
+        }
 
-  }); 
+      });
+
+
+      $('.select2').select2();
+
     });
 
 
