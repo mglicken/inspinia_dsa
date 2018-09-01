@@ -88,14 +88,13 @@
             </div>
           </div>
 
-
-
           <!-- Label and input for Reverse Coverage Officer -->
           <div class="form-group">
             <h5><label for="rco_id" class="col-lg-2 control-label">
             Reverse Coverage Officer
             </label></h5>
             <select name="rco_id" data-placeholder="Select Reverse Coverage Officer..." class="select2 form-control"  tabindex="2" style="width:80%">
+              <option value="<%= nil %>">Select Reverse Coverage Officer...</option>
               <% Person.where(employee: false).order("name asc").each do |person| %>
                 <% if sponsor.rco_id == person.id %>
                   <option value="<%=person.id %>" selected><%=person.name %></option>
@@ -112,6 +111,7 @@
               Coverage Officer
             </label></h5>
             <select name="co_id" data-placeholder="Select Coverage Officer..." class="select2 form-control"  tabindex="2" style="width:80%" allowClear: true>
+              <option value="<%= nil %>">Select Coverage Officer...</option>
               <% Person.where(employee: true).order("name asc").each do |person| %>
                 <% if sponsor.co_id == person.id %>
                   <option value="<%=person.id %>" selected><%=person.name %></option>

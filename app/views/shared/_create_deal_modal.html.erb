@@ -23,22 +23,17 @@
             </div>
             <div class="modal-body">
 
-
-
-<!-- Validation failure messages -->
-
-<% if @deal.blank?%>
-  <% @deal = Deal.new %>
-<% end %>
-<% if @deal.errors.any? %>
-  <% @deal.errors.full_messages.each do |message| %>
-    <div class="alert alert-dismissable alert-danger">
-      <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-      <%= message %>
-    </div>
-  <% end %>
-<% end %>
-
+          <% if @deal.blank?%>
+            <% @deal = Deal.new %>
+          <% end %>
+          <% if @deal.errors.any? %>
+            <% @deal.errors.full_messages.each do |message| %>
+              <div class="alert alert-dismissable alert-danger">
+                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                <%= message %>
+              </div>
+            <% end %>
+          <% end %>
 
         <form enctype="multipart/form-data" action="/create_deal" method="post" class="form-horizontal">
           <!-- Hidden input for authenticity token to protect from forgery -->
@@ -107,7 +102,6 @@
               <input type="string" id="project_code" name="project_code" placeholder="e.g., 18999" class="form-control" value="<%= @deal.project_code %>">
             </div>
           </div>
-
             </div>
             <div class="modal-footer">
 

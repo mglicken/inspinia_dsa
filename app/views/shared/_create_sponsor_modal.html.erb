@@ -85,6 +85,32 @@
             </div>
           </div>
 
+          <!-- Label and input for Reverse Coverage Officer -->
+          <div class="form-group">
+            <h5><label for="rco_id" class="col-lg-2 control-label">
+            Reverse Coverage Officer
+            </label></h5>
+            <select name="rco_id" data-placeholder="Select Reverse Coverage Officer..." class="select2_1 form-control"  tabindex="2" style="width:80%">
+              <option value="<%= nil %>">Select Reverse Coverage Officer...</option>
+              <% Person.where(employee: false).order("name asc").each do |person| %>
+                <option value="<%=person.id %>"><%=person.name %></option>
+              <% end %>
+            </select>
+          </div>
+
+          <!-- Label and input for Coverage Officer -->
+          <div class="form-group">
+            <h5><label for="co_id" class="col-lg-2 control-label">
+              Coverage Officer
+            </label></h5>
+            <select name="co_id" data-placeholder="Select Coverage Officer..." class="select2_1 form-control"  tabindex="2" style="width:80%" allowClear: true>
+              <option value="<%= nil %>">Select Coverage Officer...</option>
+              <% Person.where(employee: true).order("name asc").each do |person| %>
+                <option value="<%=person.id %>"><%=person.name %></option>
+              <% end %>
+            </select>
+          </div>
+
             </div>
             <div class="modal-footer">
 
@@ -100,3 +126,12 @@
       </form>
     </div>
 </div>
+
+<script>
+  $(function() {
+      $('.select2_1').select2({
+        dropdownCssClass: "increasedzindexclass",
+      });
+  });
+
+</script>
