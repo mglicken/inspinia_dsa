@@ -283,6 +283,11 @@ before_action :ensure_view_access,  only: [:index, :search, :search_all, :show]
         teaser_company = TeaserCompany.new
         teaser_company.teaser_id = @teaser.id
         teaser_company.company_id = company.id
+        nda = Nda.new
+        nda.deal_id = @teaser.deal.id
+        nda.name = @teaser.deal.company.name + " / " + company.name + " NDA"
+        nda.save
+        teaser_company.nda_id = nda.id
         teaser_company.save
       end
       redirect_to "/teasers/#{ @select_group[1] }/companies", :notice => "Strategic Acquirers added."
