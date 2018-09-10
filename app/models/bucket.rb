@@ -2,7 +2,7 @@ class Bucket < ActiveRecord::Base
 validates :title, :presence => true
 
 belongs_to :nbp
-has_many :nbp_companies
+has_many :nbp_companies, :dependent => :destroy
 has_many :companies, :through => :nbp_companies
 
 

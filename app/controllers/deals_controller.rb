@@ -230,6 +230,86 @@ before_action :ensure_view_access,  only: [:index, :search, :search_all, :show]
     @market_studies = @deal.market_studies.order("name ASC")
   end
 
+  def option_content
+    @deal = Deal.find(params[:id])
+
+    respond_to do |format|
+       
+      format.js do
+        render('update_option_content.js.erb')
+      end
+    end
+  end
+
+  def copy_strategic_acquirers
+    @deal = Deal.find(params[:deal_id])
+    @select_group = params[:select_group].split("-").map { |s| s }
+    if params[:nbp_id].present?
+      @nbp = Nbp.find(params[:nbp_id])
+      @companies = @nbp.companies
+    elsif params[:teaser_id].present?
+      @teaser = Teaser.find(params[:teaser_id])
+      @companies = @teaser.companies
+    elsif params[:cip_id].present?
+      @cip = Cip.find(params[:cip_id])
+      @companies = @cip.companies
+    elsif params[:mp_id].present?
+      @mp = Mp.find(params[:mp_id])
+      @companies = @mp.companies
+    end
+
+    if @select_group[0] == 'nbp'
+      @nbp = Nbp.find(@select_group[1].to_i)
+      Company.where(id: (@companies.ids - @nbp.companies.ids)).each do |company|
+        nbp_company = NbpCompany.new
+        nbp_company.nbp_id = @nbp.id
+        nbp_company.company_id = company.id
+        nbp_company.tier_id = 4
+        if @nbp.buckets.count > 0
+          nbp_company.bucket_id = @nbp.buckets.first.id
+        else
+          bucket = Bucket.new
+          bucket.title = "Bucket 1"
+          bucket.nbp_id = @nbp.id
+          bucket.save
+          nbp_company.bucket_id = bucket.id          
+        end
+        nbp_company.save
+      end
+      redirect_to "/nbps/#{ @select_group[1] }/companies", :notice => "Strategic Acquirers added."
+    elsif @select_group[0] == 'teaser'
+      @teaser = Teaser.find(@select_group[1].to_i)
+      Company.where(id: (@companies.ids - @teaser.companies.ids)).each do |company|
+        teaser_company = TeaserCompany.new
+        teaser_company.teaser_id = @teaser.id
+        teaser_company.company_id = company.id
+        teaser_company.save
+      end
+      redirect_to "/teasers/#{ @select_group[1] }/companies", :notice => "Strategic Acquirers added."
+    elsif @select_group[0] == 'cip'
+      @cip = Cip.find(@select_group[1].to_i)
+      Company.where(id: (@companies.ids - @cip.companies.ids)).each do |company|
+        cip_company = CipCompany.new
+        cip_company.cip_id = @cip.id
+        cip_company.company_id = company.id
+        cip_company.save
+      end
+      redirect_to "/cips/#{ @select_group[1] }/companies", :notice => "Strategic Acquirers added."
+    elsif @select_group[0] == 'mp'
+      @mp = Mp.find(@select_group[1].to_i)
+      Company.where(id: (@companies.ids - @mp.companies.ids)).each do |company|
+        mp_company = MpCompany.new
+        mp_company.mp_id = @mp.id
+        mp_company.company_id = company.id
+        mp_company.save
+      end
+      redirect_to "/mps/#{ @select_group[1] }/companies", :notice => "Strategic Acquirers added."
+    end
+  end
+
+  def copy_financial_acquirers
+  end
+
   def new
     @deal = Deal.new
   end

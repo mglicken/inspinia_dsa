@@ -98,7 +98,6 @@ class DashboardsController < ApplicationController
 
   def access_dashboard
     @users = User.all.order("id ASC")
-    @people=Person.all
   end
 
   def user_dashboard

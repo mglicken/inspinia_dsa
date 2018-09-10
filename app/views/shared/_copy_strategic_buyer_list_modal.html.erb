@@ -1,0 +1,79 @@
+
+<a class="btn btn-success" data-toggle="modal" href="#copyStrategicBuyerList">Copy Strategic Buyer List</a>
+
+<div class="modal inmodal fade" id="copyStrategicBuyerList" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+          <form enctype="multipart/form-data" action="/copy_strategic_acquirer_list/" method="post" class="form-horizontal">
+            <div class="modal-header">
+                <h4 class="modal-title">Copy Strategic Buyer List</h4>
+                  <small class="font-bold">Add strategic buyers to an existing NBP, Teaser, CIP or MP </small>
+            </div>
+            <div class="modal-body">
+
+              <!-- Hidden input for authenticity token to protect from forgery -->
+              <input name="authenticity_token" type="hidden" value="<%= form_authenticity_token %>">
+
+              <% if @nbp.present? %>
+                <input name="nbp_id" type="hidden" value="<%= @nbp.id %>">
+              <% elsif @teaser.present? %>
+                <input name="teaser_id" type="hidden" value="<%= @teaser.id %>">
+              <% elsif @cip.present? %>
+                <input name="cip_id" type="hidden" value="<%= @cip.id %>">
+              <% elsif @mp.present? %>
+                <input name="mp_id" type="hidden" value="<%= @mp.id %>">
+              <% end %>
+
+              <!-- Label and input for Deal -->
+              <div class="form-group">
+                <h5><label for="deal_id" class="col-lg-2 control-label">
+                  Deal
+                </label></h5>
+                <select name="deal_id" id="deal_id" data-placeholder="Select Deal..." class="select2 form-control form-inline"  tabindex="2" style="width:80%">
+                  <option selected>Select Deal...</option>
+                  <% current_user.person.deals.order(name: :asc).each do |deal| %>
+                    <option value="<%= deal.id %>"><%= deal.name %></option>
+                  <% end %>
+                </select>
+              </div>
+
+              <!-- Label and input for Type -->
+              <div class="form-group">
+                <h5><label for="select_group" class="col-lg-2 control-label">
+                </label></h5>
+                <select name="select_group" id="select_group" data-placeholder="Select Acquirer List..." class="select2 form-control form-inline"  tabindex="2" style="width:80%">
+                  <option class="option-blank" selected>Select Acquirer List</option>
+                </select>
+              </div>
+
+             </div>
+            <div class="modal-footer">
+
+                <div class="form-group">
+                    <button class="btn btn-lincoln">
+                      Copy Strategic Buyer List
+                    </button>
+                    <button type="button" class="btn btn-white" data-dismiss="modal">Close</button>
+                </div>
+
+            </div>
+        </div>
+      </form>
+    </div>
+</div>
+
+<script type="text/javascript">
+  $(function() {
+      $('.select2').select2({
+        dropdownCssClass: "increasedzindexclass"
+      });
+
+      $('#deal_id').change(function(e){
+       var deal_id = $('#deal_id').val()
+       $.post({
+                url: "/deals/" + deal_id.toString() +"/option_content.js"
+              })
+    });
+      
+  });
+</script>

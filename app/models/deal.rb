@@ -7,8 +7,8 @@ validates :company, :presence => true
 belongs_to 	:company
 belongs_to  :deal_stage
 belongs_to 	:deal_type
-has_many	:teaser, :dependent => :destroy
-has_many 	:teaser_slides, :through => :teaser
+has_many	:teasers, :dependent => :destroy
+has_many 	:teaser_slides, :through => :teasers
 has_many 	:slides, :through => :teaser_slides
 has_many	:case_studies, :dependent => :destroy
 has_many 	:case_study_slides, :through => :case_studies

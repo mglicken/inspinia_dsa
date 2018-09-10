@@ -45,14 +45,19 @@
 <div class="col-lg-4">
    <div >
     <div style="margin-bottom: 5px"> 
-        <%= render('shared/share_slide_layout_modal',slide_layout: @slide_layout) %>
+
+        <a class="btn btn-primary" href="/share_slide_layout/<%= @slide_layout.id %>">
+            Share Layout
+        </a>
         <a class="btn btn-danger" href="/slide_layout_warning/<%= @slide_layout.id %>">
             <i class="fa fa-trash-o"></i>
         </a>
     </div>
 
     <a class="btn btn-success" href="/create_slide_layout_pdf/<%= @slide_layout.id %>">Download PDFs <i class="fa fa-file-pdf-o"></i></a>
-    <a class="btn btn-success" href="/create_slide_layout_pptx/<%= @slide_layout.id %>">Download PPTX <i class="fa fa-file-pdf-o"></i></a>
+    <% if 1==2 %>
+      <a class="btn btn-success" href="/create_slide_layout_pptx/<%= @slide_layout.id %>">Download PPTX <i class="fa fa-file-pdf-o"></i></a>
+    <% end %>
   </div>  
 </div> 
 </div>

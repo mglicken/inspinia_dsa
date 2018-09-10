@@ -294,12 +294,15 @@ Myapp::Application.routes.draw do
   get "/deals/:id", :controller => "deals", :action => "show"
   get "/deals/:id/qoves", :controller => "deals", :action => "show_qoves"
   get "/deals/:id/market_studies", :controller => "deals", :action => "show_market_studies"
+  post "/deals/:id/option_content", :controller => "deals", :action => "option_content"
   get "/deal_search/:search", :controller => "deals", :action => "search"
   get "/follow_deal/:deal_id/", :controller => "deals", :action => "follow"
 
   # UPDATE
   get "/deals/:id/edit", :controller => "deals", :action => "edit"
   post "/update_deal/:id", :controller => "deals", :action => "update"
+  post"copy_strategic_acquirer_list", :controller => "deals", :action => "copy_strategic_acquirers"
+  post"copy_financial_acquirer_list", :controller => "deals", :action => "copy_financial_acquirers"
 
   # DELETE
   get "/delete_deal/:id", :controller => "deals", :action => "destroy"
@@ -1208,6 +1211,7 @@ Myapp::Application.routes.draw do
   get "/slide_layouts/new", :controller => "slide_layouts", :action => "new"
   post "/create_slide_layout/:slide_ids/", :controller => "slide_layouts", :action => "create"
   post "/share_slide_layout/", :controller => "slide_layouts", :action => "share_layout"
+  get "/share_slide_layout/:slide_layout_id", :controller => "slide_layouts", :action => "share_layout_landing"
   get "/create_slide_layout_pdf/:id/", :controller => "slide_layouts", :action => "create_pdf"
   get "/create_slide_layout_pptx/:id/", :controller => "slide_layouts", :action => "create_pptx"
 

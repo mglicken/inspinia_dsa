@@ -1,0 +1,13 @@
+$('#select_group').remove(".option-item")
+<% @deal.nbps.each do |nbp| %>	
+	$('<option>').val('nbp-' + '<%=nbp.id%>').text('<%=nbp.name%>').addClass("option-item").appendTo('#select_group');
+<% end %>
+<% @deal.teasers.each do |teaser| %>	
+	$('<option>').val('teaser-' + '<%=teaser.id%>').text('<%=teaser.name%>').addClass("option-item").appendTo('#select_group');
+<% end %>
+<% @deal.cips.each do |cip| %>	
+	$('<option>').val('cip-' + '<%=cip.id%>').text('<%=cip.name%>').addClass("option-item").appendTo('#select_group');
+<% end %>
+<% @deal.mps.each do |mp| %>	
+	$('<option>').val('mp-' + '<%=mp.id%>').text('<%=mp.name%>').addClass("option-item").appendTo('#select_group');
+<% end %>

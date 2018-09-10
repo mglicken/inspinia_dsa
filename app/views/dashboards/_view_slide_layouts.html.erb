@@ -19,20 +19,17 @@
                 <tr>
                     <th>Slide Layout</th>
                     <th># of Slides</th>
-                    <th>Monthly Views</th>
                 </tr>
                 </thead>
                 <tbody>
                 <tr>
                     <td><strong><a href="/favorite_slides/"> Favorited Slides</a></strong></td>
                     <td><%= current_user.favorite_slides.count %></td>
-                    <td class="text-navy"> <i class="fa fa-level-up"></i> <%= rand(150) %></td>
                 </tr>
                 <% current_user.slide_layouts.each do |slide_layout|%>
                   <tr>
                     <td><strong><a href="/slide_layouts/<%=slide_layout.id%>"><%= slide_layout.name %></a></strong></td>
                     <td><%= slide_layout.slides.count %></td>
-                    <td class="text-navy"> <i class="fa fa-level-up"></i> <%= rand(150) %></td>
                   </tr>
                 <% end %>
                 </tbody>

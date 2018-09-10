@@ -42,7 +42,7 @@
            <!-- Hidden input for authenticity token to protect from forgery -->
             <input name="authenticity_token" type="hidden" value="<%= form_authenticity_token %>">
             <input name="id" type="hidden" value="<%= user.id %>">
-            <%= select_tag :person_id, options_from_collection_for_select(Person.where(employee: true).order("name ASC"), :id, :name, user.person_id), :class => "form-control" %>
+            <%= select_tag :person_id, options_from_collection_for_select(Person.where(id: (Person.where(employee: true).ids - User.pluck(:person_id) + [user.person_id])).order(name: :asc), :id, :name, user.person_id), :class => "form-control" %>
         </dd>
         <dt></dt>
         <dd style="padding-top:5px">

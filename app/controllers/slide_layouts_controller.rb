@@ -86,11 +86,20 @@ before_action :ensure_banker_user_access,  only: []
     end
   end
 
+  def share_layout_landing
+
+    @slide_layout = SlideLayout.find(params[:slide_layout_id])
+    @people = Person.where(id: User.pluck(:person_id)).order(backwards_name: :asc)
+
+  end
+
   def share_layout
 
     @slide_layout1 = SlideLayout.find(params[:slide_layout_id])
     @slide_layout2 = SlideLayout.new
+
     @user = Person.find(params[:person_id]).users.last
+
     if @user.nil?
       redirect_to "/slide_layout/#{@slide_layout1.id}", :alert => "Person does not have a user account. Layout cannot be shared."
     else
@@ -100,14 +109,14 @@ before_action :ensure_banker_user_access,  only: []
       @slide_layout2.deal_id = @slide_layout1.deal_id
       if @slide_layout2.save
 
-        @slide_layout1.slide_layout_slides.order("id ASC").each do |slide_layout_slide|
+        @slide_layout1.slide_layout_slides.order(id: :asc).each do |slide_layout_slide|
           sls = SlideLayoutSlide.new
           sls.slide_layout_id = @slide_layout2.id
           sls.slide_id = slide_layout_slide.slide_id
           sls.save
         end
 
-        redirect_to "/slide_layouts/#{@slide_layout.id}", :notice => "Slide Layout shared with #{@user.person.name} successfully."
+        redirect_to "/slide_layouts/#{@slide_layout1.id}", :notice => "Slide Layout shared with #{@user.person.name} successfully."
       else
         render 'new'
       end
